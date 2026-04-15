@@ -121,11 +121,7 @@
 
         /* Specs Sidebar */
         #specs-sidebar {
-            transform: translateX(100%);
             transition: transform 0.7s cubic-bezier(0.075, 0.82, 0.165, 1);
-        }
-        #specs-sidebar.active {
-            transform: translateX(0);
         }
 
         /* Overlay */
@@ -169,7 +165,7 @@
     </nav>
 
     <!-- Technical Specs Sidebar -->
-    <div id="specs-sidebar" class="fixed top-0 right-0 w-full md:w-[550px] h-full z-[1000] glass border-l border-white/10 p-24 flex flex-col justify-between">
+    <div id="specs-sidebar" class="fixed top-0 right-0 w-full md:w-[550px] h-full z-[1000] glass border-l border-white/10 p-24 flex flex-col justify-between translate-x-full">
         <div>
             <div class="flex justify-between items-center mb-24">
                 <span class="text-[12px] font-black uppercase tracking-[0.7em] text-accent-teal">System Core</span>
@@ -435,7 +431,7 @@
         gsap.registerPlugin(ScrollTrigger);
 
         function toggleSpecs() {
-            document.getElementById('specs-sidebar').classList.toggle('active');
+            document.getElementById('specs-sidebar').classList.toggle('translate-x-full');
             document.getElementById('specs-overlay').classList.toggle('active');
         }
 
