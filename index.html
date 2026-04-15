@@ -254,6 +254,85 @@
             </div>
         </section>
 
+        <!-- Technical Demo: Tokenization & Extraction -->
+        <section id="demo" class="py-48 px-6 md:px-12 bg-[#050505]">
+            <div class="max-w-7xl mx-auto">
+                <div class="reveal mb-32">
+                    <h2 class="font-headline text-5xl md:text-7xl font-extrabold tracking-tighter mb-8">THE ANATOMY OF A REPORT.</h2>
+                    <p class="text-white/20 max-w-2xl text-xl font-light">From messy input to structured, private intelligence.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+                    <!-- Tokenization Loop -->
+                    <div class="reveal glass rounded-[3rem] p-16 flex flex-col justify-between min-h-[650px] border border-white/5 relative group">
+                        <div class="absolute top-0 right-0 p-8">
+                            <span class="text-[9px] font-black uppercase tracking-[0.4em] text-accent-teal">PII Tokenization Loop</span>
+                        </div>
+                        <div class="space-y-12">
+                            <div class="space-y-4">
+                                <h4 class="text-[10px] font-black uppercase tracking-[0.3em] text-white/30">Local Intake</h4>
+                                <div class="text-sm md:text-md text-white/60 leading-relaxed font-light bg-white/2 p-6 rounded-2xl border border-white/5 italic">
+                                    "Guest slipped in the lobby... her name is <span class="text-white font-medium border-b border-white/20">Margaret Holloway</span>, she's in room <span class="text-white font-medium border-b border-white/20">318</span>. Reported by <span class="text-white font-medium border-b border-white/20">David Okafor</span>."
+                                </div>
+                            </div>
+                            <div class="flex justify-center">
+                                <span class="material-symbols-outlined text-accent-teal text-3xl animate-bounce">south</span>
+                            </div>
+                            <div class="space-y-4">
+                                <h4 class="text-[10px] font-black uppercase tracking-[0.3em] text-white/30">Cloud Anonymization</h4>
+                                <div class="text-sm md:text-md text-white/40 leading-relaxed font-light bg-accent-teal/5 p-6 rounded-2xl border border-accent-teal/10">
+                                    "Guest identified as <span class="text-accent-teal font-bold">[GUEST_1]</span> experienced a slip... The guest was assigned to room <span class="text-accent-teal font-bold">[ROOM_2]</span>. Reported by <span class="text-accent-teal font-bold">[STAFF_3]</span>."
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-12 pt-12 border-t border-white/5">
+                            <p class="text-[10px] text-white/20 uppercase tracking-widest leading-relaxed">Identity maps live only in RAM. No PII is ever written to disk or sent to the cloud model.</p>
+                        </div>
+                    </div>
+
+                    <!-- Extraction Engine -->
+                    <div class="reveal glass rounded-[3rem] p-16 flex flex-col justify-between min-h-[650px] border border-white/5 relative group">
+                        <div class="absolute top-0 right-0 p-8">
+                            <span class="text-[9px] font-black uppercase tracking-[0.4em] text-accent-teal">7-Pass Extraction Engine</span>
+                        </div>
+                        <div class="space-y-10">
+                            <h3 class="font-headline text-3xl font-extrabold mb-4 tracking-tight">Structured Output</h3>
+                            <div class="grid grid-cols-1 gap-4">
+                                <div class="flex items-center justify-between p-4 bg-white/2 rounded-xl border border-white/5">
+                                    <span class="text-[10px] uppercase tracking-widest text-white/30">Severity</span>
+                                    <span class="text-[10px] font-bold text-accent-teal">MEDIUM</span>
+                                </div>
+                                <div class="flex items-center justify-between p-4 bg-white/2 rounded-xl border border-white/5">
+                                    <span class="text-[10px] uppercase tracking-widest text-white/30">Location</span>
+                                    <span class="text-[10px] font-bold text-accent-teal">MAIN LOBBY</span>
+                                </div>
+                                <div class="flex items-center justify-between p-4 bg-white/2 rounded-xl border border-white/5">
+                                    <span class="text-[10px] uppercase tracking-widest text-white/30">Injury_Status</span>
+                                    <span class="text-[10px] font-bold text-accent-teal">PAIN IN WRIST & ANKLE</span>
+                                </div>
+                                <div class="flex items-center justify-between p-4 bg-white/2 rounded-xl border border-white/5">
+                                    <span class="text-[10px] uppercase tracking-widest text-white/30">Signage_Present</span>
+                                    <span class="text-[10px] font-bold text-accent-teal">TRUE (MOVED)</span>
+                                </div>
+                            </div>
+                            <div class="pt-8 space-y-4">
+                                <div class="flex gap-2">
+                                    <div class="h-1 flex-1 bg-accent-teal"></div>
+                                    <div class="h-1 flex-1 bg-accent-teal"></div>
+                                    <div class="h-1 flex-1 bg-accent-teal"></div>
+                                    <div class="h-1 flex-1 bg-accent-teal"></div>
+                                    <div class="h-1 flex-1 bg-accent-teal/20"></div>
+                                    <div class="h-1 flex-1 bg-accent-teal/20"></div>
+                                    <div class="h-1 flex-1 bg-accent-teal/20"></div>
+                                </div>
+                                <p class="text-[10px] text-white/20 uppercase tracking-widest">Pass 4 of 7 complete. Mapping operational dependencies.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- Deep Tech Row -->
         <section id="security" class="py-48 px-6 bg-black">
             <div class="max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-48">
