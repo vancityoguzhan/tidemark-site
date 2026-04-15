@@ -507,7 +507,12 @@
                     </div>
 
                     <!-- Passes list: fixed height, never grows -->
-                    <div id="pipeline-passes" style="flex-shrink:0;overflow:hidden;"></div>
+                    <div class="relative">
+                        <div id="pipeline-passes" style="height: 240px; overflow-y: auto; scrollbar-width: none; -ms-overflow-style: none;"></div>
+                        <!-- Bottom fade mask to prevent hard cut -->
+                        <div class="absolute bottom-0 left-0 right-0 h-12 pointer-events-none" 
+                             style="background: linear-gradient(to top, var(--surface), transparent); z-index: 10;"></div>
+                    </div>
 
                     <!-- Output: always in DOM, uses opacity — no layout reflow -->
                     <div id="pipeline-output" style="flex-shrink:0;margin-top:16px;opacity:0;transition:opacity 0.5s ease;pointer-events:none;">
@@ -982,6 +987,10 @@
                 if (row) { row.classList.remove('active'); row.classList.add('done'); }
                 if (ico) { ico.textContent = 'check_circle'; ico.style.color = cur === passes.length-1 ? 'var(--green)' : 'var(--gold)'; }
                 if (ppb) ppb.style.width = passes[cur].pct + '%';
+                
+                // Auto-scroll to latest pass
+                if (ppc) ppc.scrollTo({ top: ppc.scrollHeight, behavior: 'smooth' });
+
                 cur++;
                 setTimeout(step, cur < passes.length - 2 ? 360 : 220);
             }, cur === 0 ? 550 : 320);
@@ -990,6 +999,30 @@
     }
 
     ScrollTrigger.create({ trigger: '#demo', start: 'top 70%', once: true, onEnter: runPipeline });
+
+    // Count-up stats
+    document.querySelectorAll('[data-count-target]').forEach(el => {
+        const target = parseFloat(el.getAttribute('data-count-target'));
+        const prefix = el.getAttribute('data-count-prefix') || '';
+        const suffix = el.getAttribute('data-count-suffix') || '';
+        const decimal = el.getAttribute('data-count-decimal') || '';
+        
+        const obj = { val: 0 };
+        ScrollTrigger.create({
+            trigger: el,
+            start: 'top 90%',
+            onEnter: () => {
+                gsap.to(obj, {
+                    val: target,
+                    duration: 2,
+                    ease: 'power2.out',
+                    onUpdate: () => {
+                        el.innerHTML = `${prefix}${decimal}${Math.floor(obj.val)}${suffix}`;
+                    }
+                });
+            }
+        });
+    });
     </script>
 </body>
 </html>
