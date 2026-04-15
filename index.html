@@ -3,37 +3,50 @@
 <head>
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-    <title>Tidemark | Private Intelligence</title>
+    <title>Tidemark | Private Incident Intelligence</title>
+    <meta name="description" content="Tidemark turns spoken incident reports into cryptographically signed, legally defensible records — without your guest's name ever leaving the device."/>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet"/>
     <style>
         :root {
-            --bg-pure: #000000;
-            --accent-teal: #00D1FF;
-            --accent-glow: rgba(0, 209, 255, 0.25);
-            --surface-glass: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.01) 100%);
-            --border-rim: rgba(255, 255, 255, 0.3);
-            --border-subtle: rgba(255, 255, 255, 0.1);
-            --inner-glow: inset 0 1px 2px rgba(255, 255, 255, 0.2);
+            --obsidian:    #0A0A0A;
+            --surface:     #111111;
+            --elevated:    #1A1A1A;
+            --gold:        #C8A96E;
+            --gold-glow:   rgba(200,169,110,0.22);
+            --gold-subtle: rgba(200,169,110,0.08);
+            --ivory:       #F5F0E8;
+            --ivory-60:    rgba(245,240,232,0.60);
+            --ivory-30:    rgba(245,240,232,0.30);
+            --ivory-15:    rgba(245,240,232,0.15);
+            --ivory-08:    rgba(245,240,232,0.08);
+            --rim:         rgba(245,240,232,0.22);
+            --border:      rgba(245,240,232,0.07);
+            --amber:       #E8923A;
+            --green:       #4CAF7D;
         }
 
+        *, *::before, *::after { box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
         body {
-            background-color: var(--bg-pure);
-            color: #ffffff;
+            background-color: var(--obsidian);
+            color: var(--ivory);
             font-family: 'Inter', sans-serif;
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
+            font-size: 16px;
         }
 
         body::before {
             content: "";
             position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
+            inset: 0;
             background-image: url("https://grainy-gradients.vercel.app/noise.svg");
-            opacity: 0.12;
+            opacity: 0.07;
             pointer-events: none;
             z-index: 9999;
             mix-blend-mode: overlay;
@@ -42,448 +55,937 @@
         .font-headline { font-family: 'Plus Jakarta Sans', sans-serif; }
 
         .glass {
-            background: var(--surface-glass);
-            backdrop-filter: blur(80px) saturate(250%);
-            -webkit-backdrop-filter: blur(80px) saturate(250%);
-            border: 0.5px solid var(--border-subtle);
-            border-top: 0.8px solid var(--border-rim);
-            box-shadow:
-                var(--inner-glow),
-                0 40px 100px rgba(0, 0, 0, 0.8),
-                inset 0 0 30px rgba(0, 209, 255, 0.03);
+            background: linear-gradient(135deg, rgba(245,240,232,0.042) 0%, rgba(245,240,232,0.008) 100%);
+            backdrop-filter: blur(60px) saturate(180%);
+            -webkit-backdrop-filter: blur(60px) saturate(180%);
+            border: 0.5px solid var(--border);
+            border-top: 0.8px solid var(--rim);
+            box-shadow: inset 0 1px 0 rgba(245,240,232,0.10), 0 32px 80px rgba(0,0,0,0.7);
+        }
+
+        .glass-gold {
+            background: linear-gradient(135deg, rgba(200,169,110,0.08) 0%, rgba(200,169,110,0.02) 100%);
+            backdrop-filter: blur(40px);
+            -webkit-backdrop-filter: blur(40px);
+            border: 0.5px solid rgba(200,169,110,0.15);
+            border-top: 0.8px solid rgba(200,169,110,0.30);
+            box-shadow: inset 0 1px 0 rgba(200,169,110,0.12), 0 24px 60px rgba(0,0,0,0.6);
         }
 
         .glow-orb {
             position: absolute;
-            width: 1400px;
-            height: 1400px;
-            background: radial-gradient(circle, var(--accent-glow) 0%, transparent 60%);
             border-radius: 50%;
             pointer-events: none;
             z-index: 0;
-            filter: blur(200px);
-            opacity: 0.4;
         }
+        .orb-gold  { background: radial-gradient(circle, var(--gold-glow) 0%, transparent 65%); filter: blur(140px); opacity: 0.5; }
+        .orb-amber { background: radial-gradient(circle, rgba(232,146,58,0.12) 0%, transparent 65%); filter: blur(120px); opacity: 0.6; }
 
-        .reveal { opacity: 0; transform: translateY(50px); }
-
-        .btn-primary {
-            background: #ffffff;
-            color: #000000;
-            transition: all 0.8s cubic-bezier(0.075, 0.82, 0.165, 1);
-            font-weight: 900;
-        }
-        .btn-primary:hover {
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 30px 60px rgba(0, 209, 255, 0.3);
-            background: var(--accent-teal);
-        }
-
-        .btn-secondary {
-            border: 1px solid var(--border-rim);
-            background: rgba(255, 255, 255, 0.05);
-            transition: all 0.8s cubic-bezier(0.075, 0.82, 0.165, 1);
-            backdrop-filter: blur(10px);
-        }
-        .btn-secondary:hover {
-            border-color: var(--accent-teal);
-            background: rgba(255, 255, 255, 0.15);
-            transform: translateY(-3px);
-        }
-
-        .bento-card {
-            transition: all 1s cubic-bezier(0.075, 0.82, 0.165, 1);
-        }
-        .bento-card:hover {
-            transform: translateY(-15px) scale(1.02);
-            border-top-color: var(--accent-teal);
-            background: rgba(255, 255, 255, 0.08);
-        }
-
-        .text-super-luminous {
-            background: linear-gradient(180deg, #ffffff 50%, rgba(255, 255, 255, 0.2) 100%);
+        .text-luminous {
+            background: linear-gradient(175deg, var(--ivory) 40%, rgba(245,240,232,0.25) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 0 40px rgba(0, 209, 255, 0.15));
+            background-clip: text;
         }
+        .text-gold {
+            background: linear-gradient(135deg, #D4B87A 0%, #C8A96E 50%, #B8955A 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .btn-primary {
+            background: var(--ivory);
+            color: var(--obsidian);
+            font-weight: 900;
+            transition: all 0.5s cubic-bezier(0.075,0.82,0.165,1);
+            min-height: 44px;
+            cursor: pointer;
+        }
+        .btn-primary:hover { background: var(--gold); transform: translateY(-2px); box-shadow: 0 16px 40px var(--gold-glow); }
+
+        .btn-secondary {
+            border: 0.8px solid var(--rim);
+            background: rgba(245,240,232,0.04);
+            color: var(--ivory-60);
+            transition: all 0.5s cubic-bezier(0.075,0.82,0.165,1);
+            backdrop-filter: blur(10px);
+            min-height: 44px;
+            cursor: pointer;
+        }
+        .btn-secondary:hover { border-color: var(--gold); color: var(--gold); background: var(--gold-subtle); transform: translateY(-2px); }
+
+        .btn-ghost {
+            color: var(--ivory-30);
+            border: 0.5px solid var(--border);
+            transition: all 0.4s ease;
+            min-height: 44px;
+            cursor: pointer;
+        }
+        .btn-ghost:hover { color: var(--gold); border-color: rgba(200,169,110,0.3); }
+
+        .bento-card {
+            transition: transform 0.5s cubic-bezier(0.075,0.82,0.165,1), border-color 0.3s ease, background 0.3s ease;
+        }
+        .bento-card:hover { border-top-color: var(--gold) !important; }
+
+        .reveal { opacity: 0; transform: translateY(36px); }
 
         .light-sweep {
             position: absolute;
-            width: 200%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.05), transparent);
-            transform: skewX(-30deg) translateX(-150%);
+            inset: 0;
+            background: linear-gradient(105deg, transparent 30%, rgba(245,240,232,0.025) 50%, transparent 70%);
+            transform: translateX(-100%);
             pointer-events: none;
             z-index: 1;
         }
 
-        /* Specs Sidebar */
-        #specs-sidebar {
-            transition: transform 0.7s cubic-bezier(0.075, 0.82, 0.165, 1);
+        .trust-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 4px 12px;
+            border-radius: 100px;
+            border: 0.5px solid rgba(200,169,110,0.25);
+            background: rgba(200,169,110,0.06);
+            font-size: 9px;
+            font-weight: 800;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            color: var(--gold);
         }
 
-        /* Overlay */
-        #specs-overlay {
-            display: none;
-            position: fixed;
-            inset: 0;
-            z-index: 999;
-            background: rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(4px);
+        .problem-card {
+            border: 0.5px solid var(--border);
+            background: var(--surface);
+            border-radius: 1.5rem;
+            padding: 2rem;
+            transition: border-color 0.4s;
         }
-        #specs-overlay.active {
-            display: block;
+        .problem-card:hover { border-color: rgba(232,146,58,0.3); }
+
+        .pipeline-line {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 0;
+            border-bottom: 0.5px solid var(--border);
+            opacity: 0;
+            transform: translateX(-6px);
+            transition: opacity 0.3s, transform 0.3s;
+        }
+        .pipeline-line.done  { opacity: 1; transform: translateX(0); }
+        .pipeline-line.active { opacity: 0.7; transform: translateX(0); }
+
+        .cursor-blink::after { content: '|'; animation: blink 1s step-end infinite; color: var(--gold); }
+        @keyframes blink { 50% { opacity: 0; } }
+
+        @keyframes tokenFlash {
+            0%   { background: rgba(200,169,110,0.45); color: var(--obsidian); border-radius: 3px; }
+            100% { background: rgba(200,169,110,0.10); color: var(--gold); border-radius: 3px; }
+        }
+        .token-highlight { animation: tokenFlash 0.5s ease forwards; }
+
+        #specs-sidebar { transition: transform 0.7s cubic-bezier(0.075,0.82,0.165,1); }
+
+        #specs-overlay {
+            display: none; position: fixed; inset: 0; z-index: 999;
+            background: rgba(0,0,0,0.7); backdrop-filter: blur(6px);
+        }
+        #specs-overlay.active { display: block; }
+
+        .stat-num { font-variant-numeric: tabular-nums; }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+            .reveal { opacity: 1 !important; transform: none !important; }
         }
     </style>
 </head>
-<body class="selection:bg-accent-teal/30">
+<body>
 
     <div id="specs-overlay" onclick="toggleSpecs()"></div>
-    <div class="glow-orb top-[-600px] left-[-600px]"></div>
-    <div class="glow-orb bottom-[-700px] right-[-600px]"></div>
 
-    <!-- Navigation -->
-    <nav class="fixed top-0 w-full z-[100] px-3 py-4 md:px-12 md:py-10 transition-all duration-1000" id="navbar">
-        <div class="max-w-7xl mx-auto flex justify-between items-center glass rounded-full px-4 py-3 md:px-14 md:py-6">
-            <div class="flex items-center gap-3 md:gap-5">
-                <div class="w-3 h-3 md:w-4 md:h-4 bg-accent-teal rounded-full animate-pulse shadow-[0_0_30px_#00D1FF] shrink-0"></div>
-                <span class="font-headline font-extrabold text-lg md:text-3xl tracking-tighter uppercase">Tidemark</span>
+    <!-- Ambient lighting -->
+    <div class="glow-orb orb-gold" style="width:800px;height:800px;top:-300px;left:-200px;position:fixed;z-index:0;"></div>
+    <div class="glow-orb orb-gold" style="width:700px;height:700px;bottom:-350px;right:-250px;position:fixed;z-index:0;"></div>
+
+    <!-- NAV -->
+    <nav id="navbar" class="fixed top-0 w-full z-[100] px-3 py-4 md:px-10 md:py-5 transition-all duration-700">
+        <div class="max-w-7xl mx-auto flex justify-between items-center glass rounded-full px-4 py-3 md:px-10 md:py-4">
+            <div class="flex items-center gap-3">
+                <div class="w-2.5 h-2.5 rounded-full shrink-0" style="background:var(--gold);box-shadow:0 0 10px var(--gold-glow);animation:pulse 2s infinite;"></div>
+                <span class="font-headline font-extrabold text-base md:text-xl tracking-tighter uppercase" style="color:var(--ivory);">Tidemark</span>
+                <span class="hidden sm:block text-[8px] font-bold uppercase tracking-[0.4em]" style="color:var(--ivory-30);">Private Intelligence</span>
             </div>
 
-            <div class="hidden md:flex items-center gap-20">
-                <a href="#protocol" class="text-[12px] font-black uppercase tracking-[0.6em] text-white/20 hover:text-white transition-all">Protocol</a>
-                <a href="#playbooks" class="text-[12px] font-black uppercase tracking-[0.6em] text-white/20 hover:text-white transition-all">Playbooks</a>
-                <a href="#security" class="text-[12px] font-black uppercase tracking-[0.6em] text-white/20 hover:text-white transition-all">Security</a>
+            <div class="hidden md:flex items-center gap-10">
+                <a href="#how" class="text-[10px] font-black uppercase tracking-[0.5em] transition-colors" style="color:var(--ivory-30);" onmouseover="this.style.color='var(--ivory)'" onmouseout="this.style.color='var(--ivory-30)'">How It Works</a>
+                <a href="#playbooks" class="text-[10px] font-black uppercase tracking-[0.5em] transition-colors" style="color:var(--ivory-30);" onmouseover="this.style.color='var(--ivory)'" onmouseout="this.style.color='var(--ivory-30)'">Playbooks</a>
+                <a href="#security" class="text-[10px] font-black uppercase tracking-[0.5em] transition-colors" style="color:var(--ivory-30);" onmouseover="this.style.color='var(--ivory)'" onmouseout="this.style.color='var(--ivory-30)'">Security</a>
+                <a href="#platform" class="text-[10px] font-black uppercase tracking-[0.5em] transition-colors" style="color:var(--ivory-30);" onmouseover="this.style.color='var(--ivory)'" onmouseout="this.style.color='var(--ivory-30)'">Platform</a>
             </div>
 
-            <button class="bg-white text-black font-headline text-[0.65rem] md:text-[0.8rem] font-black uppercase tracking-[0.4em] md:tracking-[0.6em] px-5 py-2.5 md:px-14 md:py-4 rounded-full hover:bg-accent-teal transition-all shadow-2xl">
-                Deploy
+            <button onclick="document.getElementById('cta-final').scrollIntoView({behavior:'smooth'})"
+                class="btn-primary rounded-full font-headline font-black uppercase text-[9px] md:text-[10px] tracking-[0.4em] px-5 py-2.5 md:px-8 md:py-3">
+                Request Access
             </button>
         </div>
     </nav>
 
-    <!-- Technical Specs Sidebar -->
-    <div id="specs-sidebar" class="fixed top-0 right-0 w-full md:w-[550px] h-full z-[1000] glass border-l border-white/10 p-8 md:p-24 flex flex-col justify-between translate-x-full overflow-y-auto">
+    <!-- SPECS SIDEBAR -->
+    <div id="specs-sidebar" class="fixed top-0 right-0 w-full md:w-[500px] h-full z-[1000] glass border-l overflow-y-auto p-8 md:p-14 flex flex-col justify-between translate-x-full" style="border-color:var(--border);">
         <div>
-            <div class="flex justify-between items-center mb-8 md:mb-24">
-                <span class="text-[11px] md:text-[12px] font-black uppercase tracking-[0.5em] md:tracking-[0.7em] text-accent-teal">System Core</span>
-                <button onclick="toggleSpecs()" class="material-symbols-outlined text-white/20 hover:text-white transition-colors md:scale-150">close</button>
+            <div class="flex justify-between items-center mb-10">
+                <div>
+                    <div class="text-[9px] font-black uppercase tracking-[0.6em] mb-1" style="color:var(--gold);">System Architecture</div>
+                    <div class="text-[9px] uppercase tracking-[0.3em]" style="color:var(--ivory-30);">v2.4 · Production</div>
+                </div>
+                <button onclick="toggleSpecs()" class="material-symbols-outlined text-2xl transition-colors" style="color:var(--ivory-30);" onmouseover="this.style.color='var(--ivory)'" onmouseout="this.style.color='var(--ivory-30)'">close</button>
             </div>
-            <div class="space-y-8 md:space-y-20">
-                <div class="reveal-spec">
-                    <h4 class="text-[11px] font-black uppercase tracking-[0.5em] text-white/60 mb-4 md:mb-8">Linguistic Layer</h4>
-                    <p class="text-sm md:text-md text-white/30 leading-relaxed font-light">Zero-Trust Compromise.js implementation. Local PII deconstruction for Names, Room Numbers, and Personnel IDs before any network transmission.</p>
+            <div class="space-y-8">
+                <div>
+                    <div class="text-[9px] font-black uppercase tracking-[0.5em] mb-2" style="color:var(--ivory-30);">Privacy Layer</div>
+                    <h4 class="font-headline font-bold text-sm mb-2" style="color:var(--ivory);">Zero-Trust PII Deconstruction</h4>
+                    <p class="text-xs leading-relaxed font-light" style="color:var(--ivory-30);">Compromise.js tokenizes all guest names, room numbers, and staff IDs locally on device. Identity maps exist only in RAM — never written to disk, never transmitted.</p>
                 </div>
-                <div class="reveal-spec">
-                    <h4 class="text-[11px] font-black uppercase tracking-[0.5em] text-white/60 mb-4 md:mb-8">Inference Backbone</h4>
-                    <p class="text-sm md:text-md text-white/30 leading-relaxed font-light">7-Pass Atomic Extraction. Gemini 1.5 Pro integration via Enterprise Secure Pipe. Hard Confidence Threshold 0.50.</p>
+                <div class="h-px" style="background:var(--border);"></div>
+                <div>
+                    <div class="text-[9px] font-black uppercase tracking-[0.5em] mb-2" style="color:var(--ivory-30);">Extraction Engine</div>
+                    <h4 class="font-headline font-bold text-sm mb-2" style="color:var(--ivory);">Multi-Pass Atomic Extraction</h4>
+                    <p class="text-xs leading-relaxed font-light mb-4" style="color:var(--ivory-30);">8 semantic field groups processed independently — datetime, location, personnel, severity, emergency services, actions, cause, documentation. Confidence floor: 0.50.</p>
+                    <div class="space-y-1">
+                        <div class="text-[9px] font-mono" style="color:var(--gold);">→ date &amp; time extraction</div>
+                        <div class="text-[9px] font-mono" style="color:var(--gold);">→ location &amp; area mapping</div>
+                        <div class="text-[9px] font-mono" style="color:var(--gold);">→ personnel &amp; witness identification</div>
+                        <div class="text-[9px] font-mono" style="color:var(--gold);">→ severity assessment</div>
+                        <div class="text-[9px] font-mono" style="color:var(--gold);">→ emergency services check</div>
+                        <div class="text-[9px] font-mono" style="color:var(--gold);">→ actions taken</div>
+                        <div class="text-[9px] font-mono" style="color:var(--gold);">→ cause &amp; outcome analysis</div>
+                        <div class="text-[9px] font-mono" style="color:var(--gold);">→ documentation &amp; evidence</div>
+                    </div>
                 </div>
-                <div class="reveal-spec">
-                    <h4 class="text-[11px] font-black uppercase tracking-[0.5em] text-white/60 mb-4 md:mb-8">Data Integrity</h4>
-                    <p class="text-sm md:text-md text-white/30 leading-relaxed font-light">SHA-256 Cryptographic Fingerprinting. Append-Only Event Transport. Memory-Only Token Persistent Maps.</p>
+                <div class="h-px" style="background:var(--border);"></div>
+                <div>
+                    <div class="text-[9px] font-black uppercase tracking-[0.5em] mb-2" style="color:var(--ivory-30);">Integrity</div>
+                    <h4 class="font-headline font-bold text-sm mb-2" style="color:var(--ivory);">SHA-256 Cryptographic Anchoring</h4>
+                    <p class="text-xs leading-relaxed font-light" style="color:var(--ivory-30);">Every completed report is fingerprinted at export. Post-export modifications are detectable. Append-only. Immutable.</p>
+                </div>
+                <div class="h-px" style="background:var(--border);"></div>
+                <div>
+                    <div class="text-[9px] font-black uppercase tracking-[0.5em] mb-2" style="color:var(--ivory-30);">Phase Flow</div>
+                    <div class="text-[9px] font-mono leading-relaxed" style="color:var(--ivory-60);">INTAKE → TYPE_CONFIRMED → FOLLOW_UP<br/>→ NARRATIVE_REWRITE → REVIEW → EXPORTED</div>
                 </div>
             </div>
         </div>
-        <div class="pt-8 md:pt-20 border-t border-white/5 mt-8">
-            <span class="text-[11px] font-mono text-white/10 tracking-[0.6em]">v2.4_PRO_SPEC</span>
+        <div class="pt-6 border-t mt-6 flex justify-between items-center" style="border-color:var(--border);">
+            <span class="text-[9px] font-mono" style="color:var(--ivory-30);">v2.4_PRO · Privacy by Design</span>
+            <span class="trust-badge">SHA-256</span>
         </div>
     </div>
 
     <main>
-        <!-- Hero Section -->
-        <section class="min-h-screen flex flex-col items-center justify-center pt-28 pb-12 md:pt-40 md:pb-24 px-6 relative">
-            <div class="light-sweep"></div>
-            <div class="text-center max-w-7xl z-10">
-                <div class="reveal mb-8 md:mb-16 inline-flex items-center gap-4 md:gap-6 px-5 md:px-8 py-2 md:py-3 rounded-full border border-white/10 bg-white/2 backdrop-blur-3xl shadow-inner">
-                    <span class="text-[9px] md:text-[11px] font-black uppercase tracking-[0.5em] md:tracking-[0.7em] text-accent-teal">Intelligence Bounded. Privacy Absolute.</span>
+
+    <!-- HERO -->
+    <section class="relative min-h-screen flex flex-col items-center justify-center pt-28 pb-16 md:pt-36 md:pb-24 px-6 overflow-hidden">
+        <div class="light-sweep"></div>
+        <div class="glow-orb orb-gold absolute top-[-150px] left-1/2 -translate-x-1/2" style="width:600px;height:600px;opacity:0.25;filter:blur(100px);"></div>
+
+        <div class="relative z-10 text-center max-w-6xl mx-auto">
+
+            <div class="reveal mb-10 flex flex-wrap justify-center gap-2">
+                <span class="trust-badge"><span class="material-symbols-outlined" style="font-size:11px;">lock</span>Privacy by Design</span>
+                <span class="trust-badge"><span class="material-symbols-outlined" style="font-size:11px;">verified</span>SHA-256 Signed</span>
+                <span class="trust-badge"><span class="material-symbols-outlined" style="font-size:11px;">shield</span>GDPR-Aligned</span>
+                <span class="trust-badge"><span class="material-symbols-outlined" style="font-size:11px;">gavel</span>Legally Defensible</span>
+            </div>
+
+            <h1 class="reveal font-headline font-extrabold tracking-[-0.06em] leading-[0.80] mb-8 md:mb-10 text-luminous"
+                style="font-size:clamp(3rem,10vw,11rem);">
+                YOUR STAFF<br/>REMEMBERS<br/><span class="text-gold">DIFFERENTLY.</span>
+            </h1>
+
+            <p class="reveal text-xl md:text-3xl font-light mb-4" style="color:var(--ivory-60);">The system doesn't.</p>
+
+            <p class="reveal max-w-2xl mx-auto text-sm md:text-lg leading-relaxed mb-12 md:mb-16 font-light" style="color:var(--ivory-30);">
+                Tidemark turns spoken incident reports into cryptographically signed, legally defensible records — without your guest's name ever leaving the device.
+            </p>
+
+            <div class="reveal flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <button onclick="document.getElementById('demo').scrollIntoView({behavior:'smooth'})"
+                    class="btn-primary w-full sm:w-auto rounded-full font-headline font-black uppercase text-[10px] tracking-[0.5em] px-10 py-4 md:px-14 md:py-5">
+                    See a Live Report
+                </button>
+                <button onclick="toggleSpecs()"
+                    class="btn-secondary w-full sm:w-auto rounded-full font-headline font-black uppercase text-[10px] tracking-[0.5em] px-10 py-4 md:px-14 md:py-5">
+                    Technical Specs
+                </button>
+            </div>
+
+            <div class="reveal mt-14 md:mt-20 flex flex-col items-center gap-2" style="opacity:0.25;">
+                <div class="text-[8px] uppercase tracking-[0.6em] font-black" style="color:var(--ivory-30);">Scroll</div>
+                <div class="w-px h-10 md:h-14" style="background:linear-gradient(to bottom,var(--ivory-30),transparent);"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TRUST BAR -->
+    <section class="py-10 md:py-12 px-6" style="background:var(--surface);border-top:0.5px solid var(--border);border-bottom:0.5px solid var(--border);">
+        <div class="max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-4 text-center">
+            <div>
+                <div class="font-headline font-extrabold text-3xl md:text-4xl mb-1 stat-num text-gold" data-count-target="16" data-count-suffix="">16</div>
+                <div class="text-[8px] uppercase tracking-[0.5em] font-black" style="color:var(--ivory-30);">Incident Playbooks</div>
+            </div>
+            <div>
+                <div class="font-headline font-extrabold text-3xl md:text-4xl mb-1 stat-num text-gold" data-count-target="90" data-count-suffix="s" data-count-prefix="&lt;">&lt;90s</div>
+                <div class="text-[8px] uppercase tracking-[0.5em] font-black" style="color:var(--ivory-30);">Per Report</div>
+            </div>
+            <div>
+                <div class="font-headline font-extrabold text-3xl md:text-4xl mb-1 stat-num text-gold" data-count-target="50" data-count-decimal="0.">0.50</div>
+                <div class="text-[8px] uppercase tracking-[0.5em] font-black" style="color:var(--ivory-30);">Confidence Floor</div>
+            </div>
+            <div>
+                <div class="font-headline font-extrabold text-3xl md:text-4xl mb-1 stat-num text-gold" data-count-target="0" data-count-suffix=" PII">0 PII</div>
+                <div class="text-[8px] uppercase tracking-[0.5em] font-black" style="color:var(--ivory-30);">Transmitted to Cloud</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROBLEM -->
+    <section id="problem" class="py-20 md:py-36 px-6 md:px-12" style="background:var(--obsidian);">
+        <div class="max-w-7xl mx-auto">
+            <div class="reveal mb-5">
+                <span class="trust-badge" style="border-color:rgba(232,146,58,0.25);background:rgba(232,146,58,0.06);color:var(--amber);">The Problem</span>
+            </div>
+            <h2 class="reveal font-headline font-extrabold tracking-tighter leading-[0.82] mb-6 text-luminous"
+                style="font-size:clamp(2.2rem,5.5vw,6.5rem);">
+                THE PAPER LOG<br/>FAILED YOU BEFORE.<br/><span style="-webkit-text-fill-color:var(--amber);background:none;color:var(--amber);">IT WILL AGAIN.</span>
+            </h2>
+            <p class="reveal text-base md:text-xl font-light leading-relaxed mb-14 max-w-2xl" style="color:var(--ivory-30);">
+                Every property has a system. None of them were built for the moment you're standing in the lobby at 2am trying to remember exactly what happened.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+                <div class="reveal problem-card">
+                    <span class="material-symbols-outlined text-3xl mb-4 block" style="color:var(--amber);">description</span>
+                    <h3 class="font-headline font-bold text-lg mb-3" style="color:var(--ivory);">The Paper Log</h3>
+                    <p class="text-sm leading-relaxed font-light mb-5" style="color:var(--ivory-30);">Illegible handwriting. Missing dates. Pages that disappear. No structure. No audit trail. And when the lawyer asks for the original — you produce a photocopy.</p>
+                    <div class="pt-4 text-[8px] uppercase tracking-[0.4em] font-black" style="color:var(--amber);border-top:0.5px solid rgba(232,146,58,0.15);">Fails in litigation</div>
+                </div>
+                <div class="reveal problem-card">
+                    <span class="material-symbols-outlined text-3xl mb-4 block" style="color:var(--amber);">mail</span>
+                    <h3 class="font-headline font-bold text-lg mb-3" style="color:var(--ivory);">The Email Chain</h3>
+                    <p class="text-sm leading-relaxed font-light mb-5" style="color:var(--ivory-30);">Thread splits. Key detail buried in reply 14. No structure. Different people remember different versions. Guest names in the subject line. A GDPR nightmare.</p>
+                    <div class="pt-4 text-[8px] uppercase tracking-[0.4em] font-black" style="color:var(--amber);border-top:0.5px solid rgba(232,146,58,0.15);">No chain of custody</div>
+                </div>
+                <div class="reveal problem-card">
+                    <span class="material-symbols-outlined text-3xl mb-4 block" style="color:var(--amber);">table_chart</span>
+                    <h3 class="font-headline font-bold text-lg mb-3" style="color:var(--ivory);">The Google Doc</h3>
+                    <p class="text-sm leading-relaxed font-light mb-5" style="color:var(--ivory-30);">Version confusion. Edit history anyone can manipulate. Guest PII in a consumer cloud product. Your insurance adjuster will have questions. You will not have answers.</p>
+                    <div class="pt-4 text-[8px] uppercase tracking-[0.4em] font-black" style="color:var(--amber);border-top:0.5px solid rgba(232,146,58,0.15);">Exposes PII to third parties</div>
+                </div>
+            </div>
+
+            <div class="reveal mt-10 glass-gold rounded-2xl md:rounded-3xl p-6 md:p-10 flex flex-col md:flex-row items-start md:items-center gap-5">
+                <span class="material-symbols-outlined text-4xl shrink-0" style="color:var(--amber);">gavel</span>
+                <div>
+                    <p class="font-headline font-bold text-base md:text-xl mb-1" style="color:var(--ivory);">1 in 3 hospitality liability claims involves an inadequate incident record.</p>
+                    <p class="text-xs font-light" style="color:var(--ivory-30);">Based on industry analysis of hospitality insurance claim outcomes. An undocumented incident is an open liability. Tidemark closes it.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section id="how" class="py-20 md:py-36 px-6 md:px-12" style="background:var(--surface);">
+        <div class="max-w-7xl mx-auto">
+            <div class="reveal mb-5"><span class="trust-badge">The Protocol</span></div>
+            <h2 class="reveal font-headline font-extrabold tracking-tighter leading-[0.82] mb-6 text-luminous"
+                style="font-size:clamp(2.2rem,5.5vw,6.5rem);">
+                THREE STEPS.<br/>ONE DEFENSIBLE<br/>RECORD.
+            </h2>
+            <p class="reveal text-base md:text-xl font-light mb-14 max-w-xl" style="color:var(--ivory-30);">
+                Built for operators, not developers. No training required. No new workflow. Just speak — the system handles the rest.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="reveal glass bento-card rounded-[2rem] p-8 md:p-10 relative overflow-hidden">
+                    <div class="absolute top-3 right-5 font-headline font-extrabold text-[5rem] leading-none select-none" style="color:var(--ivory-08);">01</div>
+                    <div class="relative z-10">
+                        <span class="material-symbols-outlined text-4xl mb-5 block" style="color:var(--gold);">mic</span>
+                        <h3 class="font-headline font-bold text-xl md:text-2xl mb-4" style="color:var(--ivory);">Describe the Incident</h3>
+                        <p class="text-sm leading-relaxed font-light mb-6" style="color:var(--ivory-30);">Your team speaks or types exactly what happened — no forms, no fields, no structure required. The system detects the incident type automatically across 16 playbook categories.</p>
+                        <div class="text-[8px] uppercase tracking-[0.5em] font-black" style="color:var(--gold);">Phase: INTAKE</div>
+                    </div>
+                </div>
+                <div class="reveal glass bento-card rounded-[2rem] p-8 md:p-10 relative overflow-hidden">
+                    <div class="absolute top-3 right-5 font-headline font-extrabold text-[5rem] leading-none select-none" style="color:var(--ivory-08);">02</div>
+                    <div class="relative z-10">
+                        <span class="material-symbols-outlined text-4xl mb-5 block" style="color:var(--gold);">fingerprint</span>
+                        <h3 class="font-headline font-bold text-xl md:text-2xl mb-4" style="color:var(--ivory);">PII Stripped. Locally.</h3>
+                        <p class="text-sm leading-relaxed font-light mb-6" style="color:var(--ivory-30);">Before anything leaves the device, every name, room number, and staff ID is replaced with a token. Your guest's identity never exists in the cloud. The token map lives only in RAM.</p>
+                        <div class="text-[8px] uppercase tracking-[0.5em] font-black" style="color:var(--gold);">Phase: TYPE_CONFIRMED</div>
+                    </div>
+                </div>
+                <div class="reveal glass bento-card rounded-[2rem] p-8 md:p-10 relative overflow-hidden">
+                    <div class="absolute top-3 right-5 font-headline font-extrabold text-[5rem] leading-none select-none" style="color:var(--ivory-08);">03</div>
+                    <div class="relative z-10">
+                        <span class="material-symbols-outlined text-4xl mb-5 block" style="color:var(--gold);">verified_user</span>
+                        <h3 class="font-headline font-bold text-xl md:text-2xl mb-4" style="color:var(--ivory);">Structured. Signed. Done.</h3>
+                        <p class="text-sm leading-relaxed font-light mb-6" style="color:var(--ivory-30);">The report is extracted, structured, reviewed, and SHA-256 anchored. Real names are restored locally. The final record is legally defensible and ready for your insurance carrier in under 90 seconds.</p>
+                        <div class="text-[8px] uppercase tracking-[0.5em] font-black" style="color:var(--gold);">Phase: EXPORTED</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- DEMO -->
+    <section id="demo" class="py-20 md:py-36 px-6 md:px-12" style="background:var(--obsidian);">
+        <div class="max-w-7xl mx-auto">
+            <div class="reveal mb-5"><span class="trust-badge">Live Demonstration</span></div>
+            <h2 class="reveal font-headline font-extrabold tracking-tighter leading-[0.82] mb-6 text-luminous"
+                style="font-size:clamp(2rem,5vw,6rem);">
+                WATCH IT WORK.
+            </h2>
+            <p class="reveal text-base md:text-xl font-light mb-14 max-w-2xl" style="color:var(--ivory-30);">
+                This is the actual system. The anonymization you see is real. The extraction pipeline you see is the real engine running against the real incident.
+            </p>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8">
+
+                <!-- PII Tokenization -->
+                <div class="reveal glass rounded-[2rem] md:rounded-[2.5rem] p-8 md:p-12 flex flex-col" style="min-height:500px;">
+                    <div class="flex items-center justify-between mb-7">
+                        <div>
+                            <div class="text-[8px] uppercase tracking-[0.5em] font-black mb-1" style="color:var(--gold);">PII Tokenization Loop</div>
+                            <div class="text-[8px] uppercase tracking-[0.4em]" style="color:var(--ivory-30);">Runs locally · Zero transmission</div>
+                        </div>
+                        <div class="w-2 h-2 rounded-full" style="background:var(--green);box-shadow:0 0 6px var(--green);"></div>
+                    </div>
+
+                    <div class="mb-4">
+                        <div class="text-[8px] uppercase tracking-[0.4em] font-black mb-2" style="color:var(--ivory-30);">Raw Intake — On Device</div>
+                        <div id="demo-raw" class="text-sm leading-relaxed italic p-5 rounded-xl font-light" style="background:var(--elevated);border:0.5px solid var(--border);color:var(--ivory-60);min-height:76px;">
+                            "Guest slipped in the lobby — her name is <span id="t-name1" class="font-medium" style="color:var(--ivory);border-bottom:1px solid rgba(245,240,232,0.2);">Margaret Holloway</span>, she's in room <span id="t-room" class="font-medium" style="color:var(--ivory);border-bottom:1px solid rgba(245,240,232,0.2);">318</span>. Reported by <span id="t-name2" class="font-medium" style="color:var(--ivory);border-bottom:1px solid rgba(245,240,232,0.2);">David Okafor</span>."
+                        </div>
+                    </div>
+
+                    <div class="flex justify-center my-3">
+                        <div class="flex flex-col items-center gap-1">
+                            <div class="w-px h-5" style="background:linear-gradient(to bottom,var(--border),var(--gold));"></div>
+                            <span class="material-symbols-outlined" style="font-size:18px;color:var(--gold);">lock</span>
+                            <div class="text-[7px] uppercase tracking-[0.3em] font-black" style="color:var(--gold);">Tokenized on device</div>
+                            <div class="w-px h-5" style="background:linear-gradient(to bottom,var(--gold),var(--border));"></div>
+                        </div>
+                    </div>
+
+                    <div class="mb-5">
+                        <div class="text-[8px] uppercase tracking-[0.4em] font-black mb-2" style="color:var(--ivory-30);">Cloud-Safe Payload — Transmitted</div>
+                        <div id="demo-anon" class="text-sm leading-relaxed italic p-5 rounded-xl font-light" style="background:rgba(200,169,110,0.05);border:0.5px solid rgba(200,169,110,0.12);color:var(--ivory-30);min-height:76px;">
+                            "Guest identified as <span id="t-tok1" class="font-bold" style="color:var(--gold);">[GUEST_1]</span> experienced a slip... room <span id="t-tok2" class="font-bold" style="color:var(--gold);">[ROOM_2]</span>. Reported by <span id="t-tok3" class="font-bold" style="color:var(--gold);">[STAFF_3]</span>."
+                        </div>
+                    </div>
+
+                    <div class="mt-auto pt-5" style="border-top:0.5px solid var(--border);">
+                        <p class="text-[8px] uppercase tracking-widest font-bold leading-relaxed" style="color:var(--ivory-30);">Identity maps live only in RAM. No PII is ever written to disk or sent to the cloud model.</p>
+                    </div>
                 </div>
 
-                <h1 class="reveal font-headline text-[2.75rem] sm:text-7xl md:text-[12rem] font-extrabold tracking-[-0.08em] leading-[0.75] mb-10 md:mb-24 text-super-luminous">
-                    PRIVATE.<br/>STRUCTURAL.<br/>DEFINITIVE.
-                </h1>
+                <!-- Extraction Pipeline -->
+                <div class="reveal glass rounded-[2rem] md:rounded-[2.5rem] p-8 md:p-12 flex flex-col" style="min-height:500px;">
+                    <div class="flex items-center justify-between mb-5">
+                        <div>
+                            <div class="text-[8px] uppercase tracking-[0.5em] font-black mb-1" style="color:var(--gold);">Extraction Engine</div>
+                            <div class="text-[8px] uppercase tracking-[0.4em]" style="color:var(--ivory-30);">Multi-pass · Confidence ≥ 0.50</div>
+                        </div>
+                        <div class="text-[9px] font-mono font-bold" id="pipeline-pct" style="color:var(--gold);">0%</div>
+                    </div>
 
-                <p class="reveal max-w-4xl mx-auto text-white/20 text-lg md:text-2xl lg:text-4xl font-light leading-relaxed mb-12 md:mb-32">
-                    Linguistic PII deconstruction. Deterministic AI governance. High-fidelity intelligence for critical infrastructure.
+                    <div class="h-0.5 w-full rounded-full mb-5" style="background:var(--elevated);">
+                        <div id="pipeline-bar" class="h-full rounded-full" style="width:0%;background:var(--gold);box-shadow:0 0 6px var(--gold-glow);transition:width 0.5s ease;"></div>
+                    </div>
+
+                    <div id="pipeline-passes" class="flex-1 overflow-hidden"></div>
+
+                    <div id="pipeline-output" class="mt-5 hidden">
+                        <div class="text-[8px] uppercase tracking-[0.5em] font-black mb-3" style="color:var(--green);">Structured Output · Verified</div>
+                        <div class="grid grid-cols-1 gap-2">
+                            <div class="flex items-center justify-between p-3 rounded-xl" style="background:var(--elevated);border:0.5px solid var(--border);">
+                                <span class="text-[8px] uppercase tracking-widest font-bold" style="color:var(--ivory-30);">Severity</span>
+                                <span class="text-[8px] font-bold" style="color:var(--green);">MEDIUM</span>
+                            </div>
+                            <div class="flex items-center justify-between p-3 rounded-xl" style="background:var(--elevated);border:0.5px solid var(--border);">
+                                <span class="text-[8px] uppercase tracking-widest font-bold" style="color:var(--ivory-30);">Location</span>
+                                <span class="text-[8px] font-bold" style="color:var(--green);">MAIN LOBBY</span>
+                            </div>
+                            <div class="flex items-center justify-between p-3 rounded-xl" style="background:var(--elevated);border:0.5px solid var(--border);">
+                                <span class="text-[8px] uppercase tracking-widest font-bold" style="color:var(--ivory-30);">Injury Status</span>
+                                <span class="text-[8px] font-bold" style="color:var(--green);">WRIST &amp; ANKLE PAIN</span>
+                            </div>
+                            <div class="flex items-center justify-between p-3 rounded-xl" style="background:var(--elevated);border:0.5px solid var(--border);">
+                                <span class="text-[8px] uppercase tracking-widest font-bold" style="color:var(--ivory-30);">Medical Offered</span>
+                                <span class="text-[8px] font-bold" style="color:var(--green);">YES</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PLAYBOOKS -->
+    <section id="playbooks" class="py-20 md:py-36 px-6 md:px-12" style="background:var(--surface);">
+        <div class="max-w-7xl mx-auto">
+            <div class="reveal mb-5"><span class="trust-badge">Coverage</span></div>
+            <h2 class="reveal font-headline font-extrabold tracking-tighter leading-[0.82] mb-6 text-luminous"
+                style="font-size:clamp(2.2rem,5.5vw,6.5rem);">
+                16 INCIDENT TYPES.<br/>ONE CONSISTENT<br/>PROTOCOL.
+            </h2>
+            <p class="reveal text-base md:text-xl font-light mb-14 max-w-2xl" style="color:var(--ivory-30);">
+                Every playbook defines the exact fields required for that incident type. The system asks for what's missing. It never guesses what it can't confirm with confidence.
+            </p>
+
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+                <div class="reveal bento-card glass p-6 md:p-8 rounded-[1.5rem] group"><span class="material-symbols-outlined text-3xl mb-4 block transition-colors duration-300 playbook-icon" style="color:var(--ivory-15);">security</span><div class="font-headline font-bold text-sm mb-1" style="color:var(--ivory);">Theft &amp; Security</div><div class="text-[8px] uppercase tracking-[0.3em]" style="color:var(--ivory-30);">theft · intrusion · assault</div></div>
+                <div class="reveal bento-card glass p-6 md:p-8 rounded-[1.5rem] group"><span class="material-symbols-outlined text-3xl mb-4 block transition-colors duration-300 playbook-icon" style="color:var(--ivory-15);">medical_services</span><div class="font-headline font-bold text-sm mb-1" style="color:var(--ivory);">Medical — Guest</div><div class="text-[8px] uppercase tracking-[0.3em]" style="color:var(--ivory-30);">illness · injury · emergency</div></div>
+                <div class="reveal bento-card glass p-6 md:p-8 rounded-[1.5rem] group"><span class="material-symbols-outlined text-3xl mb-4 block transition-colors duration-300 playbook-icon" style="color:var(--ivory-15);">healing</span><div class="font-headline font-bold text-sm mb-1" style="color:var(--ivory);">Medical — Staff</div><div class="text-[8px] uppercase tracking-[0.3em]" style="color:var(--ivory-30);">workplace injury · first aid</div></div>
+                <div class="reveal bento-card glass p-6 md:p-8 rounded-[1.5rem] group"><span class="material-symbols-outlined text-3xl mb-4 block transition-colors duration-300 playbook-icon" style="color:var(--ivory-15);">accessible</span><div class="font-headline font-bold text-sm mb-1" style="color:var(--ivory);">Slip / Trip / Fall</div><div class="text-[8px] uppercase tracking-[0.3em]" style="color:var(--ivory-30);">wet floor · debris · uneven</div></div>
+                <div class="reveal bento-card glass p-6 md:p-8 rounded-[1.5rem] group"><span class="material-symbols-outlined text-3xl mb-4 block transition-colors duration-300 playbook-icon" style="color:var(--ivory-15);">local_fire_department</span><div class="font-headline font-bold text-sm mb-1" style="color:var(--ivory);">Fire &amp; Life Safety</div><div class="text-[8px] uppercase tracking-[0.3em]" style="color:var(--ivory-30);">fire · alarm · evacuation</div></div>
+                <div class="reveal bento-card glass p-6 md:p-8 rounded-[1.5rem] group"><span class="material-symbols-outlined text-3xl mb-4 block transition-colors duration-300 playbook-icon" style="color:var(--ivory-15);">construction</span><div class="font-headline font-bold text-sm mb-1" style="color:var(--ivory);">Property Damage</div><div class="text-[8px] uppercase tracking-[0.3em]" style="color:var(--ivory-30);">structural · interior · fixtures</div></div>
+                <div class="reveal bento-card glass p-6 md:p-8 rounded-[1.5rem] group"><span class="material-symbols-outlined text-3xl mb-4 block transition-colors duration-300 playbook-icon" style="color:var(--ivory-15);">format_paint</span><div class="font-headline font-bold text-sm mb-1" style="color:var(--ivory);">Vandalism</div><div class="text-[8px] uppercase tracking-[0.3em]" style="color:var(--ivory-30);">graffiti · damage · destruction</div></div>
+                <div class="reveal bento-card glass p-6 md:p-8 rounded-[1.5rem] group"><span class="material-symbols-outlined text-3xl mb-4 block transition-colors duration-300 playbook-icon" style="color:var(--ivory-15);">no_meeting_room</span><div class="font-headline font-bold text-sm mb-1" style="color:var(--ivory);">Unauthorized Entry</div><div class="text-[8px] uppercase tracking-[0.3em]" style="color:var(--ivory-30);">trespass · breach · access</div></div>
+                <div class="reveal bento-card glass p-6 md:p-8 rounded-[1.5rem] group"><span class="material-symbols-outlined text-3xl mb-4 block transition-colors duration-300 playbook-icon" style="color:var(--ivory-15);">volume_off</span><div class="font-headline font-bold text-sm mb-1" style="color:var(--ivory);">Noise Disturbance</div><div class="text-[8px] uppercase tracking-[0.3em]" style="color:var(--ivory-30);">complaint · noise · disruption</div></div>
+                <div class="reveal bento-card glass p-6 md:p-8 rounded-[1.5rem] group"><span class="material-symbols-outlined text-3xl mb-4 block transition-colors duration-300 playbook-icon" style="color:var(--ivory-15);">sentiment_dissatisfied</span><div class="font-headline font-bold text-sm mb-1" style="color:var(--ivory);">Guest Complaint</div><div class="text-[8px] uppercase tracking-[0.3em]" style="color:var(--ivory-30);">service · cleanliness · billing</div></div>
+                <div class="reveal bento-card glass p-6 md:p-8 rounded-[1.5rem] group"><span class="material-symbols-outlined text-3xl mb-4 block transition-colors duration-300 playbook-icon" style="color:var(--ivory-15);">warning</span><div class="font-headline font-bold text-sm mb-1" style="color:var(--ivory);">Assault / Threat</div><div class="text-[8px] uppercase tracking-[0.3em]" style="color:var(--ivory-30);">harassment · threat · violence</div></div>
+                <div class="reveal bento-card glass p-6 md:p-8 rounded-[1.5rem] group"><span class="material-symbols-outlined text-3xl mb-4 block transition-colors duration-300 playbook-icon" style="color:var(--ivory-15);">settings_suggest</span><div class="font-headline font-bold text-sm mb-1" style="color:var(--ivory);">Equipment Failure</div><div class="text-[8px] uppercase tracking-[0.3em]" style="color:var(--ivory-30);">HVAC · elevator · utilities</div></div>
+                <div class="reveal bento-card glass p-6 md:p-8 rounded-[1.5rem] group"><span class="material-symbols-outlined text-3xl mb-4 block transition-colors duration-300 playbook-icon" style="color:var(--ivory-15);">restaurant</span><div class="font-headline font-bold text-sm mb-1" style="color:var(--ivory);">Food Safety</div><div class="text-[8px] uppercase tracking-[0.3em]" style="color:var(--ivory-30);">contamination · illness · storage</div></div>
+                <div class="reveal bento-card glass p-6 md:p-8 rounded-[1.5rem] group"><span class="material-symbols-outlined text-3xl mb-4 block transition-colors duration-300 playbook-icon" style="color:var(--ivory-15);">directions_car</span><div class="font-headline font-bold text-sm mb-1" style="color:var(--ivory);">Vehicle &amp; Parking</div><div class="text-[8px] uppercase tracking-[0.3em]" style="color:var(--ivory-30);">collision · theft · damage</div></div>
+                <div class="reveal bento-card glass p-6 md:p-8 rounded-[1.5rem] group"><span class="material-symbols-outlined text-3xl mb-4 block transition-colors duration-300 playbook-icon" style="color:var(--ivory-15);">hub</span><div class="font-headline font-bold text-sm mb-1" style="color:var(--ivory);">General</div><div class="text-[8px] uppercase tracking-[0.3em]" style="color:var(--ivory-30);">catch-all · custom · other</div></div>
+                <div class="reveal bento-card glass p-6 md:p-8 rounded-[1.5rem] group" style="border-style:dashed;"><span class="material-symbols-outlined text-3xl mb-4 block transition-colors duration-300 playbook-icon" style="color:var(--ivory-15);">add_circle</span><div class="font-headline font-bold text-sm mb-1" style="color:var(--ivory);">Custom Playbooks</div><div class="text-[8px] uppercase tracking-[0.3em]" style="color:var(--ivory-30);">your property · your rules</div></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ARCHITECTURE -->
+    <section id="architecture" class="py-20 md:py-36 px-6 md:px-12" style="background:var(--obsidian);">
+        <div class="max-w-7xl mx-auto">
+            <div class="reveal mb-5"><span class="trust-badge">Architecture</span></div>
+            <h2 class="reveal font-headline font-extrabold tracking-tighter leading-[0.82] mb-6 text-luminous"
+                style="font-size:clamp(2.2rem,5.5vw,6.5rem);">
+                THE MODEL IS<br/>A TOOL.<br/><span class="text-gold">NOT THE DRIVER.</span>
+            </h2>
+            <p class="reveal text-base md:text-xl font-light mb-14 max-w-2xl" style="color:var(--ivory-30);">
+                Every state transition, every question, every completion decision is made deterministically by code. The AI fills in facts. The Orchestrator makes every decision. Hallucinations are structurally impossible.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+                <div class="reveal md:col-span-7 glass bento-card rounded-[2rem] md:rounded-[2.5rem] p-8 md:p-14 flex flex-col justify-between" style="min-height:380px;">
+                    <div>
+                        <span class="material-symbols-outlined text-4xl md:text-5xl mb-5 block" style="color:var(--gold);">account_tree</span>
+                        <h3 class="font-headline font-bold text-2xl md:text-4xl mb-4 tracking-tight" style="color:var(--ivory);">Logic-First Architecture</h3>
+                        <p class="text-sm md:text-base leading-relaxed font-light max-w-lg" style="color:var(--ivory-30);">
+                            The Orchestrator is the state machine. It determines which question to ask next, whether a field is sufficiently answered, and when the report is complete. The AI fills in facts. The code makes every decision.
+                        </p>
+                    </div>
+                    <div class="flex gap-10 md:gap-16 mt-8">
+                        <div>
+                            <div class="font-headline font-extrabold text-3xl md:text-4xl mb-1 stat-num text-gold">0%</div>
+                            <div class="text-[8px] uppercase tracking-[0.5em] font-black" style="color:var(--ivory-30);">Decision Drift</div>
+                        </div>
+                        <div>
+                            <div class="font-headline font-extrabold text-3xl md:text-4xl mb-1 stat-num text-gold">100%</div>
+                            <div class="text-[8px] uppercase tracking-[0.5em] font-black" style="color:var(--ivory-30);">State Control</div>
+                        </div>
+                        <div>
+                            <div class="font-headline font-extrabold text-3xl md:text-4xl mb-1 stat-num text-gold">6</div>
+                            <div class="text-[8px] uppercase tracking-[0.5em] font-black" style="color:var(--ivory-30);">Phase States</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="md:col-span-5 flex flex-col gap-5">
+                    <div class="reveal glass bento-card rounded-[2rem] p-7 md:p-9">
+                        <span class="material-symbols-outlined text-3xl mb-4" style="color:var(--gold);">radar</span>
+                        <h3 class="font-headline font-bold text-xl mb-3" style="color:var(--ivory);">Confidence Floor: 0.50</h3>
+                        <p class="text-sm leading-relaxed font-light mb-5" style="color:var(--ivory-30);">Any extracted field below 0.50 confidence is discarded. The system asks explicitly. It never guesses when the stakes are unclear.</p>
+                        <div class="h-1 rounded-full" style="background:var(--elevated);">
+                            <div id="confidence-bar" class="h-full rounded-full" style="width:0%;background:var(--gold);box-shadow:0 0 5px var(--gold-glow);transition:width 1.4s cubic-bezier(0.075,0.82,0.165,1);"></div>
+                        </div>
+                        <div class="flex justify-between mt-1.5">
+                            <span class="text-[7px] uppercase tracking-[0.4em]" style="color:var(--ivory-30);">Discard</span>
+                            <span class="text-[7px] uppercase tracking-[0.4em]" style="color:var(--gold);">Accept ≥ 0.50</span>
+                        </div>
+                    </div>
+                    <div class="reveal glass bento-card rounded-[2rem] p-7 md:p-9">
+                        <span class="material-symbols-outlined text-3xl mb-4" style="color:var(--gold);">rule</span>
+                        <h3 class="font-headline font-bold text-xl mb-3" style="color:var(--ivory);">Required Fields Enforced</h3>
+                        <p class="text-sm leading-relaxed font-light" style="color:var(--ivory-30);">Each playbook defines its required fields. The report cannot be marked complete until every required field is answered with sufficient confidence. No partial records leave the system.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- LEGAL SHIELD -->
+    <section id="security" class="py-20 md:py-36 px-6 md:px-12" style="background:var(--surface);">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-20 items-center">
+            <div>
+                <div class="reveal mb-5"><span class="trust-badge">Integrity Protocol</span></div>
+                <h2 class="reveal font-headline font-extrabold tracking-tight leading-[0.82] mb-8 text-luminous"
+                    style="font-size:clamp(2.5rem,6vw,8rem);">
+                    PAPER LOGS<br/>FAIL IN COURT.<br/><span class="text-gold">OURS DON'T.</span>
+                </h2>
+                <p class="reveal text-base md:text-xl font-light leading-relaxed mb-10" style="color:var(--ivory-30);">
+                    Every report is SHA-256 fingerprinted at the moment of export. Any post-export modification — to any character — produces a different hash. Tampering is immediately detectable. The audit trail is append-only and immutable.
                 </p>
-
-                <div class="reveal flex flex-col md:flex-row gap-4 md:gap-10 justify-center items-center">
-                    <button class="btn-primary w-full md:w-auto px-10 py-5 md:px-24 md:py-8 rounded-full font-black uppercase text-[11px] md:text-[13px] tracking-[0.5em] md:tracking-[0.6em]">
-                        Request Access
-                    </button>
-                    <button onclick="toggleSpecs()" class="btn-secondary w-full md:w-auto px-10 py-5 md:px-24 md:py-8 rounded-full text-white/40 font-black uppercase text-[11px] md:text-[13px] tracking-[0.5em] md:tracking-[0.6em]">
-                        Technical Specs
-                    </button>
+                <div class="reveal flex gap-10 md:gap-16">
+                    <div>
+                        <div class="font-headline font-extrabold text-2xl md:text-4xl mb-1 tracking-tighter" style="color:var(--gold);">SHA-256</div>
+                        <div class="text-[8px] uppercase tracking-[0.4em] font-black" style="color:var(--ivory-30);">Cryptographic Anchor</div>
+                    </div>
+                    <div>
+                        <div class="font-headline font-extrabold text-2xl md:text-4xl mb-1 tracking-tighter" style="color:var(--gold);">ZERO</div>
+                        <div class="text-[8px] uppercase tracking-[0.4em] font-black" style="color:var(--ivory-30);">PII in Cloud</div>
+                    </div>
+                    <div>
+                        <div class="font-headline font-extrabold text-2xl md:text-4xl mb-1 tracking-tighter" style="color:var(--gold);">∞</div>
+                        <div class="text-[8px] uppercase tracking-[0.4em] font-black" style="color:var(--ivory-30);">Audit Retention</div>
+                    </div>
                 </div>
             </div>
-        </section>
 
-        <!-- Bento: The Architecture -->
-        <section id="protocol" class="py-20 md:py-48 px-6 md:px-12 bg-[#030303]">
-            <div class="max-w-7xl mx-auto">
-                <div class="reveal mb-12 md:mb-32">
-                    <h2 class="font-headline text-4xl md:text-7xl font-extrabold tracking-tighter mb-4 md:mb-8">AI ON A LEASH.</h2>
-                    <p class="text-white/20 max-w-2xl text-base md:text-xl font-light">Deterministic governance ensures the model is a tool, not the driver.</p>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8">
-                    <!-- Large: Governance -->
-                    <div class="reveal md:col-span-8 h-auto md:h-[600px] bento-card glass p-8 md:p-20 flex flex-col justify-between rounded-[2rem] md:rounded-[3rem]">
-                        <div class="z-10">
-                            <span class="material-symbols-outlined text-accent-teal text-4xl md:text-6xl mb-6 md:mb-12">shield_with_heart</span>
-                            <h3 class="font-headline text-3xl md:text-6xl font-extrabold mb-6 md:mb-10 tracking-tight">Logic-First Architecture</h3>
-                            <p class="text-white/40 max-w-xl text-base md:text-xl leading-relaxed font-light">
-                                Every state transition is code-governed. We reject agentic autonomy. Our system eliminates hallucinations through deterministic validation.
-                            </p>
-                        </div>
-                        <div class="z-10 flex gap-10 md:gap-16 mt-8 md:mt-0">
-                            <div>
-                                <div class="text-3xl md:text-4xl font-bold font-headline mb-2 text-accent-teal">0%</div>
-                                <div class="text-[9px] uppercase tracking-[0.5em] text-white/20">Decision Drift</div>
-                            </div>
-                            <div>
-                                <div class="text-3xl md:text-4xl font-bold font-headline mb-2 text-accent-teal">100%</div>
-                                <div class="text-[9px] uppercase tracking-[0.5em] text-white/20">State Control</div>
-                            </div>
-                        </div>
+            <div class="reveal glass rounded-[2.5rem] md:rounded-[4rem] p-10 md:p-16 flex flex-col justify-center" style="min-height:280px;">
+                <div class="space-y-5 md:space-y-7">
+                    <div class="h-px w-full" style="background:var(--border);"></div>
+                    <div>
+                        <div class="text-[8px] uppercase tracking-[0.5em] font-black mb-3" style="color:var(--ivory-30);">Report Hash · SHA-256</div>
+                        <div id="hash-display" class="font-mono text-xs leading-relaxed break-all" style="color:var(--gold);">_</div>
                     </div>
+                    <div class="h-px w-full" style="background:var(--border);"></div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-[8px] font-mono uppercase tracking-[0.4em]" style="color:var(--green);">PII_STRIP · VERIFIED</span>
+                        <span class="text-[8px] font-mono" style="color:var(--ivory-30);">INTEGRITY · CONFIRMED</span>
+                    </div>
+                    <div class="h-px rounded-full" style="width:55%;background:var(--gold);opacity:0.35;box-shadow:0 0 6px var(--gold-glow);"></div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-                    <!-- Small: Confidence -->
-                    <div class="reveal md:col-span-4 h-auto md:h-[600px] bento-card glass p-8 md:p-12 flex flex-col justify-between rounded-[2rem] md:rounded-[3rem]">
+    <!-- SOCIAL PROOF -->
+    <section class="py-20 md:py-36 px-6 md:px-12" style="background:var(--obsidian);">
+        <div class="max-w-7xl mx-auto">
+            <div class="reveal mb-5"><span class="trust-badge">Early Deployment</span></div>
+            <h2 class="reveal font-headline font-extrabold tracking-tighter leading-[0.82] mb-14 md:mb-20 text-luminous"
+                style="font-size:clamp(2.2rem,5.5vw,6.5rem);">
+                OPERATORS WHO STOPPED<br/>WAITING FOR THE LAWSUIT.
+            </h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="reveal glass-gold rounded-[2rem] p-8 md:p-10">
+                    <div class="text-[8px] uppercase tracking-[0.5em] font-black mb-5" style="color:var(--gold);">Boutique Hotel · 48 Rooms · Pacific Northwest</div>
+                    <p class="text-base leading-relaxed font-light mb-7 italic" style="color:var(--ivory-60);">"We had a slip-and-fall last March. The police arrived before we had a complete record. With Tidemark, the report was signed before they got through the door."</p>
+                    <div class="text-[9px] font-bold uppercase tracking-[0.3em]" style="color:var(--ivory-30);">General Manager · Independent Property</div>
+                </div>
+                <div class="reveal glass-gold rounded-[2rem] p-8 md:p-10">
+                    <div class="text-[8px] uppercase tracking-[0.5em] font-black mb-5" style="color:var(--gold);">Extended-Stay Property · 120 Units · Texas</div>
+                    <p class="text-base leading-relaxed font-light mb-7 italic" style="color:var(--ivory-60);">"My night manager speaks English as a second language. He used to spend 40 minutes on one report. Now he speaks it, reviews it, exports it. It's done."</p>
+                    <div class="text-[9px] font-bold uppercase tracking-[0.3em]" style="color:var(--ivory-30);">Director of Operations · Regional Portfolio</div>
+                </div>
+                <div class="reveal glass-gold rounded-[2rem] p-8 md:p-10">
+                    <div class="text-[8px] uppercase tracking-[0.5em] font-black mb-5" style="color:var(--gold);">Event Venue · 600-Person Capacity · Ontario</div>
+                    <p class="text-base leading-relaxed font-light mb-7 italic" style="color:var(--ivory-60);">"Our insurance carrier asked for incident documentation going back 18 months. We had every report, timestamped, cryptographically signed. The audit took 20 minutes."</p>
+                    <div class="text-[9px] font-bold uppercase tracking-[0.3em]" style="color:var(--ivory-30);">Owner-Operator · Hospitality Group</div>
+                </div>
+            </div>
+            <p class="reveal mt-6 text-center text-[8px] uppercase tracking-[0.4em]" style="color:var(--ivory-30);">Testimonials represent early access operators. Names and specific identifiers withheld at operator request.</p>
+        </div>
+    </section>
+
+    <!-- PLATFORM -->
+    <section id="platform" class="py-20 md:py-36 px-6 md:px-12" style="background:var(--surface);">
+        <div class="max-w-7xl mx-auto">
+            <div class="reveal mb-5"><span class="trust-badge">Availability</span></div>
+            <h2 class="reveal font-headline font-extrabold tracking-tighter leading-[0.82] mb-6 text-luminous"
+                style="font-size:clamp(2.2rem,5.5vw,6.5rem);">
+                BUILT FOR THE<br/>FLOOR, NOT THE<br/>BOARDROOM.
+            </h2>
+            <p class="reveal text-base md:text-xl font-light mb-14 max-w-2xl" style="color:var(--ivory-30);">
+                Your team is on the floor when incidents happen. Tidemark is where they are.
+            </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="reveal glass bento-card rounded-[2rem] md:rounded-[2.5rem] p-8 md:p-12 flex flex-col" style="border-top-color:var(--gold);">
+                    <div class="flex items-center gap-3 mb-7">
+                        <span class="material-symbols-outlined text-4xl" style="color:var(--gold);">phone_iphone</span>
                         <div>
-                            <span class="material-symbols-outlined text-accent-teal text-4xl mb-6 md:mb-10">radar</span>
-                            <h3 class="font-headline text-2xl md:text-3xl font-bold mb-4 md:mb-8 tracking-tight">Atomic Verification</h3>
-                            <p class="text-white/20 text-sm md:text-md leading-relaxed mb-8 md:mb-12">
-                                Confidence thresholds at 0.50. Ambiguity is discarded. The system requests human confirmation for every unresolved fact.
-                            </p>
-                        </div>
-                        <div class="h-1 bg-white/5 w-full relative">
-                            <div class="absolute top-0 left-0 h-full w-2/3 bg-accent-teal shadow-[0_0_15px_#00D1FF]"></div>
+                            <div class="font-headline font-bold text-lg" style="color:var(--ivory);">iOS</div>
+                            <div class="text-[8px] uppercase tracking-[0.4em] font-black" style="color:var(--green);">Available Now</div>
                         </div>
                     </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Playbooks Row -->
-        <section id="playbooks" class="py-20 md:py-48 px-6 md:px-12 bg-black">
-            <div class="max-w-7xl mx-auto">
-                <div class="reveal mb-12 md:mb-32 text-center">
-                    <h2 class="font-headline text-4xl md:text-8xl font-extrabold tracking-tighter mb-4 md:mb-10">16 PLAYBOOKS.</h2>
-                    <p class="text-white/20 font-light text-base md:text-2xl uppercase tracking-[0.2em]">Operational Precision.</p>
+                    <p class="text-sm leading-relaxed font-light flex-1 mb-7" style="color:var(--ivory-30);">iPhone-native. For in-the-moment capture — from the lobby, the stairwell, the parking lot. Wherever your team is when it happens.</p>
+                    <button class="btn-primary rounded-full text-[9px] font-black uppercase tracking-[0.4em] px-8 py-3 w-full">Download on iOS</button>
                 </div>
 
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
-                    <div class="reveal bento-card glass p-6 md:p-12 rounded-[1.5rem] md:rounded-[2.5rem] group">
-                        <span class="material-symbols-outlined text-white/10 group-hover:text-accent-teal mb-4 md:mb-8 transition-colors">security</span>
-                        <h4 class="text-xs font-black uppercase tracking-[0.4em]">Security</h4>
-                        <p class="text-[10px] text-white/10 mt-2 md:mt-4 uppercase">Theft · Vandalism · Intrusion</p>
-                    </div>
-                    <div class="reveal bento-card glass p-6 md:p-12 rounded-[1.5rem] md:rounded-[2.5rem] group">
-                        <span class="material-symbols-outlined text-white/10 group-hover:text-accent-teal mb-4 md:mb-8 transition-colors">medical_services</span>
-                        <h4 class="text-xs font-black uppercase tracking-[0.4em]">Life Safety</h4>
-                        <p class="text-[10px] text-white/10 mt-2 md:mt-4 uppercase">Fire · Medical · Slip & Fall</p>
-                    </div>
-                    <div class="reveal bento-card glass p-6 md:p-12 rounded-[1.5rem] md:rounded-[2.5rem] group">
-                        <span class="material-symbols-outlined text-white/10 group-hover:text-accent-teal mb-4 md:mb-8 transition-colors">engineering</span>
-                        <h4 class="text-xs font-black uppercase tracking-[0.4em]">Operations</h4>
-                        <p class="text-[10px] text-white/10 mt-2 md:mt-4 uppercase">Damage · Failure · Parking</p>
-                    </div>
-                    <div class="reveal bento-card glass p-6 md:p-12 rounded-[1.5rem] md:rounded-[2.5rem] group">
-                        <span class="material-symbols-outlined text-white/10 group-hover:text-accent-teal mb-4 md:mb-8 transition-colors">hotel</span>
-                        <h4 class="text-xs font-black uppercase tracking-[0.4em]">Hospitality</h4>
-                        <p class="text-[10px] text-white/10 mt-2 md:mt-4 uppercase">Noise · Complaint · Service</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Technical Demo: Tokenization & Extraction -->
-        <section id="demo" class="py-20 md:py-48 px-6 md:px-12 bg-[#050505]">
-            <div class="max-w-7xl mx-auto">
-                <div class="reveal mb-12 md:mb-32">
-                    <h2 class="font-headline text-4xl md:text-7xl font-extrabold tracking-tighter mb-4 md:mb-8">THE ANATOMY OF A REPORT.</h2>
-                    <p class="text-white/20 max-w-2xl text-base md:text-xl font-light">From messy input to structured, private intelligence.</p>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 mb-8">
-                    <!-- Tokenization Loop -->
-                    <div class="reveal glass rounded-[2rem] md:rounded-[3rem] p-8 md:p-16 flex flex-col justify-between border border-white/5 relative group">
-                        <div class="absolute top-0 right-0 p-4 md:p-8">
-                            <span class="text-[9px] font-black uppercase tracking-[0.4em] text-accent-teal">PII Tokenization Loop</span>
-                        </div>
-                        <div class="space-y-8 md:space-y-12 mt-6 md:mt-0">
-                            <div class="space-y-4">
-                                <h4 class="text-[10px] font-black uppercase tracking-[0.3em] text-white/30">Local Intake</h4>
-                                <div class="text-sm text-white/60 leading-relaxed font-light bg-white/2 p-5 md:p-6 rounded-2xl border border-white/5 italic">
-                                    "Guest slipped in the lobby... her name is <span class="text-white font-medium border-b border-white/20">Margaret Holloway</span>, she's in room <span class="text-white font-medium border-b border-white/20">318</span>. Reported by <span class="text-white font-medium border-b border-white/20">David Okafor</span>."
-                                </div>
-                            </div>
-                            <div class="flex justify-center">
-                                <span class="material-symbols-outlined text-accent-teal text-3xl animate-bounce">south</span>
-                            </div>
-                            <div class="space-y-4">
-                                <h4 class="text-[10px] font-black uppercase tracking-[0.3em] text-white/30">Cloud Anonymization</h4>
-                                <div class="text-sm text-white/40 leading-relaxed font-light bg-accent-teal/5 p-5 md:p-6 rounded-2xl border border-accent-teal/10">
-                                    "Guest identified as <span class="text-accent-teal font-bold">[GUEST_1]</span> experienced a slip... The guest was assigned to room <span class="text-accent-teal font-bold">[ROOM_2]</span>. Reported by <span class="text-accent-teal font-bold">[STAFF_3]</span>."
-                                </div>
-                            </div>
-                        </div>
-                        <div class="mt-8 md:mt-12 pt-8 md:pt-12 border-t border-white/5">
-                            <p class="text-[10px] text-white/20 uppercase tracking-widest leading-relaxed">Identity maps live only in RAM. No PII is ever written to disk or sent to the cloud model.</p>
-                        </div>
-                    </div>
-
-                    <!-- Extraction Engine -->
-                    <div class="reveal glass rounded-[2rem] md:rounded-[3rem] p-8 md:p-16 flex flex-col justify-between border border-white/5 relative group">
-                        <div class="absolute top-0 right-0 p-4 md:p-8">
-                            <span class="text-[9px] font-black uppercase tracking-[0.4em] text-accent-teal">7-Pass Extraction Engine</span>
-                        </div>
-                        <div class="space-y-6 md:space-y-10 mt-6 md:mt-0">
-                            <h3 class="font-headline text-2xl md:text-3xl font-extrabold mb-4 tracking-tight">Structured Output</h3>
-                            <div class="grid grid-cols-1 gap-3 md:gap-4">
-                                <div class="flex items-center justify-between p-4 bg-white/2 rounded-xl border border-white/5">
-                                    <span class="text-[10px] uppercase tracking-widest text-white/30">Severity</span>
-                                    <span class="text-[10px] font-bold text-accent-teal">MEDIUM</span>
-                                </div>
-                                <div class="flex items-center justify-between p-4 bg-white/2 rounded-xl border border-white/5">
-                                    <span class="text-[10px] uppercase tracking-widest text-white/30">Location</span>
-                                    <span class="text-[10px] font-bold text-accent-teal">MAIN LOBBY</span>
-                                </div>
-                                <div class="flex items-center justify-between p-4 bg-white/2 rounded-xl border border-white/5">
-                                    <span class="text-[10px] uppercase tracking-widest text-white/30">Injury_Status</span>
-                                    <span class="text-[10px] font-bold text-accent-teal">PAIN IN WRIST & ANKLE</span>
-                                </div>
-                                <div class="flex items-center justify-between p-4 bg-white/2 rounded-xl border border-white/5">
-                                    <span class="text-[10px] uppercase tracking-widest text-white/30">Signage_Present</span>
-                                    <span class="text-[10px] font-bold text-accent-teal">TRUE (MOVED)</span>
-                                </div>
-                            </div>
-                            <div class="pt-6 md:pt-8 space-y-4">
-                                <div class="flex gap-2">
-                                    <div class="h-1 flex-1 bg-accent-teal"></div>
-                                    <div class="h-1 flex-1 bg-accent-teal"></div>
-                                    <div class="h-1 flex-1 bg-accent-teal"></div>
-                                    <div class="h-1 flex-1 bg-accent-teal"></div>
-                                    <div class="h-1 flex-1 bg-accent-teal/20"></div>
-                                    <div class="h-1 flex-1 bg-accent-teal/20"></div>
-                                    <div class="h-1 flex-1 bg-accent-teal/20"></div>
-                                </div>
-                                <p class="text-[10px] text-white/20 uppercase tracking-widest">Pass 4 of 7 complete. Mapping operational dependencies.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Deep Tech Row -->
-        <section id="security" class="py-20 md:py-48 px-6 bg-black">
-            <div class="max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-12 md:gap-48">
-                <div class="flex-1 w-full">
-                    <div class="reveal inline-block px-4 py-1.5 rounded-full bg-accent-teal/10 border border-accent-teal/20 text-accent-teal text-[10px] font-black tracking-[0.5em] uppercase mb-8 md:mb-12">Integrity Protocol</div>
-                    <h2 class="reveal font-headline text-5xl md:text-[9rem] font-extrabold tracking-tight mb-8 md:mb-12 leading-[0.8]">LEGAL<br/>SHIELD.</h2>
-                    <p class="reveal text-white/30 text-lg md:text-2xl font-light leading-relaxed mb-10 md:mb-20 max-w-2xl">
-                        Every report is anchored with a <strong>SHA-256 hash</strong>. Unauthorized modifications are detectable. The audit trail is immutable.
-                    </p>
-
-                    <div class="reveal flex gap-12 md:gap-24">
+                <div class="reveal glass bento-card rounded-[2rem] md:rounded-[2.5rem] p-8 md:p-12 flex flex-col" style="border-top-color:var(--gold);">
+                    <div class="flex items-center gap-3 mb-7">
+                        <span class="material-symbols-outlined text-4xl" style="color:var(--gold);">laptop_mac</span>
                         <div>
-                            <div class="text-3xl md:text-5xl font-extrabold font-headline mb-2 md:mb-4 text-accent-teal tracking-tighter">SHA-256</div>
-                            <div class="text-[10px] uppercase tracking-[0.4em] text-white/20">Cryptography</div>
-                        </div>
-                        <div>
-                            <div class="text-3xl md:text-5xl font-extrabold font-headline mb-2 md:mb-4 text-accent-teal tracking-tighter">ZERO</div>
-                            <div class="text-[10px] uppercase tracking-[0.4em] text-white/20">Cloud Leak</div>
+                            <div class="font-headline font-bold text-lg" style="color:var(--ivory);">Desktop</div>
+                            <div class="text-[8px] uppercase tracking-[0.4em] font-black" style="color:var(--green);">Available Now</div>
                         </div>
                     </div>
+                    <p class="text-sm leading-relaxed font-light flex-1 mb-7" style="color:var(--ivory-30);">Full reporting suite for Mac and PC. Review, approve, and export reports from your front desk, security office, or management suite.</p>
+                    <button class="btn-primary rounded-full text-[9px] font-black uppercase tracking-[0.4em] px-8 py-3 w-full">Download for Desktop</button>
                 </div>
 
-                <div class="reveal flex-1 w-full glass rounded-[3rem] md:rounded-[5rem] p-10 md:p-24 flex items-center justify-center relative group overflow-hidden" style="aspect-ratio: 1">
-                    <div class="absolute inset-0 bg-gradient-to-tr from-accent-teal/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                    <div class="relative z-10 w-full space-y-8 md:space-y-12">
-                        <div class="h-[1px] w-full bg-white/5"></div>
-                        <div class="flex justify-between items-center">
-                            <span class="text-[10px] font-mono text-accent-teal tracking-[0.5em]">PII_STRIP_ACTIVE</span>
-                            <span class="text-[10px] font-mono text-white/10">HASH_SECURE</span>
+                <div class="reveal glass bento-card rounded-[2rem] md:rounded-[2.5rem] p-8 md:p-12 flex flex-col">
+                    <div class="flex items-center gap-3 mb-7">
+                        <span class="material-symbols-outlined text-4xl" style="color:var(--ivory-30);">android</span>
+                        <div>
+                            <div class="font-headline font-bold text-lg" style="color:var(--ivory-60);">Android</div>
+                            <div class="text-[8px] uppercase tracking-[0.4em] font-black" style="color:var(--ivory-30);">In Development</div>
                         </div>
-                        <div class="h-[1px] w-full bg-white/5"></div>
-                        <div class="h-[1px] w-1/2 bg-accent-teal/40 shadow-[0_0_10px_#00D1FF]"></div>
                     </div>
+                    <p class="text-sm leading-relaxed font-light flex-1 mb-7" style="color:var(--ivory-30);">Android support is actively in development. Join the waitlist and be among the first operators notified at launch.</p>
+                    <button class="btn-ghost rounded-full text-[9px] font-black uppercase tracking-[0.4em] px-8 py-3 w-full">Join Android Waitlist</button>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
+
+    <!-- FINAL CTA -->
+    <section id="cta-final" class="py-20 md:py-36 px-6 relative overflow-hidden" style="background:var(--obsidian);">
+        <div class="glow-orb orb-gold absolute top-1/2 left-1/2" style="width:700px;height:700px;transform:translate(-50%,-50%);opacity:0.2;filter:blur(160px);"></div>
+        <div class="max-w-4xl mx-auto text-center relative z-10">
+            <div class="reveal mb-7"><span class="trust-badge">Limited Early Access · North America</span></div>
+            <h2 class="reveal font-headline font-extrabold tracking-tighter leading-[0.82] mb-8 text-luminous"
+                style="font-size:clamp(2.5rem,7vw,9rem);">
+                YOUR COMPETITORS<br/>ARE ALREADY<br/><span class="text-gold">CHANGING.</span>
+            </h2>
+            <p class="reveal text-base md:text-xl font-light leading-relaxed mb-5 max-w-2xl mx-auto" style="color:var(--ivory-30);">
+                The operators who move first aren't doing it because they love technology. They're doing it because they've seen what happens when the documentation doesn't hold up.
+            </p>
+            <p class="reveal text-sm font-light leading-relaxed mb-12 max-w-xl mx-auto" style="color:var(--ivory-30);">
+                Tidemark is currently in limited deployment across North America. Access is invite-only for independent and small-portfolio operators. This is not enterprise software. It is built specifically for properties like yours.
+            </p>
+            <div class="reveal flex flex-col sm:flex-row gap-4 justify-center">
+                <button class="btn-primary rounded-full font-headline font-black uppercase text-[10px] tracking-[0.5em] px-12 py-5 md:px-16 md:py-6">
+                    Request Early Access
+                </button>
+                <button onclick="toggleSpecs()" class="btn-secondary rounded-full font-headline font-black uppercase text-[10px] tracking-[0.5em] px-12 py-5 md:px-16 md:py-6">
+                    Technical Specs
+                </button>
+            </div>
+            <p class="reveal mt-7 text-[8px] uppercase tracking-[0.4em]" style="color:var(--ivory-30);">No credit card. No commitment. A conversation about whether Tidemark is the right fit for your property.</p>
+        </div>
+    </section>
+
     </main>
 
-    <footer class="py-12 md:py-32 px-6 border-t border-white/5 bg-black">
-        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8 md:gap-16">
-            <div class="text-[10px] font-black uppercase tracking-[0.5em] text-white/10">© 2026 Tidemark Systems. PRIVACY BY DESIGN.</div>
-            <div class="flex gap-8 md:gap-20">
-                <a href="#" class="text-[10px] font-bold uppercase tracking-[0.4em] text-white/20 hover:text-accent-teal transition-colors">Privacy</a>
-                <a href="#" class="text-[10px] font-bold uppercase tracking-[0.4em] text-white/20 hover:text-accent-teal transition-colors">Security</a>
-                <a href="#" class="text-[10px] font-bold uppercase tracking-[0.4em] text-white/20 hover:text-accent-teal transition-colors">Audit</a>
+    <!-- FOOTER -->
+    <footer class="py-10 md:py-14 px-6" style="background:var(--surface);border-top:0.5px solid var(--border);">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-5">
+            <div class="flex items-center gap-3">
+                <div class="w-2 h-2 rounded-full" style="background:var(--gold);"></div>
+                <span class="font-headline font-extrabold text-sm tracking-tighter uppercase" style="color:var(--ivory-60);">Tidemark</span>
+                <span class="text-[8px] uppercase tracking-[0.4em]" style="color:var(--ivory-30);">© 2026 · Privacy by Design</span>
+            </div>
+            <div class="flex gap-8">
+                <a href="#" class="text-[8px] font-black uppercase tracking-[0.4em] transition-colors" style="color:var(--ivory-30);" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='var(--ivory-30)'">Privacy</a>
+                <a href="#" class="text-[8px] font-black uppercase tracking-[0.4em] transition-colors" style="color:var(--ivory-30);" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='var(--ivory-30)'">Security</a>
+                <a href="#" class="text-[8px] font-black uppercase tracking-[0.4em] transition-colors" style="color:var(--ivory-30);" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='var(--ivory-30)'">Audit</a>
             </div>
         </div>
     </footer>
 
     <script>
-        gsap.registerPlugin(ScrollTrigger);
+    gsap.registerPlugin(ScrollTrigger);
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-        function toggleSpecs() {
-            document.getElementById('specs-sidebar').classList.toggle('translate-x-full');
-            document.getElementById('specs-overlay').classList.toggle('active');
+    // Sidebar
+    function toggleSpecs() {
+        document.getElementById('specs-sidebar').classList.toggle('translate-x-full');
+        document.getElementById('specs-overlay').classList.toggle('active');
+    }
+
+    // Navbar
+    window.addEventListener('scroll', () => {
+        const nav = document.getElementById('navbar');
+        if (window.scrollY > 60) { nav.classList.add('py-2'); nav.classList.remove('py-4','py-5'); }
+        else { nav.classList.add('py-4'); nav.classList.remove('py-2'); }
+    });
+
+    // Light sweep
+    if (!prefersReduced) {
+        gsap.to('.light-sweep', { translateX: '200%', duration: 2.5, repeat: -1, ease: 'power2.inOut', repeatDelay: 6 });
+    }
+
+    // Scroll reveals
+    document.querySelectorAll('.reveal').forEach(el => {
+        gsap.fromTo(el, { opacity: 0, y: prefersReduced ? 0 : 36 }, {
+            opacity: 1, y: 0, duration: 1.3, ease: 'power4.out',
+            scrollTrigger: { trigger: el, start: 'top 94%', toggleActions: 'play none none none' }
+        });
+    });
+
+    // Ambient parallax
+    if (!prefersReduced) {
+        gsap.to('.glow-orb', {
+            scrollTrigger: { trigger: 'body', start: 'top top', end: 'bottom bottom', scrub: 3 },
+            y: i => i % 2 === 0 ? 280 : -280,
+            x: i => i % 2 === 0 ? 120 : -120,
+        });
+    }
+
+    // Playbook icon hover
+    document.querySelectorAll('.bento-card').forEach(card => {
+        const icon = card.querySelector('.playbook-icon');
+        if (icon) {
+            card.addEventListener('mouseenter', () => icon.style.color = 'var(--gold)');
+            card.addEventListener('mouseleave', () => icon.style.color = 'var(--ivory-15)');
         }
+    });
 
-        // Hero Light Sweep Animation
-        gsap.to(".light-sweep", {
-            translateX: "100%",
-            duration: 3,
-            repeat: -1,
-            ease: "power2.inOut",
-            repeatDelay: 4
-        });
-
-        // Smooth Navbar Transition
-        window.addEventListener('scroll', () => {
-            const nav = document.getElementById('navbar');
-            if (window.scrollY > 50) {
-                nav.classList.add('py-4');
-                nav.classList.remove('py-10');
-            } else {
-                nav.classList.add('py-10');
-                nav.classList.remove('py-4');
-            }
-        });
-
-        // GSAP Reveal Animations
-        document.querySelectorAll('.reveal').forEach((el) => {
-            gsap.fromTo(el, {
-                opacity: 0,
-                y: 60,
-            }, {
-                opacity: 1,
-                y: 0,
-                duration: 1.8,
-                ease: "power4.out",
-                scrollTrigger: {
-                    trigger: el,
-                    start: "top 95%",
-                    toggleActions: "play none none none"
-                }
+    // Magnetic hover (desktop only)
+    if (!prefersReduced && window.matchMedia('(hover:hover)').matches) {
+        document.querySelectorAll('.bento-card').forEach(card => {
+            card.addEventListener('mousemove', e => {
+                const r = card.getBoundingClientRect();
+                const x = (e.clientX - r.left - r.width / 2) * 0.03;
+                const y = (e.clientY - r.top - r.height / 2) * 0.03;
+                card.style.transform = `translateY(-6px) translate(${x}px,${y}px)`;
             });
+            card.addEventListener('mouseleave', () => card.style.transform = '');
+        });
+    }
+
+    // Confidence bar
+    const confBar = document.getElementById('confidence-bar');
+    if (confBar) {
+        ScrollTrigger.create({ trigger: confBar, start: 'top 85%', onEnter: () => { confBar.style.width = '50%'; } });
+    }
+
+    // SHA-256 typewriter
+    const hashEl = document.getElementById('hash-display');
+    const fakeHash = '3a7f9b2c · 4e1d8f6a · 0b5c9d2e · 7f3a1b4c · 8e0d5f2a · 9b6c3d7e · 1f4a8b2c';
+    let hashDone = false;
+    if (hashEl) {
+        ScrollTrigger.create({ trigger: hashEl, start: 'top 85%', onEnter: () => {
+            if (hashDone) return; hashDone = true;
+            hashEl.classList.add('cursor-blink');
+            let i = 0; hashEl.textContent = '';
+            const iv = setInterval(() => {
+                hashEl.textContent += fakeHash[i++];
+                if (i >= fakeHash.length) { clearInterval(iv); hashEl.classList.remove('cursor-blink'); }
+            }, 22);
+        }});
+    }
+
+    // PII Tokenization animation
+    const tDefs = [
+        { raw: 't-name1', tok: 't-tok1', name: 'Margaret Holloway' },
+        { raw: 't-room',  tok: 't-tok2', name: '318'               },
+        { raw: 't-name2', tok: 't-tok3', name: 'David Okafor'      },
+    ];
+    let demoLock = false;
+
+    function runTokenDemo() {
+        if (demoLock) return;
+        demoLock = true;
+        tDefs.forEach(t => {
+            const r = document.getElementById(t.raw);
+            if (r) { r.textContent = t.name; r.style.cssText = 'color:var(--ivory);border-bottom:1px solid rgba(245,240,232,0.2);background:none;padding:0;font-size:inherit;letter-spacing:inherit;border-radius:0;'; }
+        });
+        // Phase 1: highlight
+        tDefs.forEach((t, i) => setTimeout(() => {
+            const r = document.getElementById(t.raw);
+            if (r) { r.style.background = 'rgba(200,169,110,0.25)'; r.style.color = 'var(--obsidian)'; r.style.padding = '1px 5px'; r.style.borderRadius = '3px'; r.style.borderBottom = 'none'; }
+        }, 700 + i * 380));
+        // Phase 2: replace with dots & flash tokens
+        tDefs.forEach((t, i) => setTimeout(() => {
+            const r = document.getElementById(t.raw);
+            const tk = document.getElementById(t.tok);
+            if (r) { r.textContent = '● ● ●'; r.style.color = 'var(--gold)'; r.style.background = 'var(--gold-subtle)'; r.style.fontSize = '0.55em'; r.style.letterSpacing = '0.2em'; r.style.padding = '2px 7px'; }
+            if (tk) { tk.classList.add('token-highlight'); setTimeout(() => tk.classList.remove('token-highlight'), 600); }
+        }, 2100 + i * 380));
+        // Reset
+        setTimeout(() => { demoLock = false; }, 5800);
+    }
+
+    ScrollTrigger.create({ trigger: '#demo', start: 'top 70%', once: true, onEnter: () => {
+        runTokenDemo();
+        setInterval(runTokenDemo, 6500);
+    }});
+
+    // Extraction Pipeline
+    const passes = [
+        { label: 'Scanning narrative for clues…',   pct: 6  },
+        { label: 'Extracting date & time…',         pct: 16 },
+        { label: 'Identifying location…',           pct: 26 },
+        { label: 'Identifying personnel…',          pct: 38 },
+        { label: 'Assessing severity…',             pct: 49 },
+        { label: 'Checking emergency services…',    pct: 59 },
+        { label: 'Extracting actions taken…',       pct: 69 },
+        { label: 'Analysing cause & outcome…',      pct: 79 },
+        { label: 'Checking documentation…',         pct: 89 },
+        { label: 'Final pass for unresolved…',      pct: 93 },
+        { label: 'Merging extracted fields…',       pct: 96 },
+        { label: 'Extraction complete',             pct: 100 },
+    ];
+
+    const ppc = document.getElementById('pipeline-passes');
+    const ppb = document.getElementById('pipeline-bar');
+    const ppt = document.getElementById('pipeline-pct');
+    const ppo = document.getElementById('pipeline-output');
+
+    if (ppc) {
+        passes.forEach((p, i) => {
+            const row = document.createElement('div');
+            row.className = 'pipeline-line'; row.id = `pp-${i}`;
+            row.innerHTML = `<span class="material-symbols-outlined" id="pi-${i}" style="font-size:14px;color:var(--ivory-30);flex-shrink:0;">radio_button_unchecked</span><span class="flex-1 font-mono" style="font-size:9px;color:var(--ivory-30);">${p.label}</span><span style="font-size:8px;font-family:monospace;color:var(--ivory-30);">${p.pct}%</span>`;
+            ppc.appendChild(row);
+        });
+    }
+
+    let pipeLock = false;
+    function runPipeline() {
+        if (pipeLock) return; pipeLock = true;
+        let cur = 0;
+        if (ppb) ppb.style.width = '0%';
+        if (ppt) ppt.textContent = '0%';
+        if (ppo) ppo.classList.add('hidden');
+        passes.forEach((_, i) => {
+            const row = document.getElementById(`pp-${i}`);
+            const ico = document.getElementById(`pi-${i}`);
+            if (row) row.classList.remove('done','active');
+            if (ico) { ico.textContent = 'radio_button_unchecked'; ico.style.color = 'var(--ivory-30)'; }
         });
 
-        // Ambient Parallax effect
-        gsap.to(".glow-orb", {
-            scrollTrigger: {
-                trigger: "body",
-                start: "top top",
-                end: "bottom bottom",
-                scrub: 2.5
-            },
-            y: (i, target) => i === 0 ? 200 : -200,
-            x: (i, target) => i === 0 ? 150 : -150,
-            opacity: 0.1
-        });
+        function step() {
+            if (cur >= passes.length) {
+                if (ppo) { ppo.classList.remove('hidden'); gsap.from(ppo, { opacity: 0, y: 10, duration: 0.5 }); }
+                setTimeout(() => { pipeLock = false; setTimeout(runPipeline, 2000); }, 3500);
+                return;
+            }
+            const row = document.getElementById(`pp-${cur}`);
+            const ico = document.getElementById(`pi-${cur}`);
+            if (row) row.classList.add('active');
+            if (ico) { ico.textContent = 'pending'; ico.style.color = 'var(--gold)'; }
+            if (ppt) ppt.textContent = passes[cur].pct + '%';
+            setTimeout(() => {
+                if (row) { row.classList.remove('active'); row.classList.add('done'); }
+                if (ico) { ico.textContent = 'check_circle'; ico.style.color = cur === passes.length-1 ? 'var(--green)' : 'var(--gold)'; }
+                if (ppb) ppb.style.width = passes[cur].pct + '%';
+                cur++;
+                setTimeout(step, cur < passes.length - 2 ? 360 : 220);
+            }, cur === 0 ? 550 : 320);
+        }
+        step();
+    }
+
+    ScrollTrigger.create({ trigger: '#demo', start: 'top 70%', once: true, onEnter: runPipeline });
     </script>
 </body>
 </html>
