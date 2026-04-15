@@ -13,126 +13,210 @@
         :root {
             --bg-obsidian: #0A0A0B;
             --accent-teal: #00D1FF;
-            --accent-glow: rgba(0, 209, 255, 0.18);
-            --surface-glass: rgba(20, 20, 22, 0.4);
-            --border-rim: rgba(255, 255, 255, 0.12);
-            --border-subtle: rgba(255, 255, 255, 0.04);
-            --inner-glow: inset 0 1px 1px rgba(255, 255, 255, 0.05);
+            --accent-glow: rgba(0, 209, 255, 0.2);
+            --surface-glass: rgba(15, 15, 17, 0.5);
+            --border-rim: rgba(255, 255, 255, 0.15);
+            --border-subtle: rgba(255, 255, 255, 0.05);
+            --inner-glow: inset 0 1px 2px rgba(255, 255, 255, 0.08);
         }
 
         body {
             background-color: var(--bg-obsidian);
-            background-image: 
-                radial-gradient(circle at 50% -20%, rgba(0, 209, 255, 0.05) 0%, transparent 50%),
-                radial-gradient(circle at 0% 100%, rgba(0, 209, 255, 0.03) 0%, transparent 40%);
             color: #ffffff;
             font-family: 'Inter', sans-serif;
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
         }
 
-        .font-headline { font-family: 'Plus Jakarta Sans', sans-serif; }
-
-        /* High-Fidelity Luminous Glass */
-        .glass {
-            background: var(--surface-glass);
-            backdrop-filter: blur(50px) saturate(180%);
-            -webkit-backdrop-filter: blur(50px) saturate(180%);
-            border: 0.5px solid var(--border-subtle);
-            border-top: 0.5px solid var(--border-rim); /* Rim Light */
-            box-shadow: 
-                var(--inner-glow),
-                0 20px 50px rgba(0, 0, 0, 0.3);
+        /* Physical Texture Overlay */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url("https://grainy-gradients.vercel.app/noise.svg");
+            opacity: 0.15;
+            pointer-events: none;
+            z-index: 9999;
+            filter: contrast(120%) brightness(120%);
         }
 
-        /* Volumetric Atmospheric Orbs */
+        .font-headline { font-family: 'Plus Jakarta Sans', sans-serif; }
+
+        /* Multi-Dimensional Glass */
+        .glass {
+            background: var(--surface-glass);
+            backdrop-filter: blur(60px) saturate(200%);
+            -webkit-backdrop-filter: blur(60px) saturate(200%);
+            border: 0.5px solid var(--border-subtle);
+            border-top: 0.5px solid var(--border-rim);
+            box-shadow: 
+                var(--inner-glow),
+                0 30px 60px rgba(0, 0, 0, 0.5),
+                inset 0 0 40px rgba(0, 209, 255, 0.02);
+        }
+
+        /* Luminous Light Sweep */
+        .light-sweep {
+            position: absolute;
+            width: 150%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 209, 255, 0.03), transparent);
+            transform: skewX(-20deg) translateX(-100%);
+            pointer-events: none;
+            z-index: 1;
+        }
+
         .glow-orb {
             position: absolute;
-            width: 1000px;
-            height: 1000px;
+            width: 1200px;
+            height: 1200px;
             background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
             border-radius: 50%;
             pointer-events: none;
             z-index: 0;
-            filter: blur(150px);
-            opacity: 0.6;
+            filter: blur(180px);
+            opacity: 0.5;
         }
 
-        .reveal { opacity: 0; transform: translateY(40px); }
+        .reveal { opacity: 0; transform: translateY(50px); }
 
         .btn-primary {
             background: #ffffff;
             color: #000000;
-            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-            box-shadow: 0 0 0 rgba(0, 209, 255, 0);
+            transition: all 0.7s cubic-bezier(0.15, 1, 0.3, 1);
         }
         .btn-primary:hover {
-            background: #ffffff;
-            transform: translateY(-3px) scale(1.02);
-            box-shadow: 0 20px 40px rgba(0, 209, 255, 0.2);
+            transform: translateY(-4px) scale(1.03);
+            box-shadow: 0 25px 50px rgba(0, 209, 255, 0.25);
         }
 
         .btn-secondary {
             border: 0.5px solid var(--border-rim);
-            background: rgba(255, 255, 255, 0.03);
-            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            background: rgba(255, 255, 255, 0.04);
+            transition: all 0.7s cubic-bezier(0.15, 1, 0.3, 1);
         }
         .btn-secondary:hover {
-            background: rgba(255, 255, 255, 0.08);
             border-color: var(--accent-teal);
+            background: rgba(255, 255, 255, 0.1);
             transform: translateY(-2px);
         }
 
         .bento-card {
-            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-            position: relative;
-            overflow: hidden;
+            transition: all 0.9s cubic-bezier(0.15, 1, 0.3, 1);
         }
         .bento-card:hover {
-            transform: scale(1.01) translateY(-10px);
-            border-color: rgba(0, 209, 255, 0.3);
-            background: rgba(255, 255, 255, 0.05);
+            transform: translateY(-12px);
+            border-color: rgba(0, 209, 255, 0.4);
+            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.6), inset 0 0 20px rgba(0, 209, 255, 0.05);
         }
 
-        /* Depth Text Effect */
         .text-luminous {
-            background: linear-gradient(180deg, #ffffff 0%, rgba(255, 255, 255, 0.5) 100%);
+            background: linear-gradient(180deg, #ffffff 30%, rgba(255, 255, 255, 0.4) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            filter: drop-shadow(0 0 30px rgba(0, 209, 255, 0.1));
         }
 
-        .tag-pill {
-            background: rgba(0, 209, 255, 0.08);
-            border: 0.5px solid rgba(0, 209, 255, 0.2);
-            box-shadow: inset 0 0 10px rgba(0, 209, 255, 0.05);
+        /* Sidebar Overlay */
+        #specs-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(10px);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.6s ease;
+            z-index: 999;
         }
+        #specs-overlay.active { opacity: 1; pointer-events: auto; }
+
+        #specs-sidebar {
+            transform: translateX(100%);
+            transition: transform 0.8s cubic-bezier(0.15, 1, 0.3, 1);
+            box-shadow: -20px 0 100px rgba(0, 0, 0, 0.8);
+        }
+        #specs-sidebar.active { transform: translateX(0); }
     </style>
 </head>
 <body class="selection:bg-accent-teal/30">
 
-    <div class="glow-orb top-[-400px] left-[-400px]"></div>
-    <div class="glow-orb bottom-[-500px] right-[-400px]"></div>
+    <div id="specs-overlay" onclick="toggleSpecs()"></div>
+    <div class="glow-orb top-[-500px] left-[-500px]"></div>
+    <div class="glow-orb bottom-[-600px] right-[-500px]"></div>
 
     <!-- Navigation -->
     <nav class="fixed top-0 w-full z-[100] px-6 py-8 md:px-12 transition-all duration-700" id="navbar">
-        <div class="max-w-7xl mx-auto flex justify-between items-center glass rounded-full px-12 py-4">
+        <div class="max-w-7xl mx-auto flex justify-between items-center glass rounded-full px-12 py-5">
             <div class="flex items-center gap-4">
-                <div class="w-2.5 h-2.5 bg-accent-teal rounded-full animate-pulse shadow-[0_0_20px_#00D1FF]"></div>
+                <div class="w-3 h-3 bg-accent-teal rounded-full animate-pulse shadow-[0_0_25px_#00D1FF]"></div>
                 <span class="font-headline font-extrabold text-2xl tracking-tighter uppercase">Tidemark</span>
             </div>
             
-            <div class="hidden md:flex items-center gap-14">
-                <a href="#protocol" class="text-[11px] font-bold uppercase tracking-[0.4em] text-white/30 hover:text-white transition-all">Protocol</a>
-                <a href="#playbooks" class="text-[11px] font-bold uppercase tracking-[0.4em] text-white/30 hover:text-white transition-all">Playbooks</a>
-                <a href="#security" class="text-[11px] font-bold uppercase tracking-[0.4em] text-white/30 hover:text-white transition-all">Security</a>
+            <div class="hidden md:flex items-center gap-16">
+                <a href="#protocol" class="text-[11px] font-black uppercase tracking-[0.5em] text-white/20 hover:text-white transition-all">Protocol</a>
+                <a href="#playbooks" class="text-[11px] font-black uppercase tracking-[0.5em] text-white/20 hover:text-white transition-all">Playbooks</a>
+                <a href="#security" class="text-[11px] font-black uppercase tracking-[0.5em] text-white/20 hover:text-white transition-all">Security</a>
             </div>
 
-            <button class="bg-white text-black font-headline text-[0.7rem] font-black uppercase tracking-[0.5em] px-10 py-3 rounded-full hover:bg-accent-teal transition-all shadow-xl">
+            <button class="bg-white text-black font-headline text-[0.75rem] font-black uppercase tracking-[0.5em] px-12 py-3.5 rounded-full hover:bg-accent-teal transition-all shadow-2xl">
                 Deploy
             </button>
         </div>
     </nav>
+
+    <!-- Technical Specs Sidebar -->
+    <div id="specs-sidebar" class="fixed top-0 right-0 w-full md:w-[500px] h-full z-[1000] glass border-l border-white/10 p-20 flex flex-col justify-between">
+        <div>
+            <div class="flex justify-between items-center mb-20">
+                <span class="text-[11px] font-black uppercase tracking-[0.6em] text-accent-teal">System Architecture</span>
+                <button onclick="toggleSpecs()" class="material-symbols-outlined text-white/20 hover:text-white transition-colors">close</button>
+            </div>
+            <div class="space-y-16">
+                <div class="reveal-spec">
+                    <h4 class="text-[10px] font-black uppercase tracking-[0.4em] text-white/60 mb-6">Linguistic Layer</h4>
+                    <p class="text-sm text-white/30 leading-relaxed font-light">Zero-Trust Compromise.js implementation. Local PII deconstruction for Names, Room Numbers, and Personnel IDs before any network transmission.</p>
+                </div>
+                <div class="reveal-spec">
+                    <h4 class="text-[10px] font-black uppercase tracking-[0.4em] text-white/60 mb-6">Inference Backbone</h4>
+                    <p class="text-sm text-white/30 leading-relaxed font-light">7-Pass Atomic Extraction. Gemini 1.5 Pro integration via Enterprise Secure Pipe. Hard Confidence Threshold 0.50.</p>
+                </div>
+                <div class="reveal-spec">
+                    <h4 class="text-[10px] font-black uppercase tracking-[0.4em] text-white/60 mb-6">Data Integrity</h4>
+                    <p class="text-sm text-white/30 leading-relaxed font-light">SHA-256 Cryptographic Fingerprinting. Append-Only Event Transport. Memory-Only Token Persistent Maps.</p>
+                </div>
+            </div>
+        </div>
+        <div class="pt-16 border-t border-white/5">
+            <span class="text-[10px] font-mono text-white/10 tracking-[0.5em]">v2.4_STABLE_ENVIRONMENT</span>
+        </div>
+    </div>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="min-h-screen flex flex-col items-center justify-center pt-32 pb-20 px-6 relative">
+            <div class="light-sweep"></div>
+            <div class="text-center max-w-7xl z-10">
+                <div class="reveal mb-12 inline-flex items-center gap-5 px-6 py-2.5 rounded-full border border-white/5 bg-white/2 backdrop-blur-3xl shadow-inner">
+                    <span class="text-[10px] font-black uppercase tracking-[0.6em] text-accent-teal">Intelligence Bounded. Privacy Absolute.</span>
+                </div>
+                
+                <h1 class="reveal font-headline text-7xl md:text-[11rem] font-extrabold tracking-[-0.07em] leading-[0.78] mb-20 text-luminous">
+                    PRIVATE.<br/>STRUCTURAL.<br/>DEFINITIVE.
+                </h1>
+                
+                <p class="reveal max-w-3xl mx-auto text-white/20 text-xl md:text-3xl font-light leading-relaxed mb-24">
+                    Linguistic PII deconstruction. Deterministic AI governance. High-fidelity intelligence for critical infrastructure.
+                </p>
+
+                <div class="reveal flex flex-col md:flex-row gap-8 justify-center items-center">
+                    <button class="btn-primary w-full md:w-auto px-20 py-7 rounded-full font-black uppercase text-[12px] tracking-[0.5em]">
+                        Request Access
+                    </button>
+                    <button onclick="toggleSpecs()" class="btn-secondary w-full md:w-auto px-20 py-7 rounded-full text-white/40 font-black uppercase text-[12px] tracking-[0.5em]">
+                        Technical Specs
+                    </button>
+                </div>
+            </div>
+        </section>
 
     <!-- Technical Specs Sidebar -->
     <div id="specs-sidebar" class="fixed top-0 right-0 w-full md:w-[450px] h-full z-[1000] glass border-l border-white/10 p-16 flex flex-col justify-between">
