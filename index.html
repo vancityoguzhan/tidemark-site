@@ -1,544 +1,319 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Tidemark — Incident Reports Done Right</title>
-  <meta name="description" content="AI-assisted incident reporting that keeps guest data on your computer. Never in the cloud. Built for hospitality, healthcare, and operations teams." />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    :root {
-      --navy:   #0f1f3d;
-      --teal:   #0d9488;
-      --teal-light: #ccfbf1;
-      --teal-dark:  #0a7c72;
-      --gray:   #64748b;
-      --light:  #f8fafc;
-      --white:  #ffffff;
-      --border: #e2e8f0;
-      --text:   #1e293b;
-    }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      font-family: 'Inter', sans-serif;
-      color: var(--text);
-      background: var(--white);
-      line-height: 1.6;
-    }
-
-    /* ── NAV ── */
-    nav {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      background: rgba(255,255,255,0.95);
-      backdrop-filter: blur(8px);
-      border-bottom: 1px solid var(--border);
-      padding: 0 24px;
-    }
-    .nav-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      height: 64px;
-    }
-    .logo {
-      font-size: 1.25rem;
-      font-weight: 800;
-      color: var(--navy);
-      text-decoration: none;
-      letter-spacing: -0.5px;
-    }
-    .logo span { color: var(--teal); }
-    .btn {
-      display: inline-block;
-      background: var(--teal);
-      color: var(--white);
-      font-weight: 600;
-      font-size: 0.9rem;
-      padding: 10px 22px;
-      border-radius: 8px;
-      text-decoration: none;
-      border: none;
-      cursor: pointer;
-      transition: background 0.2s;
-    }
-    .btn:hover { background: var(--teal-dark); }
-    .btn-outline {
-      background: transparent;
-      color: var(--teal);
-      border: 2px solid var(--teal);
-    }
-    .btn-outline:hover { background: var(--teal-light); }
-    .btn-lg {
-      font-size: 1rem;
-      padding: 14px 32px;
-      border-radius: 10px;
-    }
-
-    /* ── SECTIONS ── */
-    section { padding: 80px 24px; }
-    .container { max-width: 1100px; margin: 0 auto; }
-    .section-label {
-      display: inline-block;
-      background: var(--teal-light);
-      color: var(--teal-dark);
-      font-size: 0.78rem;
-      font-weight: 700;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      padding: 4px 12px;
-      border-radius: 100px;
-      margin-bottom: 16px;
-    }
-    h1 { font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 800; line-height: 1.15; letter-spacing: -1px; color: var(--navy); }
-    h2 { font-size: clamp(1.6rem, 3.5vw, 2.2rem); font-weight: 800; line-height: 1.2; letter-spacing: -0.5px; color: var(--navy); }
-    h3 { font-size: 1.1rem; font-weight: 700; color: var(--navy); margin-bottom: 8px; }
-    p { color: var(--gray); }
-    .lead { font-size: 1.1rem; color: var(--gray); max-width: 560px; margin-top: 16px; }
-
-    /* ── HERO ── */
-    #hero {
-      background: linear-gradient(135deg, #f0fdfa 0%, #ffffff 60%);
-      padding: 100px 24px 80px;
-      text-align: center;
-    }
-    #hero .container { display: flex; flex-direction: column; align-items: center; }
-    #hero .lead { text-align: center; margin: 16px auto 32px; }
-    .hero-badges {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      justify-content: center;
-      margin-top: 40px;
-    }
-    .badge {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      background: var(--white);
-      border: 1px solid var(--border);
-      border-radius: 100px;
-      padding: 6px 14px;
-      font-size: 0.82rem;
-      font-weight: 500;
-      color: var(--text);
-      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
-    }
-    .badge-dot {
-      width: 8px; height: 8px;
-      border-radius: 50%;
-      background: var(--teal);
-      flex-shrink: 0;
-    }
-
-    /* ── PROBLEM ── */
-    #problem { background: var(--light); }
-    .problem-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 24px;
-      margin-top: 40px;
-    }
-    .problem-card {
-      background: var(--white);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 28px;
-    }
-    .problem-icon {
-      font-size: 1.8rem;
-      margin-bottom: 12px;
-    }
-
-    /* ── FEATURES ── */
-    #features {}
-    .features-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 28px;
-      margin-top: 40px;
-    }
-    .feature-card {
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 28px;
-      transition: box-shadow 0.2s, border-color 0.2s;
-    }
-    .feature-card:hover {
-      box-shadow: 0 8px 24px rgba(13,148,136,0.1);
-      border-color: var(--teal);
-    }
-    .feature-icon {
-      width: 44px; height: 44px;
-      background: var(--teal-light);
-      border-radius: 10px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1.3rem;
-      margin-bottom: 16px;
-    }
-
-    /* ── PRIVACY ── */
-    #privacy {
-      background: var(--navy);
-      color: var(--white);
-    }
-    #privacy h2 { color: var(--white); }
-    #privacy p { color: #94a3b8; }
-    .privacy-inner {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 60px;
-      align-items: center;
-    }
-    .privacy-steps { margin-top: 32px; display: flex; flex-direction: column; gap: 20px; }
-    .privacy-step {
-      display: flex;
-      gap: 16px;
-      align-items: flex-start;
-    }
-    .step-num {
-      width: 32px; height: 32px;
-      background: var(--teal);
-      border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 0.8rem;
-      font-weight: 700;
-      color: var(--white);
-      flex-shrink: 0;
-      margin-top: 2px;
-    }
-    .step-text strong { color: var(--white); display: block; margin-bottom: 2px; font-size: 0.95rem; }
-    .step-text span { color: #94a3b8; font-size: 0.88rem; }
-    .privacy-visual {
-      background: #1e2d4a;
-      border-radius: 16px;
-      padding: 28px;
-      font-family: 'Courier New', monospace;
-      font-size: 0.82rem;
-    }
-    .pv-label {
-      font-size: 0.72rem;
-      font-weight: 600;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      margin-bottom: 10px;
-    }
-    .pv-before { color: #f87171; }
-    .pv-after  { color: #34d399; }
-    .pv-box {
-      background: #0f1f3d;
-      border-radius: 8px;
-      padding: 14px 16px;
-      line-height: 1.8;
-      margin-bottom: 16px;
-      color: #e2e8f0;
-    }
-    .pv-arrow {
-      text-align: center;
-      color: var(--teal);
-      font-size: 1.2rem;
-      margin: 8px 0;
-    }
-    .highlight-red  { color: #f87171; }
-    .highlight-green { color: #34d399; }
-
-    /* ── WHO ── */
-    #who { background: var(--light); }
-    .who-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 20px;
-      margin-top: 40px;
-    }
-    .who-card {
-      background: var(--white);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 28px 24px;
-      text-align: center;
-    }
-    .who-icon { font-size: 2.2rem; margin-bottom: 12px; }
-    .who-card h3 { font-size: 1rem; }
-    .who-card p { font-size: 0.88rem; margin-top: 6px; }
-
-    /* ── FORM ── */
-    #demo { background: var(--white); }
-    .form-wrap {
-      max-width: 600px;
-      margin: 40px auto 0;
-      background: var(--light);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 40px;
-    }
-    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-    .form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 18px; }
-    .form-group label { font-size: 0.85rem; font-weight: 600; color: var(--text); }
-    .form-group input,
-    .form-group textarea,
-    .form-group select {
-      padding: 11px 14px;
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      font-family: 'Inter', sans-serif;
-      font-size: 0.9rem;
-      color: var(--text);
-      background: var(--white);
-      outline: none;
-      transition: border-color 0.2s;
-    }
-    .form-group input:focus,
-    .form-group textarea:focus,
-    .form-group select:focus { border-color: var(--teal); }
-    .form-group textarea { resize: vertical; min-height: 100px; }
-    .form-submit { width: 100%; margin-top: 8px; font-size: 1rem; padding: 14px; border-radius: 10px; }
-    .form-note { text-align: center; font-size: 0.8rem; color: var(--gray); margin-top: 12px; }
-
-    /* ── FOOTER ── */
-    footer {
-      background: var(--navy);
-      color: #94a3b8;
-      text-align: center;
-      padding: 32px 24px;
-      font-size: 0.85rem;
-    }
-    footer a { color: var(--teal); text-decoration: none; }
-
-    /* ── RESPONSIVE ── */
-    @media (max-width: 768px) {
-      section { padding: 60px 20px; }
-      #hero { padding: 72px 20px 60px; }
-      .privacy-inner { grid-template-columns: 1fr; gap: 36px; }
-      .form-row { grid-template-columns: 1fr; }
-      .form-wrap { padding: 28px 20px; }
-    }
-  </style>
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Tidemark | Architectural AI Incident Reporting</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&amp;family=Inter:wght@300;400;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 200, 'GRAD' 0, 'opsz' 24;
+            font-size: 1.25rem;
+        }
+        /* Custom Bézier for the cinematic feel */
+        .ease-abyssal {
+            transition-timing-function: cubic-bezier(0.2, 0, 0, 1);
+        }
+        /* Hairline Trace Border */
+        .border-trace {
+            border-color: rgba(58, 73, 74, 0.4);
+            border-width: 0.5px;
+        }
+        /* Ambient Glow replacement for shadows */
+        .glow-primary-sm:hover {
+            box-shadow: 0 0 15px rgba(182, 202, 203, 0.3);
+        }
+        .glow-bioluminescent {
+            box-shadow: 0 0 40px rgba(182, 202, 203, 0.1);
+        }
+        /* Hide scrollbars but keep functionality */
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "outline": "#8f9194",
+                        "on-tertiary": "#243334",
+                        "surface-container-lowest": "#0b0e11",
+                        "surface-bright": "#37393d",
+                        "surface-dim": "#111417",
+                        "on-secondary-fixed-variant": "#054f52",
+                        "on-primary-fixed": "#0b1e20",
+                        "inverse-on-surface": "#2e3134",
+                        "primary-fixed-dim": "#b6cacb",
+                        "surface": "#111417",
+                        "error": "#ffb4ab",
+                        "surface-variant": "#323538",
+                        "on-error-container": "#ffdad6",
+                        "inverse-surface": "#e1e2e7",
+                        "on-tertiary-fixed": "#0f1e1f",
+                        "surface-container": "#1d2023",
+                        "inverse-primary": "#4f6263",
+                        "on-secondary-container": "#84bfc2",
+                        "on-secondary-fixed": "#002021",
+                        "tertiary-fixed": "#d5e6e7",
+                        "primary-fixed": "#d2e6e7",
+                        "background": "#111417",
+                        "secondary-fixed-dim": "#95d1d4",
+                        "on-primary-fixed-variant": "#374a4b",
+                        "on-tertiary-fixed-variant": "#3a494a",
+                        "secondary-container": "#054f52",
+                        "on-primary-container": "#6e8283",
+                        "tertiary-fixed-dim": "#b9caca",
+                        "outline-variant": "#44474a",
+                        "on-surface": "#e1e2e7",
+                        "primary-container": "#041718",
+                        "surface-container-high": "#272a2d",
+                        "on-primary": "#213435",
+                        "tertiary-container": "#071617",
+                        "on-error": "#690005",
+                        "secondary": "#95d1d4",
+                        "surface-tint": "#b6cacb",
+                        "secondary-fixed": "#b1edf0",
+                        "tertiary": "#b9caca",
+                        "on-surface-variant": "#c5c6ca",
+                        "on-secondary": "#003739",
+                        "primary": "#b6cacb",
+                        "surface-container-low": "#191c1f",
+                        "error-container": "#93000a",
+                        "on-background": "#e1e2e7",
+                        "surface-container-highest": "#323538",
+                        "on-tertiary-container": "#728182"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0px",
+                        "lg": "0px",
+                        "xl": "0px",
+                        "full": "9999px"
+                    },
+                    fontFamily: {
+                        "headline": ["Space Grotesk"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                },
+            },
+        }
+    </script>
 </head>
-<body>
-
-<!-- ── NAV ── -->
-<nav>
-  <div class="nav-inner">
-    <a class="logo" href="#">Tide<span>mark</span></a>
-    <a class="btn" href="#demo">Request a Demo</a>
-  </div>
+<body class="bg-background text-on-surface font-body selection:bg-primary/30">
+<!-- Top Navigation Shell -->
+<nav class="fixed top-0 w-full z-50 flex justify-between items-center px-8 py-4 bg-[#111417]/70 backdrop-blur-xl border-b-[0.5px] border-[#3A494A]/40">
+<div class="text-xl font-bold tracking-tighter text-[#B6CACB] font-headline uppercase">Tidemark</div>
+<div class="hidden md:flex items-center gap-10">
+<a class="font-['Space_Grotesk'] text-[0.7rem] uppercase tracking-[0.05em] font-medium text-[#B6CACB] border-b border-[#B6CACB] pb-1 hover:text-[#95D1D4] transition-colors duration-300" href="#">Platform</a>
+<a class="font-['Space_Grotesk'] text-[0.7rem] uppercase tracking-[0.05em] font-medium text-[#B6CACB]/60 hover:text-[#95D1D4] transition-colors duration-300" href="#">Security</a>
+<a class="font-['Space_Grotesk'] text-[0.7rem] uppercase tracking-[0.05em] font-medium text-[#B6CACB]/60 hover:text-[#95D1D4] transition-colors duration-300" href="#">Intelligence</a>
+<a class="font-['Space_Grotesk'] text-[0.7rem] uppercase tracking-[0.05em] font-medium text-[#B6CACB]/60 hover:text-[#95D1D4] transition-colors duration-300" href="#">Documentation</a>
+</div>
+<div class="flex items-center gap-6">
+<span class="material-symbols-outlined text-[#B6CACB] cursor-pointer hover:text-secondary transition-colors" data-icon="radar">radar</span>
+<span class="material-symbols-outlined text-[#B6CACB] cursor-pointer hover:text-secondary transition-colors" data-icon="terminal">terminal</span>
+<button class="bg-primary text-on-primary font-headline text-[0.7rem] uppercase tracking-widest px-6 py-2.5 hover:shadow-[0_0_15px_#B6CACB] transition-all duration-300">
+                Deploy System
+            </button>
+</div>
 </nav>
-
-<!-- ── HERO ── -->
-<section id="hero">
-  <div class="container">
-    <div class="section-label">Incident Reporting Software</div>
-    <h1>Incident Reports Done Right —<br />In Minutes, Not Hours</h1>
-    <p class="lead">AI-assisted intake that keeps guest data on your computer. Never in the cloud. Built for operations teams that can't afford mistakes.</p>
-    <a class="btn btn-lg" href="#demo">Request a Demo</a>
-    <div class="hero-badges">
-      <div class="badge"><div class="badge-dot"></div> Guest data stays on-site</div>
-      <div class="badge"><div class="badge-dot"></div> No backend or IT setup</div>
-      <div class="badge"><div class="badge-dot"></div> Works on Windows &amp; Mac</div>
-      <div class="badge"><div class="badge-dot"></div> Professional reports in minutes</div>
-    </div>
-  </div>
+<main class="relative">
+<!-- Hero Section -->
+<section class="min-h-screen flex flex-col items-center justify-center relative overflow-hidden px-8">
+<!-- Subtle Radial Depth -->
+<div class="absolute inset-0 bg-gradient-to-b from-primary-container/20 via-transparent to-transparent pointer-events-none"></div>
+<div class="relative z-10 flex flex-col items-center text-center max-w-5xl">
+<img alt="Tidemark Refined Logo" class="w-48 h-48 mb-8 opacity-90 contrast-125 hover:opacity-100 transition-opacity duration-700" data-alt="Technical topographic iceberg logo with bioluminescent teal contour lines on a solid #111417 background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCkF5m0_lGjmS-s8F0y_NQZ5GhyH6bOtpSNtWqTZr4jOa_MakTL4uPTcSu9Gqw8-SfCj5Kwfelg4oIDZLuX6rjf21Wu7rUGiZOmXIx0dqq4VZAntL7ey9rYUdIfRo0dN0w-ge_aLRSrPtYbgC-kV36NLUP2lM0VW6BAIKOcR705aRD61fsdhD12rnRyCLodQPMflsW3-CEFHAS9_dVLyJ0Rb74NfsqYJfrcRJXClxCKpWnZgPXhU4xVG-dorF6ORNv0XvBEq5YvY5M"/>
+<p class="font-label text-[0.6875rem] uppercase tracking-[0.2em] text-secondary mb-6 animate-pulse">System Status: Operational</p>
+<h1 class="font-headline text-5xl md:text-8xl font-bold tracking-[-0.03em] leading-[0.95] text-primary mb-8 max-w-4xl">
+                    INCIDENT REPORTS<br/>DONE RIGHT.
+                </h1>
+<p class="font-label text-[0.7rem] leading-relaxed tracking-[0.05em] text-on-surface-variant max-w-md uppercase">
+                    The Abyssal Architect protocol for high-density data integrity and architectural precision in critical infrastructure monitoring.
+                </p>
+<div class="mt-16 flex flex-col md:flex-row gap-8 items-center">
+<div class="w-[0.5px] h-24 bg-tertiary-fixed-variant/40 hidden md:block"></div>
+<span class="material-symbols-outlined text-primary text-4xl" data-icon="expand_more">expand_more</span>
+<div class="w-[0.5px] h-24 bg-tertiary-fixed-variant/40 hidden md:block"></div>
+</div>
+</div>
 </section>
-
-<!-- ── PROBLEM ── -->
-<section id="problem">
-  <div class="container">
-    <div class="section-label">The Problem</div>
-    <h2>Current tools are built for IT teams,<br />not front-line staff</h2>
-    <div class="problem-grid">
-      <div class="problem-card">
-        <div class="problem-icon">📋</div>
-        <h3>Rigid forms slow you down</h3>
-        <p>Traditional incident forms require you to know exactly what happened before you start filling them in. Real incidents don't work that way.</p>
-      </div>
-      <div class="problem-card">
-        <div class="problem-icon">☁️</div>
-        <h3>Cloud tools expose guest data</h3>
-        <p>Generic AI tools send guest names, room numbers, and staff IDs straight to third-party servers. That's a liability waiting to happen.</p>
-      </div>
-      <div class="problem-card">
-        <div class="problem-icon">🕐</div>
-        <h3>Reports take too long</h3>
-        <p>Writing a proper incident report after a stressful event — while managing guests — takes 20–40 minutes. Staff skip steps. Details get lost.</p>
-      </div>
-    </div>
-  </div>
+<!-- Problem Space: Monolithic Vertical Layout -->
+<section class="py-32 px-8 flex flex-col items-center">
+<div class="w-full max-w-4xl flex flex-col gap-[128px]">
+<!-- Point 1 -->
+<div class="group flex flex-col md:flex-row gap-12 items-start opacity-90 hover:opacity-100 transition-opacity ease-abyssal duration-700">
+<div class="text-secondary font-headline text-2xl font-light w-16">01</div>
+<div class="flex-1">
+<h2 class="font-headline text-3xl font-bold text-primary mb-6 tracking-tight">Data Fragmentation</h2>
+<p class="text-on-surface-variant leading-relaxed font-body text-lg max-w-xl">
+                            Legacy systems dissipate critical insights into shallow pools of unindexed logs. We treat every incident as a monolithic structure, carved from the bedrock of your infrastructure.
+                        </p>
+</div>
+</div>
+<!-- Point 2: Tonal Shift Grouping -->
+<div class="bg-surface-container-low p-12 md:p-24 -mx-8 md:-mx-24 border-y border-trace">
+<div class="max-w-4xl mx-auto flex flex-col md:flex-row gap-12 items-start">
+<div class="text-secondary font-headline text-2xl font-light w-16">02</div>
+<div class="flex-1">
+<h2 class="font-headline text-3xl font-bold text-primary mb-6 tracking-tight">The Latency Void</h2>
+<p class="text-on-surface-variant leading-relaxed font-body text-lg max-w-xl">
+                                Minutes lost in the deep are hours lost in production. Tidemark accelerates reporting through neural pre-compression, surfacing anomalies before they manifest as failures.
+                            </p>
+</div>
+</div>
+</div>
+<!-- Point 3 -->
+<div class="group flex flex-col md:flex-row gap-12 items-start opacity-90 hover:opacity-100 transition-opacity ease-abyssal duration-700">
+<div class="text-secondary font-headline text-2xl font-light w-16">03</div>
+<div class="flex-1">
+<h2 class="font-headline text-3xl font-bold text-primary mb-6 tracking-tight">Opaque Remediation</h2>
+<p class="text-on-surface-variant leading-relaxed font-body text-lg max-w-xl">
+                            Standard reports lack the technical depth required for true post-mortem analysis. Our system generates high-fidelity architectural blueprints of every system state change.
+                        </p>
+</div>
+</div>
+</div>
 </section>
-
-<!-- ── FEATURES ── -->
-<section id="features">
-  <div class="container">
-    <div class="section-label">How Tidemark Works</div>
-    <h2>Designed for the way<br />incidents actually happen</h2>
-    <div class="features-grid">
-      <div class="feature-card">
-        <div class="feature-icon">🎙️</div>
-        <h3>Just describe what happened</h3>
-        <p>Staff speak or type naturally. Tidemark asks smart follow-up questions to fill in the gaps — no form structure required upfront.</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">🔒</div>
-        <h3>Privacy built in, not bolted on</h3>
-        <p>Guest names and room numbers are anonymized locally before any AI processing. The real data never leaves your computer.</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">📄</div>
-        <h3>Professional reports instantly</h3>
-        <p>Every incident produces a polished, structured Word document ready to email to your manager or file for insurance purposes.</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-icon">🏗️</div>
-        <h3>No IT setup required</h3>
-        <p>Tidemark runs directly on any Windows or Mac computer. No servers, no databases, no IT department needed. Install and go.</p>
-      </div>
-    </div>
-  </div>
+<!-- Feature Deep-Dive: Trace Border & Bioluminescent Thread -->
+<section class="py-32 px-8 bg-surface-container-lowest">
+<div class="max-w-7xl mx-auto">
+<div class="mb-24">
+<p class="font-label text-[0.6875rem] uppercase tracking-[0.3em] text-tertiary-fixed-variant mb-4">Deep Technicals</p>
+<h2 class="font-headline text-4xl md:text-6xl font-bold text-primary tracking-tighter">THE CORE ARCHITECTURE</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-px bg-[#3A494A]/20 border-trace">
+<!-- Tracker Visual -->
+<div class="md:col-span-4 bg-surface p-12 flex flex-col justify-between relative overflow-hidden">
+<div class="relative z-10">
+<h3 class="font-headline text-xl text-primary mb-8">Pulse Synchrony</h3>
+<div class="space-y-6">
+<div class="flex items-center gap-4 group">
+<div class="w-1.5 h-1.5 bg-primary shadow-[0_0_8px_#B6CACB]"></div>
+<span class="font-label text-[0.7rem] uppercase text-primary tracking-widest">Ingestion</span>
+</div>
+<div class="w-px h-12 bg-primary/20 ml-[3px]"></div>
+<div class="flex items-center gap-4">
+<div class="w-1.5 h-1.5 bg-secondary shadow-[0_0_8px_#95D1D4]"></div>
+<span class="font-label text-[0.7rem] uppercase text-secondary tracking-widest">Anonymization</span>
+</div>
+<div class="w-px h-12 bg-secondary/20 ml-[3px]"></div>
+<div class="flex items-center gap-4">
+<div class="w-1.5 h-1.5 bg-tertiary-fixed-variant"></div>
+<span class="font-label text-[0.7rem] uppercase text-tertiary-fixed-variant tracking-widest">Restoration</span>
+</div>
+</div>
+</div>
+<div class="absolute bottom-0 right-0 w-32 h-32 bg-primary/5 blur-[60px]"></div>
+</div>
+<!-- Main Feature Grid -->
+<div class="md:col-span-8 grid grid-cols-1 md:grid-cols-2 gap-px bg-[#3A494A]/20">
+<div class="bg-surface p-12 border-trace hover:bg-surface-container transition-colors ease-abyssal">
+<span class="material-symbols-outlined text-secondary mb-8" data-icon="security">security</span>
+<h4 class="font-headline text-lg text-primary mb-4 uppercase tracking-wider">Zero-Leak Buffer</h4>
+<p class="text-on-surface-variant font-body text-sm leading-relaxed">Hardware-level isolation for report transmission, ensuring no metadata escapes the primary perimeter.</p>
+</div>
+<div class="bg-surface p-12 border-trace hover:bg-surface-container transition-colors ease-abyssal">
+<span class="material-symbols-outlined text-secondary mb-8" data-icon="query_stats">query_stats</span>
+<h4 class="font-headline text-lg text-primary mb-4 uppercase tracking-wider">Neural Mapping</h4>
+<p class="text-on-surface-variant font-body text-sm leading-relaxed">Automated relationship mapping between disparate system nodes during active incidents.</p>
+</div>
+<div class="bg-surface p-12 border-trace hover:bg-surface-container transition-colors ease-abyssal">
+<span class="material-symbols-outlined text-secondary mb-8" data-icon="hub">hub</span>
+<h4 class="font-headline text-lg text-primary mb-4 uppercase tracking-wider">Bioluminescent UI</h4>
+<p class="text-on-surface-variant font-body text-sm leading-relaxed">Interfaces designed for high-stress environments using bioluminescent clarity standards.</p>
+</div>
+<div class="bg-surface p-12 border-trace hover:bg-surface-container transition-colors ease-abyssal">
+<span class="material-symbols-outlined text-secondary mb-8" data-icon="history_edu">history_edu</span>
+<h4 class="font-headline text-lg text-primary mb-4 uppercase tracking-wider">Immutable Ledger</h4>
+<p class="text-on-surface-variant font-body text-sm leading-relaxed">Every report is cryptographically signed and anchored to a private architectural chain.</p>
+</div>
+</div>
+</div>
+</div>
 </section>
-
-<!-- ── PRIVACY ── -->
-<section id="privacy">
-  <div class="container">
-    <div class="privacy-inner">
-      <div>
-        <div class="section-label" style="background:#1e3a5f; color:#5eead4;">Privacy First</div>
-        <h2>Your guests' names never leave your building</h2>
-        <p style="margin-top:12px;">Before anything is sent to an AI model, Tidemark replaces every piece of sensitive information with anonymous codes — right on your computer. The AI only ever sees codes like <strong style="color:#34d399;">[GUEST_1]</strong> and <strong style="color:#34d399;">[ROOM_2]</strong>.</p>
-        <div class="privacy-steps">
-          <div class="privacy-step">
-            <div class="step-num">1</div>
-            <div class="step-text">
-              <strong>Detected locally</strong>
-              <span>Names, room numbers, staff IDs, and phone numbers are found on your device before anything happens.</span>
-            </div>
-          </div>
-          <div class="privacy-step">
-            <div class="step-num">2</div>
-            <div class="step-text">
-              <strong>Replaced with codes</strong>
-              <span>Real values are swapped for anonymous placeholders. This happens in memory — never written to disk.</span>
-            </div>
-          </div>
-          <div class="privacy-step">
-            <div class="step-num">3</div>
-            <div class="step-text">
-              <strong>Restored after processing</strong>
-              <span>Once the AI returns the polished report, real names are restored locally. The codes are then discarded.</span>
-            </div>
-          </div>
+<!-- Privacy Visual: Scientific Technical View -->
+<section class="py-48 px-8 relative overflow-hidden bg-surface">
+<div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
+<div>
+<p class="font-label text-[0.6875rem] uppercase tracking-[0.3em] text-secondary mb-4">Precision Anonymization</p>
+<h2 class="font-headline text-4xl md:text-5xl font-bold text-primary tracking-tight mb-8">SURFACE WITHOUT SACRIFICE.</h2>
+<p class="text-on-surface-variant text-lg leading-relaxed mb-12">
+                        Our scientific technical view allows operators to see the 'skeleton' of an incident without exposing sensitive identifiers. Real-time restoration happens only within authenticated shells.
+                    </p>
+<div class="grid grid-cols-2 gap-8">
+<div class="space-y-2">
+<p class="text-primary font-headline text-3xl font-bold">99.9%</p>
+<p class="font-label text-[0.6rem] uppercase tracking-widest text-tertiary-fixed-variant">Privacy Integrity</p>
+</div>
+<div class="space-y-2">
+<p class="text-primary font-headline text-3xl font-bold">&lt;1ms</p>
+<p class="font-label text-[0.6rem] uppercase tracking-widest text-tertiary-fixed-variant">Masking Latency</p>
+</div>
+</div>
+</div>
+<div class="relative bg-surface-container p-1 border-trace">
+<div class="bg-surface-dim p-8 relative overflow-hidden">
+<!-- Data Visualization Simulation -->
+<div class="space-y-4 opacity-40">
+<div class="h-1 bg-tertiary-fixed-variant/20 w-3/4"></div>
+<div class="h-1 bg-tertiary-fixed-variant/20 w-1/2"></div>
+<div class="h-1 bg-tertiary-fixed-variant/20 w-full"></div>
+<div class="h-1 bg-tertiary-fixed-variant/20 w-2/3"></div>
+</div>
+<!-- Restored Data Highlight -->
+<div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+<div class="w-3/4 h-24 bg-primary/10 border border-primary/30 flex items-center justify-center glow-bioluminescent">
+<span class="font-label text-primary text-[0.7rem] uppercase tracking-[0.5em] animate-pulse">Restored Protocol V.04</span>
+</div>
+</div>
+<img alt="Technical visualization of data anonymization" class="hidden" data-alt="A scientific grid view with technical schematics, bioluminescent blue highlights on specific data nodes, and a sleek dark oceanic background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDIoLIZAcoh8CIFn3DCVBu5ZUi0qE-elEgE5NL7A1vlSh0iSyHkn8mi4h7cw5Y1Y4dQ5mHle-2VRQq6LAZ9Fq1jQuR6qbueZHuGZv0BDFZ3pG6I0xJYWrzzwXT-qgnrql18DLoPUBJ7WEzpwG-iW27fzyapHVPOZIBzPBms8dUZFbQ5cdCFOe6Z2MvuS8ZVTB2jZBBJRh4695ON5wRa_bSUnLrhu2LCU_tl8ocIRpaLBUKxiKAaEhRuxVWPGD2qX1ZlH1ioVdTiLYI"/>
+</div>
+</div>
+</div>
+</section>
+<!-- Demo Form: Sharp & Integrated -->
+<section class="py-32 px-8 bg-surface-container-low border-y border-trace">
+<div class="max-w-xl mx-auto text-center mb-20">
+<h2 class="font-headline text-4xl font-bold text-primary mb-4 tracking-tighter">INITIATE DEPLOYMENT</h2>
+<p class="font-label text-[0.7rem] uppercase tracking-widest text-on-surface-variant">Secure engineering consultation for your infrastructure.</p>
+</div>
+<form class="max-w-2xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-16">
+<div class="relative">
+<label class="font-label text-[0.6rem] uppercase tracking-[0.2em] text-tertiary-fixed-variant absolute -top-6">Engineer Identity</label>
+<input class="w-full bg-transparent border-0 border-b border-[#3A494A]/40 focus:border-primary focus:ring-0 px-0 py-4 font-body text-on-surface placeholder:text-surface-container-highest transition-colors ease-abyssal" placeholder="Full Name" type="text"/>
+</div>
+<div class="relative">
+<label class="font-label text-[0.6rem] uppercase tracking-[0.2em] text-tertiary-fixed-variant absolute -top-6">Communication Node</label>
+<input class="w-full bg-transparent border-0 border-b border-[#3A494A]/40 focus:border-primary focus:ring-0 px-0 py-4 font-body text-on-surface placeholder:text-surface-container-highest transition-colors ease-abyssal" placeholder="Professional Email" type="email"/>
+</div>
+<div class="relative md:col-span-2">
+<label class="font-label text-[0.6rem] uppercase tracking-[0.2em] text-tertiary-fixed-variant absolute -top-6">Architecture Specs</label>
+<input class="w-full bg-transparent border-0 border-b border-[#3A494A]/40 focus:border-primary focus:ring-0 px-0 py-4 font-body text-on-surface placeholder:text-surface-container-highest transition-colors ease-abyssal" placeholder="Tell us about your system scale" type="text"/>
+</div>
+<div class="md:col-span-2 flex justify-center mt-8">
+<button class="bg-primary text-on-primary font-headline text-[0.8rem] uppercase tracking-[0.2em] font-bold px-12 py-5 hover:shadow-[0_0_20px_rgba(182,202,203,0.4)] transition-all duration-500 ease-abyssal group relative overflow-hidden" type="submit">
+<span class="relative z-10">Request Documentation</span>
+<div class="absolute inset-0 bg-secondary translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-abyssal"></div>
+</button>
+</div>
+</form>
+</section>
+</main>
+<!-- Footer Shell -->
+<footer class="w-full py-12 px-8 flex flex-col md:flex-row justify-between items-center gap-8 bg-[#111417] border-t-[0.5px] border-[#3A494A]/40">
+<div class="font-['Inter'] text-[0.6875rem] uppercase tracking-widest text-[#3A494A]">
+            © 2024 TIDEMARK ARCHITECTURAL AI. ALL RIGHTS RESERVED.
         </div>
-      </div>
-      <div>
-        <div class="privacy-visual">
-          <div class="pv-label pv-before">What staff typed</div>
-          <div class="pv-box">
-            Guest <span class="highlight-red">Maria Santos</span> in room <span class="highlight-red">312</span> reported a slip near the pool at <span class="highlight-red">11:42 PM</span>. Attended by <span class="highlight-red">John Park</span>, duty manager.
-          </div>
-          <div class="pv-arrow">↓ anonymized on your computer ↓</div>
-          <div class="pv-label pv-after">What Google sees</div>
-          <div class="pv-box">
-            Guest <span class="highlight-green">[GUEST_1]</span> in room <span class="highlight-green">[ROOM_1]</span> reported a slip near the pool at <span class="highlight-green">[TIME_1]</span>. Attended by <span class="highlight-green">[STAFF_1]</span>, duty manager.
-          </div>
-          <div class="pv-arrow">↓ real names restored locally ↓</div>
-          <div class="pv-label pv-after">Your final report</div>
-          <div class="pv-box">
-            On the evening of [DATE], guest <span class="highlight-green">Maria Santos</span> sustained a slip-and-fall injury in the pool area. The incident was attended by duty manager <span class="highlight-green">John Park</span>...
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ── WHO ── -->
-<section id="who">
-  <div class="container" style="text-align:center;">
-    <div class="section-label">Who Uses Tidemark</div>
-    <h2>Built for any team where<br />incidents can't be mishandled</h2>
-    <div class="who-grid">
-      <div class="who-card">
-        <div class="who-icon">🏨</div>
-        <h3>Hotels &amp; Hospitality</h3>
-        <p>Guest incidents, property damage, slip-and-falls, security events.</p>
-      </div>
-      <div class="who-card">
-        <div class="who-icon">🏥</div>
-        <h3>Healthcare &amp; Clinics</h3>
-        <p>Patient safety events, near-misses, adverse incidents.</p>
-      </div>
-      <div class="who-card">
-        <div class="who-icon">🏗️</div>
-        <h3>Workplace Safety</h3>
-        <p>Worker injuries, equipment damage, OSHA-ready documentation.</p>
-      </div>
-      <div class="who-card">
-        <div class="who-icon">🛒</div>
-        <h3>Retail &amp; Loss Prevention</h3>
-        <p>Theft, shrinkage, customer incidents, staff safety events.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ── DEMO FORM ── -->
-<section id="demo">
-  <div class="container" style="text-align:center;">
-    <div class="section-label">Get Started</div>
-    <h2>See Tidemark at your property</h2>
-    <p style="margin-top:12px; max-width:480px; margin-left:auto; margin-right:auto;">We'll walk you through a live demo tailored to your operation. No commitment, no IT involvement needed.</p>
-    <div class="form-wrap">
-      <!-- Replace YOUR_FORM_ID with your actual Formspree form ID -->
-      <form action="https://formspree.io/f/xlgadqyd" method="POST">
-        <div class="form-row">
-          <div class="form-group">
-            <label for="name">Your Name</label>
-            <input type="text" id="name" name="name" placeholder="Jane Smith" required />
-          </div>
-          <div class="form-group">
-            <label for="email">Work Email</label>
-            <input type="email" id="email" name="email" placeholder="jane@yourhotel.com" required />
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="form-group">
-            <label for="property">Property / Organization</label>
-            <input type="text" id="property" name="property" placeholder="Grand Waterfront Hotel" required />
-          </div>
-          <div class="form-group">
-            <label for="industry">Industry</label>
-            <select id="industry" name="industry">
-              <option value="">Select one...</option>
-              <option>Hospitality / Hotel</option>
-              <option>Healthcare</option>
-              <option>Workplace Safety</option>
-              <option>Retail / Loss Prevention</option>
-              <option>Other</option>
-            </select>
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="message">Anything you'd like us to know?</label>
-          <textarea id="message" name="message" placeholder="How many locations, current process, specific concerns..."></textarea>
-        </div>
-        <button type="submit" class="btn form-submit">Request a Demo</button>
-        <p class="form-note">We typically respond within one business day.</p>
-      </form>
-    </div>
-  </div>
-</section>
-
-<!-- ── FOOTER ── -->
-<footer>
-  <p>&copy; 2025 Tidemark. All rights reserved. &nbsp;|&nbsp; <a href="mailto:hello@gettidemark.com">hello@gettidemark.com</a></p>
-  <p style="margin-top:8px; font-size:0.78rem;">Incident data is processed locally. Guest information never leaves your computer.</p>
+<div class="flex flex-wrap justify-center gap-8">
+<a class="font-['Inter'] text-[0.6875rem] uppercase tracking-widest text-[#3A494A] hover:text-[#B6CACB] transition-colors ease-in-out duration-200" href="#">Privacy Protocol</a>
+<a class="font-['Inter'] text-[0.6875rem] uppercase tracking-widest text-[#3A494A] hover:text-[#B6CACB] transition-colors ease-in-out duration-200" href="#">Terms of Service</a>
+<a class="font-['Inter'] text-[0.6875rem] uppercase tracking-widest text-[#3A494A] hover:text-[#B6CACB] transition-colors ease-in-out duration-200" href="#">System Status</a>
+<a class="font-['Inter'] text-[0.6875rem] uppercase tracking-widest text-[#3A494A] hover:text-[#B6CACB] transition-colors ease-in-out duration-200" href="#">Contact Engineering</a>
+</div>
 </footer>
-
-</body>
-</html>
+</body></html>
