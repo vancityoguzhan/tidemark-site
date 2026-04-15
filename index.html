@@ -485,7 +485,17 @@
 
         function toggleSpecs() {
             document.getElementById('specs-sidebar').classList.toggle('active');
+            document.getElementById('specs-overlay').classList.toggle('active');
         }
+
+        // Hero Light Sweep Animation
+        gsap.to(".light-sweep", {
+            translateX: "100%",
+            duration: 3,
+            repeat: -1,
+            ease: "power2.inOut",
+            repeatDelay: 4
+        });
 
         // Smooth Navbar Transition
         window.addEventListener('scroll', () => {
