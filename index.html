@@ -3,84 +3,63 @@
 <head>
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-    <title>Tidemark | Architectural AI Incident Reporting</title>
+    <title>Tidemark | Private Incident Intelligence</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet"/>
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
     <style>
         :root {
-            --bg-dark: #000000;
-            --accent-teal: #00D1FF;
-            --accent-glow: rgba(0, 209, 255, 0.15);
-            --surface: #121212;
-            --border-subtle: rgba(255, 255, 255, 0.08);
+            --bg-riviera: #061010;
+            --primary-glow: #73ffe3;
+            --surface-low: #0c1818;
+            --surface-high: #1f2f2f;
+            --ghost-border: rgba(115, 255, 227, 0.15);
         }
 
         body {
-            background-color: var(--bg-dark);
-            color: #ffffff;
-            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-riviera);
+            color: #e1e2e7;
+            font-family: 'Manrope', sans-serif;
             overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
         }
 
-        .font-headline { font-family: 'Plus Jakarta Sans', sans-serif; }
-
-        /* Apple-style smooth scroll */
-        html { scroll-behavior: smooth; }
-
-        /* Glassmorphism */
-        .glass {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid var(--border-subtle);
+        /* The Digital Shoreline: Liquid Precision */
+        .liquid-glass {
+            background: rgba(31, 47, 47, 0.4);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 0.5px solid var(--ghost-border);
+            border-radius: 1.5rem;
         }
 
-        /* Ambient Glows */
-        .glow-orb {
-            position: absolute;
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 0;
-            filter: blur(80px);
+        .primary-glow-text {
+            color: var(--primary-glow);
+            text-shadow: 0 0 20px rgba(115, 255, 227, 0.4);
         }
 
-        /* Custom scrollbar */
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: var(--bg-dark); }
-        ::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
-        ::-webkit-scrollbar-thumb:hover { background: #444; }
+        .btn-glow {
+            background: linear-gradient(135deg, #73ffe3 0%, #00f5d4 100%);
+            box-shadow: 0 0 15px rgba(115, 255, 227, 0.3);
+            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        .btn-glow:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(115, 255, 227, 0.6);
+        }
 
         .reveal { opacity: 0; transform: translateY(30px); }
 
-        .nav-link {
-            position: relative;
-            transition: color 0.3s ease;
-        }
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: -4px;
-            left: 0;
-            width: 0;
-            height: 1px;
-            background: var(--accent-teal);
-            transition: width 0.3s ease;
-        }
-        .nav-link:hover::after { width: 100%; }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: var(--bg-riviera); }
+        ::-webkit-scrollbar-thumb { background: var(--surface-high); border-radius: 10px; }
 
-        .bento-card {
-            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
-        }
-        .bento-card:hover {
-            transform: translateY(-5px);
-            border-color: rgba(0, 209, 255, 0.3);
-            background: rgba(255, 255, 255, 0.05);
+        /* Asymmetric Layout Helpers */
+        .shoreline-gradient {
+            background: radial-gradient(circle at top left, rgba(115, 255, 227, 0.08) 0%, transparent 60%);
         }
     </style>
     <script>
@@ -88,186 +67,274 @@
             theme: {
                 extend: {
                     colors: {
-                        primary: "#00D1FF",
-                        surface: "#121212",
-                        "surface-light": "#1C1C1E"
+                        primary: "#73ffe3",
+                        riviera: "#061010",
+                        surface: "#0c1818",
+                        "surface-bright": "#1f2f2f"
                     }
                 }
             }
         }
     </script>
 </head>
-<body class="selection:bg-primary/30">
-
-    <div class="glow-orb top-[-200px] left-[-200px]"></div>
-    <div class="glow-orb bottom-[-300px] right-[-300px]"></div>
+<body class="selection:bg-primary/30 shoreline-gradient">
 
     <!-- Navigation -->
-    <nav class="fixed top-0 w-full z-[100] px-6 py-5 md:px-12 transition-all duration-500" id="navbar">
-        <div class="max-w-7xl mx-auto flex justify-between items-center glass rounded-full px-8 py-3">
-            <div class="flex items-center gap-2">
-                <div class="w-2 h-2 bg-primary rounded-full animate-pulse"></div>
-                <span class="font-headline font-extrabold text-xl tracking-tighter uppercase">Tidemark</span>
+    <nav class="fixed top-0 w-full z-[100] px-6 py-8 md:px-12 transition-all duration-500" id="navbar">
+        <div class="max-w-7xl mx-auto flex justify-between items-center liquid-glass px-8 py-4 rounded-full">
+            <div class="flex items-center gap-3">
+                <div class="w-2.5 h-2.5 bg-primary rounded-full animate-pulse shadow-[0_0_10px_#73ffe3]"></div>
+                <span class="font-extrabold text-xl tracking-tighter uppercase text-primary">Tidemark</span>
             </div>
             
             <div class="hidden md:flex items-center gap-10">
-                <a href="#platform" class="nav-link text-xs font-semibold uppercase tracking-widest text-white/60 hover:text-white">Platform</a>
-                <a href="#security" class="nav-link text-xs font-semibold uppercase tracking-widest text-white/60 hover:text-white">Security</a>
-                <a href="#features" class="nav-link text-xs font-semibold uppercase tracking-widest text-white/60 hover:text-white">Intelligence</a>
+                <a href="#protocol" class="text-[10px] font-bold uppercase tracking-[0.2em] text-white/40 hover:text-primary transition-colors">Protocol</a>
+                <a href="#playbooks" class="text-[10px] font-bold uppercase tracking-[0.2em] text-white/40 hover:text-primary transition-colors">Playbooks</a>
+                <a href="#security" class="text-[10px] font-bold uppercase tracking-[0.2em] text-white/40 hover:text-primary transition-colors">Security</a>
             </div>
 
-            <button class="bg-white text-black font-headline text-[0.7rem] font-bold uppercase tracking-widest px-6 py-2.5 rounded-full hover:bg-primary hover:text-black transition-all duration-300">
+            <button class="btn-glow text-[#006152] text-[10px] font-extrabold uppercase tracking-widest px-8 py-3 rounded-full">
                 Deploy System
             </button>
         </div>
     </nav>
 
     <main>
-        <!-- Hero Section -->
-        <section class="min-h-screen flex flex-col items-center justify-center pt-24 pb-12 px-6 relative">
-            <div class="text-center max-w-5xl z-10">
-                <div class="reveal mb-6 inline-flex items-center gap-3 px-4 py-2 rounded-full border border-white/10 bg-white/5 backdrop-blur-md">
-                    <span class="flex h-2 w-2 rounded-full bg-primary"></span>
-                    <span class="text-[10px] font-bold uppercase tracking-[0.2em] text-primary">v2.0 Architectural Protocol Active</span>
+        <!-- Hero: The Digital Shoreline -->
+        <section class="min-h-screen flex flex-col items-center justify-center pt-32 pb-20 px-6 relative overflow-hidden">
+            <div class="text-center max-w-6xl z-10">
+                <div class="reveal mb-8 inline-flex items-center gap-3 px-5 py-2 rounded-full border border-primary/10 bg-primary/5 backdrop-blur-xl">
+                    <span class="text-[9px] font-black uppercase tracking-[0.3em] text-primary">Marmaris Protocol v2.4 Active</span>
                 </div>
                 
-                <h1 class="reveal font-headline text-6xl md:text-9xl font-extrabold tracking-[-0.04em] leading-[0.85] mb-8 bg-gradient-to-b from-white to-white/40 bg-clip-text text-transparent">
-                    PRIVATE<br/>INTELLIGENCE.<br/>UNCOMPROMISED.
+                <h1 class="reveal font-light text-6xl md:text-[8rem] tracking-[-0.03em] leading-[0.9] mb-12">
+                    Liquid Precision.<br/><span class="primary-glow-text font-extrabold">Absolute Privacy.</span>
                 </h1>
                 
-                <p class="reveal max-w-xl mx-auto text-white/50 text-lg md:text-xl font-light leading-relaxed mb-12">
-                    Linguistic-driven PII tokenization at the local buffer. Enterprise-grade Gemini at the core. Radical privacy for high-stakes infrastructure.
+                <p class="reveal max-w-2xl mx-auto text-white/40 text-lg md:text-xl font-light leading-relaxed mb-16">
+                    Linguistic PII deconstruction at the shoreline. 7-pass AI orchestration in the deep. Tidemark transforms chaotic incidents into structured architectural blueprints.
                 </p>
 
-                <div class="reveal flex flex-col md:flex-row gap-4 justify-center items-center">
-                    <button class="w-full md:w-auto px-10 py-5 rounded-full bg-primary text-black font-bold uppercase text-xs tracking-widest hover:scale-105 transition-transform">
-                        Request Deployment
+                <div class="reveal flex flex-col md:flex-row gap-6 justify-center items-center">
+                    <button class="btn-glow w-full md:w-auto px-12 py-6 rounded-full text-[#006152] font-black uppercase text-[11px] tracking-[0.2em]">
+                        Initiate Deployment
                     </button>
-                    <button class="w-full md:w-auto px-10 py-5 rounded-full border border-white/10 hover:bg-white/5 text-white font-bold uppercase text-xs tracking-widest transition-all">
+                    <button class="w-full md:w-auto px-12 py-6 rounded-full border border-primary/10 hover:bg-primary/5 text-primary font-black uppercase text-[11px] tracking-[0.2em] transition-all">
                         Technical Specs
                     </button>
                 </div>
             </div>
 
             <!-- Scroll Indicator -->
-            <div class="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 opacity-30">
-                <div class="w-[1px] h-12 bg-gradient-to-b from-primary to-transparent"></div>
+            <div class="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 opacity-20">
+                <div class="w-[0.5px] h-16 bg-gradient-to-b from-primary to-transparent"></div>
             </div>
         </section>
 
-        <!-- Bento Grid Features -->
-        <section id="features" class="py-32 px-6 md:px-12">
+        <!-- Bento: The Protocol Layers -->
+        <section id="protocol" class="py-32 px-6 md:px-12 relative">
             <div class="max-w-7xl mx-auto">
-                <div class="reveal mb-20 text-center md:text-left">
-                    <h2 class="font-headline text-4xl md:text-6xl font-extrabold tracking-tight mb-6">THE PROTOCOL</h2>
-                    <p class="text-white/40 max-w-2xl text-lg">Orchestrating complex intelligence layers with zero-trust architectural integrity.</p>
+                <div class="reveal mb-24 text-center md:text-left">
+                    <h2 class="text-4xl md:text-6xl font-extrabold tracking-tight mb-8">THE ARCHITECTURE</h2>
+                    <p class="text-white/30 max-w-2xl text-lg font-light">Seven layers of intelligence, anchored in zero-trust local isolation and deterministic governance.</p>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <!-- Large Card -->
-                    <div class="reveal md:col-span-2 h-[400px] bento-card glass rounded-[2rem] p-12 flex flex-col justify-between group overflow-hidden relative">
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+                    <!-- Large: Deterministic Governance -->
+                    <div class="reveal md:col-span-8 h-[550px] liquid-glass p-16 flex flex-col justify-between group overflow-hidden relative border-none bg-[#0c1818]">
                         <div class="z-10">
-                            <span class="material-symbols-outlined text-primary text-4xl mb-6">psychology_alt</span>
-                            <h3 class="font-headline text-3xl font-bold mb-4">Linguistic PII Tokenization</h3>
-                            <p class="text-white/50 max-w-sm">Our proprietary linguistic engine identifies and swaps sensitive identifiers directly on your hardware. Data leaves your device as anonymous tokens—never as private records.</p>
+                            <div class="reveal inline-block px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary text-[9px] font-black tracking-[0.3em] uppercase mb-10">Unorthodox Intelligence</div>
+                            <h3 class="text-4xl md:text-5xl font-extrabold mb-8 tracking-tight">AI on a Leash:<br/><span class="primary-glow-text">Deterministic Governance.</span></h3>
+                            <p class="text-white/40 max-w-xl text-lg leading-relaxed font-light">
+                                In an industry obsessed with "Agentic AI," we chose the unorthodox path. At Tidemark, the AI is a tool, never the driver. Our <strong>Logic-First Architecture</strong> ensures every state transition, every question, and every completion decision is made by deterministic code—not a hallucinating LLM.
+                            </p>
                         </div>
-                        <div class="absolute bottom-[-50px] right-[-50px] w-64 h-64 bg-primary/20 blur-[60px] group-hover:bg-primary/40 transition-all"></div>
+                        <div class="z-10 flex gap-8">
+                            <div>
+                                <div class="text-2xl font-bold text-primary">0%</div>
+                                <div class="text-[9px] uppercase tracking-widest text-white/20">Decision Autonomy</div>
+                            </div>
+                            <div>
+                                <div class="text-2xl font-bold text-primary">100%</div>
+                                <div class="text-[9px] uppercase tracking-widest text-white/20">Code Governance</div>
+                            </div>
+                        </div>
+                        <div class="absolute top-0 right-0 w-full h-full bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+                        <div class="absolute bottom-[-100px] right-[-100px] w-80 h-80 bg-primary/10 blur-[100px] group-hover:bg-primary/20 transition-all duration-700"></div>
                     </div>
 
-                    <!-- Small Card -->
-                    <div class="reveal h-[400px] bento-card glass rounded-[2rem] p-12 flex flex-col justify-between">
+                    <!-- Small: Anti-Hallucination Shield -->
+                    <div class="reveal md:col-span-4 h-[550px] liquid-glass p-12 flex flex-col justify-between bg-[#1f2f2f]/30">
                         <div>
-                            <span class="material-symbols-outlined text-primary text-4xl mb-6">verified_user</span>
-                            <h3 class="font-headline text-3xl font-bold mb-4">Enterprise Gemini</h3>
-                            <p class="text-white/50">Leverage protected, enterprise-grade Gemini models through a strictly governed secure pipe. High-fidelity reasoning with zero data retention.</p>
+                            <span class="material-symbols-outlined text-primary text-4xl mb-8">verified_user</span>
+                            <h3 class="text-3xl font-bold mb-6 tracking-tight">Anti-Hallucination Shield</h3>
+                            <p class="text-white/30 text-sm leading-relaxed mb-8">
+                                We utilize a <strong>Confidence Threshold (0.50)</strong>. If the AI is not absolutely certain of a fact, the system discards it and asks the human operator directly.
+                            </p>
+                            <div class="space-y-4">
+                                <div class="flex items-center justify-between px-3 py-2 bg-primary/5 rounded-lg border border-primary/10">
+                                    <span class="text-[10px] uppercase tracking-widest text-white/40">Confidence</span>
+                                    <span class="text-[10px] font-bold text-primary">0.98 - SECURE</span>
+                                </div>
+                                <div class="flex items-center justify-between px-3 py-2 bg-error/5 rounded-lg border border-error/10 opacity-40">
+                                    <span class="text-[10px] uppercase tracking-widest text-white/40">Hallucination</span>
+                                    <span class="text-[10px] font-bold text-error">REJECTED</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="space-y-3">
+                            <div class="h-[1px] w-full bg-primary/20"></div>
+                            <div class="h-[1px] w-2/3 bg-primary/10"></div>
                         </div>
                     </div>
+                </div>
+            </div>
+        </section>
 
-                    <!-- Row -->
-                    <div class="reveal bento-card glass rounded-[2rem] p-10 flex flex-col justify-between min-h-[300px]">
-                        <span class="material-symbols-outlined text-primary text-3xl mb-4">hub</span>
+        <!-- Bento Row 2 -->
+        <section class="pb-32 px-6 md:px-12 relative">
+            <div class="max-w-7xl mx-auto">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- Legal Shield -->
+                    <div class="reveal liquid-glass p-12 flex flex-col justify-between h-[450px] group">
+                        <span class="material-symbols-outlined text-primary text-4xl mb-8">gavel</span>
                         <div>
-                            <h4 class="font-headline text-xl font-bold mb-2 uppercase tracking-wider">Multi-API Logic</h4>
-                            <p class="text-white/40 text-sm">Complex orchestration across secure endpoints, delivering structured intelligence in under 200ms.</p>
+                            <div class="reveal inline-block px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-[8px] font-black tracking-[0.3em] uppercase mb-4">Integrity Protocol</div>
+                            <h3 class="text-2xl font-bold mb-4 tracking-tight">The Legal Shield</h3>
+                            <p class="text-white/30 text-sm leading-relaxed">
+                                Every report is anchored with a <strong>SHA-256 cryptographic hash</strong>. Any unauthorized modification to the exported record is instantly detectable, providing a tamper-proof audit trail for legal and insurance defense.
+                            </p>
                         </div>
+                        <div class="font-mono text-[9px] text-primary/20 group-hover:text-primary/60 transition-colors">SHA256: 8742672...CAFBE38</div>
                     </div>
                     
-                    <div class="reveal bento-card glass rounded-[2rem] p-10 flex flex-col justify-between min-h-[300px]">
-                        <span class="material-symbols-outlined text-primary text-3xl mb-4">settings_ethernet</span>
+                    <!-- Cloudless Sync -->
+                    <div class="reveal liquid-glass p-12 flex flex-col justify-between h-[450px]">
+                        <span class="material-symbols-outlined text-primary text-4xl mb-8">dynamic_feed</span>
                         <div>
-                            <h4 class="font-headline text-xl font-bold mb-2 uppercase tracking-wider">Atomic Processing</h4>
-                            <p class="text-white/40 text-sm">Stateless processing of incident data ensuring no traces are left in the network environment.</p>
+                            <div class="reveal inline-block px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-[8px] font-black tracking-[0.3em] uppercase mb-4">Infrastructure Zero</div>
+                            <h3 class="text-2xl font-bold mb-4 tracking-tight">Cloudless Sync</h3>
+                            <p class="text-white/30 text-sm leading-relaxed">
+                                Multi-device convergence without a central database. Using <strong>Append-Only Event Transport</strong>, Tidemark synchronizes your local archives across your existing email or file infrastructure.
+                            </p>
                         </div>
                     </div>
 
-                    <div class="reveal bento-card glass rounded-[2rem] p-10 flex flex-col justify-between min-h-[300px]">
-                        <span class="material-symbols-outlined text-primary text-3xl mb-4">analytics</span>
+                    <!-- Aegean UI -->
+                    <div class="reveal liquid-glass p-12 flex flex-col justify-between h-[450px]">
+                        <span class="material-symbols-outlined text-primary text-4xl mb-8">Water</span>
                         <div>
-                            <h4 class="font-headline text-xl font-bold mb-2 uppercase tracking-wider">Precision Output</h4>
-                            <p class="text-white/40 text-sm">Automated generation of structured, audit-ready documentation for any regulatory standard.</p>
+                            <div class="reveal inline-block px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-[8px] font-black tracking-[0.3em] uppercase mb-4">Design Philosophy</div>
+                            <h3 class="text-2xl font-bold mb-4 tracking-tight">The Aegean UI</h3>
+                            <p class="text-white/30 text-sm leading-relaxed">
+                                Built on the <strong>Digital Shoreline</strong> principle. We use light physics and tonal depth—not borders—to create a high-fidelity environment that keeps operators calm and precise during high-stress incidents.
+                            </p>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Privacy: Deep Visual -->
-        <section id="security" class="py-48 px-6 bg-surface relative overflow-hidden">
-            <div class="max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-24">
-                <div class="flex-1">
-                    <div class="reveal inline-block px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-[10px] font-bold tracking-widest uppercase mb-6">The Linguistic Shield</div>
-                    <h2 class="reveal font-headline text-5xl md:text-7xl font-extrabold tracking-tight mb-8">LOCAL MASKING. GLOBAL SPEED.</h2>
-                    <p class="reveal text-white/50 text-xl leading-relaxed mb-12">
-                        Tidemark's unique linguistic-driven tokenization understands context. It doesn't just block data—it structurally replaces it locally, allowing the global AI to process the "skeleton" of the incident with 100% security.
+        <!-- Playbooks Grid: Immersive Specificity -->
+        <section id="playbooks" class="py-48 px-6 bg-[#000000]/30 relative overflow-hidden">
+            <div class="max-w-7xl mx-auto">
+                <div class="reveal mb-24 text-center">
+                    <h2 class="text-5xl md:text-7xl font-extrabold tracking-tighter mb-8">16 SPECIALIZED PLAYBOOKS.</h2>
+                    <p class="text-white/30 text-xl font-light">Engineered for the reality of high-stakes operations.</p>
+                </div>
+
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div class="reveal liquid-glass p-8 hover:bg-primary/5 transition-all group">
+                        <span class="material-symbols-outlined text-primary/40 group-hover:text-primary mb-4 transition-colors">security</span>
+                        <h4 class="text-xs font-black uppercase tracking-[0.2em]">Security</h4>
+                        <p class="text-[10px] text-white/20 mt-2 uppercase">Theft · Vandalism · Intrusion</p>
+                    </div>
+                    <div class="reveal liquid-glass p-8 hover:bg-primary/5 transition-all group">
+                        <span class="material-symbols-outlined text-primary/40 group-hover:text-primary mb-4 transition-colors">emergency_home</span>
+                        <h4 class="text-xs font-black uppercase tracking-[0.2em]">Life Safety</h4>
+                        <p class="text-[10px] text-white/20 mt-2 uppercase">Fire · Medical · Slip & Fall</p>
+                    </div>
+                    <div class="reveal liquid-glass p-8 hover:bg-primary/5 transition-all group">
+                        <span class="material-symbols-outlined text-primary/40 group-hover:text-primary mb-4 transition-colors">engineering</span>
+                        <h4 class="text-xs font-black uppercase tracking-[0.2em]">Operations</h4>
+                        <p class="text-[10px] text-white/20 mt-2 uppercase">Damage · Failure · Parking</p>
+                    </div>
+                    <div class="reveal liquid-glass p-8 hover:bg-primary/5 transition-all group">
+                        <span class="material-symbols-outlined text-primary/40 group-hover:text-primary mb-4 transition-colors">concierge_bell</span>
+                        <h4 class="text-xs font-black uppercase tracking-[0.2em]">Hospitality</h4>
+                        <p class="text-[10px] text-white/20 mt-2 uppercase">Noise · Complaint · Service</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Privacy: The Memory-Only Protocol -->
+        <section id="security" class="py-48 px-6 relative overflow-hidden">
+            <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-32 items-center">
+                <div class="order-2 lg:order-1">
+                    <div class="reveal inline-block px-4 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary text-[10px] font-black tracking-[0.3em] uppercase mb-8">Atomic Persistence</div>
+                    <h2 class="reveal text-5xl md:text-7xl font-extrabold tracking-tighter mb-10 leading-[0.9]">ZERO CLOUD.<br/>ZERO LEAK.</h2>
+                    <p class="reveal text-white/40 text-xl leading-relaxed mb-16 font-light">
+                        Tidemark operates in the volatile buffer. PII token maps exist only in system RAM for the duration of the session. No central database. No permanent logs. No audit trails left for adversaries.
                     </p>
                     
-                    <div class="reveal flex gap-12">
+                    <div class="reveal grid grid-cols-2 gap-12">
                         <div>
-                            <div class="text-4xl font-bold font-headline mb-2 text-primary">100%</div>
-                            <div class="text-[10px] uppercase tracking-widest text-white/30">Local Isolation</div>
+                            <div class="text-5xl font-extrabold mb-3 text-primary tracking-tighter">RAM-ONLY</div>
+                            <div class="text-[10px] font-black uppercase tracking-[0.3em] text-white/20">Token Storage</div>
                         </div>
                         <div>
-                            <div class="text-4xl font-bold font-headline mb-2 text-primary">&lt;5ms</div>
-                            <div class="text-[10px] uppercase tracking-widest text-white/30">Anonymization</div>
+                            <div class="text-5xl font-extrabold mb-3 text-primary tracking-tighter">SSL-TLS</div>
+                            <div class="text-[10px] font-black uppercase tracking-[0.3em] text-white/20">Atomic Pipe</div>
                         </div>
                     </div>
                 </div>
                 
-                <div class="reveal flex-1 w-full aspect-square glass rounded-[3rem] p-12 flex items-center justify-center relative group overflow-hidden">
-                    <div class="absolute inset-0 bg-gradient-to-tr from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                    <!-- Technical Abstract -->
-                    <div class="relative z-10 w-full space-y-6">
-                        <div class="h-[1px] w-full bg-white/5"></div>
-                        <div class="h-[1px] w-3/4 bg-primary/20"></div>
-                        <div class="h-[1px] w-full bg-white/5"></div>
-                        <div class="flex justify-between items-center px-4">
-                            <span class="text-[10px] font-mono text-primary animate-pulse">ENCRYPTING_NODE_04...</span>
-                            <span class="text-[10px] font-mono text-white/20">STATUS: SECURE</span>
+                <div class="reveal order-1 lg:order-2 w-full aspect-square liquid-glass p-20 flex items-center justify-center relative group">
+                    <div class="absolute inset-0 bg-primary/5 opacity-50 group-hover:opacity-100 transition-opacity rounded-[1.5rem]"></div>
+                    <!-- Technical Abstract Visual -->
+                    <div class="relative z-10 w-full space-y-12">
+                        <div class="flex items-center gap-6">
+                            <div class="h-[0.5px] flex-1 bg-primary/30"></div>
+                            <span class="text-[9px] font-mono text-primary/40 tracking-[0.5em]">PII_STRIP_ACTIVE</span>
+                            <div class="h-[0.5px] flex-1 bg-primary/30"></div>
                         </div>
-                        <div class="h-[1px] w-full bg-white/5"></div>
-                        <div class="h-[1px] w-1/2 bg-primary/20"></div>
-                        <div class="h-[1px] w-full bg-white/5"></div>
+                        <div class="flex justify-between px-4">
+                            <div class="text-center">
+                                <div class="text-[10px] text-white/20 uppercase mb-2">Source</div>
+                                <div class="text-xs font-bold text-white/60">[John Smith]</div>
+                            </div>
+                            <div class="flex items-center">
+                                <span class="material-symbols-outlined text-primary animate-pulse">trending_flat</span>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-[10px] text-white/20 uppercase mb-2">Token</div>
+                                <div class="text-xs font-bold text-primary">[GUEST_A]</div>
+                            </div>
+                        </div>
+                        <div class="h-[0.5px] w-full bg-primary/10"></div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Contact Section -->
+        <!-- Deployment Contact -->
         <section class="py-48 px-6">
-            <div class="max-w-3xl mx-auto glass rounded-[3rem] p-12 md:p-24 text-center">
-                <h2 class="reveal font-headline text-4xl md:text-6xl font-extrabold tracking-tight mb-6">READY TO DEPLOY?</h2>
-                <p class="reveal text-white/50 mb-12">Join the infrastructure elite using Tidemark's architectural protocol.</p>
+            <div class="max-w-4xl mx-auto liquid-glass p-16 md:p-32 text-center relative overflow-hidden">
+                <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-primary/40 to-transparent"></div>
+                <h2 class="reveal text-4xl md:text-7xl font-extrabold tracking-tighter mb-10">INITIATE DEPLOYMENT.</h2>
+                <p class="reveal text-white/30 text-lg md:text-xl font-light mb-20 max-w-xl mx-auto">Request a secure architectural consultation for your critical infrastructure.</p>
                 
-                <form class="reveal grid grid-cols-1 gap-8 text-left">
-                    <div class="group border-b border-white/10 focus-within:border-primary transition-colors py-4">
-                        <label class="text-[10px] uppercase tracking-[0.2em] text-white/30 group-focus-within:text-primary transition-colors">Identity</label>
-                        <input type="text" placeholder="Engineer Name" class="w-full bg-transparent border-none focus:ring-0 p-0 text-white placeholder:text-white/10 font-headline font-semibold">
+                <form class="reveal grid grid-cols-1 gap-12 text-left max-w-2xl mx-auto">
+                    <div class="group border-b border-primary/10 focus-within:border-primary transition-all py-6">
+                        <label class="text-[9px] font-black uppercase tracking-[0.4em] text-white/20 group-focus-within:text-primary transition-colors">Identity Node</label>
+                        <input type="text" placeholder="Engineer Name" class="w-full bg-transparent border-none focus:ring-0 p-0 text-white placeholder:text-white/5 font-medium text-lg mt-2">
                     </div>
-                    <div class="group border-b border-white/10 focus-within:border-primary transition-colors py-4">
-                        <label class="text-[10px] uppercase tracking-[0.2em] text-white/30 group-focus-within:text-primary transition-colors">Endpoint</label>
-                        <input type="email" placeholder="Professional Email" class="w-full bg-transparent border-none focus:ring-0 p-0 text-white placeholder:text-white/10 font-headline font-semibold">
+                    <div class="group border-b border-primary/10 focus-within:border-primary transition-all py-6">
+                        <label class="text-[9px] font-black uppercase tracking-[0.4em] text-white/20 group-focus-within:text-primary transition-colors">Communication Pipe</label>
+                        <input type="email" placeholder="Professional Email" class="w-full bg-transparent border-none focus:ring-0 p-0 text-white placeholder:text-white/5 font-medium text-lg mt-2">
                     </div>
-                    <button class="mt-8 w-full py-6 rounded-full bg-white text-black font-bold uppercase text-xs tracking-[0.3em] hover:bg-primary hover:scale-[1.02] transition-all">
+                    <button class="btn-glow mt-12 w-full py-7 rounded-full text-[#006152] font-black uppercase text-xs tracking-[0.4em] hover:scale-[1.02]">
                         Request Protocol Access
                     </button>
                 </form>
@@ -275,13 +342,16 @@
         </section>
     </main>
 
-    <footer class="py-12 px-6 border-t border-white/5 bg-black">
-        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
-            <div class="text-[10px] uppercase tracking-[0.3em] text-white/20">© 2024 Tidemark Systems. All Rights Reserved.</div>
+    <footer class="py-20 px-6 border-t border-primary/5 bg-[#000000]/50 backdrop-blur-3xl">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-12">
+            <div class="flex items-center gap-4">
+                <div class="w-2 h-2 bg-primary rounded-full"></div>
+                <span class="text-[10px] font-black uppercase tracking-[0.4em] text-white/20">© 2024 Tidemark Architectural AI.</span>
+            </div>
             <div class="flex gap-12">
-                <a href="#" class="text-[10px] uppercase tracking-[0.3em] text-white/20 hover:text-primary transition-colors">Privacy</a>
-                <a href="#" class="text-[10px] uppercase tracking-[0.3em] text-white/20 hover:text-primary transition-colors">Terms</a>
-                <a href="#" class="text-[10px] uppercase tracking-[0.3em] text-white/20 hover:text-primary transition-colors">Security</a>
+                <a href="#" class="text-[10px] font-black uppercase tracking-[0.4em] text-white/10 hover:text-primary transition-colors">Privacy</a>
+                <a href="#" class="text-[10px] font-black uppercase tracking-[0.4em] text-white/10 hover:text-primary transition-colors">Security</a>
+                <a href="#" class="text-[10px] font-black uppercase tracking-[0.4em] text-white/10 hover:text-primary transition-colors">System Status</a>
             </div>
         </div>
     </footer>
@@ -289,45 +359,46 @@
     <script>
         gsap.registerPlugin(ScrollTrigger);
 
-        // Smooth Navbar color transition
+        // Navbar Scroll Evolution
         window.addEventListener('scroll', () => {
             const nav = document.getElementById('navbar');
             if (window.scrollY > 50) {
-                nav.classList.add('py-3');
+                nav.classList.add('py-4');
+                nav.classList.remove('py-8');
             } else {
-                nav.classList.remove('py-3');
+                nav.classList.add('py-8');
+                nav.classList.remove('py-4');
             }
         });
 
-        // GSAP Reveal Animations
+        // GSAP Reveal: Fluid Architecture
         document.querySelectorAll('.reveal').forEach((el) => {
             gsap.fromTo(el, {
                 opacity: 0,
-                y: 50,
+                y: 40,
             }, {
                 opacity: 1,
                 y: 0,
-                duration: 1.2,
+                duration: 1.5,
                 ease: "power4.out",
                 scrollTrigger: {
                     trigger: el,
-                    start: "top 85%",
+                    start: "top 90%",
                     toggleActions: "play none none none"
                 }
             });
         });
 
-        // Hero Parallax effect
-        gsap.to(".glow-orb", {
+        // Ambient Parallax Flow
+        gsap.to(".shoreline-gradient", {
             scrollTrigger: {
                 trigger: "body",
                 start: "top top",
                 end: "bottom bottom",
-                scrub: 2
+                scrub: 1.5
             },
-            y: (i, target) => i === 0 ? 100 : -100,
-            x: (i, target) => i === 0 ? 50 : -50,
-            opacity: 0.2
+            backgroundPosition: "20% 20%",
+            duration: 10
         });
     </script>
 </body>
