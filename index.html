@@ -1,319 +1,334 @@
 <!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Tidemark | Architectural AI Incident Reporting</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <style>
+        :root {
+            --bg-dark: #000000;
+            --accent-teal: #00D1FF;
+            --accent-glow: rgba(0, 209, 255, 0.15);
+            --surface: #121212;
+            --border-subtle: rgba(255, 255, 255, 0.08);
+        }
 
-<html class="dark" lang="en"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Tidemark | Architectural AI Incident Reporting</title>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&amp;family=Inter:wght@300;400;600&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<style>
-        .material-symbols-outlined {
-            font-variation-settings: 'FILL' 0, 'wght' 200, 'GRAD' 0, 'opsz' 24;
-            font-size: 1.25rem;
+        body {
+            background-color: var(--bg-dark);
+            color: #ffffff;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
         }
-        /* Custom Bézier for the cinematic feel */
-        .ease-abyssal {
-            transition-timing-function: cubic-bezier(0.2, 0, 0, 1);
+
+        .font-headline { font-family: 'Plus Jakarta Sans', sans-serif; }
+
+        /* Apple-style smooth scroll */
+        html { scroll-behavior: smooth; }
+
+        /* Glassmorphism */
+        .glass {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--border-subtle);
         }
-        /* Hairline Trace Border */
-        .border-trace {
-            border-color: rgba(58, 73, 74, 0.4);
-            border-width: 0.5px;
+
+        /* Ambient Glows */
+        .glow-orb {
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 0;
+            filter: blur(80px);
         }
-        /* Ambient Glow replacement for shadows */
-        .glow-primary-sm:hover {
-            box-shadow: 0 0 15px rgba(182, 202, 203, 0.3);
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--bg-dark); }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #444; }
+
+        .reveal { opacity: 0; transform: translateY(30px); }
+
+        .nav-link {
+            position: relative;
+            transition: color 0.3s ease;
         }
-        .glow-bioluminescent {
-            box-shadow: 0 0 40px rgba(182, 202, 203, 0.1);
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--accent-teal);
+            transition: width 0.3s ease;
         }
-        /* Hide scrollbars but keep functionality */
-        .no-scrollbar::-webkit-scrollbar { display: none; }
-        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .nav-link:hover::after { width: 100%; }
+
+        .bento-card {
+            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        .bento-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(0, 209, 255, 0.3);
+            background: rgba(255, 255, 255, 0.05);
+        }
     </style>
-<script id="tailwind-config">
+    <script>
         tailwind.config = {
-            darkMode: "class",
             theme: {
                 extend: {
                     colors: {
-                        "outline": "#8f9194",
-                        "on-tertiary": "#243334",
-                        "surface-container-lowest": "#0b0e11",
-                        "surface-bright": "#37393d",
-                        "surface-dim": "#111417",
-                        "on-secondary-fixed-variant": "#054f52",
-                        "on-primary-fixed": "#0b1e20",
-                        "inverse-on-surface": "#2e3134",
-                        "primary-fixed-dim": "#b6cacb",
-                        "surface": "#111417",
-                        "error": "#ffb4ab",
-                        "surface-variant": "#323538",
-                        "on-error-container": "#ffdad6",
-                        "inverse-surface": "#e1e2e7",
-                        "on-tertiary-fixed": "#0f1e1f",
-                        "surface-container": "#1d2023",
-                        "inverse-primary": "#4f6263",
-                        "on-secondary-container": "#84bfc2",
-                        "on-secondary-fixed": "#002021",
-                        "tertiary-fixed": "#d5e6e7",
-                        "primary-fixed": "#d2e6e7",
-                        "background": "#111417",
-                        "secondary-fixed-dim": "#95d1d4",
-                        "on-primary-fixed-variant": "#374a4b",
-                        "on-tertiary-fixed-variant": "#3a494a",
-                        "secondary-container": "#054f52",
-                        "on-primary-container": "#6e8283",
-                        "tertiary-fixed-dim": "#b9caca",
-                        "outline-variant": "#44474a",
-                        "on-surface": "#e1e2e7",
-                        "primary-container": "#041718",
-                        "surface-container-high": "#272a2d",
-                        "on-primary": "#213435",
-                        "tertiary-container": "#071617",
-                        "on-error": "#690005",
-                        "secondary": "#95d1d4",
-                        "surface-tint": "#b6cacb",
-                        "secondary-fixed": "#b1edf0",
-                        "tertiary": "#b9caca",
-                        "on-surface-variant": "#c5c6ca",
-                        "on-secondary": "#003739",
-                        "primary": "#b6cacb",
-                        "surface-container-low": "#191c1f",
-                        "error-container": "#93000a",
-                        "on-background": "#e1e2e7",
-                        "surface-container-highest": "#323538",
-                        "on-tertiary-container": "#728182"
-                    },
-                    borderRadius: {
-                        "DEFAULT": "0px",
-                        "lg": "0px",
-                        "xl": "0px",
-                        "full": "9999px"
-                    },
-                    fontFamily: {
-                        "headline": ["Space Grotesk"],
-                        "body": ["Inter"],
-                        "label": ["Inter"]
+                        primary: "#00D1FF",
+                        surface: "#121212",
+                        "surface-light": "#1C1C1E"
                     }
-                },
-            },
+                }
+            }
         }
     </script>
 </head>
-<body class="bg-background text-on-surface font-body selection:bg-primary/30">
-<!-- Top Navigation Shell -->
-<nav class="fixed top-0 w-full z-50 flex justify-between items-center px-8 py-4 bg-[#111417]/70 backdrop-blur-xl border-b-[0.5px] border-[#3A494A]/40">
-<div class="text-xl font-bold tracking-tighter text-[#B6CACB] font-headline uppercase">Tidemark</div>
-<div class="hidden md:flex items-center gap-10">
-<a class="font-['Space_Grotesk'] text-[0.7rem] uppercase tracking-[0.05em] font-medium text-[#B6CACB] border-b border-[#B6CACB] pb-1 hover:text-[#95D1D4] transition-colors duration-300" href="#">Platform</a>
-<a class="font-['Space_Grotesk'] text-[0.7rem] uppercase tracking-[0.05em] font-medium text-[#B6CACB]/60 hover:text-[#95D1D4] transition-colors duration-300" href="#">Security</a>
-<a class="font-['Space_Grotesk'] text-[0.7rem] uppercase tracking-[0.05em] font-medium text-[#B6CACB]/60 hover:text-[#95D1D4] transition-colors duration-300" href="#">Intelligence</a>
-<a class="font-['Space_Grotesk'] text-[0.7rem] uppercase tracking-[0.05em] font-medium text-[#B6CACB]/60 hover:text-[#95D1D4] transition-colors duration-300" href="#">Documentation</a>
-</div>
-<div class="flex items-center gap-6">
-<span class="material-symbols-outlined text-[#B6CACB] cursor-pointer hover:text-secondary transition-colors" data-icon="radar">radar</span>
-<span class="material-symbols-outlined text-[#B6CACB] cursor-pointer hover:text-secondary transition-colors" data-icon="terminal">terminal</span>
-<button class="bg-primary text-on-primary font-headline text-[0.7rem] uppercase tracking-widest px-6 py-2.5 hover:shadow-[0_0_15px_#B6CACB] transition-all duration-300">
+<body class="selection:bg-primary/30">
+
+    <div class="glow-orb top-[-200px] left-[-200px]"></div>
+    <div class="glow-orb bottom-[-300px] right-[-300px]"></div>
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-[100] px-6 py-5 md:px-12 transition-all duration-500" id="navbar">
+        <div class="max-w-7xl mx-auto flex justify-between items-center glass rounded-full px-8 py-3">
+            <div class="flex items-center gap-2">
+                <div class="w-2 h-2 bg-primary rounded-full animate-pulse"></div>
+                <span class="font-headline font-extrabold text-xl tracking-tighter uppercase">Tidemark</span>
+            </div>
+            
+            <div class="hidden md:flex items-center gap-10">
+                <a href="#platform" class="nav-link text-xs font-semibold uppercase tracking-widest text-white/60 hover:text-white">Platform</a>
+                <a href="#security" class="nav-link text-xs font-semibold uppercase tracking-widest text-white/60 hover:text-white">Security</a>
+                <a href="#features" class="nav-link text-xs font-semibold uppercase tracking-widest text-white/60 hover:text-white">Intelligence</a>
+            </div>
+
+            <button class="bg-white text-black font-headline text-[0.7rem] font-bold uppercase tracking-widest px-6 py-2.5 rounded-full hover:bg-primary hover:text-black transition-all duration-300">
                 Deploy System
             </button>
-</div>
-</nav>
-<main class="relative">
-<!-- Hero Section -->
-<section class="min-h-screen flex flex-col items-center justify-center relative overflow-hidden px-8">
-<!-- Subtle Radial Depth -->
-<div class="absolute inset-0 bg-gradient-to-b from-primary-container/20 via-transparent to-transparent pointer-events-none"></div>
-<div class="relative z-10 flex flex-col items-center text-center max-w-5xl">
-<img alt="Tidemark Refined Logo" class="w-48 h-48 mb-8 opacity-90 contrast-125 hover:opacity-100 transition-opacity duration-700" data-alt="Technical topographic iceberg logo with bioluminescent teal contour lines on a solid #111417 background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCkF5m0_lGjmS-s8F0y_NQZ5GhyH6bOtpSNtWqTZr4jOa_MakTL4uPTcSu9Gqw8-SfCj5Kwfelg4oIDZLuX6rjf21Wu7rUGiZOmXIx0dqq4VZAntL7ey9rYUdIfRo0dN0w-ge_aLRSrPtYbgC-kV36NLUP2lM0VW6BAIKOcR705aRD61fsdhD12rnRyCLodQPMflsW3-CEFHAS9_dVLyJ0Rb74NfsqYJfrcRJXClxCKpWnZgPXhU4xVG-dorF6ORNv0XvBEq5YvY5M"/>
-<p class="font-label text-[0.6875rem] uppercase tracking-[0.2em] text-secondary mb-6 animate-pulse">System Status: Operational</p>
-<h1 class="font-headline text-5xl md:text-8xl font-bold tracking-[-0.03em] leading-[0.95] text-primary mb-8 max-w-4xl">
-                    INCIDENT REPORTS<br/>DONE RIGHT.
-                </h1>
-<p class="font-label text-[0.7rem] leading-relaxed tracking-[0.05em] text-on-surface-variant max-w-md uppercase">
-                    The Abyssal Architect protocol for high-density data integrity and architectural precision in critical infrastructure monitoring.
-                </p>
-<div class="mt-16 flex flex-col md:flex-row gap-8 items-center">
-<div class="w-[0.5px] h-24 bg-tertiary-fixed-variant/40 hidden md:block"></div>
-<span class="material-symbols-outlined text-primary text-4xl" data-icon="expand_more">expand_more</span>
-<div class="w-[0.5px] h-24 bg-tertiary-fixed-variant/40 hidden md:block"></div>
-</div>
-</div>
-</section>
-<!-- Problem Space: Monolithic Vertical Layout -->
-<section class="py-32 px-8 flex flex-col items-center">
-<div class="w-full max-w-4xl flex flex-col gap-[128px]">
-<!-- Point 1 -->
-<div class="group flex flex-col md:flex-row gap-12 items-start opacity-90 hover:opacity-100 transition-opacity ease-abyssal duration-700">
-<div class="text-secondary font-headline text-2xl font-light w-16">01</div>
-<div class="flex-1">
-<h2 class="font-headline text-3xl font-bold text-primary mb-6 tracking-tight">Data Fragmentation</h2>
-<p class="text-on-surface-variant leading-relaxed font-body text-lg max-w-xl">
-                            Legacy systems dissipate critical insights into shallow pools of unindexed logs. We treat every incident as a monolithic structure, carved from the bedrock of your infrastructure.
-                        </p>
-</div>
-</div>
-<!-- Point 2: Tonal Shift Grouping -->
-<div class="bg-surface-container-low p-12 md:p-24 -mx-8 md:-mx-24 border-y border-trace">
-<div class="max-w-4xl mx-auto flex flex-col md:flex-row gap-12 items-start">
-<div class="text-secondary font-headline text-2xl font-light w-16">02</div>
-<div class="flex-1">
-<h2 class="font-headline text-3xl font-bold text-primary mb-6 tracking-tight">The Latency Void</h2>
-<p class="text-on-surface-variant leading-relaxed font-body text-lg max-w-xl">
-                                Minutes lost in the deep are hours lost in production. Tidemark accelerates reporting through neural pre-compression, surfacing anomalies before they manifest as failures.
-                            </p>
-</div>
-</div>
-</div>
-<!-- Point 3 -->
-<div class="group flex flex-col md:flex-row gap-12 items-start opacity-90 hover:opacity-100 transition-opacity ease-abyssal duration-700">
-<div class="text-secondary font-headline text-2xl font-light w-16">03</div>
-<div class="flex-1">
-<h2 class="font-headline text-3xl font-bold text-primary mb-6 tracking-tight">Opaque Remediation</h2>
-<p class="text-on-surface-variant leading-relaxed font-body text-lg max-w-xl">
-                            Standard reports lack the technical depth required for true post-mortem analysis. Our system generates high-fidelity architectural blueprints of every system state change.
-                        </p>
-</div>
-</div>
-</div>
-</section>
-<!-- Feature Deep-Dive: Trace Border & Bioluminescent Thread -->
-<section class="py-32 px-8 bg-surface-container-lowest">
-<div class="max-w-7xl mx-auto">
-<div class="mb-24">
-<p class="font-label text-[0.6875rem] uppercase tracking-[0.3em] text-tertiary-fixed-variant mb-4">Deep Technicals</p>
-<h2 class="font-headline text-4xl md:text-6xl font-bold text-primary tracking-tighter">THE CORE ARCHITECTURE</h2>
-</div>
-<div class="grid grid-cols-1 md:grid-cols-12 gap-px bg-[#3A494A]/20 border-trace">
-<!-- Tracker Visual -->
-<div class="md:col-span-4 bg-surface p-12 flex flex-col justify-between relative overflow-hidden">
-<div class="relative z-10">
-<h3 class="font-headline text-xl text-primary mb-8">Pulse Synchrony</h3>
-<div class="space-y-6">
-<div class="flex items-center gap-4 group">
-<div class="w-1.5 h-1.5 bg-primary shadow-[0_0_8px_#B6CACB]"></div>
-<span class="font-label text-[0.7rem] uppercase text-primary tracking-widest">Ingestion</span>
-</div>
-<div class="w-px h-12 bg-primary/20 ml-[3px]"></div>
-<div class="flex items-center gap-4">
-<div class="w-1.5 h-1.5 bg-secondary shadow-[0_0_8px_#95D1D4]"></div>
-<span class="font-label text-[0.7rem] uppercase text-secondary tracking-widest">Anonymization</span>
-</div>
-<div class="w-px h-12 bg-secondary/20 ml-[3px]"></div>
-<div class="flex items-center gap-4">
-<div class="w-1.5 h-1.5 bg-tertiary-fixed-variant"></div>
-<span class="font-label text-[0.7rem] uppercase text-tertiary-fixed-variant tracking-widest">Restoration</span>
-</div>
-</div>
-</div>
-<div class="absolute bottom-0 right-0 w-32 h-32 bg-primary/5 blur-[60px]"></div>
-</div>
-<!-- Main Feature Grid -->
-<div class="md:col-span-8 grid grid-cols-1 md:grid-cols-2 gap-px bg-[#3A494A]/20">
-<div class="bg-surface p-12 border-trace hover:bg-surface-container transition-colors ease-abyssal">
-<span class="material-symbols-outlined text-secondary mb-8" data-icon="security">security</span>
-<h4 class="font-headline text-lg text-primary mb-4 uppercase tracking-wider">Zero-Leak Buffer</h4>
-<p class="text-on-surface-variant font-body text-sm leading-relaxed">Hardware-level isolation for report transmission, ensuring no metadata escapes the primary perimeter.</p>
-</div>
-<div class="bg-surface p-12 border-trace hover:bg-surface-container transition-colors ease-abyssal">
-<span class="material-symbols-outlined text-secondary mb-8" data-icon="query_stats">query_stats</span>
-<h4 class="font-headline text-lg text-primary mb-4 uppercase tracking-wider">Neural Mapping</h4>
-<p class="text-on-surface-variant font-body text-sm leading-relaxed">Automated relationship mapping between disparate system nodes during active incidents.</p>
-</div>
-<div class="bg-surface p-12 border-trace hover:bg-surface-container transition-colors ease-abyssal">
-<span class="material-symbols-outlined text-secondary mb-8" data-icon="hub">hub</span>
-<h4 class="font-headline text-lg text-primary mb-4 uppercase tracking-wider">Bioluminescent UI</h4>
-<p class="text-on-surface-variant font-body text-sm leading-relaxed">Interfaces designed for high-stress environments using bioluminescent clarity standards.</p>
-</div>
-<div class="bg-surface p-12 border-trace hover:bg-surface-container transition-colors ease-abyssal">
-<span class="material-symbols-outlined text-secondary mb-8" data-icon="history_edu">history_edu</span>
-<h4 class="font-headline text-lg text-primary mb-4 uppercase tracking-wider">Immutable Ledger</h4>
-<p class="text-on-surface-variant font-body text-sm leading-relaxed">Every report is cryptographically signed and anchored to a private architectural chain.</p>
-</div>
-</div>
-</div>
-</div>
-</section>
-<!-- Privacy Visual: Scientific Technical View -->
-<section class="py-48 px-8 relative overflow-hidden bg-surface">
-<div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
-<div>
-<p class="font-label text-[0.6875rem] uppercase tracking-[0.3em] text-secondary mb-4">Precision Anonymization</p>
-<h2 class="font-headline text-4xl md:text-5xl font-bold text-primary tracking-tight mb-8">SURFACE WITHOUT SACRIFICE.</h2>
-<p class="text-on-surface-variant text-lg leading-relaxed mb-12">
-                        Our scientific technical view allows operators to see the 'skeleton' of an incident without exposing sensitive identifiers. Real-time restoration happens only within authenticated shells.
-                    </p>
-<div class="grid grid-cols-2 gap-8">
-<div class="space-y-2">
-<p class="text-primary font-headline text-3xl font-bold">99.9%</p>
-<p class="font-label text-[0.6rem] uppercase tracking-widest text-tertiary-fixed-variant">Privacy Integrity</p>
-</div>
-<div class="space-y-2">
-<p class="text-primary font-headline text-3xl font-bold">&lt;1ms</p>
-<p class="font-label text-[0.6rem] uppercase tracking-widest text-tertiary-fixed-variant">Masking Latency</p>
-</div>
-</div>
-</div>
-<div class="relative bg-surface-container p-1 border-trace">
-<div class="bg-surface-dim p-8 relative overflow-hidden">
-<!-- Data Visualization Simulation -->
-<div class="space-y-4 opacity-40">
-<div class="h-1 bg-tertiary-fixed-variant/20 w-3/4"></div>
-<div class="h-1 bg-tertiary-fixed-variant/20 w-1/2"></div>
-<div class="h-1 bg-tertiary-fixed-variant/20 w-full"></div>
-<div class="h-1 bg-tertiary-fixed-variant/20 w-2/3"></div>
-</div>
-<!-- Restored Data Highlight -->
-<div class="absolute inset-0 flex items-center justify-center pointer-events-none">
-<div class="w-3/4 h-24 bg-primary/10 border border-primary/30 flex items-center justify-center glow-bioluminescent">
-<span class="font-label text-primary text-[0.7rem] uppercase tracking-[0.5em] animate-pulse">Restored Protocol V.04</span>
-</div>
-</div>
-<img alt="Technical visualization of data anonymization" class="hidden" data-alt="A scientific grid view with technical schematics, bioluminescent blue highlights on specific data nodes, and a sleek dark oceanic background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDIoLIZAcoh8CIFn3DCVBu5ZUi0qE-elEgE5NL7A1vlSh0iSyHkn8mi4h7cw5Y1Y4dQ5mHle-2VRQq6LAZ9Fq1jQuR6qbueZHuGZv0BDFZ3pG6I0xJYWrzzwXT-qgnrql18DLoPUBJ7WEzpwG-iW27fzyapHVPOZIBzPBms8dUZFbQ5cdCFOe6Z2MvuS8ZVTB2jZBBJRh4695ON5wRa_bSUnLrhu2LCU_tl8ocIRpaLBUKxiKAaEhRuxVWPGD2qX1ZlH1ioVdTiLYI"/>
-</div>
-</div>
-</div>
-</section>
-<!-- Demo Form: Sharp & Integrated -->
-<section class="py-32 px-8 bg-surface-container-low border-y border-trace">
-<div class="max-w-xl mx-auto text-center mb-20">
-<h2 class="font-headline text-4xl font-bold text-primary mb-4 tracking-tighter">INITIATE DEPLOYMENT</h2>
-<p class="font-label text-[0.7rem] uppercase tracking-widest text-on-surface-variant">Secure engineering consultation for your infrastructure.</p>
-</div>
-<form class="max-w-2xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-16">
-<div class="relative">
-<label class="font-label text-[0.6rem] uppercase tracking-[0.2em] text-tertiary-fixed-variant absolute -top-6">Engineer Identity</label>
-<input class="w-full bg-transparent border-0 border-b border-[#3A494A]/40 focus:border-primary focus:ring-0 px-0 py-4 font-body text-on-surface placeholder:text-surface-container-highest transition-colors ease-abyssal" placeholder="Full Name" type="text"/>
-</div>
-<div class="relative">
-<label class="font-label text-[0.6rem] uppercase tracking-[0.2em] text-tertiary-fixed-variant absolute -top-6">Communication Node</label>
-<input class="w-full bg-transparent border-0 border-b border-[#3A494A]/40 focus:border-primary focus:ring-0 px-0 py-4 font-body text-on-surface placeholder:text-surface-container-highest transition-colors ease-abyssal" placeholder="Professional Email" type="email"/>
-</div>
-<div class="relative md:col-span-2">
-<label class="font-label text-[0.6rem] uppercase tracking-[0.2em] text-tertiary-fixed-variant absolute -top-6">Architecture Specs</label>
-<input class="w-full bg-transparent border-0 border-b border-[#3A494A]/40 focus:border-primary focus:ring-0 px-0 py-4 font-body text-on-surface placeholder:text-surface-container-highest transition-colors ease-abyssal" placeholder="Tell us about your system scale" type="text"/>
-</div>
-<div class="md:col-span-2 flex justify-center mt-8">
-<button class="bg-primary text-on-primary font-headline text-[0.8rem] uppercase tracking-[0.2em] font-bold px-12 py-5 hover:shadow-[0_0_20px_rgba(182,202,203,0.4)] transition-all duration-500 ease-abyssal group relative overflow-hidden" type="submit">
-<span class="relative z-10">Request Documentation</span>
-<div class="absolute inset-0 bg-secondary translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-abyssal"></div>
-</button>
-</div>
-</form>
-</section>
-</main>
-<!-- Footer Shell -->
-<footer class="w-full py-12 px-8 flex flex-col md:flex-row justify-between items-center gap-8 bg-[#111417] border-t-[0.5px] border-[#3A494A]/40">
-<div class="font-['Inter'] text-[0.6875rem] uppercase tracking-widest text-[#3A494A]">
-            © 2024 TIDEMARK ARCHITECTURAL AI. ALL RIGHTS RESERVED.
         </div>
-<div class="flex flex-wrap justify-center gap-8">
-<a class="font-['Inter'] text-[0.6875rem] uppercase tracking-widest text-[#3A494A] hover:text-[#B6CACB] transition-colors ease-in-out duration-200" href="#">Privacy Protocol</a>
-<a class="font-['Inter'] text-[0.6875rem] uppercase tracking-widest text-[#3A494A] hover:text-[#B6CACB] transition-colors ease-in-out duration-200" href="#">Terms of Service</a>
-<a class="font-['Inter'] text-[0.6875rem] uppercase tracking-widest text-[#3A494A] hover:text-[#B6CACB] transition-colors ease-in-out duration-200" href="#">System Status</a>
-<a class="font-['Inter'] text-[0.6875rem] uppercase tracking-widest text-[#3A494A] hover:text-[#B6CACB] transition-colors ease-in-out duration-200" href="#">Contact Engineering</a>
-</div>
-</footer>
-</body></html>
+    </nav>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="min-h-screen flex flex-col items-center justify-center pt-24 pb-12 px-6 relative">
+            <div class="text-center max-w-5xl z-10">
+                <div class="reveal mb-6 inline-flex items-center gap-3 px-4 py-2 rounded-full border border-white/10 bg-white/5 backdrop-blur-md">
+                    <span class="flex h-2 w-2 rounded-full bg-primary"></span>
+                    <span class="text-[10px] font-bold uppercase tracking-[0.2em] text-primary">v2.0 Architectural Protocol Active</span>
+                </div>
+                
+                <h1 class="reveal font-headline text-6xl md:text-9xl font-extrabold tracking-[-0.04em] leading-[0.85] mb-8 bg-gradient-to-b from-white to-white/40 bg-clip-text text-transparent">
+                    INCIDENT<br/>REPORTING<br/>EVOLVED.
+                </h1>
+                
+                <p class="reveal max-w-xl mx-auto text-white/50 text-lg md:text-xl font-light leading-relaxed mb-12">
+                    Hardware-level precision for critical infrastructure. Tidemark transforms chaotic data into architectural blueprints of system integrity.
+                </p>
+
+                <div class="reveal flex flex-col md:flex-row gap-4 justify-center items-center">
+                    <button class="w-full md:w-auto px-10 py-5 rounded-full bg-primary text-black font-bold uppercase text-xs tracking-widest hover:scale-105 transition-transform">
+                        Get Started
+                    </button>
+                    <button class="w-full md:w-auto px-10 py-5 rounded-full border border-white/10 hover:bg-white/5 text-white font-bold uppercase text-xs tracking-widest transition-all">
+                        View Blueprint
+                    </button>
+                </div>
+            </div>
+
+            <!-- Scroll Indicator -->
+            <div class="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4 opacity-30">
+                <div class="w-[1px] h-12 bg-gradient-to-b from-primary to-transparent"></div>
+            </div>
+        </section>
+
+        <!-- Bento Grid Features -->
+        <section id="features" class="py-32 px-6 md:px-12">
+            <div class="max-w-7xl mx-auto">
+                <div class="reveal mb-20 text-center md:text-left">
+                    <h2 class="font-headline text-4xl md:text-6xl font-extrabold tracking-tight mb-6">THE CORE ENGINE</h2>
+                    <p class="text-white/40 max-w-2xl text-lg">Sophisticated intelligence layers designed for the highest-stakes environments.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <!-- Large Card -->
+                    <div class="reveal md:col-span-2 h-[400px] bento-card glass rounded-[2rem] p-12 flex flex-col justify-between group overflow-hidden relative">
+                        <div class="z-10">
+                            <span class="material-symbols-outlined text-primary text-4xl mb-6">biotech</span>
+                            <h3 class="font-headline text-3xl font-bold mb-4">Neural Data Mapping</h3>
+                            <p class="text-white/50 max-w-sm">Tidemark uses hardware-accelerated AI to map incidents in real-time, identifying root causes before they surface.</p>
+                        </div>
+                        <div class="absolute bottom-[-50px] right-[-50px] w-64 h-64 bg-primary/20 blur-[60px] group-hover:bg-primary/40 transition-all"></div>
+                    </div>
+
+                    <!-- Small Card -->
+                    <div class="reveal h-[400px] bento-card glass rounded-[2rem] p-12 flex flex-col justify-between">
+                        <div>
+                            <span class="material-symbols-outlined text-primary text-4xl mb-6">shield</span>
+                            <h3 class="font-headline text-3xl font-bold mb-4">Zero Leak</h3>
+                            <p class="text-white/50">Your data never leaves your hardware. Local-only processing protocol.</p>
+                        </div>
+                    </div>
+
+                    <!-- Row -->
+                    <div class="reveal bento-card glass rounded-[2rem] p-10 flex flex-col justify-between min-h-[300px]">
+                        <span class="material-symbols-outlined text-primary text-3xl mb-4">terminal</span>
+                        <div>
+                            <h4 class="font-headline text-xl font-bold mb-2 uppercase tracking-wider">CLI Ready</h4>
+                            <p class="text-white/40 text-sm">Full developer control via secure terminal interface.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="reveal bento-card glass rounded-[2rem] p-10 flex flex-col justify-between min-h-[300px]">
+                        <span class="material-symbols-outlined text-primary text-3xl mb-4">history_edu</span>
+                        <div>
+                            <h4 class="font-headline text-xl font-bold mb-2 uppercase tracking-wider">Immutable</h4>
+                            <p class="text-white/40 text-sm">Cryptographically signed logs for total audit integrity.</p>
+                        </div>
+                    </div>
+
+                    <div class="reveal bento-card glass rounded-[2rem] p-10 flex flex-col justify-between min-h-[300px]">
+                        <span class="material-symbols-outlined text-primary text-3xl mb-4">speed</span>
+                        <div>
+                            <h4 class="font-headline text-xl font-bold mb-2 uppercase tracking-wider">Instant Surge</h4>
+                            <p class="text-white/40 text-sm">Processed in under 200ms at the edge of your network.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Privacy: Deep Visual -->
+        <section id="security" class="py-48 px-6 bg-surface relative overflow-hidden">
+            <div class="max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-24">
+                <div class="flex-1">
+                    <div class="reveal inline-block px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-[10px] font-bold tracking-widest uppercase mb-6">Security Layer 0</div>
+                    <h2 class="reveal font-headline text-5xl md:text-7xl font-extrabold tracking-tight mb-8">ABSOLUTE ANONYMITY.</h2>
+                    <p class="reveal text-white/50 text-xl leading-relaxed mb-12">
+                        Our protocol strips sensitive identifiers at the hardware buffer. What the system processes is a mathematical ghost—impossible to trace, yet rich in insight.
+                    </p>
+                    
+                    <div class="reveal flex gap-12">
+                        <div>
+                            <div class="text-4xl font-bold font-headline mb-2 text-primary">100%</div>
+                            <div class="text-[10px] uppercase tracking-widest text-white/30">Local Isolation</div>
+                        </div>
+                        <div>
+                            <div class="text-4xl font-bold font-headline mb-2 text-primary">&lt;5ms</div>
+                            <div class="text-[10px] uppercase tracking-widest text-white/30">Anonymization</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="reveal flex-1 w-full aspect-square glass rounded-[3rem] p-12 flex items-center justify-center relative group overflow-hidden">
+                    <div class="absolute inset-0 bg-gradient-to-tr from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <!-- Technical Abstract -->
+                    <div class="relative z-10 w-full space-y-6">
+                        <div class="h-[1px] w-full bg-white/5"></div>
+                        <div class="h-[1px] w-3/4 bg-primary/20"></div>
+                        <div class="h-[1px] w-full bg-white/5"></div>
+                        <div class="flex justify-between items-center px-4">
+                            <span class="text-[10px] font-mono text-primary animate-pulse">ENCRYPTING_NODE_04...</span>
+                            <span class="text-[10px] font-mono text-white/20">STATUS: SECURE</span>
+                        </div>
+                        <div class="h-[1px] w-full bg-white/5"></div>
+                        <div class="h-[1px] w-1/2 bg-primary/20"></div>
+                        <div class="h-[1px] w-full bg-white/5"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section class="py-48 px-6">
+            <div class="max-w-3xl mx-auto glass rounded-[3rem] p-12 md:p-24 text-center">
+                <h2 class="reveal font-headline text-4xl md:text-6xl font-extrabold tracking-tight mb-6">READY TO DEPLOY?</h2>
+                <p class="reveal text-white/50 mb-12">Join the infrastructure elite using Tidemark's architectural protocol.</p>
+                
+                <form class="reveal grid grid-cols-1 gap-8 text-left">
+                    <div class="group border-b border-white/10 focus-within:border-primary transition-colors py-4">
+                        <label class="text-[10px] uppercase tracking-[0.2em] text-white/30 group-focus-within:text-primary transition-colors">Identity</label>
+                        <input type="text" placeholder="Engineer Name" class="w-full bg-transparent border-none focus:ring-0 p-0 text-white placeholder:text-white/10 font-headline font-semibold">
+                    </div>
+                    <div class="group border-b border-white/10 focus-within:border-primary transition-colors py-4">
+                        <label class="text-[10px] uppercase tracking-[0.2em] text-white/30 group-focus-within:text-primary transition-colors">Endpoint</label>
+                        <input type="email" placeholder="Professional Email" class="w-full bg-transparent border-none focus:ring-0 p-0 text-white placeholder:text-white/10 font-headline font-semibold">
+                    </div>
+                    <button class="mt-8 w-full py-6 rounded-full bg-white text-black font-bold uppercase text-xs tracking-[0.3em] hover:bg-primary hover:scale-[1.02] transition-all">
+                        Request Protocol Access
+                    </button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer class="py-12 px-6 border-t border-white/5 bg-black">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
+            <div class="text-[10px] uppercase tracking-[0.3em] text-white/20">© 2024 Tidemark Systems. All Rights Reserved.</div>
+            <div class="flex gap-12">
+                <a href="#" class="text-[10px] uppercase tracking-[0.3em] text-white/20 hover:text-primary transition-colors">Privacy</a>
+                <a href="#" class="text-[10px] uppercase tracking-[0.3em] text-white/20 hover:text-primary transition-colors">Terms</a>
+                <a href="#" class="text-[10px] uppercase tracking-[0.3em] text-white/20 hover:text-primary transition-colors">Security</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Smooth Navbar color transition
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                nav.classList.add('py-3');
+            } else {
+                nav.classList.remove('py-3');
+            }
+        });
+
+        // GSAP Reveal Animations
+        document.querySelectorAll('.reveal').forEach((el) => {
+            gsap.fromTo(el, {
+                opacity: 0,
+                y: 50,
+            }, {
+                opacity: 1,
+                y: 0,
+                duration: 1.2,
+                ease: "power4.out",
+                scrollTrigger: {
+                    trigger: el,
+                    start: "top 85%",
+                    toggleActions: "play none none none"
+                }
+            });
+        });
+
+        // Hero Parallax effect
+        gsap.to(".glow-orb", {
+            scrollTrigger: {
+                trigger: "body",
+                start: "top top",
+                end: "bottom bottom",
+                scrub: 2
+            },
+            y: (i, target) => i === 0 ? 100 : -100,
+            x: (i, target) => i === 0 ? 50 : -50,
+            opacity: 0.2
+        });
+    </script>
+</body>
+</html>
