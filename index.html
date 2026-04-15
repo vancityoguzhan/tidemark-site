@@ -455,7 +455,7 @@
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8">
 
                 <!-- PII Tokenization -->
-                <div class="reveal glass rounded-[2rem] md:rounded-[2.5rem] p-8 md:p-12 flex flex-col" style="min-height:500px;">
+                <div class="reveal glass rounded-[2rem] md:rounded-[2.5rem] p-8 md:p-12 flex flex-col" style="height:600px;overflow:hidden;">
                     <div class="flex items-center justify-between mb-7">
                         <div>
                             <div class="text-[8px] uppercase tracking-[0.5em] font-black mb-1" style="color:var(--gold);">PII Tokenization Loop</div>
@@ -493,8 +493,8 @@
                 </div>
 
                 <!-- Extraction Pipeline -->
-                <div class="reveal glass rounded-[2rem] md:rounded-[2.5rem] p-8 md:p-12 flex flex-col" style="min-height:500px;">
-                    <div class="flex items-center justify-between mb-5">
+                <div class="reveal glass rounded-[2rem] md:rounded-[2.5rem] p-8 md:p-12 flex flex-col" style="height:600px;overflow:hidden;">
+                    <div class="flex items-center justify-between mb-5" style="flex-shrink:0;">
                         <div>
                             <div class="text-[8px] uppercase tracking-[0.5em] font-black mb-1" style="color:var(--gold);">Extraction Engine</div>
                             <div class="text-[8px] uppercase tracking-[0.4em]" style="color:var(--ivory-30);">Multi-pass · Confidence ≥ 0.50</div>
@@ -502,13 +502,15 @@
                         <div class="text-[9px] font-mono font-bold" id="pipeline-pct" style="color:var(--gold);">0%</div>
                     </div>
 
-                    <div class="h-0.5 w-full rounded-full mb-5" style="background:var(--elevated);">
+                    <div class="h-0.5 w-full rounded-full mb-5" style="background:var(--elevated);flex-shrink:0;">
                         <div id="pipeline-bar" class="h-full rounded-full" style="width:0%;background:var(--gold);box-shadow:0 0 6px var(--gold-glow);transition:width 0.5s ease;"></div>
                     </div>
 
-                    <div id="pipeline-passes" class="flex-1 overflow-hidden"></div>
+                    <!-- Passes list: fixed height, never grows -->
+                    <div id="pipeline-passes" style="flex-shrink:0;overflow:hidden;"></div>
 
-                    <div id="pipeline-output" class="mt-5 hidden">
+                    <!-- Output: always in DOM, uses opacity — no layout reflow -->
+                    <div id="pipeline-output" style="flex-shrink:0;margin-top:16px;opacity:0;transition:opacity 0.5s ease;pointer-events:none;">
                         <div class="text-[8px] uppercase tracking-[0.5em] font-black mb-3" style="color:var(--green);">Structured Output · Verified</div>
                         <div class="grid grid-cols-1 gap-2">
                             <div class="flex items-center justify-between p-3 rounded-xl" style="background:var(--elevated);border:0.5px solid var(--border);">
@@ -673,33 +675,35 @@
         </div>
     </section>
 
-    <!-- SOCIAL PROOF -->
+    <!-- WHO IT'S FOR -->
     <section class="py-20 md:py-36 px-6 md:px-12" style="background:var(--obsidian);">
         <div class="max-w-7xl mx-auto">
-            <div class="reveal mb-5"><span class="trust-badge">Early Deployment</span></div>
-            <h2 class="reveal font-headline font-extrabold tracking-tighter leading-[0.82] mb-14 md:mb-20 text-luminous"
+            <div class="reveal mb-5"><span class="trust-badge">Built For</span></div>
+            <h2 class="reveal font-headline font-extrabold tracking-tighter leading-[0.82] mb-6 text-luminous"
                 style="font-size:clamp(2.2rem,5.5vw,6.5rem);">
-                OPERATORS WHO STOPPED<br/>WAITING FOR THE LAWSUIT.
+                NOT ENTERPRISE.<br/>NOT FOR DEVELOPERS.<br/><span class="text-gold">FOR OPERATORS.</span>
             </h2>
+            <p class="reveal text-base md:text-xl font-light mb-14 max-w-2xl" style="color:var(--ivory-30);">
+                Tidemark is built specifically for small and mid-scale hospitality operations — the properties where the GM is also the security lead, the HR department, and the person who answers the phone at 3am.
+            </p>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div class="reveal glass-gold rounded-[2rem] p-8 md:p-10">
-                    <div class="text-[8px] uppercase tracking-[0.5em] font-black mb-5" style="color:var(--gold);">Boutique Hotel · 48 Rooms · Pacific Northwest</div>
-                    <p class="text-base leading-relaxed font-light mb-7 italic" style="color:var(--ivory-60);">"We had a slip-and-fall last March. The police arrived before we had a complete record. With Tidemark, the report was signed before they got through the door."</p>
-                    <div class="text-[9px] font-bold uppercase tracking-[0.3em]" style="color:var(--ivory-30);">General Manager · Independent Property</div>
+                    <span class="material-symbols-outlined text-3xl mb-5 block" style="color:var(--gold);">hotel</span>
+                    <h3 class="font-headline font-bold text-lg mb-3" style="color:var(--ivory);">Independent Hotels</h3>
+                    <p class="text-sm leading-relaxed font-light" style="color:var(--ivory-30);">Boutique properties, motels, and bed &amp; breakfasts with 10–200 rooms. Properties where liability exposure is real and legal resources are limited. Where one undocumented incident is one too many.</p>
                 </div>
                 <div class="reveal glass-gold rounded-[2rem] p-8 md:p-10">
-                    <div class="text-[8px] uppercase tracking-[0.5em] font-black mb-5" style="color:var(--gold);">Extended-Stay Property · 120 Units · Texas</div>
-                    <p class="text-base leading-relaxed font-light mb-7 italic" style="color:var(--ivory-60);">"My night manager speaks English as a second language. He used to spend 40 minutes on one report. Now he speaks it, reviews it, exports it. It's done."</p>
-                    <div class="text-[9px] font-bold uppercase tracking-[0.3em]" style="color:var(--ivory-30);">Director of Operations · Regional Portfolio</div>
+                    <span class="material-symbols-outlined text-3xl mb-5 block" style="color:var(--gold);">apartment</span>
+                    <h3 class="font-headline font-bold text-lg mb-3" style="color:var(--ivory);">Property Managers</h3>
+                    <p class="text-sm leading-relaxed font-light" style="color:var(--ivory-30);">Multi-unit residential, extended-stay, and mixed-use properties. Operations with rotating staff who need a consistent protocol regardless of who's on shift — at any hour.</p>
                 </div>
                 <div class="reveal glass-gold rounded-[2rem] p-8 md:p-10">
-                    <div class="text-[8px] uppercase tracking-[0.5em] font-black mb-5" style="color:var(--gold);">Event Venue · 600-Person Capacity · Ontario</div>
-                    <p class="text-base leading-relaxed font-light mb-7 italic" style="color:var(--ivory-60);">"Our insurance carrier asked for incident documentation going back 18 months. We had every report, timestamped, cryptographically signed. The audit took 20 minutes."</p>
-                    <div class="text-[9px] font-bold uppercase tracking-[0.3em]" style="color:var(--ivory-30);">Owner-Operator · Hospitality Group</div>
+                    <span class="material-symbols-outlined text-3xl mb-5 block" style="color:var(--gold);">stadium</span>
+                    <h3 class="font-headline font-bold text-lg mb-3" style="color:var(--ivory);">Venues &amp; Operators</h3>
+                    <p class="text-sm leading-relaxed font-light" style="color:var(--ivory-30);">Event spaces, conference centres, and hospitality venues where incidents happen fast, staff turnover is high, and insurance documentation requirements are non-negotiable.</p>
                 </div>
             </div>
-            <p class="reveal mt-6 text-center text-[8px] uppercase tracking-[0.4em]" style="color:var(--ivory-30);">Testimonials represent early access operators. Names and specific identifiers withheld at operator request.</p>
         </div>
     </section>
 
@@ -955,7 +959,7 @@
         let cur = 0;
         if (ppb) ppb.style.width = '0%';
         if (ppt) ppt.textContent = '0%';
-        if (ppo) ppo.classList.add('hidden');
+        if (ppo) { ppo.style.opacity = '0'; ppo.style.pointerEvents = 'none'; }
         passes.forEach((_, i) => {
             const row = document.getElementById(`pp-${i}`);
             const ico = document.getElementById(`pi-${i}`);
@@ -965,7 +969,7 @@
 
         function step() {
             if (cur >= passes.length) {
-                if (ppo) { ppo.classList.remove('hidden'); gsap.from(ppo, { opacity: 0, y: 10, duration: 0.5 }); }
+                if (ppo) { ppo.style.opacity = '1'; ppo.style.pointerEvents = 'auto'; }
                 setTimeout(() => { pipeLock = false; setTimeout(runPipeline, 2000); }, 3500);
                 return;
             }
