@@ -15,7 +15,7 @@
             --accent-teal: #00D1FF;
             --accent-glow: rgba(0, 209, 255, 0.25);
             --surface-glass: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.01) 100%);
-            --border-rim: rgba(255, 255, 255, 0.3); /* Sharp Optic Light */
+            --border-rim: rgba(255, 255, 255, 0.3);
             --border-subtle: rgba(255, 255, 255, 0.1);
             --inner-glow: inset 0 1px 2px rgba(255, 255, 255, 0.2);
         }
@@ -28,7 +28,6 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        /* High-Definition Contrast Noise */
         body::before {
             content: "";
             position: fixed;
@@ -42,14 +41,13 @@
 
         .font-headline { font-family: 'Plus Jakarta Sans', sans-serif; }
 
-        /* Razor-Sharp Crystal Glass */
         .glass {
             background: var(--surface-glass);
             backdrop-filter: blur(80px) saturate(250%);
             -webkit-backdrop-filter: blur(80px) saturate(250%);
             border: 0.5px solid var(--border-subtle);
             border-top: 0.8px solid var(--border-rim);
-            box-shadow: 
+            box-shadow:
                 var(--inner-glow),
                 0 40px 100px rgba(0, 0, 0, 0.8),
                 inset 0 0 30px rgba(0, 209, 255, 0.03);
@@ -145,74 +143,74 @@
     <div class="glow-orb bottom-[-700px] right-[-600px]"></div>
 
     <!-- Navigation -->
-    <nav class="fixed top-0 w-full z-[100] px-6 py-10 md:px-12 transition-all duration-1000" id="navbar">
-        <div class="max-w-7xl mx-auto flex justify-between items-center glass rounded-full px-14 py-6">
-            <div class="flex items-center gap-5">
-                <div class="w-4 h-4 bg-accent-teal rounded-full animate-pulse shadow-[0_0_30px_#00D1FF]"></div>
-                <span class="font-headline font-extrabold text-3xl tracking-tighter uppercase">Tidemark</span>
+    <nav class="fixed top-0 w-full z-[100] px-3 py-4 md:px-12 md:py-10 transition-all duration-1000" id="navbar">
+        <div class="max-w-7xl mx-auto flex justify-between items-center glass rounded-full px-4 py-3 md:px-14 md:py-6">
+            <div class="flex items-center gap-3 md:gap-5">
+                <div class="w-3 h-3 md:w-4 md:h-4 bg-accent-teal rounded-full animate-pulse shadow-[0_0_30px_#00D1FF] shrink-0"></div>
+                <span class="font-headline font-extrabold text-lg md:text-3xl tracking-tighter uppercase">Tidemark</span>
             </div>
-            
+
             <div class="hidden md:flex items-center gap-20">
                 <a href="#protocol" class="text-[12px] font-black uppercase tracking-[0.6em] text-white/20 hover:text-white transition-all">Protocol</a>
                 <a href="#playbooks" class="text-[12px] font-black uppercase tracking-[0.6em] text-white/20 hover:text-white transition-all">Playbooks</a>
                 <a href="#security" class="text-[12px] font-black uppercase tracking-[0.6em] text-white/20 hover:text-white transition-all">Security</a>
             </div>
 
-            <button class="bg-white text-black font-headline text-[0.8rem] font-black uppercase tracking-[0.6em] px-14 py-4 rounded-full hover:bg-accent-teal transition-all shadow-2xl">
+            <button class="bg-white text-black font-headline text-[0.65rem] md:text-[0.8rem] font-black uppercase tracking-[0.4em] md:tracking-[0.6em] px-5 py-2.5 md:px-14 md:py-4 rounded-full hover:bg-accent-teal transition-all shadow-2xl">
                 Deploy
             </button>
         </div>
     </nav>
 
     <!-- Technical Specs Sidebar -->
-    <div id="specs-sidebar" class="fixed top-0 right-0 w-full md:w-[550px] h-full z-[1000] glass border-l border-white/10 p-24 flex flex-col justify-between translate-x-full">
+    <div id="specs-sidebar" class="fixed top-0 right-0 w-full md:w-[550px] h-full z-[1000] glass border-l border-white/10 p-8 md:p-24 flex flex-col justify-between translate-x-full overflow-y-auto">
         <div>
-            <div class="flex justify-between items-center mb-24">
-                <span class="text-[12px] font-black uppercase tracking-[0.7em] text-accent-teal">System Core</span>
-                <button onclick="toggleSpecs()" class="material-symbols-outlined text-white/20 hover:text-white transition-colors scale-150">close</button>
+            <div class="flex justify-between items-center mb-8 md:mb-24">
+                <span class="text-[11px] md:text-[12px] font-black uppercase tracking-[0.5em] md:tracking-[0.7em] text-accent-teal">System Core</span>
+                <button onclick="toggleSpecs()" class="material-symbols-outlined text-white/20 hover:text-white transition-colors md:scale-150">close</button>
             </div>
-            <div class="space-y-20">
+            <div class="space-y-8 md:space-y-20">
                 <div class="reveal-spec">
-                    <h4 class="text-[11px] font-black uppercase tracking-[0.5em] text-white/60 mb-8">Linguistic Layer</h4>
-                    <p class="text-md text-white/30 leading-relaxed font-light">Zero-Trust Compromise.js implementation. Local PII deconstruction for Names, Room Numbers, and Personnel IDs before any network transmission.</p>
+                    <h4 class="text-[11px] font-black uppercase tracking-[0.5em] text-white/60 mb-4 md:mb-8">Linguistic Layer</h4>
+                    <p class="text-sm md:text-md text-white/30 leading-relaxed font-light">Zero-Trust Compromise.js implementation. Local PII deconstruction for Names, Room Numbers, and Personnel IDs before any network transmission.</p>
                 </div>
                 <div class="reveal-spec">
-                    <h4 class="text-[11px] font-black uppercase tracking-[0.5em] text-white/60 mb-8">Inference Backbone</h4>
-                    <p class="text-md text-white/30 leading-relaxed font-light">7-Pass Atomic Extraction. Gemini 1.5 Pro integration via Enterprise Secure Pipe. Hard Confidence Threshold 0.50.</p>
+                    <h4 class="text-[11px] font-black uppercase tracking-[0.5em] text-white/60 mb-4 md:mb-8">Inference Backbone</h4>
+                    <p class="text-sm md:text-md text-white/30 leading-relaxed font-light">7-Pass Atomic Extraction. Gemini 1.5 Pro integration via Enterprise Secure Pipe. Hard Confidence Threshold 0.50.</p>
                 </div>
                 <div class="reveal-spec">
-                    <h4 class="text-[11px] font-black uppercase tracking-[0.5em] text-white/60 mb-8">Data Integrity</h4>
-                    <p class="text-md text-white/30 leading-relaxed font-light">SHA-256 Cryptographic Fingerprinting. Append-Only Event Transport. Memory-Only Token Persistent Maps.</p>
+                    <h4 class="text-[11px] font-black uppercase tracking-[0.5em] text-white/60 mb-4 md:mb-8">Data Integrity</h4>
+                    <p class="text-sm md:text-md text-white/30 leading-relaxed font-light">SHA-256 Cryptographic Fingerprinting. Append-Only Event Transport. Memory-Only Token Persistent Maps.</p>
                 </div>
             </div>
         </div>
-        <div class="pt-20 border-t border-white/5">
+        <div class="pt-8 md:pt-20 border-t border-white/5 mt-8">
             <span class="text-[11px] font-mono text-white/10 tracking-[0.6em]">v2.4_PRO_SPEC</span>
         </div>
     </div>
 
     <main>
         <!-- Hero Section -->
-        <section class="min-h-screen flex flex-col items-center justify-center pt-40 pb-24 px-6 relative">
+        <section class="min-h-screen flex flex-col items-center justify-center pt-28 pb-12 md:pt-40 md:pb-24 px-6 relative">
             <div class="light-sweep"></div>
             <div class="text-center max-w-7xl z-10">
-                <div class="reveal mb-16 inline-flex items-center gap-6 px-8 py-3 rounded-full border border-white/10 bg-white/2 backdrop-blur-3xl shadow-inner">
-                    <span class="text-[11px] font-black uppercase tracking-[0.7em] text-accent-teal">Intelligence Bounded. Privacy Absolute.</span>
+                <div class="reveal mb-8 md:mb-16 inline-flex items-center gap-4 md:gap-6 px-5 md:px-8 py-2 md:py-3 rounded-full border border-white/10 bg-white/2 backdrop-blur-3xl shadow-inner">
+                    <span class="text-[9px] md:text-[11px] font-black uppercase tracking-[0.5em] md:tracking-[0.7em] text-accent-teal">Intelligence Bounded. Privacy Absolute.</span>
                 </div>
-                
-                <h1 class="reveal font-headline text-8xl md:text-[12rem] font-extrabold tracking-[-0.08em] leading-[0.75] mb-24 text-super-luminous">
+
+                <h1 class="reveal font-headline text-[2.75rem] sm:text-7xl md:text-[12rem] font-extrabold tracking-[-0.08em] leading-[0.75] mb-10 md:mb-24 text-super-luminous">
                     PRIVATE.<br/>STRUCTURAL.<br/>DEFINITIVE.
                 </h1>
-                
-                <p class="reveal max-w-4xl mx-auto text-white/20 text-2xl md:text-4xl font-light leading-relaxed mb-32">
+
+                <p class="reveal max-w-4xl mx-auto text-white/20 text-lg md:text-2xl lg:text-4xl font-light leading-relaxed mb-12 md:mb-32">
                     Linguistic PII deconstruction. Deterministic AI governance. High-fidelity intelligence for critical infrastructure.
                 </p>
 
-                <div class="reveal flex flex-col md:flex-row gap-10 justify-center items-center">
-                    <button class="btn-primary w-full md:w-auto px-24 py-8 rounded-full font-black uppercase text-[13px] tracking-[0.6em]">
+                <div class="reveal flex flex-col md:flex-row gap-4 md:gap-10 justify-center items-center">
+                    <button class="btn-primary w-full md:w-auto px-10 py-5 md:px-24 md:py-8 rounded-full font-black uppercase text-[11px] md:text-[13px] tracking-[0.5em] md:tracking-[0.6em]">
                         Request Access
                     </button>
-                    <button onclick="toggleSpecs()" class="btn-secondary w-full md:w-auto px-24 py-8 rounded-full text-white/40 font-black uppercase text-[13px] tracking-[0.6em]">
+                    <button onclick="toggleSpecs()" class="btn-secondary w-full md:w-auto px-10 py-5 md:px-24 md:py-8 rounded-full text-white/40 font-black uppercase text-[11px] md:text-[13px] tracking-[0.5em] md:tracking-[0.6em]">
                         Technical Specs
                     </button>
                 </div>
@@ -220,41 +218,41 @@
         </section>
 
         <!-- Bento: The Architecture -->
-        <section id="protocol" class="py-48 px-6 md:px-12 bg-[#030303]">
+        <section id="protocol" class="py-20 md:py-48 px-6 md:px-12 bg-[#030303]">
             <div class="max-w-7xl mx-auto">
-                <div class="reveal mb-32">
-                    <h2 class="font-headline text-5xl md:text-7xl font-extrabold tracking-tighter mb-8">AI ON A LEASH.</h2>
-                    <p class="text-white/20 max-w-2xl text-xl font-light">Deterministic governance ensures the model is a tool, not the driver.</p>
+                <div class="reveal mb-12 md:mb-32">
+                    <h2 class="font-headline text-4xl md:text-7xl font-extrabold tracking-tighter mb-4 md:mb-8">AI ON A LEASH.</h2>
+                    <p class="text-white/20 max-w-2xl text-base md:text-xl font-light">Deterministic governance ensures the model is a tool, not the driver.</p>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-12 gap-8">
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8">
                     <!-- Large: Governance -->
-                    <div class="reveal md:col-span-8 h-[600px] bento-card glass p-20 flex flex-col justify-between rounded-[3rem]">
+                    <div class="reveal md:col-span-8 h-auto md:h-[600px] bento-card glass p-8 md:p-20 flex flex-col justify-between rounded-[2rem] md:rounded-[3rem]">
                         <div class="z-10">
-                            <span class="material-symbols-outlined text-accent-teal text-6xl mb-12">shield_with_heart</span>
-                            <h3 class="font-headline text-4xl md:text-6xl font-extrabold mb-10 tracking-tight">Logic-First Architecture</h3>
-                            <p class="text-white/40 max-w-xl text-xl leading-relaxed font-light">
+                            <span class="material-symbols-outlined text-accent-teal text-4xl md:text-6xl mb-6 md:mb-12">shield_with_heart</span>
+                            <h3 class="font-headline text-3xl md:text-6xl font-extrabold mb-6 md:mb-10 tracking-tight">Logic-First Architecture</h3>
+                            <p class="text-white/40 max-w-xl text-base md:text-xl leading-relaxed font-light">
                                 Every state transition is code-governed. We reject agentic autonomy. Our system eliminates hallucinations through deterministic validation.
                             </p>
                         </div>
-                        <div class="z-10 flex gap-16">
+                        <div class="z-10 flex gap-10 md:gap-16 mt-8 md:mt-0">
                             <div>
-                                <div class="text-4xl font-bold font-headline mb-2 text-accent-teal">0%</div>
+                                <div class="text-3xl md:text-4xl font-bold font-headline mb-2 text-accent-teal">0%</div>
                                 <div class="text-[9px] uppercase tracking-[0.5em] text-white/20">Decision Drift</div>
                             </div>
                             <div>
-                                <div class="text-4xl font-bold font-headline mb-2 text-accent-teal">100%</div>
+                                <div class="text-3xl md:text-4xl font-bold font-headline mb-2 text-accent-teal">100%</div>
                                 <div class="text-[9px] uppercase tracking-[0.5em] text-white/20">State Control</div>
                             </div>
                         </div>
                     </div>
 
                     <!-- Small: Confidence -->
-                    <div class="reveal md:col-span-4 h-[600px] bento-card glass p-12 flex flex-col justify-between rounded-[3rem]">
+                    <div class="reveal md:col-span-4 h-auto md:h-[600px] bento-card glass p-8 md:p-12 flex flex-col justify-between rounded-[2rem] md:rounded-[3rem]">
                         <div>
-                            <span class="material-symbols-outlined text-accent-teal text-4xl mb-10">radar</span>
-                            <h3 class="font-headline text-3xl font-bold mb-8 tracking-tight">Atomic Verification</h3>
-                            <p class="text-white/20 text-md leading-relaxed mb-12">
+                            <span class="material-symbols-outlined text-accent-teal text-4xl mb-6 md:mb-10">radar</span>
+                            <h3 class="font-headline text-2xl md:text-3xl font-bold mb-4 md:mb-8 tracking-tight">Atomic Verification</h3>
+                            <p class="text-white/20 text-sm md:text-md leading-relaxed mb-8 md:mb-12">
                                 Confidence thresholds at 0.50. Ambiguity is discarded. The system requests human confirmation for every unresolved fact.
                             </p>
                         </div>
@@ -267,56 +265,56 @@
         </section>
 
         <!-- Playbooks Row -->
-        <section id="playbooks" class="py-48 px-6 md:px-12 bg-black">
+        <section id="playbooks" class="py-20 md:py-48 px-6 md:px-12 bg-black">
             <div class="max-w-7xl mx-auto">
-                <div class="reveal mb-32 text-center">
-                    <h2 class="font-headline text-5xl md:text-8xl font-extrabold tracking-tighter mb-10">16 PLAYBOOKS.</h2>
-                    <p class="text-white/20 font-light text-2xl uppercase tracking-[0.2em]">Operational Precision.</p>
+                <div class="reveal mb-12 md:mb-32 text-center">
+                    <h2 class="font-headline text-4xl md:text-8xl font-extrabold tracking-tighter mb-4 md:mb-10">16 PLAYBOOKS.</h2>
+                    <p class="text-white/20 font-light text-base md:text-2xl uppercase tracking-[0.2em]">Operational Precision.</p>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
-                    <div class="reveal bento-card glass p-12 rounded-[2.5rem] group">
-                        <span class="material-symbols-outlined text-white/10 group-hover:text-accent-teal mb-8 transition-colors">security</span>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+                    <div class="reveal bento-card glass p-6 md:p-12 rounded-[1.5rem] md:rounded-[2.5rem] group">
+                        <span class="material-symbols-outlined text-white/10 group-hover:text-accent-teal mb-4 md:mb-8 transition-colors">security</span>
                         <h4 class="text-xs font-black uppercase tracking-[0.4em]">Security</h4>
-                        <p class="text-[10px] text-white/10 mt-4 uppercase">Theft · Vandalism · Intrusion</p>
+                        <p class="text-[10px] text-white/10 mt-2 md:mt-4 uppercase">Theft · Vandalism · Intrusion</p>
                     </div>
-                    <div class="reveal bento-card glass p-12 rounded-[2.5rem] group">
-                        <span class="material-symbols-outlined text-white/10 group-hover:text-accent-teal mb-8 transition-colors">medical_services</span>
+                    <div class="reveal bento-card glass p-6 md:p-12 rounded-[1.5rem] md:rounded-[2.5rem] group">
+                        <span class="material-symbols-outlined text-white/10 group-hover:text-accent-teal mb-4 md:mb-8 transition-colors">medical_services</span>
                         <h4 class="text-xs font-black uppercase tracking-[0.4em]">Life Safety</h4>
-                        <p class="text-[10px] text-white/10 mt-4 uppercase">Fire · Medical · Slip & Fall</p>
+                        <p class="text-[10px] text-white/10 mt-2 md:mt-4 uppercase">Fire · Medical · Slip & Fall</p>
                     </div>
-                    <div class="reveal bento-card glass p-12 rounded-[2.5rem] group">
-                        <span class="material-symbols-outlined text-white/10 group-hover:text-accent-teal mb-8 transition-colors">engineering</span>
+                    <div class="reveal bento-card glass p-6 md:p-12 rounded-[1.5rem] md:rounded-[2.5rem] group">
+                        <span class="material-symbols-outlined text-white/10 group-hover:text-accent-teal mb-4 md:mb-8 transition-colors">engineering</span>
                         <h4 class="text-xs font-black uppercase tracking-[0.4em]">Operations</h4>
-                        <p class="text-[10px] text-white/10 mt-4 uppercase">Damage · Failure · Parking</p>
+                        <p class="text-[10px] text-white/10 mt-2 md:mt-4 uppercase">Damage · Failure · Parking</p>
                     </div>
-                    <div class="reveal bento-card glass p-12 rounded-[2.5rem] group">
-                        <span class="material-symbols-outlined text-white/10 group-hover:text-accent-teal mb-8 transition-colors">hotel</span>
+                    <div class="reveal bento-card glass p-6 md:p-12 rounded-[1.5rem] md:rounded-[2.5rem] group">
+                        <span class="material-symbols-outlined text-white/10 group-hover:text-accent-teal mb-4 md:mb-8 transition-colors">hotel</span>
                         <h4 class="text-xs font-black uppercase tracking-[0.4em]">Hospitality</h4>
-                        <p class="text-[10px] text-white/10 mt-4 uppercase">Noise · Complaint · Service</p>
+                        <p class="text-[10px] text-white/10 mt-2 md:mt-4 uppercase">Noise · Complaint · Service</p>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- Technical Demo: Tokenization & Extraction -->
-        <section id="demo" class="py-48 px-6 md:px-12 bg-[#050505]">
+        <section id="demo" class="py-20 md:py-48 px-6 md:px-12 bg-[#050505]">
             <div class="max-w-7xl mx-auto">
-                <div class="reveal mb-32">
-                    <h2 class="font-headline text-5xl md:text-7xl font-extrabold tracking-tighter mb-8">THE ANATOMY OF A REPORT.</h2>
-                    <p class="text-white/20 max-w-2xl text-xl font-light">From messy input to structured, private intelligence.</p>
+                <div class="reveal mb-12 md:mb-32">
+                    <h2 class="font-headline text-4xl md:text-7xl font-extrabold tracking-tighter mb-4 md:mb-8">THE ANATOMY OF A REPORT.</h2>
+                    <p class="text-white/20 max-w-2xl text-base md:text-xl font-light">From messy input to structured, private intelligence.</p>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 mb-8">
                     <!-- Tokenization Loop -->
-                    <div class="reveal glass rounded-[3rem] p-16 flex flex-col justify-between min-h-[650px] border border-white/5 relative group">
-                        <div class="absolute top-0 right-0 p-8">
+                    <div class="reveal glass rounded-[2rem] md:rounded-[3rem] p-8 md:p-16 flex flex-col justify-between border border-white/5 relative group">
+                        <div class="absolute top-0 right-0 p-4 md:p-8">
                             <span class="text-[9px] font-black uppercase tracking-[0.4em] text-accent-teal">PII Tokenization Loop</span>
                         </div>
-                        <div class="space-y-12">
+                        <div class="space-y-8 md:space-y-12 mt-6 md:mt-0">
                             <div class="space-y-4">
                                 <h4 class="text-[10px] font-black uppercase tracking-[0.3em] text-white/30">Local Intake</h4>
-                                <div class="text-sm md:text-md text-white/60 leading-relaxed font-light bg-white/2 p-6 rounded-2xl border border-white/5 italic">
+                                <div class="text-sm text-white/60 leading-relaxed font-light bg-white/2 p-5 md:p-6 rounded-2xl border border-white/5 italic">
                                     "Guest slipped in the lobby... her name is <span class="text-white font-medium border-b border-white/20">Margaret Holloway</span>, she's in room <span class="text-white font-medium border-b border-white/20">318</span>. Reported by <span class="text-white font-medium border-b border-white/20">David Okafor</span>."
                                 </div>
                             </div>
@@ -325,24 +323,24 @@
                             </div>
                             <div class="space-y-4">
                                 <h4 class="text-[10px] font-black uppercase tracking-[0.3em] text-white/30">Cloud Anonymization</h4>
-                                <div class="text-sm md:text-md text-white/40 leading-relaxed font-light bg-accent-teal/5 p-6 rounded-2xl border border-accent-teal/10">
+                                <div class="text-sm text-white/40 leading-relaxed font-light bg-accent-teal/5 p-5 md:p-6 rounded-2xl border border-accent-teal/10">
                                     "Guest identified as <span class="text-accent-teal font-bold">[GUEST_1]</span> experienced a slip... The guest was assigned to room <span class="text-accent-teal font-bold">[ROOM_2]</span>. Reported by <span class="text-accent-teal font-bold">[STAFF_3]</span>."
                                 </div>
                             </div>
                         </div>
-                        <div class="mt-12 pt-12 border-t border-white/5">
+                        <div class="mt-8 md:mt-12 pt-8 md:pt-12 border-t border-white/5">
                             <p class="text-[10px] text-white/20 uppercase tracking-widest leading-relaxed">Identity maps live only in RAM. No PII is ever written to disk or sent to the cloud model.</p>
                         </div>
                     </div>
 
                     <!-- Extraction Engine -->
-                    <div class="reveal glass rounded-[3rem] p-16 flex flex-col justify-between min-h-[650px] border border-white/5 relative group">
-                        <div class="absolute top-0 right-0 p-8">
+                    <div class="reveal glass rounded-[2rem] md:rounded-[3rem] p-8 md:p-16 flex flex-col justify-between border border-white/5 relative group">
+                        <div class="absolute top-0 right-0 p-4 md:p-8">
                             <span class="text-[9px] font-black uppercase tracking-[0.4em] text-accent-teal">7-Pass Extraction Engine</span>
                         </div>
-                        <div class="space-y-10">
-                            <h3 class="font-headline text-3xl font-extrabold mb-4 tracking-tight">Structured Output</h3>
-                            <div class="grid grid-cols-1 gap-4">
+                        <div class="space-y-6 md:space-y-10 mt-6 md:mt-0">
+                            <h3 class="font-headline text-2xl md:text-3xl font-extrabold mb-4 tracking-tight">Structured Output</h3>
+                            <div class="grid grid-cols-1 gap-3 md:gap-4">
                                 <div class="flex items-center justify-between p-4 bg-white/2 rounded-xl border border-white/5">
                                     <span class="text-[10px] uppercase tracking-widest text-white/30">Severity</span>
                                     <span class="text-[10px] font-bold text-accent-teal">MEDIUM</span>
@@ -360,7 +358,7 @@
                                     <span class="text-[10px] font-bold text-accent-teal">TRUE (MOVED)</span>
                                 </div>
                             </div>
-                            <div class="pt-8 space-y-4">
+                            <div class="pt-6 md:pt-8 space-y-4">
                                 <div class="flex gap-2">
                                     <div class="h-1 flex-1 bg-accent-teal"></div>
                                     <div class="h-1 flex-1 bg-accent-teal"></div>
@@ -379,30 +377,30 @@
         </section>
 
         <!-- Deep Tech Row -->
-        <section id="security" class="py-48 px-6 bg-black">
-            <div class="max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-48">
-                <div class="flex-1">
-                    <div class="reveal inline-block px-4 py-1.5 rounded-full bg-accent-teal/10 border border-accent-teal/20 text-accent-teal text-[10px] font-black tracking-[0.5em] uppercase mb-12">Integrity Protocol</div>
-                    <h2 class="reveal font-headline text-6xl md:text-[9rem] font-extrabold tracking-tight mb-12 leading-[0.8]">LEGAL<br/>SHIELD.</h2>
-                    <p class="reveal text-white/30 text-2xl font-light leading-relaxed mb-20 max-w-2xl">
+        <section id="security" class="py-20 md:py-48 px-6 bg-black">
+            <div class="max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-12 md:gap-48">
+                <div class="flex-1 w-full">
+                    <div class="reveal inline-block px-4 py-1.5 rounded-full bg-accent-teal/10 border border-accent-teal/20 text-accent-teal text-[10px] font-black tracking-[0.5em] uppercase mb-8 md:mb-12">Integrity Protocol</div>
+                    <h2 class="reveal font-headline text-5xl md:text-[9rem] font-extrabold tracking-tight mb-8 md:mb-12 leading-[0.8]">LEGAL<br/>SHIELD.</h2>
+                    <p class="reveal text-white/30 text-lg md:text-2xl font-light leading-relaxed mb-10 md:mb-20 max-w-2xl">
                         Every report is anchored with a <strong>SHA-256 hash</strong>. Unauthorized modifications are detectable. The audit trail is immutable.
                     </p>
-                    
-                    <div class="reveal flex gap-24">
+
+                    <div class="reveal flex gap-12 md:gap-24">
                         <div>
-                            <div class="text-5xl font-extrabold font-headline mb-4 text-accent-teal tracking-tighter">SHA-256</div>
+                            <div class="text-3xl md:text-5xl font-extrabold font-headline mb-2 md:mb-4 text-accent-teal tracking-tighter">SHA-256</div>
                             <div class="text-[10px] uppercase tracking-[0.4em] text-white/20">Cryptography</div>
                         </div>
                         <div>
-                            <div class="text-5xl font-extrabold font-headline mb-4 text-accent-teal tracking-tighter">ZERO</div>
+                            <div class="text-3xl md:text-5xl font-extrabold font-headline mb-2 md:mb-4 text-accent-teal tracking-tighter">ZERO</div>
                             <div class="text-[10px] uppercase tracking-[0.4em] text-white/20">Cloud Leak</div>
                         </div>
                     </div>
                 </div>
-                
-                <div class="reveal flex-1 w-full aspect-square glass rounded-[5rem] p-24 flex items-center justify-center relative group overflow-hidden">
+
+                <div class="reveal flex-1 w-full glass rounded-[3rem] md:rounded-[5rem] p-10 md:p-24 flex items-center justify-center relative group overflow-hidden" style="aspect-ratio: 1">
                     <div class="absolute inset-0 bg-gradient-to-tr from-accent-teal/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                    <div class="relative z-10 w-full space-y-12">
+                    <div class="relative z-10 w-full space-y-8 md:space-y-12">
                         <div class="h-[1px] w-full bg-white/5"></div>
                         <div class="flex justify-between items-center">
                             <span class="text-[10px] font-mono text-accent-teal tracking-[0.5em]">PII_STRIP_ACTIVE</span>
@@ -416,10 +414,10 @@
         </section>
     </main>
 
-    <footer class="py-32 px-6 border-t border-white/5 bg-black">
-        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-16">
+    <footer class="py-12 md:py-32 px-6 border-t border-white/5 bg-black">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8 md:gap-16">
             <div class="text-[10px] font-black uppercase tracking-[0.5em] text-white/10">© 2026 Tidemark Systems. PRIVACY BY DESIGN.</div>
-            <div class="flex gap-20">
+            <div class="flex gap-8 md:gap-20">
                 <a href="#" class="text-[10px] font-bold uppercase tracking-[0.4em] text-white/20 hover:text-accent-teal transition-colors">Privacy</a>
                 <a href="#" class="text-[10px] font-bold uppercase tracking-[0.4em] text-white/20 hover:text-accent-teal transition-colors">Security</a>
                 <a href="#" class="text-[10px] font-bold uppercase tracking-[0.4em] text-white/20 hover:text-accent-teal transition-colors">Audit</a>
