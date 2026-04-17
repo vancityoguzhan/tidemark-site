@@ -4,7 +4,7 @@
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <title>Tidemark | Private Incident Intelligence</title>
-    <meta name="description" content="Tidemark turns spoken incident reports into cryptographically signed, legally defensible records — without your guest's name ever leaving the device."/>
+    <meta name="description" content="Tidemark turns spoken incident reports into cryptographically anchored, legally defensible records — without your guest's name ever leaving the device."/>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
@@ -247,7 +247,7 @@
                 <div>
                     <div class="text-[9px] font-black uppercase tracking-[0.5em] mb-2" style="color:var(--ivory-30);">Privacy Layer</div>
                     <h4 class="font-headline font-bold text-sm mb-2" style="color:var(--ivory);">Zero-Trust PII Deconstruction</h4>
-                    <p class="text-xs leading-relaxed font-light" style="color:var(--ivory-30);">Compromise.js tokenizes all guest names, room numbers, and staff IDs locally on device. Identity maps exist only in RAM — never written to disk, never transmitted.</p>
+                    <p class="text-xs leading-relaxed font-light" style="color:var(--ivory-30);">Three detection layers — structural NLP, a local neural model (BERT-Small ONNX), and a statistical anomaly filter — identify and tokenize all PII on-device before any text reaches the cloud. Identity maps exist only in RAM — never written to disk, never transmitted.</p>
                 </div>
                 <div class="h-px" style="background:var(--border);"></div>
                 <div>
@@ -274,7 +274,7 @@
                 <div class="h-px" style="background:var(--border);"></div>
                 <div>
                     <div class="text-[9px] font-black uppercase tracking-[0.5em] mb-2" style="color:var(--ivory-30);">Phase Flow</div>
-                    <div class="text-[9px] font-mono leading-relaxed" style="color:var(--ivory-60);">INTAKE → TYPE_CONFIRMED → FOLLOW_UP<br/>→ NARRATIVE_REWRITE → REVIEW → EXPORTED</div>
+                    <div class="text-[9px] font-mono leading-relaxed" style="color:var(--ivory-60);">INTAKE → CLARIFICATION → TYPE_CONFIRMED<br/>→ FOLLOW_UP → NARRATIVE_REWRITE → REVIEW → EXPORTED</div>
                 </div>
             </div>
         </div>
@@ -295,7 +295,7 @@
 
             <div class="reveal mb-10 flex flex-wrap justify-center gap-2">
                 <span class="trust-badge"><span class="material-symbols-outlined" style="font-size:11px;">lock</span>Privacy by Design</span>
-                <span class="trust-badge"><span class="material-symbols-outlined" style="font-size:11px;">verified</span>SHA-256 Signed</span>
+                <span class="trust-badge"><span class="material-symbols-outlined" style="font-size:11px;">verified</span>SHA-256 Anchored</span>
                 <span class="trust-badge"><span class="material-symbols-outlined" style="font-size:11px;">shield</span>GDPR-Aligned</span>
                 <span class="trust-badge"><span class="material-symbols-outlined" style="font-size:11px;">gavel</span>Legally Defensible</span>
             </div>
@@ -308,7 +308,7 @@
             <p class="reveal text-xl md:text-3xl font-light mb-4" style="color:var(--ivory-60);">The system doesn't.</p>
 
             <p class="reveal max-w-2xl mx-auto text-sm md:text-lg leading-relaxed mb-12 md:mb-16 font-light" style="color:var(--ivory-60);">
-                Tidemark turns messy staff accounts into audit-ready, cryptographically signed incident reports. In minutes. Built for hotel operations, not developers.
+                Tidemark turns messy staff accounts into audit-ready, cryptographically anchored incident reports. In minutes. Built for hotel operations, not developers.
             </p>
 
             <div class="reveal flex flex-col sm:flex-row gap-4 justify-center items-center">
@@ -408,7 +408,7 @@
                 No forms. No training. Just a conversation between your staff and the system.
             </p>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 <div class="reveal glass bento-card rounded-[2rem] p-8 md:p-10 relative overflow-hidden">
                     <div class="absolute top-3 right-5 font-headline font-extrabold text-[5rem] leading-none select-none" style="color:var(--ivory-08);">01</div>
                     <div class="relative z-10">
@@ -421,14 +421,23 @@
                 <div class="reveal glass bento-card rounded-[2rem] p-8 md:p-10 relative overflow-hidden">
                     <div class="absolute top-3 right-5 font-headline font-extrabold text-[5rem] leading-none select-none" style="color:var(--ivory-08);">02</div>
                     <div class="relative z-10">
-                        <span class="material-symbols-outlined text-4xl mb-5 block" style="color:var(--gold);">memory</span>
-                        <h3 class="font-headline font-bold text-xl md:text-2xl mb-4" style="color:var(--ivory);">Atomic Extraction</h3>
-                        <p class="text-sm leading-relaxed font-light mb-6" style="color:var(--ivory-30);">The engine strips names locally, then extracts facts into 16 incident categories. It builds a timeline, identifies witnesses, and assesses severity with zero PII exposure.</p>
-                        <div class="text-[8px] uppercase tracking-[0.5em] font-black" style="color:var(--gold);">Action: EXTRACTION</div>
+                        <span class="material-symbols-outlined text-4xl mb-5 block" style="color:var(--gold);">person_search</span>
+                        <h3 class="font-headline font-bold text-xl md:text-2xl mb-4" style="color:var(--ivory);">Role Resolution</h3>
+                        <p class="text-sm leading-relaxed font-light mb-6" style="color:var(--ivory-30);">Before extraction, the local engine identifies entities and asks the user to clarify roles (Guest, Staff, Witness). The AI gets perfect context; the identities remain perfectly hidden.</p>
+                        <div class="text-[8px] uppercase tracking-[0.5em] font-black" style="color:var(--gold);">Action: CLARIFICATION</div>
                     </div>
                 </div>
                 <div class="reveal glass bento-card rounded-[2rem] p-8 md:p-10 relative overflow-hidden">
                     <div class="absolute top-3 right-5 font-headline font-extrabold text-[5rem] leading-none select-none" style="color:var(--ivory-08);">03</div>
+                    <div class="relative z-10">
+                        <span class="material-symbols-outlined text-4xl mb-5 block" style="color:var(--gold);">memory</span>
+                        <h3 class="font-headline font-bold text-xl md:text-2xl mb-4" style="color:var(--ivory);">Atomic Extraction</h3>
+                        <p class="text-sm leading-relaxed font-light mb-6" style="color:var(--ivory-30);">The engine strips names locally, then extracts facts across 8 semantic field groups — datetime, location, personnel, severity, emergency response, actions, cause, and documentation. Zero PII exposure throughout.</p>
+                        <div class="text-[8px] uppercase tracking-[0.5em] font-black" style="color:var(--gold);">Action: EXTRACTION</div>
+                    </div>
+                </div>
+                <div class="reveal glass bento-card rounded-[2rem] p-8 md:p-10 relative overflow-hidden">
+                    <div class="absolute top-3 right-5 font-headline font-extrabold text-[5rem] leading-none select-none" style="color:var(--ivory-08);">04</div>
                     <div class="relative z-10">
                         <span class="material-symbols-outlined text-4xl mb-5 block" style="color:var(--gold);">verified</span>
                         <h3 class="font-headline font-bold text-xl md:text-2xl mb-4" style="color:var(--ivory);">Defensible Record</h3>
@@ -549,7 +558,7 @@
                         <div class="flex flex-col items-center gap-1">
                             <div class="w-px h-5" style="background:linear-gradient(to bottom,var(--border),var(--gold));"></div>
                             <span class="material-symbols-outlined" style="font-size:18px;color:var(--gold);">lock</span>
-                            <div class="text-[7px] uppercase tracking-[0.3em] font-black" style="color:var(--gold);">Tokenized on device</div>
+                            <div id="token-status" class="text-[7px] uppercase tracking-[0.3em] font-black" style="color:var(--gold); transition: all 0.3s ease;">Tokenized on device</div>
                             <div class="w-px h-5" style="background:linear-gradient(to bottom,var(--gold),var(--border));"></div>
                         </div>
                     </div>
@@ -679,7 +688,7 @@
                             <div class="text-[8px] uppercase tracking-[0.5em] font-black" style="color:var(--ivory-30);">State Control</div>
                         </div>
                         <div>
-                            <div class="font-headline font-extrabold text-3xl md:text-4xl mb-1 stat-num text-gold">6</div>
+                            <div class="font-headline font-extrabold text-3xl md:text-4xl mb-1 stat-num text-gold">8</div>
                             <div class="text-[8px] uppercase tracking-[0.5em] font-black" style="color:var(--ivory-30);">Phase States</div>
                         </div>
                     </div>
@@ -698,10 +707,17 @@
                             <span class="text-[7px] uppercase tracking-[0.4em]" style="color:var(--gold);">Accept ≥ 0.50</span>
                         </div>
                     </div>
-                    <div class="reveal glass bento-card rounded-[2rem] p-7 md:p-9">
-                        <span class="material-symbols-outlined text-3xl mb-4" style="color:var(--gold);">rule</span>
-                        <h3 class="font-headline font-bold text-xl mb-3" style="color:var(--ivory);">Required Fields Enforced</h3>
-                        <p class="text-sm leading-relaxed font-light" style="color:var(--ivory-30);">Each playbook defines its required fields. The report cannot be marked complete until every required field is answered with sufficient confidence. No partial records leave the system.</p>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                        <div class="reveal glass bento-card rounded-[2rem] p-7 md:p-9 flex flex-col">
+                            <span class="material-symbols-outlined text-3xl mb-4" style="color:var(--gold);">rule</span>
+                            <h3 class="font-headline font-bold text-xl mb-3" style="color:var(--ivory);">Required Fields</h3>
+                            <p class="text-sm leading-relaxed font-light" style="color:var(--ivory-30);">No partial records leave the system. Reports are only complete when all required fields are confidently answered.</p>
+                        </div>
+                        <div class="reveal glass bento-card rounded-[2rem] p-7 md:p-9 flex flex-col">
+                            <span class="material-symbols-outlined text-3xl mb-4" style="color:var(--gold);">cycle</span>
+                            <h3 class="font-headline font-bold text-xl mb-3" style="color:var(--ivory);">Discovery &amp; Retry</h3>
+                            <p class="text-sm leading-relaxed font-light" style="color:var(--ivory-30);">A pre-scan maps the narrative terrain, driving 8 semantic passes, followed by dynamic retries for missing fields.</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1035,22 +1051,45 @@
     function runTokenDemo() {
         if (demoLock) return;
         demoLock = true;
+        const statusEl = document.getElementById('token-status');
+
         tDefs.forEach(t => {
             const r = document.getElementById(t.raw);
             if (r) { r.textContent = t.name; r.style.cssText = 'color:var(--ivory);border-bottom:1px solid rgba(245,240,232,0.2);background:none;padding:0;font-size:inherit;letter-spacing:inherit;border-radius:0;'; }
         });
-        // Phase 1: highlight
-        tDefs.forEach((t, i) => setTimeout(() => {
-            const r = document.getElementById(t.raw);
-            if (r) { r.style.background = 'rgba(200,169,110,0.25)'; r.style.color = 'var(--obsidian)'; r.style.padding = '1px 5px'; r.style.borderRadius = '3px'; r.style.borderBottom = 'none'; }
-        }, 700 + i * 380));
+        
+        if (statusEl) { statusEl.textContent = 'Tokenized on device'; statusEl.style.color = 'var(--gold)'; }
+
+        // Phase 1: highlight & Statistical Check
+        setTimeout(() => {
+            if (statusEl) { statusEl.textContent = '1. Statistical Check...'; statusEl.style.color = 'var(--amber)'; }
+            tDefs.forEach((t) => {
+                const r = document.getElementById(t.raw);
+                if (r) { r.style.background = 'rgba(200,169,110,0.25)'; r.style.color = 'var(--obsidian)'; r.style.padding = '1px 5px'; r.style.borderRadius = '3px'; r.style.borderBottom = 'none'; }
+            });
+        }, 700);
+
+        // Phase 1.5: Structural Parse
+        setTimeout(() => {
+            if (statusEl) { statusEl.textContent = '2. Structural Parse...'; }
+        }, 1200);
+
+        // Phase 1.8: Neural Verification
+        setTimeout(() => {
+            if (statusEl) { statusEl.textContent = '3. Neural Verification...'; }
+        }, 1700);
+
         // Phase 2: replace with dots & flash tokens
-        tDefs.forEach((t, i) => setTimeout(() => {
-            const r = document.getElementById(t.raw);
-            const tk = document.getElementById(t.tok);
-            if (r) { r.textContent = '● ● ●'; r.style.color = 'var(--gold)'; r.style.background = 'var(--gold-subtle)'; r.style.fontSize = '0.55em'; r.style.letterSpacing = '0.2em'; r.style.padding = '2px 7px'; }
-            if (tk) { tk.classList.add('token-highlight'); setTimeout(() => tk.classList.remove('token-highlight'), 600); }
-        }, 2100 + i * 380));
+        setTimeout(() => {
+            if (statusEl) { statusEl.textContent = 'Tokenized on device'; statusEl.style.color = 'var(--gold)'; }
+            tDefs.forEach((t) => {
+                const r = document.getElementById(t.raw);
+                const tk = document.getElementById(t.tok);
+                if (r) { r.textContent = '● ● ●'; r.style.color = 'var(--gold)'; r.style.background = 'var(--gold-subtle)'; r.style.fontSize = '0.55em'; r.style.letterSpacing = '0.2em'; r.style.padding = '2px 7px'; }
+                if (tk) { tk.classList.add('token-highlight'); setTimeout(() => tk.classList.remove('token-highlight'), 600); }
+            });
+        }, 2200);
+
         // Reset
         setTimeout(() => { demoLock = false; }, 5800);
     }
