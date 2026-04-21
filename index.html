@@ -680,29 +680,29 @@
             <div class="reveal mb-5"><span class="trust-badge">Architecture</span></div>
             <h2 class="reveal font-headline font-extrabold tracking-tighter leading-[0.82] mb-6 text-luminous"
                 style="font-size:clamp(2.2rem,5.5vw,6.5rem);">
-                THE MODEL IS<br/>A TOOL.<br/><span class="text-gold">NOT THE DRIVER.</span>
+                THE SYSTEM DECIDES.<br/>THE MODEL<br/><span class="text-gold">ASSISTS.</span>
             </h2>
             <p class="reveal text-base md:text-xl font-light mb-14 max-w-2xl" style="color:var(--ivory-30);">
-                Every state transition, every question, every completion decision is made deterministically by code. The AI fills in facts. The Orchestrator makes every decision. Hallucinations are structurally impossible.
+                Tidemark does not let an AI improvise its way through an incident report. A deterministic state machine controls what gets asked, what gets accepted, and when the report is actually complete.
             </p>
 
             <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
                 <div class="reveal md:col-span-7 glass bento-card rounded-[2rem] md:rounded-[2.5rem] p-8 md:p-14 flex flex-col justify-between" style="min-height:380px;">
                     <div>
                         <span class="material-symbols-outlined text-4xl md:text-5xl mb-5 block" style="color:var(--gold);">account_tree</span>
-                        <h3 class="font-headline font-bold text-2xl md:text-4xl mb-4 tracking-tight" style="color:var(--ivory);">Logic-First Architecture</h3>
+                        <h3 class="font-headline font-bold text-2xl md:text-4xl mb-4 tracking-tight" style="color:var(--ivory);">AI On A Leash</h3>
                         <p class="text-sm md:text-base leading-relaxed font-light max-w-lg" style="color:var(--ivory-30);">
-                            The Orchestrator is the state machine. It determines which question to ask next, whether a field is sufficiently answered, and when the report is complete. The AI fills in facts. The code makes every decision.
+                            The orchestrator is the control layer. It decides the next question, checks whether a field is good enough to keep, and determines when a report is complete. The model helps extract facts. It does not set the standard.
                         </p>
                     </div>
                     <div class="flex gap-10 md:gap-16 mt-8">
                         <div>
                             <div class="font-headline font-extrabold text-3xl md:text-4xl mb-1 stat-num text-gold">0%</div>
-                            <div class="text-[8px] uppercase tracking-[0.5em] font-black" style="color:var(--ivory-30);">Decision Drift</div>
+                            <div class="text-[8px] uppercase tracking-[0.5em] font-black" style="color:var(--ivory-30);">LLM-Led Workflow</div>
                         </div>
                         <div>
                             <div class="font-headline font-extrabold text-3xl md:text-4xl mb-1 stat-num text-gold">100%</div>
-                            <div class="text-[8px] uppercase tracking-[0.5em] font-black" style="color:var(--ivory-30);">State Control</div>
+                            <div class="text-[8px] uppercase tracking-[0.5em] font-black" style="color:var(--ivory-30);">Deterministic Control</div>
                         </div>
                         <div>
                             <div class="font-headline font-extrabold text-3xl md:text-4xl mb-1 stat-num text-gold">8</div>
@@ -714,8 +714,8 @@
                 <div class="md:col-span-5 flex flex-col gap-5">
                     <div class="reveal glass bento-card rounded-[2rem] p-7 md:p-9">
                         <span class="material-symbols-outlined text-3xl mb-4" style="color:var(--gold);">radar</span>
-                        <h3 class="font-headline font-bold text-xl mb-3" style="color:var(--ivory);">Confidence Floor: 0.50</h3>
-                        <p class="text-sm leading-relaxed font-light mb-5" style="color:var(--ivory-30);">Any extracted field below 0.50 confidence is discarded. The system asks explicitly. It never guesses when the stakes are unclear.</p>
+                        <h3 class="font-headline font-bold text-xl mb-3" style="color:var(--ivory);">Confidence Gate</h3>
+                        <p class="text-sm leading-relaxed font-light mb-5" style="color:var(--ivory-30);">If the model is not confident enough, the field is rejected and the system asks explicitly. Polished guessing is not allowed into the record.</p>
                         <div class="h-1 rounded-full" style="background:var(--elevated);">
                             <div id="confidence-bar" class="h-full rounded-full" style="width:0%;background:var(--gold);box-shadow:0 0 5px var(--gold-glow);transition:width 1.4s cubic-bezier(0.075,0.82,0.165,1);"></div>
                         </div>
@@ -727,13 +727,13 @@
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
                         <div class="reveal glass bento-card rounded-[2rem] p-7 md:p-9 flex flex-col">
                             <span class="material-symbols-outlined text-3xl mb-4" style="color:var(--gold);">rule</span>
-                            <h3 class="font-headline font-bold text-xl mb-3" style="color:var(--ivory);">Required Fields</h3>
-                            <p class="text-sm leading-relaxed font-light" style="color:var(--ivory-30);">No partial records leave the system. Reports are only complete when all required fields are confidently answered.</p>
+                            <h3 class="font-headline font-bold text-xl mb-3" style="color:var(--ivory);">Playbook-Led Completion</h3>
+                            <p class="text-sm leading-relaxed font-light" style="color:var(--ivory-30);">The playbook decides what is required for that incident type. Completion is computed by the system, not improvised by the model.</p>
                         </div>
                         <div class="reveal glass bento-card rounded-[2rem] p-7 md:p-9 flex flex-col">
                             <span class="material-symbols-outlined text-3xl mb-4" style="color:var(--gold);">cycle</span>
-                            <h3 class="font-headline font-bold text-xl mb-3" style="color:var(--ivory);">Discovery &amp; Retry</h3>
-                            <p class="text-sm leading-relaxed font-light" style="color:var(--ivory-30);">A pre-scan maps the narrative terrain, driving 8 semantic passes, followed by dynamic retries for missing fields.</p>
+                            <h3 class="font-headline font-bold text-xl mb-3" style="color:var(--ivory);">Multi-Pass Extraction</h3>
+                            <p class="text-sm leading-relaxed font-light" style="color:var(--ivory-30);">The model does not fill the whole report in one shot. Tidemark breaks extraction into targeted passes and retries only what is still unresolved.</p>
                         </div>
                     </div>
                 </div>
@@ -748,23 +748,23 @@
                 <div class="reveal mb-5"><span class="trust-badge">Privacy & Integrity</span></div>
                 <h2 class="reveal font-headline font-extrabold tracking-tight leading-[0.82] mb-8 text-luminous"
                     style="font-size:clamp(2.5rem,6vw,8rem);">
-                    PRIVATE INPUTS.<br/>CLEARER<br/><span class="text-gold">REPORTS.</span>
+                    THE CLOUD NEVER<br/>SEES THE REAL<br/><span class="text-gold">NAMES.</span>
                 </h2>
                 <p class="reveal text-base md:text-xl font-light leading-relaxed mb-10" style="color:var(--ivory-30);">
-                    Names, room numbers, staff IDs, phones, and emails are tokenized before cloud processing. Reports are hashed at export so the final record has a clear integrity fingerprint without changing how your team works.
+                    Names, room numbers, staff IDs, phones, and emails are tokenized before any model call. The cloud processes placeholders, the identity map stays in local memory, and real details are restored only on the device.
                 </p>
                 <div class="reveal flex gap-10 md:gap-16">
                     <div>
-                        <div class="font-headline font-extrabold text-2xl md:text-4xl mb-1 tracking-tighter" style="color:var(--gold);">SHA-256</div>
-                        <div class="text-[8px] uppercase tracking-[0.4em] font-black" style="color:var(--ivory-30);">Cryptographic Anchor</div>
+                        <div class="font-headline font-extrabold text-2xl md:text-4xl mb-1 tracking-tighter" style="color:var(--gold);">LOCAL</div>
+                        <div class="text-[8px] uppercase tracking-[0.4em] font-black" style="color:var(--ivory-30);">Token Map</div>
                     </div>
                     <div>
                         <div class="font-headline font-extrabold text-2xl md:text-4xl mb-1 tracking-tighter" style="color:var(--gold);">ZERO</div>
-                        <div class="text-[8px] uppercase tracking-[0.4em] font-black" style="color:var(--ivory-30);">PII in Cloud</div>
+                        <div class="text-[8px] uppercase tracking-[0.4em] font-black" style="color:var(--ivory-30);">Real Names in Cloud</div>
                     </div>
                     <div>
-                        <div class="font-headline font-extrabold text-2xl md:text-4xl mb-1 tracking-tighter" style="color:var(--gold);">∞</div>
-                        <div class="text-[8px] uppercase tracking-[0.4em] font-black" style="color:var(--ivory-30);">Audit Retention</div>
+                        <div class="font-headline font-extrabold text-2xl md:text-4xl mb-1 tracking-tighter" style="color:var(--gold);">SHA-256</div>
+                        <div class="text-[8px] uppercase tracking-[0.4em] font-black" style="color:var(--ivory-30);">Export Hash</div>
                     </div>
                 </div>
             </div>
