@@ -536,15 +536,15 @@
             </p>
             <div class="reveal grid grid-cols-1 md:grid-cols-3 gap-4 mb-14">
                 <div class="glass-gold rounded-[1.5rem] p-5">
-                    <div class="text-[8px] uppercase tracking-[0.5em] font-black mb-2" style="color:var(--gold);">What Staff Does</div>
+                    <div class="text-[8px] uppercase tracking-[0.5em] font-black mb-2" style="color:var(--gold);">On Shift</div>
                     <p class="text-sm font-light leading-relaxed" style="color:var(--ivory-60);">Speak naturally. No form memory, no blank page, no guessing what matters.</p>
                 </div>
                 <div class="glass-gold rounded-[1.5rem] p-5">
-                    <div class="text-[8px] uppercase tracking-[0.5em] font-black mb-2" style="color:var(--gold);">What Tidemark Does</div>
+                    <div class="text-[8px] uppercase tracking-[0.5em] font-black mb-2" style="color:var(--gold);">In The System</div>
                     <p class="text-sm font-light leading-relaxed" style="color:var(--ivory-60);">Protect identity, structure facts, and flag only what can be supported with confidence.</p>
                 </div>
                 <div class="glass-gold rounded-[1.5rem] p-5">
-                    <div class="text-[8px] uppercase tracking-[0.5em] font-black mb-2" style="color:var(--gold);">What Management Gets</div>
+                    <div class="text-[8px] uppercase tracking-[0.5em] font-black mb-2" style="color:var(--gold);">At Review</div>
                     <p class="text-sm font-light leading-relaxed" style="color:var(--ivory-60);">A cleaner, faster, more consistent record before the shift is over.</p>
                 </div>
             </div>
@@ -555,14 +555,14 @@
                 <div class="reveal glass rounded-[2rem] md:rounded-[2.5rem] p-8 md:p-12 flex flex-col" style="height:600px;overflow:hidden;">
                     <div class="flex items-center justify-between mb-7">
                         <div>
-                            <div class="text-[8px] uppercase tracking-[0.5em] font-black mb-1" style="color:var(--gold);">What Leaves The Device</div>
+                            <div class="text-[8px] uppercase tracking-[0.5em] font-black mb-1" style="color:var(--gold);">Leaves The Device</div>
                             <div class="text-[8px] uppercase tracking-[0.4em]" style="color:var(--ivory-30);">Guest identity protected before transmission</div>
                         </div>
                         <div class="w-2 h-2 rounded-full" style="background:var(--green);box-shadow:0 0 6px var(--green);"></div>
                     </div>
 
                     <div class="mb-4">
-                        <div class="text-[8px] uppercase tracking-[0.4em] font-black mb-2" style="color:var(--ivory-30);">What Staff Actually Says</div>
+                        <div class="text-[8px] uppercase tracking-[0.4em] font-black mb-2" style="color:var(--ivory-30);">Raw Incident Account</div>
                         <div id="demo-raw" class="text-sm leading-relaxed italic p-5 rounded-xl font-light" style="background:var(--elevated);border:0.5px solid var(--border);color:var(--ivory-60);min-height:76px;">
                             "Guest slipped in the lobby — her name is <span id="t-name1" class="font-medium" style="color:var(--ivory);border-bottom:1px solid rgba(245,240,232,0.2);">Margaret Holloway</span>, she's in room <span id="t-room" class="font-medium" style="color:var(--ivory);border-bottom:1px solid rgba(245,240,232,0.2);">318</span>. Reported by <span id="t-name2" class="font-medium" style="color:var(--ivory);border-bottom:1px solid rgba(245,240,232,0.2);">David Okafor</span>."
                         </div>
@@ -578,7 +578,7 @@
                     </div>
 
                     <div class="mb-5">
-                        <div class="text-[8px] uppercase tracking-[0.4em] font-black mb-2" style="color:var(--ivory-30);">What The System Processes</div>
+                        <div class="text-[8px] uppercase tracking-[0.4em] font-black mb-2" style="color:var(--ivory-30);">Protected Input</div>
                         <div id="demo-anon" class="text-sm leading-relaxed italic p-5 rounded-xl font-light" style="background:rgba(200,169,110,0.05);border:0.5px solid rgba(200,169,110,0.12);color:var(--ivory-30);min-height:76px;">
                             "Guest identified as <span id="t-tok1" class="font-bold" style="color:var(--gold);">[GUEST_1]</span> experienced a slip... room <span id="t-tok2" class="font-bold" style="color:var(--gold);">[ROOM_2]</span>. Reported by <span id="t-tok3" class="font-bold" style="color:var(--gold);">[STAFF_3]</span>."
                         </div>
@@ -593,7 +593,7 @@
                 <div class="reveal glass rounded-[2rem] md:rounded-[2.5rem] p-8 md:p-12 flex flex-col" style="height:600px;overflow:hidden;">
                     <div class="flex items-center justify-between mb-5" style="flex-shrink:0;">
                         <div>
-                            <div class="text-[8px] uppercase tracking-[0.5em] font-black mb-1" style="color:var(--gold);">How The Report Gets Built</div>
+                            <div class="text-[8px] uppercase tracking-[0.5em] font-black mb-1" style="color:var(--gold);">Report Build</div>
                             <div class="text-[8px] uppercase tracking-[0.4em]" style="color:var(--ivory-30);">Real extraction pipeline · Confidence floor enforced</div>
                         </div>
                         <div class="text-[9px] font-mono font-bold" id="pipeline-pct" style="color:var(--gold);">0%</div>
@@ -613,7 +613,7 @@
 
                     <!-- Output: always in DOM, uses opacity — no layout reflow -->
                     <div id="pipeline-output" style="flex-shrink:0;margin-top:16px;opacity:0;transition:opacity 0.5s ease;pointer-events:none;">
-                        <div class="text-[8px] uppercase tracking-[0.5em] font-black mb-3" style="color:var(--green);">What Management Receives</div>
+                        <div class="text-[8px] uppercase tracking-[0.5em] font-black mb-3" style="color:var(--green);">Structured Output</div>
                         <div class="grid grid-cols-1 gap-2">
                             <div class="flex items-center justify-between p-3 rounded-xl" style="background:var(--elevated);border:0.5px solid var(--border);">
                                 <span class="text-[8px] uppercase tracking-widest font-bold" style="color:var(--ivory-30);">Severity</span>
@@ -748,7 +748,7 @@
                 <div class="reveal mb-5"><span class="trust-badge">Privacy & Integrity</span></div>
                 <h2 class="reveal font-headline font-extrabold tracking-tight leading-[0.82] mb-8 text-luminous"
                     style="font-size:clamp(2.5rem,6vw,8rem);">
-                    PRIVATE BY DESIGN.<br/>CONSISTENT BY<br/><span class="text-gold">DEFAULT.</span>
+                    PRIVATE INPUTS.<br/>CONSISTENT<br/><span class="text-gold">REPORTS.</span>
                 </h2>
                 <p class="reveal text-base md:text-xl font-light leading-relaxed mb-10" style="color:var(--ivory-30);">
                     Names, room numbers, staff IDs, phones, and emails are tokenized before cloud processing. Reports are hashed at export so the final record has a clear integrity fingerprint without changing how your team works.
