@@ -302,13 +302,13 @@
 
             <h1 class="reveal font-headline font-extrabold tracking-[-0.06em] leading-[0.80] mb-8 md:mb-10 text-luminous"
                 style="font-size:clamp(3rem,10vw,11rem);">
-                YOUR STAFF<br/>REMEMBERS<br/><span class="text-gold">DIFFERENTLY.</span>
+                CLEAR REPORTS.<br/><span class="text-gold">MESSY SHIFTS.</span>
             </h1>
 
-            <p class="reveal text-xl md:text-3xl font-light mb-4" style="color:var(--ivory-60);">The system doesn't.</p>
+            <p class="reveal text-xl md:text-3xl font-light mb-4" style="color:var(--ivory-60);">Clarity, before the shift is over.</p>
 
             <p class="reveal max-w-2xl mx-auto text-sm md:text-lg leading-relaxed mb-12 md:mb-16 font-light" style="color:var(--ivory-60);">
-                Tidemark turns what your staff remembers into a complete, structured incident report — before they leave the building. No blank pages. No overtime. No guessing what a lawyer needs.
+                Tidemark turns messy, on-shift incident accounts into structured, defensible reports before your team leaves the building. No blank pages. No overtime. No guessing what a lawyer needs.
             </p>
 
             <div class="reveal flex flex-col sm:flex-row gap-4 justify-center items-center">
@@ -529,11 +529,25 @@
             <div class="reveal mb-5"><span class="trust-badge">Live Demonstration</span></div>
             <h2 class="reveal font-headline font-extrabold tracking-tighter leading-[0.82] mb-6 text-luminous"
                 style="font-size:clamp(2rem,5vw,6rem);">
-                WATCH IT WORK.
+                SEE THE SHIFT<br/>TO THE REPORT.
             </h2>
-            <p class="reveal text-base md:text-xl font-light mb-14 max-w-2xl" style="color:var(--ivory-30);">
-                This is the actual system. The anonymization you see is real. The extraction pipeline you see is the real engine running against the real incident.
+            <p class="reveal text-base md:text-xl font-light mb-8 max-w-3xl" style="color:var(--ivory-30);">
+                This is the moment the product has to earn its place: someone on shift gives a messy account, guest data stays protected, and the property gets a report it can actually use.
             </p>
+            <div class="reveal grid grid-cols-1 md:grid-cols-3 gap-4 mb-14">
+                <div class="glass-gold rounded-[1.5rem] p-5">
+                    <div class="text-[8px] uppercase tracking-[0.5em] font-black mb-2" style="color:var(--gold);">What Staff Does</div>
+                    <p class="text-sm font-light leading-relaxed" style="color:var(--ivory-60);">Speak naturally. No form memory, no blank page, no guessing what matters.</p>
+                </div>
+                <div class="glass-gold rounded-[1.5rem] p-5">
+                    <div class="text-[8px] uppercase tracking-[0.5em] font-black mb-2" style="color:var(--gold);">What Tidemark Does</div>
+                    <p class="text-sm font-light leading-relaxed" style="color:var(--ivory-60);">Protect identity, structure facts, and flag only what can be supported with confidence.</p>
+                </div>
+                <div class="glass-gold rounded-[1.5rem] p-5">
+                    <div class="text-[8px] uppercase tracking-[0.5em] font-black mb-2" style="color:var(--gold);">What Management Gets</div>
+                    <p class="text-sm font-light leading-relaxed" style="color:var(--ivory-60);">A cleaner, faster, more defensible record before the shift is over.</p>
+                </div>
+            </div>
 
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8">
 
@@ -541,14 +555,14 @@
                 <div class="reveal glass rounded-[2rem] md:rounded-[2.5rem] p-8 md:p-12 flex flex-col" style="height:600px;overflow:hidden;">
                     <div class="flex items-center justify-between mb-7">
                         <div>
-                            <div class="text-[8px] uppercase tracking-[0.5em] font-black mb-1" style="color:var(--gold);">PII Tokenization Loop</div>
-                            <div class="text-[8px] uppercase tracking-[0.4em]" style="color:var(--ivory-30);">Runs locally · Zero transmission</div>
+                            <div class="text-[8px] uppercase tracking-[0.5em] font-black mb-1" style="color:var(--gold);">What Leaves The Device</div>
+                            <div class="text-[8px] uppercase tracking-[0.4em]" style="color:var(--ivory-30);">Guest identity protected before transmission</div>
                         </div>
                         <div class="w-2 h-2 rounded-full" style="background:var(--green);box-shadow:0 0 6px var(--green);"></div>
                     </div>
 
                     <div class="mb-4">
-                        <div class="text-[8px] uppercase tracking-[0.4em] font-black mb-2" style="color:var(--ivory-30);">Raw Intake — On Device</div>
+                        <div class="text-[8px] uppercase tracking-[0.4em] font-black mb-2" style="color:var(--ivory-30);">What Staff Actually Says</div>
                         <div id="demo-raw" class="text-sm leading-relaxed italic p-5 rounded-xl font-light" style="background:var(--elevated);border:0.5px solid var(--border);color:var(--ivory-60);min-height:76px;">
                             "Guest slipped in the lobby — her name is <span id="t-name1" class="font-medium" style="color:var(--ivory);border-bottom:1px solid rgba(245,240,232,0.2);">Margaret Holloway</span>, she's in room <span id="t-room" class="font-medium" style="color:var(--ivory);border-bottom:1px solid rgba(245,240,232,0.2);">318</span>. Reported by <span id="t-name2" class="font-medium" style="color:var(--ivory);border-bottom:1px solid rgba(245,240,232,0.2);">David Okafor</span>."
                         </div>
@@ -558,20 +572,20 @@
                         <div class="flex flex-col items-center gap-1">
                             <div class="w-px h-5" style="background:linear-gradient(to bottom,var(--border),var(--gold));"></div>
                             <span class="material-symbols-outlined" style="font-size:18px;color:var(--gold);">lock</span>
-                            <div id="token-status" class="text-[7px] uppercase tracking-[0.3em] font-black" style="color:var(--gold); transition: all 0.3s ease;">Tokenized on device</div>
+                            <div id="token-status" class="text-[7px] uppercase tracking-[0.3em] font-black" style="color:var(--gold); transition: all 0.3s ease;">Protected on device first</div>
                             <div class="w-px h-5" style="background:linear-gradient(to bottom,var(--gold),var(--border));"></div>
                         </div>
                     </div>
 
                     <div class="mb-5">
-                        <div class="text-[8px] uppercase tracking-[0.4em] font-black mb-2" style="color:var(--ivory-30);">Cloud-Safe Payload — Transmitted</div>
+                        <div class="text-[8px] uppercase tracking-[0.4em] font-black mb-2" style="color:var(--ivory-30);">What The System Processes</div>
                         <div id="demo-anon" class="text-sm leading-relaxed italic p-5 rounded-xl font-light" style="background:rgba(200,169,110,0.05);border:0.5px solid rgba(200,169,110,0.12);color:var(--ivory-30);min-height:76px;">
                             "Guest identified as <span id="t-tok1" class="font-bold" style="color:var(--gold);">[GUEST_1]</span> experienced a slip... room <span id="t-tok2" class="font-bold" style="color:var(--gold);">[ROOM_2]</span>. Reported by <span id="t-tok3" class="font-bold" style="color:var(--gold);">[STAFF_3]</span>."
                         </div>
                     </div>
 
                     <div class="mt-auto pt-5" style="border-top:0.5px solid var(--border);">
-                        <p class="text-[8px] uppercase tracking-widest font-bold leading-relaxed" style="color:var(--ivory-30);">Identity maps live only in RAM. No PII is ever written to disk or sent to the cloud model.</p>
+                        <p class="text-[8px] uppercase tracking-widest font-bold leading-relaxed" style="color:var(--ivory-30);">Identity maps live only in RAM. No guest or staff PII is written to disk or sent to the cloud model.</p>
                     </div>
                 </div>
 
@@ -579,8 +593,8 @@
                 <div class="reveal glass rounded-[2rem] md:rounded-[2.5rem] p-8 md:p-12 flex flex-col" style="height:600px;overflow:hidden;">
                     <div class="flex items-center justify-between mb-5" style="flex-shrink:0;">
                         <div>
-                            <div class="text-[8px] uppercase tracking-[0.5em] font-black mb-1" style="color:var(--gold);">Extraction Engine</div>
-                            <div class="text-[8px] uppercase tracking-[0.4em]" style="color:var(--ivory-30);">Multi-pass · Confidence ≥ 0.50</div>
+                            <div class="text-[8px] uppercase tracking-[0.5em] font-black mb-1" style="color:var(--gold);">How The Report Gets Built</div>
+                            <div class="text-[8px] uppercase tracking-[0.4em]" style="color:var(--ivory-30);">Real extraction pipeline · Confidence floor enforced</div>
                         </div>
                         <div class="text-[9px] font-mono font-bold" id="pipeline-pct" style="color:var(--gold);">0%</div>
                     </div>
@@ -599,7 +613,7 @@
 
                     <!-- Output: always in DOM, uses opacity — no layout reflow -->
                     <div id="pipeline-output" style="flex-shrink:0;margin-top:16px;opacity:0;transition:opacity 0.5s ease;pointer-events:none;">
-                        <div class="text-[8px] uppercase tracking-[0.5em] font-black mb-3" style="color:var(--green);">Structured Output · Verified</div>
+                        <div class="text-[8px] uppercase tracking-[0.5em] font-black mb-3" style="color:var(--green);">What Management Receives</div>
                         <div class="grid grid-cols-1 gap-2">
                             <div class="flex items-center justify-between p-3 rounded-xl" style="background:var(--elevated);border:0.5px solid var(--border);">
                                 <span class="text-[8px] uppercase tracking-widest font-bold" style="color:var(--ivory-30);">Severity</span>
@@ -617,6 +631,9 @@
                                 <span class="text-[8px] uppercase tracking-widest font-bold" style="color:var(--ivory-30);">Medical Offered</span>
                                 <span class="text-[8px] font-bold" style="color:var(--green);">YES</span>
                             </div>
+                        </div>
+                        <div class="mt-4 pt-4" style="border-top:0.5px solid var(--border);">
+                            <p class="text-[8px] uppercase tracking-widest font-bold leading-relaxed" style="color:var(--ivory-30);">Only supported fields survive. Low-confidence guesses are discarded and asked explicitly.</p>
                         </div>
                     </div>
                 </div>
