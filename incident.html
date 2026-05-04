@@ -231,6 +231,7 @@
             </div>
 
             <div class="hidden md:flex items-center gap-10">
+                <button onclick="toggleSpecs()" class="text-[10px] font-black uppercase tracking-[0.5em] transition-colors" style="color:var(--gold);" onmouseover="this.style.color='var(--ivory)'" onmouseout="this.style.color='var(--gold)'">Specs</button>
                 <a href="index.html" class="text-[10px] font-black uppercase tracking-[0.5em] transition-colors" style="color:var(--gold);" onmouseover="this.style.color='var(--ivory)'" onmouseout="this.style.color='var(--gold)'">← Back to Hub</a>
                 <a href="#security" class="text-[10px] font-black uppercase tracking-[0.5em] transition-colors" style="color:var(--ivory-30);" onmouseover="this.style.color='var(--ivory)'" onmouseout="this.style.color='var(--ivory-30)'">Security</a>
                 <a href="#changelog" class="text-[10px] font-black uppercase tracking-[0.5em] transition-colors" style="color:var(--ivory-30);" onmouseover="this.style.color='var(--ivory)'" onmouseout="this.style.color='var(--ivory-30)'">History</a>
@@ -258,13 +259,13 @@
                 <div>
                     <div class="text-[9px] font-black uppercase tracking-[0.5em] mb-2" style="color:var(--ivory-30);">Privacy Layer</div>
                     <h4 class="font-headline font-bold text-sm mb-2" style="color:var(--ivory);">Zero-Trust PII Deconstruction</h4>
-                    <p class="text-xs leading-relaxed font-light" style="color:var(--ivory-30);">Three detection layers — structural NLP, a local neural model (BERT-Small ONNX), and a statistical anomaly filter — identify and tokenize all PII on-device before any text reaches the cloud. Identity maps exist only in RAM — never written to disk, never transmitted.</p>
+                    <p class="text-xs leading-relaxed font-light" style="color:var(--ivory-30);">Three detection layers: structural NLP, a local neural model (BERT-Small ONNX), and a statistical anomaly filter: identify and tokenize all PII on-device before any text reaches the cloud. Identity maps exist only in RAM: never written to disk, never transmitted.</p>
                 </div>
                 <div class="h-px" style="background:var(--border);"></div>
                 <div>
                     <div class="text-[9px] font-black uppercase tracking-[0.5em] mb-2" style="color:var(--ivory-30);">Extraction Engine</div>
                     <h4 class="font-headline font-bold text-sm mb-2" style="color:var(--ivory);">Multi-Pass Atomic Extraction</h4>
-                    <p class="text-xs leading-relaxed font-light mb-4" style="color:var(--ivory-30);">8 semantic field groups processed independently — datetime, location, personnel, severity, emergency services, actions, cause, documentation. Confidence floor: 0.50.</p>
+                    <p class="text-xs leading-relaxed font-light mb-4" style="color:var(--ivory-30);">8 semantic field groups processed independently: datetime, location, personnel, severity, emergency services, actions, cause, documentation. Confidence floor: 0.50.</p>
                     <div class="space-y-1">
                         <div class="text-[9px] font-mono" style="color:var(--gold);">→ date &amp; time extraction</div>
                         <div class="text-[9px] font-mono" style="color:var(--gold);">→ location &amp; area mapping</div>
@@ -560,7 +561,7 @@
                     <div class="mb-4">
                         <div class="text-[8px] uppercase tracking-[0.4em] font-black mb-2" style="color:var(--ivory-30);">Raw Incident Account</div>
                         <div id="demo-raw" class="text-sm leading-relaxed italic p-5 rounded-xl font-light" style="background:var(--elevated);border:0.5px solid var(--border);color:var(--ivory-60);min-height:76px;">
-                            "Guest slipped in the lobby — her name is <span id="t-name1" class="font-medium" style="color:var(--ivory);border-bottom:1px solid rgba(245,240,232,0.2);">Margaret Holloway</span>, she's in room <span id="t-room" class="font-medium" style="color:var(--ivory);border-bottom:1px solid rgba(245,240,232,0.2);">318</span>. Reported by <span id="t-name2" class="font-medium" style="color:var(--ivory);border-bottom:1px solid rgba(245,240,232,0.2);">David Okafor</span>."
+                            "Guest slipped in the lobby: her name is <span id="t-name1" class="font-medium" style="color:var(--ivory);border-bottom:1px solid rgba(245,240,232,0.2);">Margaret Holloway</span>, she's in room <span id="t-room" class="font-medium" style="color:var(--ivory);border-bottom:1px solid rgba(245,240,232,0.2);">318</span>. Reported by <span id="t-name2" class="font-medium" style="color:var(--ivory);border-bottom:1px solid rgba(245,240,232,0.2);">David Okafor</span>."
                         </div>
                     </div>
 
@@ -607,7 +608,7 @@
                              style="background: linear-gradient(to top, var(--surface), transparent); z-index: 10;"></div>
                     </div>
 
-                    <!-- Output: always in DOM, uses opacity — no layout reflow -->
+                    <!-- Output: always in DOM, uses opacity: no layout reflow -->
                     <div id="pipeline-output" style="flex-shrink:0;margin-top:16px;opacity:0;transition:opacity 0.5s ease;pointer-events:none;">
                         <div class="text-[8px] uppercase tracking-[0.5em] font-black mb-3" style="color:var(--green);">Structured Output</div>
                         <div class="grid grid-cols-1 gap-2">
@@ -651,8 +652,8 @@
 
             <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
                 <div class="reveal bento-card glass p-6 md:p-8 rounded-[1.5rem] group"><span class="material-symbols-outlined text-3xl mb-4 block transition-colors duration-300 playbook-icon" style="color:var(--ivory-15);">security</span><div class="font-headline font-bold text-sm mb-1" style="color:var(--ivory);">Theft &amp; Security</div><div class="text-[8px] uppercase tracking-[0.3em]" style="color:var(--ivory-30);">theft · intrusion · assault</div></div>
-                <div class="reveal bento-card glass p-6 md:p-8 rounded-[1.5rem] group"><span class="material-symbols-outlined text-3xl mb-4 block transition-colors duration-300 playbook-icon" style="color:var(--ivory-15);">medical_services</span><div class="font-headline font-bold text-sm mb-1" style="color:var(--ivory);">Medical — Guest</div><div class="text-[8px] uppercase tracking-[0.3em]" style="color:var(--ivory-30);">illness · injury · emergency</div></div>
-                <div class="reveal bento-card glass p-6 md:p-8 rounded-[1.5rem] group"><span class="material-symbols-outlined text-3xl mb-4 block transition-colors duration-300 playbook-icon" style="color:var(--ivory-15);">healing</span><div class="font-headline font-bold text-sm mb-1" style="color:var(--ivory);">Medical — Staff</div><div class="text-[8px] uppercase tracking-[0.3em]" style="color:var(--ivory-30);">workplace injury · first aid</div></div>
+                <div class="reveal bento-card glass p-6 md:p-8 rounded-[1.5rem] group"><span class="material-symbols-outlined text-3xl mb-4 block transition-colors duration-300 playbook-icon" style="color:var(--ivory-15);">medical_services</span><div class="font-headline font-bold text-sm mb-1" style="color:var(--ivory);">Medical: Guest</div><div class="text-[8px] uppercase tracking-[0.3em]" style="color:var(--ivory-30);">illness · injury · emergency</div></div>
+                <div class="reveal bento-card glass p-6 md:p-8 rounded-[1.5rem] group"><span class="material-symbols-outlined text-3xl mb-4 block transition-colors duration-300 playbook-icon" style="color:var(--ivory-15);">healing</span><div class="font-headline font-bold text-sm mb-1" style="color:var(--ivory);">Medical: Staff</div><div class="text-[8px] uppercase tracking-[0.3em]" style="color:var(--ivory-30);">workplace injury · first aid</div></div>
                 <div class="reveal bento-card glass p-6 md:p-8 rounded-[1.5rem] group"><span class="material-symbols-outlined text-3xl mb-4 block transition-colors duration-300 playbook-icon" style="color:var(--ivory-15);">accessible</span><div class="font-headline font-bold text-sm mb-1" style="color:var(--ivory);">Slip / Trip / Fall</div><div class="text-[8px] uppercase tracking-[0.3em]" style="color:var(--ivory-30);">wet floor · debris · uneven</div></div>
                 <div class="reveal bento-card glass p-6 md:p-8 rounded-[1.5rem] group"><span class="material-symbols-outlined text-3xl mb-4 block transition-colors duration-300 playbook-icon" style="color:var(--ivory-15);">local_fire_department</span><div class="font-headline font-bold text-sm mb-1" style="color:var(--ivory);">Fire &amp; Life Safety</div><div class="text-[8px] uppercase tracking-[0.3em]" style="color:var(--ivory-30);">fire · alarm · evacuation</div></div>
                 <div class="reveal bento-card glass p-6 md:p-8 rounded-[1.5rem] group"><span class="material-symbols-outlined text-3xl mb-4 block transition-colors duration-300 playbook-icon" style="color:var(--ivory-15);">construction</span><div class="font-headline font-bold text-sm mb-1" style="color:var(--ivory);">Property Damage</div><div class="text-[8px] uppercase tracking-[0.3em]" style="color:var(--ivory-30);">structural · interior · fixtures</div></div>
@@ -823,13 +824,13 @@
                 <div class="relative z-10">
                     <div class="text-[9px] font-black uppercase tracking-[0.6em] mb-8" style="color:var(--gold);">Operational Architecture</div>
                     <blockquote class="font-headline font-bold leading-[1.05] tracking-tight mb-8 text-luminous" style="font-size:clamp(1.5rem,3.5vw,3rem);">
-                        "I build from the root up—where domain expertise becomes the foundation for every system."
+                        "I build from the root up: domain expertise is the foundation for every system."
                     </blockquote>
                     <p class="text-sm md:text-base font-light leading-relaxed mb-5 max-w-2xl" style="color:var(--ivory-60);">
                         The gap between modern hotel operations and the software meant to support them is often too wide. One side knows the chaos of a guest request at midnight; the other knows the elegance of a well-optimized algorithm.
                     </p>
                     <p class="text-sm md:text-base font-light leading-relaxed max-w-2xl" style="color:var(--ivory-60);">
-                        I bridge that gap. With a deep background in hotel operations and the technical literacy to find systems-based solutions, I build tools that don't just 'work'—they understand the pressure of the floor.
+                        I bridge that gap. With a deep background in hotel operations and the technical literacy to find systems-based solutions, I build tools that do more than just 'work'. They understand the pressure of the floor.
                     </p>
                     <div class="mt-10 pt-8 flex items-center gap-4" style="border-top:0.5px solid var(--border);">
                         <div class="w-10 h-10 rounded-full flex items-center justify-center shrink-0" style="background:var(--gold-subtle);border:0.5px solid rgba(200,169,110,0.3);">
@@ -854,7 +855,7 @@
                 HOW WE GOT<br/>TO WHERE<br/><span class="text-gold">WE ARE.</span>
             </h2>
             <p class="reveal text-base md:text-xl font-light mb-14 max-w-2xl" style="color:var(--ivory-30);">
-                Tidemark wasn't designed in a vacuum. Each version was a direct response to a real failure — in privacy, in reliability, in trust. This is the record of how it grew.
+                Tidemark wasn't designed in a vacuum. Each version was a direct response to a real failure: in privacy, in reliability, in trust. This is the record of how it grew.
             </p>
 
             <div class="space-y-5">
@@ -887,7 +888,7 @@
                             <span class="text-[8px] uppercase tracking-[0.5em] font-black" style="color:var(--gold);">Privacy Rebuilt</span>
                         </div>
                         <h3 class="font-headline font-bold text-lg mb-2" style="color:var(--ivory);">Regex wasn't enough.</h3>
-                        <p class="text-sm font-light leading-relaxed" style="color:var(--ivory-30);">Privacy layer rebuilt from pattern matching to structural NLP. Identity maps moved entirely to volatile RAM — no disk writes at any stage. The shift from "does it work?" to "is it safe enough to trust with real guest data?"</p>
+                        <p class="text-sm font-light leading-relaxed" style="color:var(--ivory-30);">Privacy layer rebuilt from pattern matching to structural NLP. Identity maps moved entirely to volatile RAM: no disk writes at any stage. The shift from "does it work?" to "is it safe enough to trust with real guest data?"</p>
                     </div>
                 </div>
 
@@ -902,7 +903,7 @@
                             <span class="trust-badge">Current</span>
                         </div>
                         <h3 class="font-headline font-bold text-lg mb-2" style="color:var(--ivory);">Three brains. One decision.</h3>
-                        <p class="text-sm font-light leading-relaxed" style="color:var(--ivory-30);">Neural model (BERT-Small ONNX) added alongside structural NLP and statistical filtering — all three must agree before a name is redacted. iOS native app. PDF and DOCX export. The version that ships.</p>
+                        <p class="text-sm font-light leading-relaxed" style="color:var(--ivory-30);">Neural model (BERT-Small ONNX) added alongside structural NLP and statistical filtering: all three must agree before a name is redacted. iOS native app. PDF and DOCX export. The version that ships.</p>
                     </div>
                 </div>
 
@@ -985,8 +986,12 @@
 
     // Sidebar
     function toggleSpecs() {
-        document.getElementById('specs-sidebar').classList.toggle('translate-x-full');
+        const sidebar = document.getElementById('specs-sidebar');
+        sidebar.classList.toggle('translate-x-full');
         document.getElementById('specs-overlay').classList.toggle('active');
+        if (!sidebar.classList.contains('translate-x-full')) {
+            sidebar.scrollTop = 0;
+        }
     }
 
     async function handleWaitlist() {

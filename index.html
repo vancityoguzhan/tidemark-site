@@ -206,6 +206,7 @@
             </div>
 
             <div class="hidden md:flex items-center gap-10">
+                <button onclick="toggleSpecs()" class="text-[10px] font-black uppercase tracking-[0.5em] transition-colors" style="color:var(--gold);" onmouseover="this.style.color='var(--ivory)'" onmouseout="this.style.color='var(--gold)'">Specs</button>
                 <a href="#project" class="text-[10px] font-black uppercase tracking-[0.5em] transition-colors" style="color:var(--ivory-30); text-decoration: none;" onmouseover="this.style.color='var(--ivory)'" onmouseout="this.style.color='var(--ivory-30)'">Branches</a>
                 <a href="#vision" class="text-[10px] font-black uppercase tracking-[0.5em] transition-colors" style="color:var(--ivory-30); text-decoration: none;" onmouseover="this.style.color='var(--ivory)'" onmouseout="this.style.color='var(--ivory-30)'">Vision</a>
                 <a href="#cta-final" class="text-[10px] font-black uppercase tracking-[0.5em] transition-colors" style="color:var(--ivory-30); text-decoration: none;" onmouseover="this.style.color='var(--ivory)'" onmouseout="this.style.color='var(--ivory-30)'">Subscribe</a>
@@ -422,13 +423,13 @@
                 <div class="relative z-10">
                     <div class="text-[9px] font-black uppercase tracking-[0.6em] mb-8" style="color:var(--gold);">Operational Architecture</div>
                     <blockquote class="font-headline font-bold leading-[1.05] tracking-tight mb-12 text-luminous tracking-tight" style="font-size:clamp(2rem,4vw,3.5rem); line-height: 1.1;">
-                        "I build from the root up—where domain expertise becomes the foundation for every system."
+                        "I build from the root up: domain expertise is the foundation for every system."
                     </blockquote>
                     <p class="text-sm md:text-base font-light leading-relaxed mb-5 max-w-2xl" style="color:var(--ivory-60);">
                         The gap between modern hotel operations and the software meant to support them is often too wide. One side knows the chaos of a guest request at midnight; the other knows the elegance of a well-optimized algorithm.
                     </p>
                     <p class="text-sm md:text-base font-light leading-relaxed max-w-2xl" style="color:var(--ivory-60);">
-                        I bridge that gap. With a deep background in hotel operations and the technical literacy to find systems-based solutions, I build tools that don't just 'work'—they understand the pressure of the floor.
+                        I bridge that gap. With a deep background in hotel operations and the technical literacy to find systems-based solutions, I build tools that do more than just 'work'. They understand the pressure of the floor.
                     </p>
                     <div class="mt-10 pt-8 flex items-center gap-4" style="border-top:0.5px solid var(--border);">
                         <div class="w-10 h-10 rounded-full flex items-center justify-center shrink-0" style="background:var(--gold-subtle);border:0.5px solid rgba(34,211,238,0.3);">
@@ -507,8 +508,12 @@
 
     // Sidebar
     function toggleSpecs() {
-        document.getElementById('specs-sidebar').classList.toggle('translate-x-full');
+        const sidebar = document.getElementById('specs-sidebar');
+        sidebar.classList.toggle('translate-x-full');
         document.getElementById('specs-overlay').classList.toggle('active');
+        if (!sidebar.classList.contains('translate-x-full')) {
+            sidebar.scrollTop = 0;
+        }
     }
 
     async function handleWaitlist() {
