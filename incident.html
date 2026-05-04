@@ -231,7 +231,6 @@
             </div>
 
             <div class="hidden md:flex items-center gap-10">
-                <button onclick="toggleSpecs()" class="text-[10px] font-black uppercase tracking-[0.5em] transition-colors" style="color:var(--gold);" onmouseover="this.style.color='var(--ivory)'" onmouseout="this.style.color='var(--gold)'">Specs</button>
                 <a href="index.html" class="text-[10px] font-black uppercase tracking-[0.5em] transition-colors" style="color:var(--gold);" onmouseover="this.style.color='var(--ivory)'" onmouseout="this.style.color='var(--gold)'">← Back to Hub</a>
                 <a href="#security" class="text-[10px] font-black uppercase tracking-[0.5em] transition-colors" style="color:var(--ivory-30);" onmouseover="this.style.color='var(--ivory)'" onmouseout="this.style.color='var(--ivory-30)'">Security</a>
                 <a href="#changelog" class="text-[10px] font-black uppercase tracking-[0.5em] transition-colors" style="color:var(--ivory-30);" onmouseover="this.style.color='var(--ivory)'" onmouseout="this.style.color='var(--ivory-30)'">History</a>
@@ -990,7 +989,7 @@
         sidebar.classList.toggle('translate-x-full');
         document.getElementById('specs-overlay').classList.toggle('active');
         if (!sidebar.classList.contains('translate-x-full')) {
-            sidebar.scrollTop = 0;
+            setTimeout(() => { sidebar.scrollTop = 0; }, 50);
         }
     }
 

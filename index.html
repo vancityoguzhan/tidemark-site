@@ -206,7 +206,6 @@
             </div>
 
             <div class="hidden md:flex items-center gap-10">
-                <button onclick="toggleSpecs()" class="text-[10px] font-black uppercase tracking-[0.5em] transition-colors" style="color:var(--gold);" onmouseover="this.style.color='var(--ivory)'" onmouseout="this.style.color='var(--gold)'">Specs</button>
                 <a href="#project" class="text-[10px] font-black uppercase tracking-[0.5em] transition-colors" style="color:var(--ivory-30); text-decoration: none;" onmouseover="this.style.color='var(--ivory)'" onmouseout="this.style.color='var(--ivory-30)'">Branches</a>
                 <a href="#vision" class="text-[10px] font-black uppercase tracking-[0.5em] transition-colors" style="color:var(--ivory-30); text-decoration: none;" onmouseover="this.style.color='var(--ivory)'" onmouseout="this.style.color='var(--ivory-30)'">Vision</a>
                 <a href="#cta-final" class="text-[10px] font-black uppercase tracking-[0.5em] transition-colors" style="color:var(--ivory-30); text-decoration: none;" onmouseover="this.style.color='var(--ivory)'" onmouseout="this.style.color='var(--ivory-30)'">Subscribe</a>
@@ -264,7 +263,7 @@
         <div class="relative z-10 text-center max-w-6xl mx-auto">
             <div class="reveal mb-10 flex flex-wrap justify-center gap-2">
                 <span class="trust-badge"><span class="material-symbols-outlined" style="font-size:11px;">account_tree</span>The Operational Tree</span>
-                <span class="trust-badge"><span class="material-symbols-outlined" style="font-size:11px;">person</span>Solo Builder Mission</span>
+                
             </div>
 
             <h1 class="reveal font-headline font-extrabold tracking-tight leading-normal py-4 pb-8 mb-10 text-luminous" 
@@ -512,7 +511,7 @@
         sidebar.classList.toggle('translate-x-full');
         document.getElementById('specs-overlay').classList.toggle('active');
         if (!sidebar.classList.contains('translate-x-full')) {
-            sidebar.scrollTop = 0;
+            setTimeout(() => { sidebar.scrollTop = 0; }, 50);
         }
     }
 
