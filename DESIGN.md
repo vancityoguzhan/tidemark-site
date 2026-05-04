@@ -8,15 +8,15 @@ The aesthetic is characterized by **Atmospheric Monoliths**: large, imposing str
 ---
 
 ## 2. Colors: The Bioluminescent Palette
-The color strategy relies on "The Deep"—a matte, non-reflective base that absorbs light, allowing our primary and secondary accents to "glow" from within the interface.
+The color strategy relies on "The Blueprint"—a deep slate base that absorbs light, allowing our primary and secondary accents to "glow" from within the interface.
 
 | Token | Hex | Role |
 | :--- | :--- | :--- |
-| `background` | `#111417` | The foundation. A matte, oceanic black. |
+| `background` | `#0F172A` | The foundation. A matte, oceanic black. |
 | `primary` | `#B6CACB` | Bioluminescent primary; used for high-signal highlights. |
 | `secondary` | `#95D1D4` | Technical secondary; used for interactive states and accents. |
 | `on_primary` | `#213435` | High-contrast dark text for use on primary surfaces. |
-| `surface` | `#111417` | The primary canvas for all content. |
+| `surface` | `#0F172A` | The primary canvas for all content. |
 | `surface_container` | `#1D2023` | Secondary depth level for grouping related items. |
 | `surface_container_high`| `#272A2D` | Elevated surfaces (modals, active cards). |
 | `tertiary_fixed_variant`| `#3A494A` | The "Trace Line" color for 0.5px dividers. |
@@ -85,7 +85,7 @@ Motion is the "connective tissue" of this system. It should feel intentional and
 ### Do:
 *   **DO** use whitespace as a structural element. If a section feels crowded, increase the margin rather than adding a border.
 *   **DO** use `secondary_container` (#054F52) for subtle background accents behind technical data.
-*   **DO** ensure all text meets AA accessibility standards against the `#111417` background.
+*   **DO** ensure all text meets AA accessibility standards against the `#0F172A` background.
 
 ### Don't:
 *   **DON'T** ever use a border-radius. Roundness is the enemy of this system's "Monolith" identity.

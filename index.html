@@ -3,8 +3,8 @@
 <head>
     <meta charset="utf-8"/>
     <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-    <title>Project Tidemark | Open Source Incident Intelligence</title>
-    <meta name="description" content="Project Tidemark is preparing to open source privacy-first incident intelligence for hospitality teams, with Shift planned under the same umbrella."/>
+    <title>Project Tidemark | Engineering Hotel Operations</title>
+    <meta name="description" content="Project Tidemark: Engineering high-precision systems for hotel operations. A choice between two operational pillars: Incident and Shift."/>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
@@ -12,21 +12,21 @@
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet"/>
     <style>
         :root {
-            --obsidian:    #0A0A0A;
-            --surface:     #111111;
-            --elevated:    #1A1A1A;
-            --gold:        #C8A96E;
-            --gold-glow:   rgba(200,169,110,0.22);
-            --gold-subtle: rgba(200,169,110,0.08);
-            --ivory:       #F5F0E8;
-            --ivory-60:    rgba(245,240,232,0.60);
-            --ivory-30:    rgba(245,240,232,0.30);
-            --ivory-15:    rgba(245,240,232,0.15);
-            --ivory-08:    rgba(245,240,232,0.08);
-            --rim:         rgba(245,240,232,0.22);
-            --border:      rgba(245,240,232,0.07);
-            --amber:       #E8923A;
-            --green:       #4CAF7D;
+            --obsidian:    #0F172A;
+            --surface:     #1E293B;
+            --elevated:    #334155;
+            --gold:        #22D3EE;
+            --gold-glow:   rgba(34,211,238,0.22);
+            --gold-subtle: rgba(34,211,238,0.08);
+            --ivory:       #F1F5F9;
+            --ivory-60:    rgba(241,245,249,0.60);
+            --ivory-30:    rgba(241,245,249,0.30);
+            --ivory-15:    rgba(241,245,249,0.15);
+            --ivory-08:    rgba(241,245,249,0.08);
+            --rim:         rgba(241,245,249,0.22);
+            --border:      rgba(241,245,249,0.07);
+            --amber:       #FBBF24;
+            --green:       #10B981;
         }
 
         *, *::before, *::after { box-sizing: border-box; }
@@ -46,8 +46,8 @@
             position: fixed;
             inset: 0;
             background-image:
-                repeating-linear-gradient(0deg, rgba(245,240,232,0.028) 0 1px, transparent 1px 2px),
-                repeating-linear-gradient(90deg, rgba(245,240,232,0.02) 0 1px, transparent 1px 3px);
+                repeating-linear-gradient(0deg, rgba(241,245,249,0.028) 0 1px, transparent 1px 2px),
+                repeating-linear-gradient(90deg, rgba(241,245,249,0.02) 0 1px, transparent 1px 3px);
             background-size: 3px 3px, 5px 5px;
             opacity: 0.07;
             pointer-events: none;
@@ -58,21 +58,21 @@
         .font-headline { font-family: 'Plus Jakarta Sans', sans-serif; }
 
         .glass {
-            background: linear-gradient(135deg, rgba(245,240,232,0.042) 0%, rgba(245,240,232,0.008) 100%);
+            background: linear-gradient(135deg, rgba(241,245,249,0.042) 0%, rgba(241,245,249,0.008) 100%);
             backdrop-filter: blur(60px) saturate(180%);
             -webkit-backdrop-filter: blur(60px) saturate(180%);
             border: 0.5px solid var(--border);
             border-top: 0.8px solid var(--rim);
-            box-shadow: inset 0 1px 0 rgba(245,240,232,0.10), 0 32px 80px rgba(0,0,0,0.7);
+            box-shadow: inset 0 1px 0 rgba(241,245,249,0.10), 0 32px 80px rgba(0,0,0,0.7);
         }
 
         .glass-gold {
-            background: linear-gradient(135deg, rgba(200,169,110,0.08) 0%, rgba(200,169,110,0.02) 100%);
+            background: linear-gradient(135deg, rgba(34,211,238,0.08) 0%, rgba(34,211,238,0.02) 100%);
             backdrop-filter: blur(40px);
             -webkit-backdrop-filter: blur(40px);
-            border: 0.5px solid rgba(200,169,110,0.15);
-            border-top: 0.8px solid rgba(200,169,110,0.30);
-            box-shadow: inset 0 1px 0 rgba(200,169,110,0.12), 0 24px 60px rgba(0,0,0,0.6);
+            border: 0.5px solid rgba(34,211,238,0.15);
+            border-top: 0.8px solid rgba(34,211,238,0.30);
+            box-shadow: inset 0 1px 0 rgba(34,211,238,0.12), 0 24px 60px rgba(0,0,0,0.6);
         }
 
         .glow-orb {
@@ -82,16 +82,16 @@
             z-index: 0;
         }
         .orb-gold  { background: radial-gradient(circle, var(--gold-glow) 0%, transparent 65%); filter: blur(140px); opacity: 0.5; }
-        .orb-amber { background: radial-gradient(circle, rgba(232,146,58,0.12) 0%, transparent 65%); filter: blur(120px); opacity: 0.6; }
+        .orb-amber { background: radial-gradient(circle, rgba(251,191,36,0.12) 0%, transparent 65%); filter: blur(120px); opacity: 0.6; }
 
         .text-luminous {
-            background: linear-gradient(175deg, var(--ivory) 40%, rgba(245,240,232,0.25) 100%);
+            background: linear-gradient(175deg, var(--ivory) 40%, rgba(241,245,249,0.25) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
         .text-gold {
-            background: linear-gradient(135deg, #D4B87A 0%, #C8A96E 50%, #B8955A 100%);
+            background: linear-gradient(135deg, #67E8F9 0%, #22D3EE 50%, #0891B2 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -105,11 +105,11 @@
             min-height: 44px;
             cursor: pointer;
         }
-        .btn-primary:hover { background: var(--gold); transform: translateY(-2px); box-shadow: 0 16px 40px var(--gold-glow); }
+        .btn-primary:hover { background: var(--gold); transform: translateY(-2px); box-shadow: 0 16px 40px rgba(34,211,238,0.3); }
 
         .btn-secondary {
             border: 0.8px solid var(--rim);
-            background: rgba(245,240,232,0.04);
+            background: rgba(241,245,249,0.04);
             color: var(--ivory-60);
             transition: all 0.5s cubic-bezier(0.075,0.82,0.165,1);
             backdrop-filter: blur(10px);
@@ -125,7 +125,7 @@
             min-height: 44px;
             cursor: pointer;
         }
-        .btn-ghost:hover { color: var(--gold); border-color: rgba(200,169,110,0.3); }
+        .btn-ghost:hover { color: var(--gold); border-color: rgba(34,211,238,0.3); }
 
         .bento-card {
             transition: transform 0.5s cubic-bezier(0.075,0.82,0.165,1), border-color 0.3s ease, background 0.3s ease;
@@ -137,7 +137,7 @@
         .light-sweep {
             position: absolute;
             inset: 0;
-            background: linear-gradient(105deg, transparent 30%, rgba(245,240,232,0.025) 50%, transparent 70%);
+            background: linear-gradient(105deg, transparent 30%, rgba(241,245,249,0.025) 50%, transparent 70%);
             transform: translateX(-100%);
             pointer-events: none;
             z-index: 1;
@@ -149,45 +149,14 @@
             gap: 5px;
             padding: 4px 12px;
             border-radius: 100px;
-            border: 0.5px solid rgba(200,169,110,0.25);
-            background: rgba(200,169,110,0.06);
+            border: 0.5px solid rgba(34,211,238,0.25);
+            background: rgba(34,211,238,0.06);
             font-size: 9px;
             font-weight: 800;
             letter-spacing: 0.05em;
             text-transform: uppercase;
             color: var(--gold);
         }
-
-        .problem-card {
-            border: 0.5px solid var(--border);
-            background: var(--surface);
-            border-radius: 1.5rem;
-            padding: 2rem;
-            transition: border-color 0.4s;
-        }
-        .problem-card:hover { border-color: rgba(232,146,58,0.3); }
-
-        .pipeline-line {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 8px 0;
-            border-bottom: 0.5px solid var(--border);
-            opacity: 0;
-            transform: translateX(-6px);
-            transition: opacity 0.3s, transform 0.3s;
-        }
-        .pipeline-line.done  { opacity: 1; transform: translateX(0); }
-        .pipeline-line.active { opacity: 0.7; transform: translateX(0); }
-
-        .cursor-blink::after { content: '|'; animation: blink 1s step-end infinite; color: var(--gold); }
-        @keyframes blink { 50% { opacity: 0; } }
-
-        @keyframes tokenFlash {
-            0%   { background: rgba(200,169,110,0.45); color: var(--obsidian); border-radius: 3px; }
-            100% { background: rgba(200,169,110,0.10); color: var(--gold); border-radius: 3px; }
-        }
-        .token-highlight { animation: tokenFlash 0.5s ease forwards; }
 
         #specs-sidebar { transition: transform 0.7s cubic-bezier(0.075,0.82,0.165,1); }
 
@@ -197,15 +166,29 @@
         }
         #specs-overlay.active { display: block; }
 
-        .stat-num { font-variant-numeric: tabular-nums; }
-
         @media (prefers-reduced-motion: reduce) {
             *, *::before, *::after { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
             .reveal { opacity: 1 !important; transform: none !important; }
         }
+    
+        .blueprint-grid {
+            background-image: 
+                linear-gradient(rgba(34,211,238, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(34,211,238, 0.05) 1px, transparent 1px);
+            background-size: 40px 40px;
+            background-position: center center;
+        }
+    
+        @keyframes pageFadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .page-transition {
+            animation: pageFadeIn 0.8s cubic-bezier(0.2, 0, 0, 1) forwards;
+        }
     </style>
 </head>
-<body>
+<body class="page-transition">
 
     <div id="specs-overlay" onclick="toggleSpecs()"></div>
 
@@ -218,15 +201,14 @@
         <div class="max-w-7xl mx-auto flex justify-between items-center glass rounded-full px-4 py-3 md:px-10 md:py-4">
             <div class="flex items-center gap-3">
                 <div class="w-2.5 h-2.5 rounded-full shrink-0" style="background:var(--gold);box-shadow:0 0 10px var(--gold-glow);animation:pulse 2s infinite;"></div>
-                <span class="font-headline font-extrabold text-base md:text-xl tracking-tighter uppercase" style="color:var(--ivory);">Tidemark</span>
+                <a href="index.html" class="font-headline font-extrabold text-base md:text-xl tracking-tighter uppercase transition-colors hover:text-gold" style="color:var(--ivory); text-decoration: none;">Tidemark</a>
                 <span class="hidden sm:block text-[8px] font-bold uppercase tracking-[0.4em]" style="color:var(--ivory-30);">Project Tidemark</span>
             </div>
 
             <div class="hidden md:flex items-center gap-10">
-                <a href="#how" class="text-[10px] font-black uppercase tracking-[0.5em] transition-colors" style="color:var(--ivory-30);" onmouseover="this.style.color='var(--ivory)'" onmouseout="this.style.color='var(--ivory-30)'">How It Works</a>
-                <a href="#playbooks" class="text-[10px] font-black uppercase tracking-[0.5em] transition-colors" style="color:var(--ivory-30);" onmouseover="this.style.color='var(--ivory)'" onmouseout="this.style.color='var(--ivory-30)'">Playbooks</a>
-                <a href="#security" class="text-[10px] font-black uppercase tracking-[0.5em] transition-colors" style="color:var(--ivory-30);" onmouseover="this.style.color='var(--ivory)'" onmouseout="this.style.color='var(--ivory-30)'">Security</a>
-                <a href="#project" class="text-[10px] font-black uppercase tracking-[0.5em] transition-colors" style="color:var(--ivory-30);" onmouseover="this.style.color='var(--ivory)'" onmouseout="this.style.color='var(--ivory-30)'">Project</a>
+                <a href="#project" class="text-[10px] font-black uppercase tracking-[0.5em] transition-colors" style="color:var(--ivory-30); text-decoration: none;" onmouseover="this.style.color='var(--ivory)'" onmouseout="this.style.color='var(--ivory-30)'">Branches</a>
+                <a href="#vision" class="text-[10px] font-black uppercase tracking-[0.5em] transition-colors" style="color:var(--ivory-30); text-decoration: none;" onmouseover="this.style.color='var(--ivory)'" onmouseout="this.style.color='var(--ivory-30)'">Vision</a>
+                <a href="#cta-final" class="text-[10px] font-black uppercase tracking-[0.5em] transition-colors" style="color:var(--ivory-30); text-decoration: none;" onmouseover="this.style.color='var(--ivory)'" onmouseout="this.style.color='var(--ivory-30)'">Subscribe</a>
             </div>
 
             <button onclick="scrollToWaitlist()"
@@ -241,48 +223,32 @@
         <div>
             <div class="flex justify-between items-center mb-10">
                 <div>
-                    <div class="text-[9px] font-black uppercase tracking-[0.6em] mb-1" style="color:var(--gold);">System Architecture</div>
-                    <div class="text-[9px] uppercase tracking-[0.3em]" style="color:var(--ivory-30);">v2.4 · Production</div>
+                    <div class="text-[9px] font-black uppercase tracking-[0.6em] mb-1" style="color:var(--gold);">Project Architecture</div>
+                    <div class="text-[9px] uppercase tracking-[0.3em]" style="color:var(--ivory-30);">v3.0 · Ecosystem</div>
                 </div>
                 <button onclick="toggleSpecs()" class="material-symbols-outlined text-2xl transition-colors" style="color:var(--ivory-30);" onmouseover="this.style.color='var(--ivory)'" onmouseout="this.style.color='var(--ivory-30)'">close</button>
             </div>
             <div class="space-y-8">
                 <div>
-                    <div class="text-[9px] font-black uppercase tracking-[0.5em] mb-2" style="color:var(--ivory-30);">Privacy Layer</div>
-                    <h4 class="font-headline font-bold text-sm mb-2" style="color:var(--ivory);">Zero-Trust PII Deconstruction</h4>
-                    <p class="text-xs leading-relaxed font-light" style="color:var(--ivory-30);">Three detection layers — structural NLP, a local neural model (BERT-Small ONNX), and a statistical anomaly filter — identify and tokenize all PII on-device before any text reaches the cloud. Identity maps exist only in RAM — never written to disk, never transmitted.</p>
+                    <div class="text-[9px] font-black uppercase tracking-[0.5em] mb-2" style="color:var(--ivory-30);">The Shared Root</div>
+                    <h4 class="font-headline font-bold text-sm mb-2" style="color:var(--ivory);">Domain Intelligence</h4>
+                    <p class="text-xs leading-relaxed font-light" style="color:var(--ivory-30);">Every Project Tidemark tool is built on the same foundation: deep hospitality operations expertise. I translate real-world pain points into deterministic technical solutions.</p>
                 </div>
                 <div class="h-px" style="background:var(--border);"></div>
                 <div>
-                    <div class="text-[9px] font-black uppercase tracking-[0.5em] mb-2" style="color:var(--ivory-30);">Extraction Engine</div>
-                    <h4 class="font-headline font-bold text-sm mb-2" style="color:var(--ivory);">Multi-Pass Atomic Extraction</h4>
-                    <p class="text-xs leading-relaxed font-light mb-4" style="color:var(--ivory-30);">8 semantic field groups processed independently — datetime, location, personnel, severity, emergency services, actions, cause, documentation. Confidence floor: 0.50.</p>
+                    <div class="text-[9px] font-black uppercase tracking-[0.5em] mb-2" style="color:var(--ivory-30);">Shared Tech Stack</div>
+                    <h4 class="font-headline font-bold text-sm mb-2" style="color:var(--ivory);">High-Precision Engineering</h4>
                     <div class="space-y-1">
-                        <div class="text-[9px] font-mono" style="color:var(--gold);">→ date &amp; time extraction</div>
-                        <div class="text-[9px] font-mono" style="color:var(--gold);">→ location &amp; area mapping</div>
-                        <div class="text-[9px] font-mono" style="color:var(--gold);">→ personnel &amp; witness identification</div>
-                        <div class="text-[9px] font-mono" style="color:var(--gold);">→ severity assessment</div>
-                        <div class="text-[9px] font-mono" style="color:var(--gold);">→ emergency services check</div>
-                        <div class="text-[9px] font-mono" style="color:var(--gold);">→ actions taken</div>
-                        <div class="text-[9px] font-mono" style="color:var(--gold);">→ cause &amp; outcome analysis</div>
-                        <div class="text-[9px] font-mono" style="color:var(--gold);">→ documentation &amp; evidence</div>
+                        <div class="text-[9px] font-mono" style="color:var(--gold);">→ Local Neural PII Redaction</div>
+                        <div class="text-[9px] font-mono" style="color:var(--gold);">→ OR-Tools Constraint Solvers</div>
+                        <div class="text-[9px] font-mono" style="color:var(--gold);">→ Gemini Multi-Pass Extraction</div>
+                        <div class="text-[9px] font-mono" style="color:var(--gold);">→ SHA-256 Integrity Anchoring</div>
                     </div>
-                </div>
-                <div class="h-px" style="background:var(--border);"></div>
-                <div>
-                    <div class="text-[9px] font-black uppercase tracking-[0.5em] mb-2" style="color:var(--ivory-30);">Integrity</div>
-                    <h4 class="font-headline font-bold text-sm mb-2" style="color:var(--ivory);">SHA-256 Cryptographic Anchoring</h4>
-                    <p class="text-xs leading-relaxed font-light" style="color:var(--ivory-30);">Every completed report is fingerprinted at export. Post-export modifications are detectable. Append-only. Immutable.</p>
-                </div>
-                <div class="h-px" style="background:var(--border);"></div>
-                <div>
-                    <div class="text-[9px] font-black uppercase tracking-[0.5em] mb-2" style="color:var(--ivory-30);">Phase Flow</div>
-                    <div class="text-[9px] font-mono leading-relaxed" style="color:var(--ivory-60);">INTAKE → CLARIFICATION → TYPE_CONFIRMED<br/>→ FOLLOW_UP → NARRATIVE_REWRITE → REVIEW → EXPORTED</div>
                 </div>
             </div>
         </div>
         <div class="pt-6 border-t mt-6 flex justify-between items-center" style="border-color:var(--border);">
-            <span class="text-[9px] font-mono" style="color:var(--ivory-30);">v2.4_PRO · Privacy by Design</span>
+            <span class="text-[9px] font-mono" style="color:var(--ivory-30);">v3.0_ECO · Operational Architect</span>
             <span class="trust-badge">SHA-256</span>
         </div>
     </div>
@@ -290,759 +256,189 @@
     <main>
 
     <!-- HERO -->
-    <section class="relative min-h-screen flex flex-col items-center justify-center pt-28 pb-16 md:pt-36 md:pb-24 px-6 overflow-hidden">
+    <section class="relative min-h-screen flex flex-col items-center justify-center pt-28 pb-16 md:pt-36 md:pb-24 px-6 overflow-hidden blueprint-grid">
         <div class="light-sweep"></div>
         <div class="glow-orb orb-gold absolute top-[-150px] left-1/2 -translate-x-1/2" style="width:600px;height:600px;opacity:0.25;filter:blur(100px);"></div>
 
         <div class="relative z-10 text-center max-w-6xl mx-auto">
-
             <div class="reveal mb-10 flex flex-wrap justify-center gap-2">
-                <span class="trust-badge"><span class="material-symbols-outlined" style="font-size:11px;">lock</span>Privacy by Design</span>
-                <span class="trust-badge"><span class="material-symbols-outlined" style="font-size:11px;">verified</span>SHA-256 Anchored</span>
-                <span class="trust-badge"><span class="material-symbols-outlined" style="font-size:11px;">shield</span>PIPEDA-Aligned</span>
-                <span class="trust-badge"><span class="material-symbols-outlined" style="font-size:11px;">list_alt</span>Incident-Specific Guidance</span>
-                <span class="trust-badge"><span class="material-symbols-outlined" style="font-size:11px;">code</span>Open-Source Roadmap</span>
+                <span class="trust-badge"><span class="material-symbols-outlined" style="font-size:11px;">account_tree</span>The Operational Tree</span>
+                <span class="trust-badge"><span class="material-symbols-outlined" style="font-size:11px;">person</span>Solo Builder Mission</span>
             </div>
 
-            <h1 class="reveal font-headline font-extrabold tracking-[-0.06em] leading-[0.80] mb-8 md:mb-10 text-luminous"
-                style="font-size:clamp(3rem,10vw,11rem);">
-                CLEAR REPORTS.<br/><span class="text-gold">MESSY SHIFTS.</span>
+            <h1 class="reveal font-headline font-extrabold tracking-tight leading-[0.9] mb-10 text-luminous" 
+                style="font-size:clamp(3rem,9vw,9rem);">
+                ENGINEERING THE<br/>PROPERTY, FROM<br/><span class="text-gold">THE ROOT UP.</span>
             </h1>
 
-            <p class="reveal text-xl md:text-3xl font-light mb-4" style="color:var(--ivory-60);">Clarity, before the shift is over.</p>
-
-            <p class="reveal max-w-2xl mx-auto text-sm md:text-lg leading-relaxed mb-12 md:mb-16 font-light" style="color:var(--ivory-60);">
-                Most hotels still use one generic incident template for everything. Tidemark guides each report by incident type, and Project Tidemark is being prepared as an open-source umbrella for privacy-first tools built around real shift work.
+            <p class="reveal text-lg md:text-2xl font-light leading-relaxed mb-12 max-w-3xl mx-auto" style="color:var(--ivory-60);">
+                An ecosystem of precision systems for the high-stakes reality of hotel operations. I build tools that translate operational grit into technical solutions for every department.
             </p>
 
-            <div class="reveal flex flex-col sm:flex-row gap-4 justify-center items-center">
-                <button onclick="document.getElementById('demo').scrollIntoView({behavior:'smooth'})"
-                    class="btn-primary w-full sm:w-auto rounded-full font-headline font-black uppercase text-[10px] tracking-[0.5em] px-10 py-4 md:px-14 md:py-5">
-                    See a Live Report
-                </button>
-                <button onclick="toggleSpecs()"
-                    class="btn-secondary w-full sm:w-auto rounded-full font-headline font-black uppercase text-[10px] tracking-[0.5em] px-10 py-4 md:px-14 md:py-5">
-                    Technical Specs
+            <div class="reveal flex flex-col sm:flex-row gap-5 justify-center">
+                <button onclick="document.getElementById('project').scrollIntoView({behavior:'smooth'})" class="btn-primary rounded-full font-headline font-black uppercase text-[10px] tracking-[0.5em] px-12 py-5 md:px-16 md:py-6">
+                    Select a Branch
                 </button>
             </div>
-
-            <div class="reveal mt-14 md:mt-20 flex flex-col items-center gap-2" style="opacity:0.25;">
-                <div class="text-[8px] uppercase tracking-[0.6em] font-black" style="color:var(--ivory-30);">Scroll</div>
-                <div class="w-px h-10 md:h-14" style="background:linear-gradient(to bottom,var(--ivory-30),transparent);"></div>
-            </div>
         </div>
     </section>
 
-    <!-- TRUST BAR -->
-    <section class="py-10 md:py-12 px-6" style="background:var(--surface);border-top:0.5px solid var(--border);border-bottom:0.5px solid var(--border);">
-        <div class="max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-4 text-center">
-            <div>
-                <div class="font-headline font-extrabold text-3xl md:text-4xl mb-1 stat-num text-gold" data-count-target="16" data-count-suffix="">16</div>
-                <div class="text-[8px] uppercase tracking-[0.5em] font-black" style="color:var(--ivory-30);">Incident Playbooks</div>
-            </div>
-            <div>
-                <div class="font-headline font-extrabold text-3xl md:text-4xl mb-1 stat-num text-gold" data-count-target="90" data-count-suffix="s" data-count-prefix="&lt;">&lt;90s</div>
-                <div class="text-[8px] uppercase tracking-[0.5em] font-black" style="color:var(--ivory-30);">Per Report</div>
-            </div>
-            <div>
-                <div class="font-headline font-extrabold text-3xl md:text-4xl mb-1 stat-num text-gold" data-count-target="100" data-count-suffix="%">0%</div>
-                <div class="text-[8px] uppercase tracking-[0.5em] font-black" style="color:var(--ivory-30);">Shared Reporting Standard</div>
-            </div>
-            <div>
-                <div class="font-headline font-extrabold text-3xl md:text-4xl mb-1 stat-num text-gold" data-count-target="0" data-count-suffix=" PII">0 PII</div>
-                <div class="text-[8px] uppercase tracking-[0.5em] font-black" style="color:var(--ivory-30);">Transmitted to Cloud</div>
-            </div>
-        </div>
-    </section>
-
-    <!-- PROBLEM -->
-    <section id="problem" class="py-20 md:py-36 px-6 md:px-12" style="background:var(--obsidian);">
+    <!-- THE OPERATIONAL DNA -->
+    <section id="vision" class="py-20 md:py-36 px-6 md:px-12" style="background:var(--obsidian);">
         <div class="max-w-7xl mx-auto">
-            <div class="reveal mb-5">
-                <span class="trust-badge" style="border-color:rgba(232,146,58,0.25);background:rgba(232,146,58,0.06);color:var(--amber);">The Problem</span>
-            </div>
-            <h2 class="reveal font-headline font-extrabold tracking-tighter leading-[0.82] mb-6 text-luminous"
-                style="font-size:clamp(2.2rem,5.5vw,6.5rem);">
-                ONE GENERIC FORM.<br/>SIXTEEN DIFFERENT<br/><span style="-webkit-text-fill-color:var(--amber);background:none;color:var(--amber);">INCIDENTS.</span>
-            </h2>
-            <p class="reveal text-base md:text-xl font-light leading-relaxed mb-14 max-w-2xl" style="color:var(--ivory-30);">
-                The problem is not that the report does not get written. It is that most hotels are still asking different managers to document very different incidents with the same generic template.
-            </p>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
-                <div class="reveal problem-card">
-                    <span class="material-symbols-outlined text-3xl mb-4 block" style="color:var(--amber);">group</span>
-                    <h3 class="font-headline font-bold text-lg mb-3" style="color:var(--ivory);">Different Managers, Different Standards</h3>
-                    <p class="text-sm leading-relaxed font-light mb-5" style="color:var(--ivory-30);">Two similar incidents can end up looking completely different when two different MODs write them. The record starts reflecting the writer instead of the event.</p>
-                    <div class="pt-4 text-[8px] uppercase tracking-[0.4em] font-black" style="color:var(--amber);border-top:0.5px solid rgba(232,146,58,0.15);">Inconsistent in. Inconsistent out.</div>
-                </div>
-                <div class="reveal problem-card">
-                    <span class="material-symbols-outlined text-3xl mb-4 block" style="color:var(--amber);">quiz</span>
-                    <h3 class="font-headline font-bold text-lg mb-3" style="color:var(--ivory);">One Form Cannot Guide Every Incident</h3>
-                    <p class="text-sm leading-relaxed font-light mb-5" style="color:var(--ivory-30);">A slip and fall, a theft, a guest complaint, and a staff injury do not require the same details. Generic templates leave too much up to memory and judgment in the moment.</p>
-                    <div class="pt-4 text-[8px] uppercase tracking-[0.4em] font-black" style="color:var(--amber);border-top:0.5px solid rgba(232,146,58,0.15);">Wrong template. Missing details.</div>
-                </div>
-                <div class="reveal problem-card">
-                    <span class="material-symbols-outlined text-3xl mb-4 block" style="color:var(--amber);">history_toggle_off</span>
-                    <h3 class="font-headline font-bold text-lg mb-3" style="color:var(--ivory);">Staff Are Left To Guess</h3>
-                    <p class="text-sm leading-relaxed font-light mb-5" style="color:var(--ivory-30);">Most teams are doing their best with whatever they remember after the incident settles down. Without guided follow-up, the important details are easy to miss and hard to standardize later.</p>
-                    <div class="pt-4 text-[8px] uppercase tracking-[0.4em] font-black" style="color:var(--amber);border-top:0.5px solid rgba(232,146,58,0.15);">Busy shift. Patchy record.</div>
-                </div>
-            </div>
-
-            <div class="reveal mt-10 glass-gold rounded-2xl md:rounded-3xl p-6 md:p-10 flex flex-col md:flex-row items-start md:items-center gap-5">
-                <span class="material-symbols-outlined text-4xl shrink-0" style="color:var(--amber);">assignment</span>
-                <div>
-                    <p class="font-headline font-bold text-base md:text-xl mb-1" style="color:var(--ivory);">Most hotels are still trying to use one incident form for everything.</p>
-                    <p class="text-xs font-light" style="color:var(--ivory-30);">Tidemark replaces the generic template with incident-specific playbooks, guided follow-up, and one shared reporting standard across every manager on shift.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- HOW IT WORKS -->
-    <section id="how" class="py-20 md:py-36 px-6 md:px-12" style="background:var(--surface);">
-        <div class="max-w-7xl mx-auto">
-            <div class="reveal mb-5"><span class="trust-badge">The Protocol</span></div>
-            <h2 class="reveal font-headline font-extrabold tracking-tighter leading-[0.82] mb-6 text-luminous"
-                style="font-size:clamp(2.2rem,5.5vw,6.5rem);">
-                CAPTURE WHAT HAPPENED.<br/>GUIDE WHAT MATTERS.<br/><span class="text-gold">STANDARDIZE THE REPORT.</span>
-            </h2>
-            <p class="reveal text-base md:text-xl font-light mb-14 max-w-xl" style="color:var(--ivory-30);">
-                No incident specialist required. Tidemark starts with a messy account, identifies the playbook, and guides the report to the same standard every time.
-            </p>
-
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                <div class="reveal glass bento-card rounded-[2rem] p-8 md:p-10 relative overflow-hidden">
-                    <div class="absolute top-3 right-5 font-headline font-extrabold text-[5rem] leading-none select-none" style="color:var(--ivory-08);">01</div>
-                    <div class="relative z-10">
-                        <span class="material-symbols-outlined text-4xl mb-5 block" style="color:var(--gold);">record_voice_over</span>
-                        <h3 class="font-headline font-bold text-xl md:text-2xl mb-4" style="color:var(--ivory);">Start With The Real Story</h3>
-                        <p class="text-sm leading-relaxed font-light mb-6" style="color:var(--ivory-30);">Staff speak or type what happened in plain language. They do not need to pick the right form before the system understands the incident.</p>
-                        <div class="text-[8px] uppercase tracking-[0.5em] font-black" style="color:var(--gold);">Action: INTAKE</div>
-                    </div>
-                </div>
-                <div class="reveal glass bento-card rounded-[2rem] p-8 md:p-10 relative overflow-hidden">
-                    <div class="absolute top-3 right-5 font-headline font-extrabold text-[5rem] leading-none select-none" style="color:var(--ivory-08);">02</div>
-                    <div class="relative z-10">
-                        <span class="material-symbols-outlined text-4xl mb-5 block" style="color:var(--gold);">person_search</span>
-                        <h3 class="font-headline font-bold text-xl md:text-2xl mb-4" style="color:var(--ivory);">Match The Right Playbook</h3>
-                        <p class="text-sm leading-relaxed font-light mb-6" style="color:var(--ivory-30);">Tidemark identifies the incident type, protects names locally, and switches to the playbook that fits the event instead of forcing everything into one generic template.</p>
-                        <div class="text-[8px] uppercase tracking-[0.5em] font-black" style="color:var(--gold);">Action: CLARIFICATION</div>
-                    </div>
-                </div>
-                <div class="reveal glass bento-card rounded-[2rem] p-8 md:p-10 relative overflow-hidden">
-                    <div class="absolute top-3 right-5 font-headline font-extrabold text-[5rem] leading-none select-none" style="color:var(--ivory-08);">03</div>
-                    <div class="relative z-10">
-                        <span class="material-symbols-outlined text-4xl mb-5 block" style="color:var(--gold);">memory</span>
-                        <h3 class="font-headline font-bold text-xl md:text-2xl mb-4" style="color:var(--ivory);">Guide The Missing Details</h3>
-                        <p class="text-sm leading-relaxed font-light mb-6" style="color:var(--ivory-30);">The system asks follow-up questions based on what that incident type actually needs. Low-confidence guesses are rejected, and unresolved details are asked explicitly.</p>
-                        <div class="text-[8px] uppercase tracking-[0.5em] font-black" style="color:var(--gold);">Action: EXTRACTION</div>
-                    </div>
-                </div>
-                <div class="reveal glass bento-card rounded-[2rem] p-8 md:p-10 relative overflow-hidden">
-                    <div class="absolute top-3 right-5 font-headline font-extrabold text-[5rem] leading-none select-none" style="color:var(--ivory-08);">04</div>
-                    <div class="relative z-10">
-                        <span class="material-symbols-outlined text-4xl mb-5 block" style="color:var(--gold);">verified</span>
-                        <h3 class="font-headline font-bold text-xl md:text-2xl mb-4" style="color:var(--ivory);">Finish To One Standard</h3>
-                        <p class="text-sm leading-relaxed font-light mb-6" style="color:var(--ivory-30);">The result is a cleaner, more complete report with the same structure across managers, shifts, and properties. Privacy stays protected throughout.</p>
-                        <div class="text-[8px] uppercase tracking-[0.5em] font-black" style="color:var(--gold);">Result: ARCHIVED</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- SCENARIO: THE AHA MOMENT -->
-    <section class="py-20 md:py-36 px-6 md:px-12" style="background:var(--obsidian);">
-        <div class="max-w-7xl mx-auto">
-            <div class="reveal mb-5"><span class="trust-badge" style="color:var(--gold); border-color:var(--gold-glow);">Operational Reality</span></div>
+            <div class="reveal mb-5"><span class="trust-badge">Our Vision</span></div>
             <h2 class="reveal font-headline font-extrabold tracking-tighter leading-[0.82] mb-14 text-luminous"
                 style="font-size:clamp(2.2rem,5.5vw,6.5rem);">
-                ONE INCIDENT.<br/>ONE PLAYBOOK.<br/><span class="text-gold">ONE STANDARD.</span>
+                SYSTEMS BUILT FOR<br/>THE <span class="text-gold">REALITY</span> OF WORK.
             </h2>
 
-            <div class="reveal glass-gold rounded-[2.5rem] md:rounded-[4rem] p-8 md:p-20 overflow-hidden relative">
-                <div class="glow-orb orb-gold absolute top-[-100px] right-[-100px]" style="width:400px;height:400px;opacity:0.15;"></div>
-                
-                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-10">
-                    <div class="lg:col-span-5">
-                        <div class="space-y-10">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="reveal glass bento-card rounded-[2rem] p-10">
+                    <span class="material-symbols-outlined text-4xl mb-6" style="color:var(--gold);">psychology</span>
+                    <h3 class="font-headline font-bold text-xl mb-4" style="color:var(--ivory);">Domain-First AI</h3>
+                    <p class="text-sm leading-relaxed font-light" style="color:var(--ivory-30);">
+                        I don't build generic AI wrappers. I build deep integrations that understand the specific constraints, language, and pressure of hotel operations.
+                    </p>
+                </div>
+                <div class="reveal glass bento-card rounded-[2rem] p-10">
+                    <span class="material-symbols-outlined text-4xl mb-6" style="color:var(--gold);">security</span>
+                    <h3 class="font-headline font-bold text-xl mb-4" style="color:var(--ivory);">Privacy by Default</h3>
+                    <p class="text-sm leading-relaxed font-light" style="color:var(--ivory-30);">
+                        Operational data is sensitive. Project Tidemark treats privacy as a structural requirement, utilizing local neural models and cryptographic anchoring.
+                    </p>
+                </div>
+                <div class="reveal glass bento-card rounded-[2rem] p-10">
+                    <span class="material-symbols-outlined text-4xl mb-6" style="color:var(--gold);">account_tree</span>
+                    <h3 class="font-headline font-bold text-xl mb-4" style="color:var(--ivory);">The Tree Mindset</h3>
+                    <p class="text-sm leading-relaxed font-light" style="color:var(--ivory-30);">
+                        A unified root of domain expertise supporting an ever-growing number of specialized branches. From risk to labor to logistics.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- THE CHOICE -->
+    <section id="project" class="py-20 md:py-36 px-6 md:px-12" style="background:var(--surface);">
+        <div class="max-w-7xl mx-auto">
+            <div class="reveal mb-5"><span class="trust-badge">Select a Branch</span></div>
+            <h2 class="reveal font-headline font-extrabold tracking-tighter leading-[0.82] mb-14 text-luminous"
+                style="font-size:clamp(2.2rem,5.5vw,6.5rem);">
+                EXPLORE THE<br/><span class="text-gold">PILLARS.</span>
+            </h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- DOOR 1: INCIDENT -->
+                <a href="incident.html" class="reveal glass bento-card rounded-[3rem] p-12 md:p-20 flex flex-col justify-between group overflow-hidden relative border-t-2" style="border-top-color:var(--gold); text-decoration: none;">
+                    <div class="glow-orb orb-gold absolute -top-40 -right-40" style="width:500px;height:500px;opacity:0.15;"></div>
+                    <div class="relative z-10">
+                        <div class="flex items-center gap-5 mb-10">
+                            <div class="w-16 h-16 rounded-full glass flex items-center justify-center border-t border-white/20">
+                                <span class="material-symbols-outlined text-4xl" style="color:var(--gold);">assignment</span>
+                            </div>
                             <div>
-                                <div class="text-[10px] font-black uppercase tracking-[0.4em] mb-4" style="color:var(--amber);">02:14 AM · The Incident</div>
-                                <h3 class="font-headline font-bold text-2xl md:text-3xl mb-4" style="color:var(--ivory);">Guest slips in the lobby.</h3>
-                                <p class="text-sm md:text-base font-light leading-relaxed" style="color:var(--ivory-60);">The Night Auditor is alone. The floor is wet. The guest is upset. A generic form leaves the manager to decide what matters. Tidemark does not.</p>
-                            </div>
-                            
-                            <div class="flex items-start gap-5">
-                                <div class="w-10 h-10 rounded-full glass flex items-center justify-center shrink-0" style="border-color:var(--gold);">
-                                    <span class="material-symbols-outlined text-sm" style="color:var(--gold);">mic</span>
-                                </div>
-                                <div>
-                                    <h4 class="font-headline font-bold text-lg mb-2" style="color:var(--ivory);">Staff speaks to Tidemark</h4>
-                                    <p class="text-xs font-light leading-relaxed" style="color:var(--ivory-30);">"I'm in the lobby. A guest just slipped near the elevators. Her name is Margaret. She says her ankle hurts. I've offered ice and called for a manager."</p>
-                                </div>
+                                <div class="text-xs font-black uppercase tracking-[0.6em]" style="color:var(--gold);">Risk Intelligence</div>
+                                <div class="font-headline font-bold text-4xl md:text-5xl" style="color:var(--ivory);">Incident</div>
                             </div>
                         </div>
-                    </div>
-
-                    <div class="lg:col-span-2 flex justify-center lg:rotate-0 rotate-90 py-10 lg:py-0">
-                        <div class="w-px h-32 md:h-48" style="background:linear-gradient(to bottom, transparent, var(--gold), transparent);"></div>
-                    </div>
-
-                    <div class="lg:col-span-5">
-                        <div class="glass p-8 md:p-10 rounded-[2rem] border-gold-glow" style="background:rgba(0,0,0,0.4);">
-                            <div class="flex justify-between items-center mb-6">
-                                <div class="text-[9px] font-black uppercase tracking-[0.5em]" style="color:var(--green);">Consistent Report Output</div>
-                                <span class="trust-badge">SHA-256</span>
-                            </div>
-                            
-                            <div class="space-y-4">
-                                <div class="flex justify-between border-b border-white/5 pb-3">
-                                    <span class="text-[10px] uppercase tracking-widest text-white/30">Type</span>
-                                    <span class="text-[10px] font-bold text-white">SLIP / TRIP / FALL</span>
-                                </div>
-                                <div class="flex justify-between border-b border-white/5 pb-3">
-                                    <span class="text-[10px] uppercase tracking-widest text-white/30">Location</span>
-                                    <span class="text-[10px] font-bold text-white">MAIN LOBBY / ELEVATORS</span>
-                                </div>
-                                <div class="flex justify-between border-b border-white/5 pb-3">
-                                    <span class="text-[10px] uppercase tracking-widest text-white/30">Injury</span>
-                                    <span class="text-[10px] font-bold text-white">LOWER EXTREMITY (ANKLE)</span>
-                                </div>
-                                <div class="flex justify-between border-b border-white/5 pb-3">
-                                    <span class="text-[10px] uppercase tracking-widest text-white/30">Action</span>
-                                    <span class="text-[10px] font-bold text-white">MEDICAL OFFERED / MGMT CALLED</span>
-                                </div>
-                            </div>
-
-                            <div class="mt-8 pt-6 border-t border-white/10">
-                                <div class="text-[8px] font-mono text-white/20 break-all mb-2">HASH: 3a7f9b2c8e0d5f2a9b6c3d7e...</div>
-                                <div class="text-[9px] font-black uppercase tracking-[0.3em]" style="color:var(--gold);">Ready For Review And Export</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- DEMO -->
-    <section id="demo" class="py-20 md:py-36 px-6 md:px-12" style="background:var(--obsidian);">
-        <div class="max-w-7xl mx-auto">
-            <div class="reveal mb-5"><span class="trust-badge">Live Demonstration</span></div>
-            <h2 class="reveal font-headline font-extrabold tracking-tighter leading-[0.82] mb-6 text-luminous"
-                style="font-size:clamp(2rem,5vw,6rem);">
-                SEE THE SHIFT<br/>TO THE REPORT.
-            </h2>
-            <p class="reveal text-base md:text-xl font-light mb-8 max-w-3xl" style="color:var(--ivory-30);">
-                This is the moment the product has to earn its place: someone on shift gives a messy account, guest data stays protected, and the property gets a report it can actually use.
-            </p>
-            <div class="reveal grid grid-cols-1 md:grid-cols-3 gap-4 mb-14">
-                <div class="glass-gold rounded-[1.5rem] p-5">
-                    <div class="text-[8px] uppercase tracking-[0.5em] font-black mb-2" style="color:var(--gold);">On Shift</div>
-                    <p class="text-sm font-light leading-relaxed" style="color:var(--ivory-60);">Speak naturally. No form memory, no blank page, no guessing what matters.</p>
-                </div>
-                <div class="glass-gold rounded-[1.5rem] p-5">
-                    <div class="text-[8px] uppercase tracking-[0.5em] font-black mb-2" style="color:var(--gold);">In The System</div>
-                    <p class="text-sm font-light leading-relaxed" style="color:var(--ivory-60);">Protect identity, structure facts, and flag only what can be supported with confidence.</p>
-                </div>
-                <div class="glass-gold rounded-[1.5rem] p-5">
-                    <div class="text-[8px] uppercase tracking-[0.5em] font-black mb-2" style="color:var(--gold);">At Review</div>
-                    <p class="text-sm font-light leading-relaxed" style="color:var(--ivory-60);">A cleaner, faster, more consistent record before the shift is over.</p>
-                </div>
-            </div>
-
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8">
-
-                <!-- PII Tokenization -->
-                <div class="reveal glass rounded-[2rem] md:rounded-[2.5rem] p-8 md:p-12 flex flex-col" style="height:600px;overflow:hidden;">
-                    <div class="flex items-center justify-between mb-7">
-                        <div>
-                            <div class="text-[8px] uppercase tracking-[0.5em] font-black mb-1" style="color:var(--gold);">Leaves The Device</div>
-                            <div class="text-[8px] uppercase tracking-[0.4em]" style="color:var(--ivory-30);">Guest identity protected before transmission</div>
-                        </div>
-                        <div class="w-2 h-2 rounded-full" style="background:var(--green);box-shadow:0 0 6px var(--green);"></div>
-                    </div>
-
-                    <div class="mb-4">
-                        <div class="text-[8px] uppercase tracking-[0.4em] font-black mb-2" style="color:var(--ivory-30);">Raw Incident Account</div>
-                        <div id="demo-raw" class="text-sm leading-relaxed italic p-5 rounded-xl font-light" style="background:var(--elevated);border:0.5px solid var(--border);color:var(--ivory-60);min-height:76px;">
-                            "Guest slipped in the lobby — her name is <span id="t-name1" class="font-medium" style="color:var(--ivory);border-bottom:1px solid rgba(245,240,232,0.2);">Margaret Holloway</span>, she's in room <span id="t-room" class="font-medium" style="color:var(--ivory);border-bottom:1px solid rgba(245,240,232,0.2);">318</span>. Reported by <span id="t-name2" class="font-medium" style="color:var(--ivory);border-bottom:1px solid rgba(245,240,232,0.2);">David Okafor</span>."
-                        </div>
-                    </div>
-
-                    <div class="flex justify-center my-3">
-                        <div class="flex flex-col items-center gap-1">
-                            <div class="w-px h-5" style="background:linear-gradient(to bottom,var(--border),var(--gold));"></div>
-                            <span class="material-symbols-outlined" style="font-size:18px;color:var(--gold);">lock</span>
-                            <div id="token-status" class="text-[7px] uppercase tracking-[0.3em] font-black" style="color:var(--gold); transition: all 0.3s ease;">Protected on device first</div>
-                            <div class="w-px h-5" style="background:linear-gradient(to bottom,var(--gold),var(--border));"></div>
-                        </div>
-                    </div>
-
-                    <div class="mb-5">
-                        <div class="text-[8px] uppercase tracking-[0.4em] font-black mb-2" style="color:var(--ivory-30);">Protected Input</div>
-                        <div id="demo-anon" class="text-sm leading-relaxed italic p-5 rounded-xl font-light" style="background:rgba(200,169,110,0.05);border:0.5px solid rgba(200,169,110,0.12);color:var(--ivory-30);min-height:76px;">
-                            "Guest identified as <span id="t-tok1" class="font-bold" style="color:var(--gold);">[GUEST_1]</span> experienced a slip... room <span id="t-tok2" class="font-bold" style="color:var(--gold);">[ROOM_2]</span>. Reported by <span id="t-tok3" class="font-bold" style="color:var(--gold);">[STAFF_3]</span>."
-                        </div>
-                    </div>
-
-                    <div class="mt-auto pt-5" style="border-top:0.5px solid var(--border);">
-                        <p class="text-[8px] uppercase tracking-widest font-bold leading-relaxed" style="color:var(--ivory-30);">Identity maps live only in RAM. No guest or staff PII is written to disk or sent to the cloud model.</p>
-                    </div>
-                </div>
-
-                <!-- Extraction Pipeline -->
-                <div class="reveal glass rounded-[2rem] md:rounded-[2.5rem] p-8 md:p-12 flex flex-col" style="height:600px;overflow:hidden;">
-                    <div class="flex items-center justify-between mb-5" style="flex-shrink:0;">
-                        <div>
-                            <div class="text-[8px] uppercase tracking-[0.5em] font-black mb-1" style="color:var(--gold);">Report Build</div>
-                            <div class="text-[8px] uppercase tracking-[0.4em]" style="color:var(--ivory-30);">Real extraction pipeline · Confidence floor enforced</div>
-                        </div>
-                        <div class="text-[9px] font-mono font-bold" id="pipeline-pct" style="color:var(--gold);">0%</div>
-                    </div>
-
-                    <div class="h-0.5 w-full rounded-full mb-5" style="background:var(--elevated);flex-shrink:0;">
-                        <div id="pipeline-bar" class="h-full rounded-full" style="width:0%;background:var(--gold);box-shadow:0 0 6px var(--gold-glow);transition:width 0.5s ease;"></div>
-                    </div>
-
-                    <!-- Passes list: fixed height, never grows -->
-                    <div class="relative">
-                        <div id="pipeline-passes" style="height: 240px; overflow-y: auto; scrollbar-width: none; -ms-overflow-style: none;"></div>
-                        <!-- Bottom fade mask to prevent hard cut -->
-                        <div class="absolute bottom-0 left-0 right-0 h-12 pointer-events-none" 
-                             style="background: linear-gradient(to top, var(--surface), transparent); z-index: 10;"></div>
-                    </div>
-
-                    <!-- Output: always in DOM, uses opacity — no layout reflow -->
-                    <div id="pipeline-output" style="flex-shrink:0;margin-top:16px;opacity:0;transition:opacity 0.5s ease;pointer-events:none;">
-                        <div class="text-[8px] uppercase tracking-[0.5em] font-black mb-3" style="color:var(--green);">Structured Output</div>
-                        <div class="grid grid-cols-1 gap-2">
-                            <div class="flex items-center justify-between p-3 rounded-xl" style="background:var(--elevated);border:0.5px solid var(--border);">
-                                <span class="text-[8px] uppercase tracking-widest font-bold" style="color:var(--ivory-30);">Severity</span>
-                                <span class="text-[8px] font-bold" style="color:var(--green);">MEDIUM</span>
-                            </div>
-                            <div class="flex items-center justify-between p-3 rounded-xl" style="background:var(--elevated);border:0.5px solid var(--border);">
-                                <span class="text-[8px] uppercase tracking-widest font-bold" style="color:var(--ivory-30);">Location</span>
-                                <span class="text-[8px] font-bold" style="color:var(--green);">MAIN LOBBY</span>
-                            </div>
-                            <div class="flex items-center justify-between p-3 rounded-xl" style="background:var(--elevated);border:0.5px solid var(--border);">
-                                <span class="text-[8px] uppercase tracking-widest font-bold" style="color:var(--ivory-30);">Injury Status</span>
-                                <span class="text-[8px] font-bold" style="color:var(--green);">WRIST &amp; ANKLE PAIN</span>
-                            </div>
-                            <div class="flex items-center justify-between p-3 rounded-xl" style="background:var(--elevated);border:0.5px solid var(--border);">
-                                <span class="text-[8px] uppercase tracking-widest font-bold" style="color:var(--ivory-30);">Medical Offered</span>
-                                <span class="text-[8px] font-bold" style="color:var(--green);">YES</span>
-                            </div>
-                        </div>
-                        <div class="mt-4 pt-4" style="border-top:0.5px solid var(--border);">
-                            <p class="text-[8px] uppercase tracking-widest font-bold leading-relaxed" style="color:var(--ivory-30);">Only supported fields survive. Low-confidence guesses are discarded and asked explicitly.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- PLAYBOOKS -->
-    <section id="playbooks" class="py-20 md:py-36 px-6 md:px-12" style="background:var(--surface);">
-        <div class="max-w-7xl mx-auto">
-            <div class="reveal mb-5"><span class="trust-badge">Coverage</span></div>
-            <h2 class="reveal font-headline font-extrabold tracking-tighter leading-[0.82] mb-6 text-luminous"
-                style="font-size:clamp(2.2rem,5.5vw,6.5rem);">
-                16 INCIDENT TYPES.<br/>NOT ONE GENERIC<br/>FORM.
-            </h2>
-            <p class="reveal text-base md:text-xl font-light mb-14 max-w-2xl" style="color:var(--ivory-30);">
-                Each playbook defines the questions and required fields for that type of incident. Tidemark asks what is missing and keeps every manager working to the same reporting standard.
-            </p>
-
-            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
-                <div class="reveal bento-card glass p-6 md:p-8 rounded-[1.5rem] group"><span class="material-symbols-outlined text-3xl mb-4 block transition-colors duration-300 playbook-icon" style="color:var(--ivory-15);">security</span><div class="font-headline font-bold text-sm mb-1" style="color:var(--ivory);">Theft &amp; Security</div><div class="text-[8px] uppercase tracking-[0.3em]" style="color:var(--ivory-30);">theft · intrusion · assault</div></div>
-                <div class="reveal bento-card glass p-6 md:p-8 rounded-[1.5rem] group"><span class="material-symbols-outlined text-3xl mb-4 block transition-colors duration-300 playbook-icon" style="color:var(--ivory-15);">medical_services</span><div class="font-headline font-bold text-sm mb-1" style="color:var(--ivory);">Medical — Guest</div><div class="text-[8px] uppercase tracking-[0.3em]" style="color:var(--ivory-30);">illness · injury · emergency</div></div>
-                <div class="reveal bento-card glass p-6 md:p-8 rounded-[1.5rem] group"><span class="material-symbols-outlined text-3xl mb-4 block transition-colors duration-300 playbook-icon" style="color:var(--ivory-15);">healing</span><div class="font-headline font-bold text-sm mb-1" style="color:var(--ivory);">Medical — Staff</div><div class="text-[8px] uppercase tracking-[0.3em]" style="color:var(--ivory-30);">workplace injury · first aid</div></div>
-                <div class="reveal bento-card glass p-6 md:p-8 rounded-[1.5rem] group"><span class="material-symbols-outlined text-3xl mb-4 block transition-colors duration-300 playbook-icon" style="color:var(--ivory-15);">accessible</span><div class="font-headline font-bold text-sm mb-1" style="color:var(--ivory);">Slip / Trip / Fall</div><div class="text-[8px] uppercase tracking-[0.3em]" style="color:var(--ivory-30);">wet floor · debris · uneven</div></div>
-                <div class="reveal bento-card glass p-6 md:p-8 rounded-[1.5rem] group"><span class="material-symbols-outlined text-3xl mb-4 block transition-colors duration-300 playbook-icon" style="color:var(--ivory-15);">local_fire_department</span><div class="font-headline font-bold text-sm mb-1" style="color:var(--ivory);">Fire &amp; Life Safety</div><div class="text-[8px] uppercase tracking-[0.3em]" style="color:var(--ivory-30);">fire · alarm · evacuation</div></div>
-                <div class="reveal bento-card glass p-6 md:p-8 rounded-[1.5rem] group"><span class="material-symbols-outlined text-3xl mb-4 block transition-colors duration-300 playbook-icon" style="color:var(--ivory-15);">construction</span><div class="font-headline font-bold text-sm mb-1" style="color:var(--ivory);">Property Damage</div><div class="text-[8px] uppercase tracking-[0.3em]" style="color:var(--ivory-30);">structural · interior · fixtures</div></div>
-                <div class="reveal bento-card glass p-6 md:p-8 rounded-[1.5rem] group"><span class="material-symbols-outlined text-3xl mb-4 block transition-colors duration-300 playbook-icon" style="color:var(--ivory-15);">format_paint</span><div class="font-headline font-bold text-sm mb-1" style="color:var(--ivory);">Vandalism</div><div class="text-[8px] uppercase tracking-[0.3em]" style="color:var(--ivory-30);">graffiti · damage · destruction</div></div>
-                <div class="reveal bento-card glass p-6 md:p-8 rounded-[1.5rem] group"><span class="material-symbols-outlined text-3xl mb-4 block transition-colors duration-300 playbook-icon" style="color:var(--ivory-15);">no_meeting_room</span><div class="font-headline font-bold text-sm mb-1" style="color:var(--ivory);">Unauthorized Entry</div><div class="text-[8px] uppercase tracking-[0.3em]" style="color:var(--ivory-30);">trespass · breach · access</div></div>
-                <div class="reveal bento-card glass p-6 md:p-8 rounded-[1.5rem] group"><span class="material-symbols-outlined text-3xl mb-4 block transition-colors duration-300 playbook-icon" style="color:var(--ivory-15);">volume_off</span><div class="font-headline font-bold text-sm mb-1" style="color:var(--ivory);">Noise Disturbance</div><div class="text-[8px] uppercase tracking-[0.3em]" style="color:var(--ivory-30);">complaint · noise · disruption</div></div>
-                <div class="reveal bento-card glass p-6 md:p-8 rounded-[1.5rem] group"><span class="material-symbols-outlined text-3xl mb-4 block transition-colors duration-300 playbook-icon" style="color:var(--ivory-15);">sentiment_dissatisfied</span><div class="font-headline font-bold text-sm mb-1" style="color:var(--ivory);">Guest Complaint</div><div class="text-[8px] uppercase tracking-[0.3em]" style="color:var(--ivory-30);">service · cleanliness · billing</div></div>
-                <div class="reveal bento-card glass p-6 md:p-8 rounded-[1.5rem] group"><span class="material-symbols-outlined text-3xl mb-4 block transition-colors duration-300 playbook-icon" style="color:var(--ivory-15);">warning</span><div class="font-headline font-bold text-sm mb-1" style="color:var(--ivory);">Assault / Threat</div><div class="text-[8px] uppercase tracking-[0.3em]" style="color:var(--ivory-30);">harassment · threat · violence</div></div>
-                <div class="reveal bento-card glass p-6 md:p-8 rounded-[1.5rem] group"><span class="material-symbols-outlined text-3xl mb-4 block transition-colors duration-300 playbook-icon" style="color:var(--ivory-15);">settings_suggest</span><div class="font-headline font-bold text-sm mb-1" style="color:var(--ivory);">Equipment Failure</div><div class="text-[8px] uppercase tracking-[0.3em]" style="color:var(--ivory-30);">HVAC · elevator · utilities</div></div>
-                <div class="reveal bento-card glass p-6 md:p-8 rounded-[1.5rem] group"><span class="material-symbols-outlined text-3xl mb-4 block transition-colors duration-300 playbook-icon" style="color:var(--ivory-15);">restaurant</span><div class="font-headline font-bold text-sm mb-1" style="color:var(--ivory);">Food Safety</div><div class="text-[8px] uppercase tracking-[0.3em]" style="color:var(--ivory-30);">contamination · illness · storage</div></div>
-                <div class="reveal bento-card glass p-6 md:p-8 rounded-[1.5rem] group"><span class="material-symbols-outlined text-3xl mb-4 block transition-colors duration-300 playbook-icon" style="color:var(--ivory-15);">directions_car</span><div class="font-headline font-bold text-sm mb-1" style="color:var(--ivory);">Vehicle &amp; Parking</div><div class="text-[8px] uppercase tracking-[0.3em]" style="color:var(--ivory-30);">collision · theft · damage</div></div>
-                <div class="reveal bento-card glass p-6 md:p-8 rounded-[1.5rem] group"><span class="material-symbols-outlined text-3xl mb-4 block transition-colors duration-300 playbook-icon" style="color:var(--ivory-15);">hub</span><div class="font-headline font-bold text-sm mb-1" style="color:var(--ivory);">General</div><div class="text-[8px] uppercase tracking-[0.3em]" style="color:var(--ivory-30);">catch-all · custom · other</div></div>
-                <div class="reveal bento-card glass p-6 md:p-8 rounded-[1.5rem] group" style="border-style:dashed;"><span class="material-symbols-outlined text-3xl mb-4 block transition-colors duration-300 playbook-icon" style="color:var(--ivory-15);">add_circle</span><div class="font-headline font-bold text-sm mb-1" style="color:var(--ivory);">Custom Playbooks</div><div class="text-[8px] uppercase tracking-[0.3em]" style="color:var(--ivory-30);">your property · your rules</div></div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ARCHITECTURE -->
-    <section id="architecture" class="py-20 md:py-36 px-6 md:px-12" style="background:var(--obsidian);">
-        <div class="max-w-7xl mx-auto">
-            <div class="reveal mb-5"><span class="trust-badge">Architecture</span></div>
-            <h2 class="reveal font-headline font-extrabold tracking-tighter leading-[0.82] mb-6 text-luminous"
-                style="font-size:clamp(2.2rem,5.5vw,6.5rem);">
-                THE SYSTEM DECIDES.<br/>THE MODEL<br/><span class="text-gold">ASSISTS.</span>
-            </h2>
-            <p class="reveal text-base md:text-xl font-light mb-14 max-w-2xl" style="color:var(--ivory-30);">
-                Tidemark does not let an AI improvise its way through an incident report. A deterministic state machine controls what gets asked, what gets accepted, and when the report is actually complete.
-            </p>
-
-            <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
-                <div class="reveal md:col-span-7 glass bento-card rounded-[2rem] md:rounded-[2.5rem] p-8 md:p-14 flex flex-col justify-between" style="min-height:380px;">
-                    <div>
-                        <span class="material-symbols-outlined text-4xl md:text-5xl mb-5 block" style="color:var(--gold);">account_tree</span>
-                        <h3 class="font-headline font-bold text-2xl md:text-4xl mb-4 tracking-tight" style="color:var(--ivory);">AI On A Leash</h3>
-                        <p class="text-sm md:text-base leading-relaxed font-light max-w-lg" style="color:var(--ivory-30);">
-                            The orchestrator is the control layer. It decides the next question, checks whether a field is good enough to keep, and determines when a report is complete. The model helps extract facts. It does not set the standard.
+                        <p class="text-xl font-light leading-relaxed mb-10" style="color:var(--ivory-60);">
+                            Deep-dive into privacy-first incident reporting. I design systems to protect integrity and ensure safety across every operational layer.
                         </p>
                     </div>
-                    <div class="flex gap-10 md:gap-16 mt-8">
-                        <div>
-                            <div class="font-headline font-extrabold text-3xl md:text-4xl mb-1 stat-num text-gold">0%</div>
-                            <div class="text-[8px] uppercase tracking-[0.5em] font-black" style="color:var(--ivory-30);">LLM-Led Workflow</div>
-                        </div>
-                        <div>
-                            <div class="font-headline font-extrabold text-3xl md:text-4xl mb-1 stat-num text-gold">100%</div>
-                            <div class="text-[8px] uppercase tracking-[0.5em] font-black" style="color:var(--ivory-30);">Deterministic Control</div>
-                        </div>
-                        <div>
-                            <div class="font-headline font-extrabold text-3xl md:text-4xl mb-1 stat-num text-gold">8</div>
-                            <div class="text-[8px] uppercase tracking-[0.5em] font-black" style="color:var(--ivory-30);">Phase States</div>
-                        </div>
+                    <div class="relative z-10 flex justify-between items-end">
+                        <span class="text-xs font-black uppercase tracking-[0.5em]" style="color:var(--gold);">Enter Branch →</span>
+                        <span class="material-symbols-outlined text-5xl group-hover:translate-x-3 transition-transform" style="color:var(--gold);">east</span>
                     </div>
-                </div>
+                </a>
 
-                <div class="md:col-span-5 flex flex-col gap-5">
-                    <div class="reveal glass bento-card rounded-[2rem] p-7 md:p-9">
-                        <span class="material-symbols-outlined text-3xl mb-4" style="color:var(--gold);">radar</span>
-                        <h3 class="font-headline font-bold text-xl mb-3" style="color:var(--ivory);">Confidence Gate</h3>
-                        <p class="text-sm leading-relaxed font-light mb-5" style="color:var(--ivory-30);">If the model is not confident enough, the field is rejected and the system asks explicitly. Polished guessing is not allowed into the record.</p>
-                        <div class="h-1 rounded-full" style="background:var(--elevated);">
-                            <div id="confidence-bar" class="h-full rounded-full" style="width:0%;background:var(--gold);box-shadow:0 0 5px var(--gold-glow);transition:width 1.4s cubic-bezier(0.075,0.82,0.165,1);"></div>
+                <!-- DOOR 2: SHIFT -->
+                <a href="shift.html" class="reveal glass bento-card rounded-[3rem] p-12 md:p-20 flex flex-col justify-between group overflow-hidden relative border-t-2" style="border-top-color:var(--gold); text-decoration: none;">
+                    <div class="glow-orb orb-gold absolute -top-40 -right-40" style="width:500px;height:500px;opacity:0.15;"></div>
+                    <div class="relative z-10">
+                        <div class="flex items-center gap-5 mb-10">
+                            <div class="w-16 h-16 rounded-full glass flex items-center justify-center border-t border-white/20">
+                                <span class="material-symbols-outlined text-4xl" style="color:var(--gold);">work_history</span>
+                            </div>
+                            <div>
+                                <div class="text-xs font-black uppercase tracking-[0.6em]" style="color:var(--gold);">Compliance Flow</div>
+                                <div class="font-headline font-bold text-4xl md:text-5xl" style="color:var(--ivory);">Shift</div>
+                            </div>
                         </div>
-                        <div class="flex justify-between mt-1.5">
-                            <span class="text-[7px] uppercase tracking-[0.4em]" style="color:var(--ivory-30);">Discard</span>
-                            <span class="text-[7px] uppercase tracking-[0.4em]" style="color:var(--gold);">Accept ≥ 0.50</span>
-                        </div>
+                        <p class="text-xl font-light leading-relaxed mb-10" style="color:var(--ivory-60);">
+                            Explore the complexity of AI-powered staffing. I solve the mathematical puzzle of legal compliance and operational flow for the whole property.
+                        </p>
                     </div>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                        <div class="reveal glass bento-card rounded-[2rem] p-7 md:p-9 flex flex-col">
-                            <span class="material-symbols-outlined text-3xl mb-4" style="color:var(--gold);">rule</span>
-                            <h3 class="font-headline font-bold text-xl mb-3" style="color:var(--ivory);">Playbook-Led Completion</h3>
-                            <p class="text-sm leading-relaxed font-light" style="color:var(--ivory-30);">The playbook decides what is required for that incident type. Completion is computed by the system, not improvised by the model.</p>
-                        </div>
-                        <div class="reveal glass bento-card rounded-[2rem] p-7 md:p-9 flex flex-col">
-                            <span class="material-symbols-outlined text-3xl mb-4" style="color:var(--gold);">cycle</span>
-                            <h3 class="font-headline font-bold text-xl mb-3" style="color:var(--ivory);">Multi-Pass Extraction</h3>
-                            <p class="text-sm leading-relaxed font-light" style="color:var(--ivory-30);">The model does not fill the whole report in one shot. Tidemark breaks extraction into targeted passes and retries only what is still unresolved.</p>
-                        </div>
+                    <div class="relative z-10 flex justify-between items-end">
+                        <span class="text-xs font-black uppercase tracking-[0.5em]" style="color:var(--gold);">Enter Branch →</span>
+                        <span class="material-symbols-outlined text-5xl group-hover:translate-x-3 transition-transform" style="color:var(--gold);">east</span>
                     </div>
-                </div>
+                </a>
             </div>
         </div>
     </section>
 
-    <!-- LEGAL SHIELD -->
-    <section id="security" class="py-20 md:py-36 px-6 md:px-12" style="background:var(--surface);">
+    <!-- THE GROWTH PLAN -->
+    <section class="py-20 md:py-36 px-6 md:px-12" style="background:var(--obsidian);">
         <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-20 items-center">
             <div>
-                <div class="reveal mb-5"><span class="trust-badge">Privacy & Integrity</span></div>
+                <div class="reveal mb-5"><span class="trust-badge">Coming Soon</span></div>
                 <h2 class="reveal font-headline font-extrabold tracking-tight leading-[0.82] mb-8 text-luminous"
                     style="font-size:clamp(2.5rem,6vw,8rem);">
-                    THE CLOUD NEVER<br/>SEES THE REAL<br/><span class="text-gold">NAMES.</span>
+                    THE TREE IS<br/><span class="text-gold">GROWING.</span>
                 </h2>
                 <p class="reveal text-base md:text-xl font-light leading-relaxed mb-10" style="color:var(--ivory-30);">
-                    Names, room numbers, staff IDs, phones, and emails are tokenized before any model call. The cloud processes placeholders, the identity map stays in local memory, and real details are restored only on the device.
+                    Incident and Shift are just the beginning. I am actively developing new branches to bring the same level of technical rigor to every corner of the property.
                 </p>
-                <div class="reveal flex gap-10 md:gap-16">
-                    <div>
-                        <div class="font-headline font-extrabold text-2xl md:text-4xl mb-1 tracking-tighter" style="color:var(--gold);">LOCAL</div>
-                        <div class="text-[8px] uppercase tracking-[0.4em] font-black" style="color:var(--ivory-30);">Token Map</div>
-                    </div>
-                    <div>
-                        <div class="font-headline font-extrabold text-2xl md:text-4xl mb-1 tracking-tighter" style="color:var(--gold);">ZERO</div>
-                        <div class="text-[8px] uppercase tracking-[0.4em] font-black" style="color:var(--ivory-30);">Real Names in Cloud</div>
-                    </div>
-                    <div>
-                        <div class="font-headline font-extrabold text-2xl md:text-4xl mb-1 tracking-tighter" style="color:var(--gold);">SHA-256</div>
-                        <div class="text-[8px] uppercase tracking-[0.4em] font-black" style="color:var(--ivory-30);">Export Hash</div>
-                    </div>
-                </div>
             </div>
 
-            <div class="reveal glass rounded-[2.5rem] md:rounded-[4rem] p-10 md:p-16 flex flex-col justify-center" style="min-height:280px;">
-                <div class="space-y-5 md:space-y-7">
-                    <div class="h-px w-full" style="background:var(--border);"></div>
-                    <div>
-                        <div class="text-[8px] uppercase tracking-[0.5em] font-black mb-3" style="color:var(--ivory-30);">Report Hash · SHA-256</div>
-                        <div id="hash-display" class="font-mono text-xs leading-relaxed break-all" style="color:var(--gold);">_</div>
-                    </div>
-                    <div class="h-px w-full" style="background:var(--border);"></div>
+            <div class="grid grid-cols-1 gap-4">
+                <div class="reveal glass rounded-2xl p-8 border-l-4" style="border-left-color:var(--elevated);">
                     <div class="flex justify-between items-center">
-                        <span class="text-[8px] font-mono uppercase tracking-[0.4em]" style="color:var(--green);">PII_STRIP · VERIFIED</span>
-                        <span class="text-[8px] font-mono" style="color:var(--ivory-30);">INTEGRITY · CONFIRMED</span>
+                        <div class="font-headline font-bold text-lg text-white/50">Tidemark: Handoff</div>
+                        <span class="text-[8px] uppercase tracking-[0.3em] text-white/20">In Research</span>
                     </div>
-                    <div class="h-px rounded-full" style="width:55%;background:var(--gold);opacity:0.35;box-shadow:0 0 6px var(--gold-glow);"></div>
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- WHO IT'S FOR -->
-    <section class="py-20 md:py-36 px-6 md:px-12" style="background:var(--obsidian);">
-        <div class="max-w-7xl mx-auto">
-            <div class="reveal mb-5"><span class="trust-badge">Built For</span></div>
-            <h2 class="reveal font-headline font-extrabold tracking-tighter leading-[0.82] mb-6 text-luminous"
-                style="font-size:clamp(2.2rem,5.5vw,6.5rem);">
-                FOR THE PERSON<br/>WRITING IT. AND THE<br/><span class="text-gold">ONE CHECKING IT.</span>
-            </h2>
-            <p class="reveal text-base md:text-xl font-light mb-14 max-w-2xl" style="color:var(--ivory-30);">
-                Tidemark serves both sides of the reporting chain: the person documenting the incident in the moment, and the manager who needs reports to look complete and consistent across the team.
-            </p>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="reveal glass-gold rounded-[2rem] p-8 md:p-10">
-                    <span class="material-symbols-outlined text-3xl mb-5 block" style="color:var(--gold);">support_agent</span>
-                    <h3 class="font-headline font-bold text-lg mb-3" style="color:var(--ivory);">The Person On Shift</h3>
-                    <p class="text-sm leading-relaxed font-light" style="color:var(--ivory-30);">The night auditor alone at 1am. The duty manager mid-incident. The front desk agent still with a guest in front of them. Tidemark helps them capture the right details without asking them to memorize 16 different reporting standards.</p>
+                <div class="reveal glass rounded-2xl p-8 border-l-4" style="border-left-color:var(--elevated);">
+                    <div class="flex justify-between items-center">
+                        <div class="font-headline font-bold text-lg text-white/50">Tidemark: Inventory</div>
+                        <span class="text-[8px] uppercase tracking-[0.3em] text-white/20">In Research</span>
+                    </div>
                 </div>
-                <div class="reveal glass-gold rounded-[2rem] p-8 md:p-10">
-                    <span class="material-symbols-outlined text-3xl mb-5 block" style="color:var(--gold);">manage_accounts</span>
-                    <h3 class="font-headline font-bold text-lg mb-3" style="color:var(--ivory);">The Manager Reading Them</h3>
-                    <p class="text-sm leading-relaxed font-light" style="color:var(--ivory-30);">Pull up five reports from last month. If they all reflect different writing styles and different levels of detail, you do not have a shared standard. Tidemark gives every manager the same structure, every time.</p>
-                </div>
-                <div class="reveal glass-gold rounded-[2rem] p-8 md:p-10">
-                    <span class="material-symbols-outlined text-3xl mb-5 block" style="color:var(--gold);">domain</span>
-                    <h3 class="font-headline font-bold text-lg mb-3" style="color:var(--ivory);">Multi-Property Operations</h3>
-                    <p class="text-sm leading-relaxed font-light" style="color:var(--ivory-30);">Three properties. Twelve managers. Twelve different ways of documenting an incident unless the system sets the standard. Tidemark keeps reporting more consistent across every property and every shift.</p>
+                <div class="reveal glass rounded-2xl p-8 border-l-4" style="border-left-color:var(--elevated);">
+                    <div class="flex justify-between items-center">
+                        <div class="font-headline font-bold text-lg text-white/50">Tidemark: Audit</div>
+                        <span class="text-[8px] uppercase tracking-[0.3em] text-white/20">In Research</span>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- FOUNDER NOTE -->
-    <section class="py-20 md:py-28 px-6 md:px-12" style="background:var(--surface);">
+    <section class="py-32 md:py-48 px-6 md:px-12" style="background:var(--surface);">
         <div class="max-w-4xl mx-auto">
             <div class="reveal glass-gold rounded-[2.5rem] md:rounded-[4rem] p-10 md:p-20 relative overflow-hidden">
                 <div class="glow-orb orb-gold" style="width:400px;height:400px;top:-100px;right:-100px;position:absolute;opacity:0.1;"></div>
                 <div class="relative z-10">
-                    <div class="text-[9px] font-black uppercase tracking-[0.6em] mb-8" style="color:var(--gold);">From The Builder</div>
-                    <blockquote class="font-headline font-bold leading-[1.05] tracking-tight mb-8 text-luminous" style="font-size:clamp(1.5rem,3.5vw,3rem);">
-                        "We built Tidemark because one generic incident form was never enough."
+                    <div class="text-[9px] font-black uppercase tracking-[0.6em] mb-8" style="color:var(--gold);">Operational Architecture</div>
+                    <blockquote class="font-headline font-bold leading-[1.05] tracking-tight mb-12 text-luminous tracking-tight" style="font-size:clamp(2rem,4vw,3.5rem); line-height: 1.1;">
+                        "I build from the root up—where domain expertise becomes the foundation for every system."
                     </blockquote>
                     <p class="text-sm md:text-base font-light leading-relaxed mb-5 max-w-2xl" style="color:var(--ivory-60);">
-                        We know the feeling of staying late to write a report in a quiet corner because the shift was too busy to do it properly. We know what it is like to open a blank document after the fact and realize the template is not helping you understand what this kind of incident actually needs.
+                        The gap between modern hotel operations and the software meant to support them is often too wide. One side knows the chaos of a guest request at midnight; the other knows the elegance of a well-optimized algorithm.
                     </p>
                     <p class="text-sm md:text-base font-light leading-relaxed max-w-2xl" style="color:var(--ivory-60);">
-                        We built Tidemark because the problem was never laziness or carelessness. The problem was that hotels were being asked to document very different incidents with one generic form. Every incident is different. The reporting standard should not be.
+                        I bridge that gap. With a deep background in hotel operations and the technical literacy to find systems-based solutions, I build tools that don't just 'work'—they understand the pressure of the floor.
                     </p>
                     <div class="mt-10 pt-8 flex items-center gap-4" style="border-top:0.5px solid var(--border);">
-                        <div class="w-10 h-10 rounded-full flex items-center justify-center shrink-0" style="background:var(--gold-subtle);border:0.5px solid rgba(200,169,110,0.3);">
+                        <div class="w-10 h-10 rounded-full flex items-center justify-center shrink-0" style="background:var(--gold-subtle);border:0.5px solid rgba(34,211,238,0.3);">
                             <span class="material-symbols-outlined text-sm" style="color:var(--gold);">person</span>
                         </div>
                         <div>
                             <div class="text-sm font-bold" style="color:var(--ivory);">Oguzhan Gur</div>
-                            <div class="text-[9px] uppercase tracking-[0.4em] font-black" style="color:var(--ivory-30);">Hospitality Professional · Founder, Tidemark · British Columbia</div>
+                            <div class="text-[9px] uppercase tracking-[0.4em] font-black" style="color:var(--ivory-30);">Operational Architect · Founder, Project Tidemark · BC, Canada</div>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- DEVELOPMENT HISTORY -->
-    <section id="changelog" class="py-20 md:py-36 px-6 md:px-12" style="background:var(--obsidian);">
-        <div class="max-w-7xl mx-auto">
-            <div class="reveal mb-5"><span class="trust-badge">Development History</span></div>
-            <h2 class="reveal font-headline font-extrabold tracking-tighter leading-[0.82] mb-6 text-luminous"
-                style="font-size:clamp(2.2rem,5.5vw,6.5rem);">
-                HOW WE GOT<br/>TO WHERE<br/><span class="text-gold">WE ARE.</span>
-            </h2>
-            <p class="reveal text-base md:text-xl font-light mb-14 max-w-2xl" style="color:var(--ivory-30);">
-                Tidemark wasn't designed in a vacuum. Each version was a direct response to a real failure — in privacy, in reliability, in trust. This is the record of how it grew.
-            </p>
-
-            <div class="space-y-5">
-
-                <!-- v1.0 -->
-                <div class="reveal flex gap-6 items-stretch">
-                    <div class="flex flex-col items-center" style="min-width:2.5rem;">
-                        <div class="w-4 h-4 rounded-full border-2 shrink-0 mt-5" style="background:var(--obsidian);border-color:var(--ivory-30);"></div>
-                        <div class="w-px flex-1 mt-1" style="background:linear-gradient(to bottom,var(--ivory-15),transparent);min-height:1.5rem;"></div>
-                    </div>
-                    <div class="glass bento-card rounded-[1.5rem] p-7 md:p-9 flex-1">
-                        <div class="flex flex-wrap items-center gap-3 mb-3">
-                            <span class="font-headline font-extrabold text-xl" style="color:var(--ivory-30);">v1.0</span>
-                            <span class="text-[8px] uppercase tracking-[0.5em] font-black" style="color:var(--ivory-15);">Foundation</span>
-                        </div>
-                        <h3 class="font-headline font-bold text-lg mb-2" style="color:var(--ivory);">The concept proved.</h3>
-                        <p class="text-sm font-light leading-relaxed" style="color:var(--ivory-30);">First working report. 15 incident types. Single-pass extraction. The version that answered the only question that mattered: can a spoken account become a defensible record?</p>
-                    </div>
-                </div>
-
-                <!-- v2.0 -->
-                <div class="reveal flex gap-6 items-stretch">
-                    <div class="flex flex-col items-center" style="min-width:2.5rem;">
-                        <div class="w-4 h-4 rounded-full border-2 shrink-0 mt-5" style="background:var(--obsidian);border-color:var(--gold);"></div>
-                        <div class="w-px flex-1 mt-1" style="background:linear-gradient(to bottom,rgba(200,169,110,0.4),transparent);min-height:1.5rem;"></div>
-                    </div>
-                    <div class="glass bento-card rounded-[1.5rem] p-7 md:p-9 flex-1">
-                        <div class="flex flex-wrap items-center gap-3 mb-3">
-                            <span class="font-headline font-extrabold text-xl text-gold">v2.0</span>
-                            <span class="text-[8px] uppercase tracking-[0.5em] font-black" style="color:var(--gold);">Privacy Rebuilt</span>
-                        </div>
-                        <h3 class="font-headline font-bold text-lg mb-2" style="color:var(--ivory);">Regex wasn't enough.</h3>
-                        <p class="text-sm font-light leading-relaxed" style="color:var(--ivory-30);">Privacy layer rebuilt from pattern matching to structural NLP. Identity maps moved entirely to volatile RAM — no disk writes at any stage. The shift from "does it work?" to "is it safe enough to trust with real guest data?"</p>
-                    </div>
-                </div>
-
-                <!-- v2.4 -->
-                <div class="reveal flex gap-6 items-stretch">
-                    <div class="flex flex-col items-center" style="min-width:2.5rem;">
-                        <div class="w-4 h-4 rounded-full shrink-0 mt-5" style="background:var(--gold);box-shadow:0 0 10px var(--gold-glow);"></div>
-                    </div>
-                    <div class="glass-gold bento-card rounded-[1.5rem] p-7 md:p-9 flex-1">
-                        <div class="flex flex-wrap items-center gap-3 mb-3">
-                            <span class="font-headline font-extrabold text-xl text-gold">v2.4</span>
-                            <span class="trust-badge">Current</span>
-                        </div>
-                        <h3 class="font-headline font-bold text-lg mb-2" style="color:var(--ivory);">Three brains. One decision.</h3>
-                        <p class="text-sm font-light leading-relaxed" style="color:var(--ivory-30);">Neural model (BERT-Small ONNX) added alongside structural NLP and statistical filtering — all three must agree before a name is redacted. iOS native app. PDF and DOCX export. The version that ships.</p>
-                    </div>
-                </div>
-
-            </div>
-
-            <div class="reveal mt-12 flex justify-center">
-                <a href="./changelog.html" class="btn-secondary rounded-full font-headline font-black uppercase text-[10px] tracking-[0.5em] px-12 py-5 md:px-16 md:py-6">
-                    Full Development History →
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- PROJECT -->
-    <section id="project" class="py-20 md:py-36 px-6 md:px-12" style="background:var(--surface);">
-        <div class="max-w-7xl mx-auto">
-            <div class="reveal mb-5"><span class="trust-badge">Project Tidemark</span></div>
-            <h2 class="reveal font-headline font-extrabold tracking-tighter leading-[0.82] mb-6 text-luminous"
-                style="font-size:clamp(2.2rem,5.5vw,6.5rem);">
-                OPEN SOURCE<br/>AS THE NEXT<br/><span class="text-gold">STANDARD.</span>
-            </h2>
-            <p class="reveal text-base md:text-xl font-light leading-relaxed mb-14 max-w-3xl" style="color:var(--ivory-30);">
-                Tidemark is moving from a single incident-reporting product into Project Tidemark: an open-source umbrella for privacy-first operations tools. The incident engine is the first pillar. Shift is planned to move under the same umbrella later, sharing the same language for trust, local privacy, and work that happens under pressure.
-            </p>
-
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-12">
-                <div class="reveal glass bento-card rounded-[2rem] md:rounded-[2.5rem] p-8 md:p-10">
-                    <div class="flex items-center gap-3 mb-6">
-                        <span class="material-symbols-outlined text-4xl" style="color:var(--gold);">hub</span>
-                        <div>
-                            <div class="font-headline font-bold text-lg" style="color:var(--ivory);">Umbrella Project</div>
-                            <div class="text-[8px] uppercase tracking-[0.4em] font-black" style="color:var(--gold);">One Trust Model</div>
-                        </div>
-                    </div>
-                    <p class="text-sm leading-relaxed font-light" style="color:var(--ivory-30);">
-                        Project Tidemark will hold the shared privacy layer, playbook patterns, documentation, and operating principles that can support more than one app.
-                    </p>
-                </div>
-
-                <div class="reveal glass-gold bento-card rounded-[2rem] md:rounded-[2.5rem] p-8 md:p-10">
-                    <div class="flex items-center gap-3 mb-6">
-                        <span class="material-symbols-outlined text-4xl" style="color:var(--gold);">assignment</span>
-                        <div>
-                            <div class="font-headline font-bold text-lg" style="color:var(--ivory);">First Pillar</div>
-                            <div class="text-[8px] uppercase tracking-[0.4em] font-black" style="color:var(--gold);">Incident Reports</div>
-                        </div>
-                    </div>
-                    <p class="text-sm leading-relaxed font-light" style="color:var(--ivory-30);">
-                        The current app remains focused on incident-specific reporting for hospitality teams: guided intake, local PII protection, and export-ready records.
-                    </p>
-                </div>
-
-                <div class="reveal glass bento-card rounded-[2rem] md:rounded-[2.5rem] p-8 md:p-10">
-                    <div class="flex items-center gap-3 mb-6">
-                        <span class="material-symbols-outlined text-4xl" style="color:var(--ivory-60);">work_history</span>
-                        <div>
-                            <div class="font-headline font-bold text-lg" style="color:var(--ivory);">Next Under Tidemark</div>
-                            <div class="text-[8px] uppercase tracking-[0.4em] font-black" style="color:var(--ivory-30);">Shift</div>
-                        </div>
-                    </div>
-                    <p class="text-sm leading-relaxed font-light" style="color:var(--ivory-30);">
-                        Shift is intended to become part of Project Tidemark later, so scheduling, handoff, and incident workflows can live under one coherent project.
-                    </p>
-                </div>
-            </div>
-
-            <div class="reveal glass rounded-[2rem] md:rounded-[2.5rem] p-8 md:p-10 flex flex-col lg:flex-row gap-8 lg:items-center lg:justify-between" style="border-top-color:rgba(200,169,110,0.2);">
-                <div class="max-w-2xl">
-                    <div class="text-[9px] uppercase tracking-[0.5em] font-black mb-3" style="color:var(--gold);">Source Opening In Stages</div>
-                    <p class="text-sm md:text-base leading-relaxed font-light" style="color:var(--ivory-30);">
-                        The source release will be staged deliberately: scrub secrets, separate deploy configuration, document the privacy model, choose the license, and publish the parts that help operators and builders evaluate the work safely.
-                    </p>
-                </div>
-                <div class="flex flex-col sm:flex-row gap-4">
-                    <a href="./changelog.html" class="btn-secondary rounded-full font-headline font-black uppercase text-[9px] tracking-[0.4em] px-8 py-3 text-center">
-                        Development History
-                    </a>
-                    <button onclick="scrollToWaitlist()" class="btn-primary rounded-full font-headline font-black uppercase text-[9px] tracking-[0.4em] px-8 py-3">
-                        Project Updates
-                    </button>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- PLATFORM -->
-    <section id="platform" class="py-20 md:py-36 px-6 md:px-12" style="background:var(--obsidian);">
-        <div class="max-w-7xl mx-auto">
-            <div class="reveal mb-5"><span class="trust-badge">Availability</span></div>
-            <h2 class="reveal font-headline font-extrabold tracking-tighter leading-[0.82] mb-6 text-luminous"
-                style="font-size:clamp(2.2rem,5.5vw,6.5rem);">
-                BUILT FOR THE<br/>FLOOR, NOT THE<br/>BOARDROOM.
-            </h2>
-            <p class="reveal text-base md:text-xl font-light mb-14 max-w-2xl" style="color:var(--ivory-30);">
-                Your team is on the floor when incidents happen. Tidemark is where they are.
-            </p>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="reveal glass bento-card rounded-[2rem] md:rounded-[2.5rem] p-8 md:p-12 flex flex-col" style="border-top-color:var(--gold);">
-                    <div class="flex items-center gap-3 mb-7">
-                        <span class="material-symbols-outlined text-4xl" style="color:var(--gold);">phone_iphone</span>
-                        <div>
-                            <div class="font-headline font-bold text-lg" style="color:var(--ivory);">iOS</div>
-                            <div class="text-[8px] uppercase tracking-[0.4em] font-black" style="color:var(--amber);">Private Beta</div>
-                        </div>
-                    </div>
-                    <p class="text-sm leading-relaxed font-light flex-1 mb-7" style="color:var(--ivory-30);">iPhone-native. For in-the-moment capture — from the lobby, the stairwell, the parking lot. Wherever your team is when it happens.</p>
-                    <button onclick="scrollToWaitlist()" class="btn-primary rounded-full text-[9px] font-black uppercase tracking-[0.4em] px-8 py-3 w-full">Get iOS Updates</button>
-                </div>
-
-                <div class="reveal glass bento-card rounded-[2rem] md:rounded-[2.5rem] p-8 md:p-12 flex flex-col" style="border-top-color:var(--gold);">
-                    <div class="flex items-center gap-3 mb-7">
-                        <span class="material-symbols-outlined text-4xl" style="color:var(--gold);">laptop_mac</span>
-                        <div>
-                            <div class="font-headline font-bold text-lg" style="color:var(--ivory);">Desktop</div>
-                            <div class="text-[8px] uppercase tracking-[0.4em] font-black" style="color:var(--amber);">Private Beta</div>
-                        </div>
-                    </div>
-                    <p class="text-sm leading-relaxed font-light flex-1 mb-7" style="color:var(--ivory-30);">Full reporting suite for Mac and PC. Review, approve, and export reports from your front desk, security office, or management suite.</p>
-                    <button onclick="scrollToWaitlist()" class="btn-primary rounded-full text-[9px] font-black uppercase tracking-[0.4em] px-8 py-3 w-full">Get Desktop Updates</button>
-                </div>
-
-                <div class="reveal glass bento-card rounded-[2rem] md:rounded-[2.5rem] p-8 md:p-12 flex flex-col">
-                    <div class="flex items-center gap-3 mb-7">
-                        <span class="material-symbols-outlined text-4xl" style="color:var(--ivory-30);">android</span>
-                        <div>
-                            <div class="font-headline font-bold text-lg" style="color:var(--ivory-60);">Android</div>
-                            <div class="text-[8px] uppercase tracking-[0.4em] font-black" style="color:var(--ivory-30);">In Development</div>
-                        </div>
-                    </div>
-                    <p class="text-sm leading-relaxed font-light flex-1 mb-7" style="color:var(--ivory-30);">Android support is actively in development. Join the project list and be among the first operators notified at launch.</p>
-                    <button onclick="scrollToWaitlist()" class="btn-ghost rounded-full text-[9px] font-black uppercase tracking-[0.4em] px-8 py-3 w-full">Get Android Updates</button>
                 </div>
             </div>
         </div>
@@ -1052,16 +448,16 @@
     <section id="cta-final" class="py-20 md:py-36 px-6 relative overflow-hidden" style="background:var(--obsidian);">
         <div class="glow-orb orb-gold absolute top-1/2 left-1/2" style="width:700px;height:700px;transform:translate(-50%,-50%);opacity:0.2;filter:blur(160px);"></div>
         <div class="max-w-4xl mx-auto text-center relative z-10">
-            <div class="reveal mb-7"><span class="trust-badge">Private Beta · Open-Source Roadmap</span></div>
+            <div class="reveal mb-7"><span class="trust-badge">Ecosystem Status · Open-Source Roadmap</span></div>
             <h2 class="reveal font-headline font-extrabold tracking-tighter leading-[0.82] mb-8 text-luminous"
                 style="font-size:clamp(2.5rem,7vw,9rem);">
                 FOLLOW<br/>PROJECT<br/><span class="text-gold">TIDEMARK.</span>
             </h2>
             <p class="reveal text-base md:text-xl font-light leading-relaxed mb-5 max-w-2xl mx-auto" style="color:var(--ivory-30);">
-                We are currently in limited, private deployment across British Columbia, Canada while the codebase is prepared for a staged open-source release.
+                I am currently preparing for a staged open-source release of the Tidemark ecosystem.
             </p>
             <p class="reveal text-sm font-light leading-relaxed mb-12 max-w-xl mx-auto" style="color:var(--ivory-30);">
-                Join the project list if you are an operator, builder, or future contributor who wants to follow the incident-reporting app, the source release, and the eventual Shift move under Project Tidemark.
+                Join the project list if you are an operator, builder, or future contributor who wants to follow the growth of the operational tree.
             </p>
             <div id="waitlist-area" class="reveal">
                 <form id="waitlist-form" onsubmit="event.preventDefault(); handleWaitlist();" class="flex flex-col sm:flex-row gap-4 justify-center max-w-2xl mx-auto mb-8">
@@ -1085,7 +481,6 @@
                     </button>
                 </div>
             </div>
-            <p class="reveal mt-7 text-[8px] uppercase tracking-[0.4em]" style="color:var(--ivory-30);">No credit card. No commitment. Product access, source updates, and contributor interest in one place.</p>
         </div>
     </section>
 
@@ -1100,9 +495,8 @@
                 <span class="text-[8px] uppercase tracking-[0.4em]" style="color:var(--ivory-30);">© 2026 · Project Tidemark</span>
             </div>
             <div class="flex gap-8">
-                <a href="#project" class="text-[8px] font-black uppercase tracking-[0.4em] transition-colors" style="color:var(--ivory-30);" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='var(--ivory-30)'">Project</a>
-                <a href="#security" class="text-[8px] font-black uppercase tracking-[0.4em] transition-colors" style="color:var(--ivory-30);" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='var(--ivory-30)'">Security</a>
-                <a href="#changelog" class="text-[8px] font-black uppercase tracking-[0.4em] transition-colors" style="color:var(--ivory-30);" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='var(--ivory-30)'">History</a>
+                <a href="#project" class="text-[8px] font-black uppercase tracking-[0.4em] transition-colors" style="color:var(--ivory-30); text-decoration: none;" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='var(--ivory-30)'">Branches</a>
+                <a href="changelog.html" class="text-[8px] font-black uppercase tracking-[0.4em] transition-colors" style="color:var(--ivory-30); text-decoration: none;" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='var(--ivory-30)'">History</a>
             </div>
         </div>
     </footer>
@@ -1122,12 +516,10 @@
         const submitBtn = document.querySelector('#waitlist-form button');
         if (!email) return;
 
-        // Visual feedback
         submitBtn.disabled = true;
         submitBtn.textContent = 'Joining...';
         
         try {
-            // Formspree Integration (replace 'YOUR_FORMSPREE_ID' with your actual Formspree ID)
             const response = await fetch('https://formspree.io/f/xlgadqyd', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -1190,15 +582,6 @@
         });
     }
 
-    // Playbook icon hover
-    document.querySelectorAll('.bento-card').forEach(card => {
-        const icon = card.querySelector('.playbook-icon');
-        if (icon) {
-            card.addEventListener('mouseenter', () => icon.style.color = 'var(--gold)');
-            card.addEventListener('mouseleave', () => icon.style.color = 'var(--ivory-15)');
-        }
-    });
-
     // Magnetic hover (desktop only)
     if (!prefersReduced && window.matchMedia('(hover:hover)').matches) {
         document.querySelectorAll('.bento-card').forEach(card => {
@@ -1211,183 +594,6 @@
             card.addEventListener('mouseleave', () => card.style.transform = '');
         });
     }
-
-    // Confidence bar
-    const confBar = document.getElementById('confidence-bar');
-    if (confBar) {
-        ScrollTrigger.create({ trigger: confBar, start: 'top 85%', onEnter: () => { confBar.style.width = '50%'; } });
-    }
-
-    // SHA-256 typewriter
-    const hashEl = document.getElementById('hash-display');
-    const fakeHash = '3a7f9b2c · 4e1d8f6a · 0b5c9d2e · 7f3a1b4c · 8e0d5f2a · 9b6c3d7e · 1f4a8b2c';
-    let hashDone = false;
-    if (hashEl) {
-        ScrollTrigger.create({ trigger: hashEl, start: 'top 85%', onEnter: () => {
-            if (hashDone) return; hashDone = true;
-            hashEl.classList.add('cursor-blink');
-            let i = 0; hashEl.textContent = '';
-            const iv = setInterval(() => {
-                hashEl.textContent += fakeHash[i++];
-                if (i >= fakeHash.length) { clearInterval(iv); hashEl.classList.remove('cursor-blink'); }
-            }, 22);
-        }});
-    }
-
-    // PII Tokenization animation
-    const tDefs = [
-        { raw: 't-name1', tok: 't-tok1', name: 'Margaret Holloway' },
-        { raw: 't-room',  tok: 't-tok2', name: '318'               },
-        { raw: 't-name2', tok: 't-tok3', name: 'David Okafor'      },
-    ];
-    let demoLock = false;
-
-    function runTokenDemo() {
-        if (demoLock) return;
-        demoLock = true;
-        const statusEl = document.getElementById('token-status');
-
-        tDefs.forEach(t => {
-            const r = document.getElementById(t.raw);
-            if (r) { r.textContent = t.name; r.style.cssText = 'color:var(--ivory);border-bottom:1px solid rgba(245,240,232,0.2);background:none;padding:0;font-size:inherit;letter-spacing:inherit;border-radius:0;'; }
-        });
-        
-        if (statusEl) { statusEl.textContent = 'Tokenized on device'; statusEl.style.color = 'var(--gold)'; }
-
-        // Phase 1: highlight & Statistical Check
-        setTimeout(() => {
-            if (statusEl) { statusEl.textContent = '1. Statistical Check...'; statusEl.style.color = 'var(--amber)'; }
-            tDefs.forEach((t) => {
-                const r = document.getElementById(t.raw);
-                if (r) { r.style.background = 'rgba(200,169,110,0.25)'; r.style.color = 'var(--obsidian)'; r.style.padding = '1px 5px'; r.style.borderRadius = '3px'; r.style.borderBottom = 'none'; }
-            });
-        }, 700);
-
-        // Phase 1.5: Structural Parse
-        setTimeout(() => {
-            if (statusEl) { statusEl.textContent = '2. Structural Parse...'; }
-        }, 1200);
-
-        // Phase 1.8: Neural Verification
-        setTimeout(() => {
-            if (statusEl) { statusEl.textContent = '3. Neural Verification...'; }
-        }, 1700);
-
-        // Phase 2: replace with dots & flash tokens
-        setTimeout(() => {
-            if (statusEl) { statusEl.textContent = 'Tokenized on device'; statusEl.style.color = 'var(--gold)'; }
-            tDefs.forEach((t) => {
-                const r = document.getElementById(t.raw);
-                const tk = document.getElementById(t.tok);
-                if (r) { r.textContent = '● ● ●'; r.style.color = 'var(--gold)'; r.style.background = 'var(--gold-subtle)'; r.style.fontSize = '0.55em'; r.style.letterSpacing = '0.2em'; r.style.padding = '2px 7px'; }
-                if (tk) { tk.classList.add('token-highlight'); setTimeout(() => tk.classList.remove('token-highlight'), 600); }
-            });
-        }, 2200);
-
-        // Reset
-        setTimeout(() => { demoLock = false; }, 5800);
-    }
-
-    ScrollTrigger.create({ trigger: '#demo', start: 'top 70%', once: true, onEnter: () => {
-        runTokenDemo();
-        setInterval(runTokenDemo, 6500);
-    }});
-
-    // Extraction Pipeline
-    const passes = [
-        { label: 'Scanning narrative for clues…',   pct: 6  },
-        { label: 'Extracting date & time…',         pct: 16 },
-        { label: 'Identifying location…',           pct: 26 },
-        { label: 'Identifying personnel…',          pct: 38 },
-        { label: 'Assessing severity…',             pct: 49 },
-        { label: 'Checking emergency services…',    pct: 59 },
-        { label: 'Extracting actions taken…',       pct: 69 },
-        { label: 'Analysing cause & outcome…',      pct: 79 },
-        { label: 'Checking documentation…',         pct: 89 },
-        { label: 'Final pass for unresolved…',      pct: 93 },
-        { label: 'Merging extracted fields…',       pct: 96 },
-        { label: 'Extraction complete',             pct: 100 },
-    ];
-
-    const ppc = document.getElementById('pipeline-passes');
-    const ppb = document.getElementById('pipeline-bar');
-    const ppt = document.getElementById('pipeline-pct');
-    const ppo = document.getElementById('pipeline-output');
-
-    if (ppc) {
-        passes.forEach((p, i) => {
-            const row = document.createElement('div');
-            row.className = 'pipeline-line'; row.id = `pp-${i}`;
-            row.innerHTML = `<span class="material-symbols-outlined" id="pi-${i}" style="font-size:14px;color:var(--ivory-30);flex-shrink:0;">radio_button_unchecked</span><span class="flex-1 font-mono" style="font-size:9px;color:var(--ivory-30);">${p.label}</span><span style="font-size:8px;font-family:monospace;color:var(--ivory-30);">${p.pct}%</span>`;
-            ppc.appendChild(row);
-        });
-    }
-
-    let pipeLock = false;
-    function runPipeline() {
-        if (pipeLock) return; pipeLock = true;
-        let cur = 0;
-        if (ppb) ppb.style.width = '0%';
-        if (ppt) ppt.textContent = '0%';
-        if (ppo) { ppo.style.opacity = '0'; ppo.style.pointerEvents = 'none'; }
-        passes.forEach((_, i) => {
-            const row = document.getElementById(`pp-${i}`);
-            const ico = document.getElementById(`pi-${i}`);
-            if (row) row.classList.remove('done','active');
-            if (ico) { ico.textContent = 'radio_button_unchecked'; ico.style.color = 'var(--ivory-30)'; }
-        });
-
-        function step() {
-            if (cur >= passes.length) {
-                if (ppo) { ppo.style.opacity = '1'; ppo.style.pointerEvents = 'auto'; }
-                setTimeout(() => { pipeLock = false; setTimeout(runPipeline, 2000); }, 3500);
-                return;
-            }
-            const row = document.getElementById(`pp-${cur}`);
-            const ico = document.getElementById(`pi-${cur}`);
-            if (row) row.classList.add('active');
-            if (ico) { ico.textContent = 'pending'; ico.style.color = 'var(--gold)'; }
-            if (ppt) ppt.textContent = passes[cur].pct + '%';
-            setTimeout(() => {
-                if (row) { row.classList.remove('active'); row.classList.add('done'); }
-                if (ico) { ico.textContent = 'check_circle'; ico.style.color = cur === passes.length-1 ? 'var(--green)' : 'var(--gold)'; }
-                if (ppb) ppb.style.width = passes[cur].pct + '%';
-                
-                // Auto-scroll to latest pass
-                if (ppc) ppc.scrollTo({ top: ppc.scrollHeight, behavior: 'smooth' });
-
-                cur++;
-                setTimeout(step, cur < passes.length - 2 ? 360 : 220);
-            }, cur === 0 ? 550 : 320);
-        }
-        step();
-    }
-
-    ScrollTrigger.create({ trigger: '#demo', start: 'top 70%', once: true, onEnter: runPipeline });
-
-    // Count-up stats
-    document.querySelectorAll('[data-count-target]').forEach(el => {
-        const target = parseFloat(el.getAttribute('data-count-target'));
-        const prefix = el.getAttribute('data-count-prefix') || '';
-        const suffix = el.getAttribute('data-count-suffix') || '';
-        const decimal = el.getAttribute('data-count-decimal') || '';
-        
-        const obj = { val: 0 };
-        ScrollTrigger.create({
-            trigger: el,
-            start: 'top 90%',
-            onEnter: () => {
-                gsap.to(obj, {
-                    val: target,
-                    duration: 2,
-                    ease: 'power2.out',
-                    onUpdate: () => {
-                        el.innerHTML = `${prefix}${decimal}${Math.floor(obj.val)}${suffix}`;
-                    }
-                });
-            }
-        });
-    });
     </script>
 </body>
 </html>
