@@ -857,6 +857,73 @@ nav {
   line-height: 1.5;
   margin-top: 18px;
 }
+.builder {
+  padding: 18vh 6vw;
+}
+.builderCard {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 55px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8vw;
+  align-items: center;
+}
+.builder h2 {
+  font-size: clamp(42px, 5vw, 72px);
+  font-weight: 400;
+  letter-spacing: -0.06em;
+  line-height: 0.95;
+  margin: 26px 0 0;
+}
+.builderNote > p {
+  color: #9aadaa;
+  font-size: 14px;
+  line-height: 1.75;
+  margin: 0 0 32px;
+}
+.builderIdentity {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 22px 0;
+  border-top: 1px solid var(--line);
+}
+.builderIdentity > span {
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  border: 1px solid #42756c;
+  border-radius: 50%;
+  color: var(--teal);
+  font: 9px var(--font-geist-mono);
+}
+.builderIdentity b,
+.builderIdentity small {
+  display: block;
+}
+.builderIdentity b {
+  font-size: 12px;
+  font-weight: 400;
+  margin-bottom: 6px;
+}
+.builderIdentity small {
+  color: #667d79;
+  font: 8px var(--font-geist-mono);
+  letter-spacing: 0.05em;
+}
+.builderNote > a {
+  display: inline-flex;
+  gap: 22px;
+  padding: 11px 15px;
+  border: 1px solid #3b514e;
+  border-radius: 99px;
+  font-size: 9px;
+}
+.builderNote > a span {
+  color: var(--teal);
+}
 .final {
   min-height: 100vh;
   display: flex;
@@ -886,6 +953,72 @@ nav {
 }
 .final p {
   margin-bottom: 32px;
+  max-width: 620px;
+  color: #8ca09d;
+  line-height: 1.65;
+}
+.accessForm {
+  width: min(780px, calc(100vw - 40px));
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  text-align: left;
+  position: relative;
+  z-index: 2;
+}
+.accessForm label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.accessForm label > span {
+  padding-left: 3px;
+  color: #728683;
+  font: 8px var(--font-geist-mono);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.accessForm input,
+.accessForm select,
+.accessForm textarea {
+  width: 100%;
+  border: 1px solid #304743;
+  border-radius: 9px;
+  background: rgba(10, 26, 36, 0.9);
+  color: #e8eeec;
+  padding: 14px;
+  outline: none;
+  font: 11px Arial, sans-serif;
+}
+.accessForm input:focus,
+.accessForm select:focus,
+.accessForm textarea:focus {
+  border-color: var(--teal);
+  box-shadow: 0 0 24px rgba(73, 236, 208, 0.08);
+}
+.accessForm .wide {
+  grid-column: 1 / -1;
+}
+.accessForm button {
+  grid-column: 1 / -1;
+  justify-self: center;
+  border: 0;
+  border-radius: 99px;
+  background: var(--ink);
+  color: #06100f;
+  padding: 15px 20px;
+  font-size: 11px;
+  cursor: pointer;
+}
+.accessForm button span {
+  margin-left: 24px;
+  color: #0c6c5e;
+}
+.formNote {
+  margin-top: 18px;
+  color: #5f7571;
+  font: 8px var(--font-geist-mono);
+  letter-spacing: 0.08em;
 }
 footer {
   border-top: 1px solid var(--line);
@@ -895,6 +1028,9 @@ footer {
   color: #617673;
   font-size: 10px;
   align-items: center;
+}
+footer > a {
+  color: #8aa09c;
 }
 @media (max-width: 760px) {
   nav {
@@ -1128,6 +1264,24 @@ footer {
   }
   .final {
     padding: 80px 22px;
+  }
+  .builder {
+    padding: 12vh 14px;
+  }
+  .builderCard {
+    grid-template-columns: 1fr;
+    padding: 28px;
+    gap: 55px;
+  }
+  .builder h2 {
+    font-size: 45px;
+  }
+  .accessForm {
+    grid-template-columns: 1fr;
+  }
+  .accessForm .wide,
+  .accessForm button {
+    grid-column: 1;
   }
   .final .halo {
     width: 360px;

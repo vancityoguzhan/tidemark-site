@@ -21,7 +21,7 @@ const incidentSamples = [
 
 export default function Experience() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const [progress, setProgress] = useState(0);
+  const [tidemarkOpacity, setTidemarkOpacity] = useState(.24);
   const [day, setDay] = useState(3);
   const [vacation, setVacation] = useState(false);
   const [incidentSample, setIncidentSample] = useState(0);
@@ -30,8 +30,11 @@ export default function Experience() {
 
   useEffect(() => {
     const update = () => {
-      const max = document.documentElement.scrollHeight - innerHeight;
-      setProgress(max ? scrollY / max : 0);
+      const core = document.querySelector<HTMLElement>(".systemCore");
+      if (!core) return;
+      const rect = core.getBoundingClientRect();
+      const reveal = Math.max(0, Math.min(1, (innerHeight * .88 - rect.top) / (innerHeight * .5)));
+      setTidemarkOpacity(.24 + reveal * .76);
     };
     update(); addEventListener("scroll", update, { passive: true });
     return () => removeEventListener("scroll", update);
@@ -88,7 +91,7 @@ export default function Experience() {
 
   return <main>
     <canvas ref={canvasRef} className="particleField" aria-hidden="true"/><div className="grain" aria-hidden="true"/>
-    <nav><a className="brand" href="#top" aria-label="Project TideMark home"><Mark/><span>Project TideMark</span></a><div className="navLinks"><a href="#ecosystem">Ecosystem</a><a href="#shift">Shift</a><a href="#incident">Incident</a><a className="navCta" href="#contact">Book a demo <span>↗</span></a></div></nav>
+    <nav><a className="brand" href="#top" aria-label="Project TideMark home"><Mark/><span>Project TideMark</span></a><div className="navLinks"><a href="#ecosystem">Ecosystem</a><a href="#shift">Shift</a><a href="#incident">Incident</a><a className="navCta" href="#contact">Request access <span>↗</span></a></div></nav>
 
     <section id="top" className="hero chapter">
       <div className="eyebrow"><span/> Project TideMark · Hotel operations intelligence</div>
@@ -104,7 +107,7 @@ export default function Experience() {
       <div className="signalLabels" aria-hidden="true"><span style={{left:"9%",top:"22%"}}>OCCUPANCY · 94%</span><span style={{right:"8%",top:"30%"}}>TIME OFF · REVIEW</span><span style={{left:"18%",bottom:"23%"}}>OVERNIGHT · COVERAGE</span><span style={{right:"14%",bottom:"18%"}}>INCIDENT · OPEN</span><span style={{left:"46%",top:"13%"}}>GROUP PICKUP</span></div>
     </section>
 
-    <section className="converge chapter"><div className="systemCore" style={{opacity:Math.min(1,Math.max(0,(progress-.10)*8))}}><span className="index">WHAT THE TIDE LEAVES BEHIND</span><Mark large/><span>PROJECT TIDEMARK</span><h2>Signals recede.<br/>Operational intelligence remains.</h2><p className="tideDefinition">A tidemark is the lasting evidence of everything the operation carried in.</p><div className="coreSteps"><span>Observe</span><i/> <span>Understand</span><i/> <span>Decide</span><i/> <span>Remember</span></div></div></section>
+    <section className="converge chapter"><div className="systemCore" style={{opacity:tidemarkOpacity}}><span className="index">WHAT THE TIDE LEAVES BEHIND</span><Mark large/><span>PROJECT TIDEMARK</span><h2>Signals recede.<br/>Operational intelligence remains.</h2><p className="tideDefinition">A tidemark is the lasting evidence of everything the operation carried in.</p><div className="coreSteps"><span>Observe</span><i/> <span>Understand</span><i/> <span>Decide</span><i/> <span>Remember</span></div></div></section>
 
     <section className="branch chapter"><div className="branchIntro"><span className="index">02 / THE ECOSYSTEM</span><h2>One tidemark.<br/>Two operating branches.</h2><p>Project TideMark turns shared hotel intelligence into focused products. Each solves a distinct operational workflow; both leave the hotel with clearer decisions and stronger memory.</p></div><div className="productBranches"><a href="#shift" className="branchCard active"><span>01</span><b>Shift</b><p>Turn demand, requirements, employee commitments, and rules into a coverage-ready weekly roster.</p><em>STAFFING DECISIONS ↘</em></a><a href="#incident" className="branchCard incident"><span>02</span><b>Incident</b><p>Turn frontline events into clear ownership, response, resolution, and evidence.</p><em>OPERATIONAL RESPONSE ↘</em></a></div></section>
 
@@ -150,7 +153,9 @@ export default function Experience() {
 
     <section className="outcomes chapter"><span className="index">THE OPERATING MODEL</span><h2>Observe the hotel.<br/><em>Decide with context.</em></h2><div className="outcomeGrid state"><div><strong>Know</strong><small>what is covered<br/>and what remains exposed</small></div><div><strong>Understand</strong><small>why the system<br/>made each recommendation</small></div><div><strong>Control</strong><small>what changes,<br/>what stays, and what publishes</small></div></div></section>
 
-    <section id="contact" className="final chapter"><div className="halo"/><Mark large/><span className="index">PROJECT TIDEMARK</span><h2>Understand what<br/>the operation leaves behind.</h2><p>Begin with Shift. Connect operational response through Incident.</p><a className="primary" href="mailto:hello@tidemark.ai?subject=Project%20TideMark%20demo">Book a private walkthrough <span>↗</span></a></section>
-    <footer><div className="brand"><Mark/><span>Project TideMark</span></div><span>Intelligence for the operating hotel.</span><span>© 2026 Project TideMark</span></footer>
+    <section className="builder chapter"><div className="builderCard glass"><div><span className="index">FROM THE BUILDER</span><h2>Built inside hospitality.<br/>Opening for others.</h2></div><div className="builderNote"><p>I am preparing Project TideMark for an open-source release so hotel operators and builders can inspect it, adapt it, and improve it. Request early access and I will help you get the project set up.</p><div className="builderIdentity"><span>OG</span><div><b>Oguzhan Gur</b><small>Hospitality professional · Founder, Project TideMark · British Columbia</small></div></div><a href="https://www.linkedin.com/in/oguzhangur" target="_blank" rel="noreferrer">Connect on LinkedIn <span>↗</span></a></div></div></section>
+
+    <section id="contact" className="final chapter"><div className="halo"/><Mark large/><span className="index">OPEN-SOURCE EARLY ACCESS</span><h2>Run it yourself.<br/>I will help you start.</h2><p>Request access to Project TideMark and tell me how you plan to use it. I will follow up with the project status and setup guidance.</p><form className="accessForm" action="https://formspree.io/f/xlgadqyd" method="POST"><input type="hidden" name="_subject" value="Project TideMark early access request"/><label><span>Your name</span><input name="name" autoComplete="name" required placeholder="Name"/></label><label><span>Work email</span><input type="email" name="email" autoComplete="email" required placeholder="you@hotel.com"/></label><label><span>I am interested as</span><select name="interest" defaultValue="Hotel operator"><option>Hotel operator</option><option>Independent hotel</option><option>Hospitality builder</option><option>Open-source contributor</option><option>Other</option></select></label><label className="wide"><span>What would you like to set up?</span><textarea name="setup_goal" rows={3} placeholder="Tell me about your property, team, or intended use."/></label><button type="submit">Request early access <span>↗</span></button></form><small className="formNote">Open-source release in preparation · Personal setup support from Oguzhan</small></section>
+    <footer><div className="brand"><Mark/><span>Project TideMark</span></div><span>Built by Oguzhan Gur in British Columbia.</span><a href="https://www.linkedin.com/in/oguzhangur" target="_blank" rel="noreferrer">LinkedIn ↗</a></footer>
   </main>;
 }
