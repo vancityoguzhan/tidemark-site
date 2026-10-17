@@ -25,7 +25,7 @@ const shiftScreenshots = [
     highlights: [
       "7-day Hotel Activity strip with arrivals, departures, occupancy %, and pressure badges",
       "Day status filters for Off, Requested Off, Vacation, Lieu, Extra Day Off, and Sick",
-      "Compare options, Preview Changes, Plan Training, and 1–4 week build controls",
+      "Compare options, Preview Changes, Plan Training, and 1 to 4 week build controls",
     ],
   },
   {
@@ -34,13 +34,13 @@ const shiftScreenshots = [
     badge: "SCHEDULE · TEAM ASSIGNMENTS",
     title: "Role-qualified assignments with kept shifts and turnaround rest verified",
     caption:
-      "Every cell shows the shift window, assigned role badge (DOO, FOM, AFO, DM, Concierge, FD/CC, Bell, Night Audit), and rest compliance—using fictional demo team members.",
+      "Every cell shows the shift window, assigned role badge (DOO, FOM, AFO, DM, Concierge, FD/CC, Bell, Night Audit), and rest compliance, using fictional demo team members.",
     src: "/screenshots/shift-roster-grid.png",
     alt: "TideMark Shift weekly schedule grid showing fictional demo team members and colour-coded shift pills",
     highlights: [
       "Clear role key across Management, Front Desk / Command Centre, Bell, and Night Audit",
       "Keep assignment or Keep day off on any cell before rebuilding the week",
-      " Enforces BC labour rules: 32-hour consecutive rest and no Graveyard-to-Morning clopens",
+      "Enforces BC labour rules: 32-hour consecutive rest and no Graveyard-to-Morning clopens",
     ],
   },
   {
@@ -53,7 +53,7 @@ const shiftScreenshots = [
     src: "/screenshots/shift-staffing-needs.png",
     alt: "TideMark Shift Staffing Needs and Staffing Rules tab showing approved hotel-activity rules",
     highlights: [
-      "High Demand – Front Desk MID when arrivals + departures exceed 150",
+      "High Demand: Front Desk MID when arrivals + departures exceed 150",
       "MID FD/CC Evening Support Bridge and Manager Gap Bridge rules",
       "Draft new rules in plain language or toggle between baseline and adjusted staffing needs",
     ],
@@ -108,7 +108,7 @@ const weekDemand = [
     occ: 71,
     barHeight: 50,
     signal: "95 arrivals · 100 departures · Pressure 63%",
-    context: "Lightest turnover day of the week; Maya Patel on approved vacation (Mon–Tue).",
+    context: "Lightest turnover day of the week; Maya Patel on approved vacation (Mon to Tue).",
     tactic: "Base staffing guide · Manager Gap Bridge active",
     rationale: "Standard 2 AM / 2 PM Front Desk coverage; full administrative leadership on AM.",
     coverage: "All core shifts covered · Vacation honoured",
@@ -121,7 +121,7 @@ const weekDemand = [
     signal: "110 arrivals · 90 departures · Pressure 66%",
     context: "Midweek corporate build begins; Concierge (Elena Kowalski) returns from 2-day break.",
     tactic: "Add 1 MID Front Desk / Command Centre shift",
-    rationale: "Combined movement (200) exceeds 150 threshold; MID shift bridges 11:00–19:00 window.",
+    rationale: "Combined movement (200) exceeds 150 threshold; MID shift bridges 11:00 to 19:00 window.",
     coverage: "All core shifts covered · 32h rest verified",
   },
   {
@@ -131,7 +131,7 @@ const weekDemand = [
     barHeight: 68,
     signal: "140 arrivals · 130 departures · Pressure 86%",
     context: "High midweek check-in and check-out overlap across afternoon arrival wave.",
-    tactic: "High Demand – Front Desk MID + Bell MID active",
+    tactic: "High Demand: Front Desk MID + Bell MID active",
     rationale: "Arrivals + departures (270) exceed both 150 FD and 170 Bell MID thresholds.",
     coverage: "All core shifts covered · 2 MID shifts added",
   },
@@ -142,7 +142,7 @@ const weekDemand = [
     barHeight: 64,
     signal: "105 arrivals · 145 departures · Pressure 77%",
     context: "Heavy morning check-out curve; Oliver Wong on approved preferred day off.",
-    tactic: "Peak Departures → Bell MID-10 (10:00–18:30)",
+    tactic: "Peak Departures → Bell MID-10 (10:00 to 18:30)",
     rationale: "145 departures trigger departure-heavy Bell MID-10 rule for luggage & valet load.",
     coverage: "All core shifts covered · Preferred day off honoured",
   },
@@ -164,7 +164,7 @@ const weekDemand = [
     barHeight: 78,
     signal: "145 arrivals · 165 departures · Pressure 89% (Peak)",
     context: "Peak weekly turnover (310 total movements); weekend leadership covered by Duty Managers.",
-    tactic: "High Demand – Front Desk MID + Bell MID + Peak Departures",
+    tactic: "High Demand: Front Desk MID + Bell MID + Peak Departures",
     rationale: "Maximum hotel activity day; admin roles off while operational desk & bell are fully staffed.",
     coverage: "All core shifts covered · Ready to publish",
   },
@@ -208,7 +208,7 @@ const incidentSamples = [
     time: "21:40",
     accounts: {
       note: "Guest Jane Smith in Room 814 slipped near the pool entrance at 21:40. Security Officer Patel attended and took three photos of the tile. She declined an ambulance and returned to her room.",
-      voice: "“Hey, logging a slip by the indoor pool door around 9:40 PM—Jane Smith from 814. Floor had some standing water by the towel bin. Patel came down, snapped photos, she said she didn’t want EMS.”",
+      voice: "“Hey, logging a slip by the indoor pool door around 9:40 PM for Jane Smith from 814. Floor had some standing water by the towel bin. Patel came down, snapped photos, she said she didn’t want EMS.”",
       handoff: "PM → GY Handoff: Rm 814 (J. Smith) slipped at pool entry 21:40. Security on scene, photos saved. Refused medical. Engineering notified to check mat/drain.",
     },
     response: "Security attended · 3 scene photos captured",
@@ -267,7 +267,7 @@ const incidentSamples = [
     accounts: {
       note: "Service elevator #2 stopped between floors 3 and 4 at 14:12 with Room Attendant Elena Kowalski inside. Chief Engineer Miller reset the car by 14:29; Elena declined medical evaluation.",
       voice: "“Service car 2 faulted between 3 and 4 at 2:12 PM with Elena from housekeeping inside. Intercom stayed live. Miller got the doors open at 2:29 PM. She’s okay, declined medical.”",
-      handoff: "14:12 Service Elevator #2 entrapment (17 mins) — Team member E. Kowalski. Released 14:29 by Engineering. Car locked out pending Otis technician inspection.",
+      handoff: "14:12 Service Elevator #2 entrapment (17 mins), Team member E. Kowalski. Released 14:29 by Engineering. Car locked out pending Otis technician inspection.",
     },
     response: "Intercom maintained · Released in 17m · Car locked out",
     peopleClarification: "Elena Kowalski (Team Member) · D. Miller (Chief Engineer)",
@@ -419,7 +419,7 @@ export default function Experience() {
             </div>
             <b>TideMark Incident</b>
             <p>
-              Guides managers from a quick voice or text account to a complete, defensible incident report—stripping guest names and room numbers locally on-device before any AI processing.
+              Guides managers from a quick voice or text account to a complete, defensible incident report while stripping guest names and room numbers locally on-device before any AI processing.
             </p>
             <ul className="branchList">
               <li>Prompts incident-specific follow-up questions while facts are fresh</li>
@@ -505,7 +505,7 @@ export default function Experience() {
             <span className="failureIndex">CAPABILITY 01 · SCHEDULE DECISION WORKSPACE</span>
             <b>Compare 3 verified schedule options side-by-side</b>
             <p>
-              Generate three distinct options from the same locked inputs—<strong>Protect preferences</strong>, <strong>Strong consecutive breaks</strong>, and <strong>Minimize disruption</strong>—or ask a deterministic alternative check whether a specific team member can get consecutive days off without weakening coverage.
+              Generate three distinct options from the same locked inputs (<strong>Protect preferences</strong>, <strong>Strong consecutive breaks</strong>, and <strong>Minimize disruption</strong>) or run a deterministic alternative check to see whether a specific team member can get consecutive days off without weakening coverage.
             </p>
           </div>
           <div className="failureCard shiftCapCard">
@@ -530,7 +530,7 @@ export default function Experience() {
             <div>
               <Mark /> TideMark <b>Shift</b>
             </div>
-            <span>Week of Oct 11 – Oct 17 · Front Desk</span>
+            <span>Week of Oct 11 to Oct 17 · Front Desk</span>
             <em>INTERACTIVE HOTEL ACTIVITY INSPECTOR</em>
           </div>
 
@@ -586,7 +586,7 @@ export default function Experience() {
         <div className="decisionStack">
           <div className="stackCopy">
             <span className="index">BC LABOUR & HOSPITALITY GUARDRAILS</span>
-            <h3>Every protection checked in sequence—no black-box scrambling</h3>
+            <h3>Every protection checked in sequence, with no black-box scrambling</h3>
             <p>
               Auto-schedulers fail in hotels when they randomly shuffle steady shifts to close a single coverage gap. Shift enforces hard rest and qualification boundaries first, honours kept assignments, and shows every tradeoff in the Week Review drawer before you publish.
             </p>
@@ -1063,7 +1063,7 @@ export default function Experience() {
           </div>
           <div className="builderNote">
             <p>
-              I work in hotel operations in British Columbia. I built Project TideMark because the tools we actually needed on shift—a scheduler that understands hotel arrival peaks, BC turnaround rest, and leave planning, and an incident reporter that guides team members without leaking guest PII—didn’t exist.
+              I work in hotel operations in British Columbia. I built Project TideMark because the tools we actually needed on shift did not exist: a scheduler that understands hotel arrival peaks, BC turnaround rest, and leave planning, alongside an incident reporter that guides team members without leaking guest PII.
             </p>
             <p>
               I am preparing Project TideMark for an open-source release so independent hotels, GMs, and hospitality builders can inspect the architecture and run it directly on their own properties.
