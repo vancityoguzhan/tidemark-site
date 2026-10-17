@@ -12,114 +12,192 @@ function Mark({ large = false }: { large?: boolean }) {
   );
 }
 
+const shiftScreenshots = [
+  {
+    id: "overview",
+    tab: "01 · Week at a glance & forecast",
+    badge: "SCHEDULE · HOTEL ACTIVITY",
+    title: "Daily arrivals, departures, and occupancy drive the week’s coverage",
+    caption:
+      "The top command band pairs the weekly Shift Brief (coverage gaps, tradeoffs, pending requests, and peak pressure day) with the 7-day Hotel Activity forecast strip and one-click schedule actions.",
+    src: "/screenshots/shift-schedule-overview.png",
+    alt: "TideMark Shift schedule overview showing Week at a glance, 7-day Hotel Activity forecast, and schedule controls",
+    highlights: [
+      "7-day Hotel Activity strip with arrivals, departures, occupancy %, and pressure badges",
+      "Day status filters for Off, Requested Off, Vacation, Lieu, Extra Day Off, and Sick",
+      "Compare options, Preview Changes, Plan Training, and 1–4 week build controls",
+    ],
+  },
+  {
+    id: "grid",
+    tab: "02 · Weekly schedule grid",
+    badge: "SCHEDULE · TEAM ASSIGNMENTS",
+    title: "Role-qualified assignments with kept shifts and turnaround rest verified",
+    caption:
+      "Every cell shows the shift window, assigned role badge (DOO, FOM, AFO, DM, Concierge, FD/CC, Bell, Night Audit), and rest compliance—using fictional demo team members.",
+    src: "/screenshots/shift-roster-grid.png",
+    alt: "TideMark Shift weekly schedule grid showing fictional demo team members and colour-coded shift pills",
+    highlights: [
+      "Clear role key across Management, Front Desk / Command Centre, Bell, and Night Audit",
+      "Keep assignment or Keep day off on any cell before rebuilding the week",
+      " Enforces BC labour rules: 32-hour consecutive rest and no Graveyard-to-Morning clopens",
+    ],
+  },
+  {
+    id: "rules",
+    tab: "03 · Staffing rules & needs",
+    badge: "STAFFING GUIDE · DYNAMIC RULES",
+    title: "Approved staffing rules adjust shifts automatically when hotel activity spikes",
+    caption:
+      "Instead of editing baseline targets every time occupancy climbs, approved staffing rules add MID desk coverage, trigger peak-departure bell shifts, or bridge duty manager gaps automatically.",
+    src: "/screenshots/shift-staffing-needs.png",
+    alt: "TideMark Shift Staffing Needs and Staffing Rules tab showing approved hotel-activity rules",
+    highlights: [
+      "High Demand – Front Desk MID when arrivals + departures exceed 150",
+      "MID FD/CC Evening Support Bridge and Manager Gap Bridge rules",
+      "Draft new rules in plain language or toggle between baseline and adjusted staffing needs",
+    ],
+  },
+  {
+    id: "leave",
+    tab: "04 · Leave planner",
+    badge: "ROOM TO SAY YES · LEAVE PLANNER",
+    title: "Test proposed vacation and overlapping pending requests before making a promise",
+    caption:
+      "Managers can maintain isolated ongoing planning availability for their team and test up to 12 proposed absences together across an 8-week horizon without changing the live schedule.",
+    src: "/screenshots/shift-leave-planner.png",
+    alt: "TideMark Shift Leave Planner showing isolated planning availability and multi-absence coverage check",
+    highlights: [
+      "Separate Planning Team baseline availability and one-week exceptions",
+      "Tests proposed leave alongside overlapping pending and approved requests",
+      "Distinguishes core guest-facing coverage gaps from sacrificable admin hours",
+    ],
+  },
+  {
+    id: "requests",
+    tab: "05 · Time off & preferences",
+    badge: "REQUESTS · IMPACT PREVIEW",
+    title: "Calendar and stream views for vacation, preferred days off, and shift swaps",
+    caption:
+      "Track pending, approved, and declined requests across the month, scan paper request forms with the camera, or click Check impact to preview coverage before approving.",
+    src: "/screenshots/shift-requests-calendar.png",
+    alt: "TideMark Shift Time Off and Preferences calendar view with pending and approved team requests",
+    highlights: [
+      "Monthly request calendar with Pending, Approved, and Declined status indicators",
+      "One-click Check impact preview before approving or declining a request",
+      "Syncs directly with the employee Team Portal (PIN login & iCal feed) and Scan Form tool",
+    ],
+  },
+];
+
 const weekDemand = [
   {
+    day: "SUN",
+    date: "Oct 11",
+    occ: 62,
+    barHeight: 42,
+    signal: "120 arrivals · 115 departures · Pressure 74%",
+    context: "Steady Sunday turnover; Assistant Front Office Manager and Duty Manager anchor morning desk.",
+    tactic: "Base staffing guide · 2 AM FD/CC · 2 PM FD/CC · 1 Night Audit",
+    rationale: "Arrivals + departures (235) trigger High Demand Front Desk MID support.",
+    coverage: "All core shifts covered · 0 coverage gaps",
+  },
+  {
     day: "MON",
-    date: "Jul 13",
-    occ: 86,
-    barHeight: 46,
-    signal: "148 arrivals · 162 departures",
-    context: "Heavy corporate check-out morning; standard weekday check-in curve after 15:00.",
-    tactic: "3 AM Desk · 2 PM Desk · 1 Night Audit",
-    rationale: "Shift weight toward 07:00–11:00 folio settlement and late check-out coordination.",
-    coverage: "6 shifts scheduled · All roles covered",
+    date: "Oct 12",
+    occ: 71,
+    barHeight: 50,
+    signal: "95 arrivals · 100 departures · Pressure 63%",
+    context: "Lightest turnover day of the week; Maya Patel on approved vacation (Mon–Tue).",
+    tactic: "Base staffing guide · Manager Gap Bridge active",
+    rationale: "Standard 2 AM / 2 PM Front Desk coverage; full administrative leadership on AM.",
+    coverage: "All core shifts covered · Vacation honoured",
   },
   {
     day: "TUE",
-    date: "Jul 14",
-    occ: 89,
+    date: "Oct 13",
+    occ: 78,
     barHeight: 58,
-    signal: "176 arrivals · 94 departures",
-    context: "Midweek corporate stayover build; airline crew block arriving at 16:30.",
-    tactic: "2 AM Desk · 3 PM Desk · 1 Night Audit",
-    rationale: "Pre-key crew rooms on AM shift; add third PM agent for 16:00–19:00 peak.",
-    coverage: "6 shifts scheduled · Crew block pre-assigned",
+    signal: "110 arrivals · 90 departures · Pressure 66%",
+    context: "Midweek corporate build begins; Concierge (Elena Kowalski) returns from 2-day break.",
+    tactic: "Add 1 MID Front Desk / Command Centre shift",
+    rationale: "Combined movement (200) exceeds 150 threshold; MID shift bridges 11:00–19:00 window.",
+    coverage: "All core shifts covered · 32h rest verified",
   },
   {
     day: "WED",
-    date: "Jul 15",
-    occ: 91,
+    date: "Oct 14",
+    occ: 83,
     barHeight: 68,
-    signal: "211 arrivals · 118 departures",
-    context: "Conference pre-reg arrivals starting at noon; high early check-in pressure.",
-    tactic: "3 AM Desk · 3 PM Desk · 1 Night Audit",
-    rationale: "Overlap mid-shift desk coverage with housekeeping room-release queue.",
-    coverage: "7 shifts scheduled · Mid-day overlap active",
+    signal: "140 arrivals · 130 departures · Pressure 86%",
+    context: "High midweek check-in and check-out overlap across afternoon arrival wave.",
+    tactic: "High Demand – Front Desk MID + Bell MID active",
+    rationale: "Arrivals + departures (270) exceed both 150 FD and 170 Bell MID thresholds.",
+    coverage: "All core shifts covered · 2 MID shifts added",
   },
   {
     day: "THU",
-    date: "Jul 16",
-    occ: 94,
-    barHeight: 84,
-    signal: "Group peak · 228 arrivals",
-    context: "Harbour Ballroom conference check-in (140 rooms) between 15:00 and 18:00.",
-    tactic: "Add 1 PM Guest Service Agent (4 PM total)",
-    rationale: "Arrivals exceed 215-room threshold; requires dedicated group desk lane.",
-    coverage: "8 shifts scheduled · Senior lead pinned on PM",
+    date: "Oct 15",
+    occ: 81,
+    barHeight: 64,
+    signal: "105 arrivals · 145 departures · Pressure 77%",
+    context: "Heavy morning check-out curve; Oliver Wong on approved preferred day off.",
+    tactic: "Peak Departures → Bell MID-10 (10:00–18:30)",
+    rationale: "145 departures trigger departure-heavy Bell MID-10 rule for luggage & valet load.",
+    coverage: "All core shifts covered · Preferred day off honoured",
   },
   {
     day: "FRI",
-    date: "Jul 17",
+    date: "Oct 16",
     occ: 92,
-    barHeight: 74,
-    signal: "218 arrivals · 195 departures",
-    context: "Conference turnover into weekend leisure arrivals; high valet & bell volume.",
-    tactic: "3 AM Desk · 4 PM Desk · 1 Night Audit",
-    rationale: "Maintain 4 agents on PM desk for Friday leisure check-in wave.",
-    coverage: "8 shifts scheduled · Turnaround rest verified",
+    barHeight: 84,
+    signal: "160 arrivals · 100 departures · Pressure 79%",
+    context: "Weekend leisure check-in wave; Zoe Marchand on approved extra day off for university exam.",
+    tactic: "MID FD/CC Evening Support Bridge active",
+    rationale: "160 arrivals trigger MID + EVE desk bridge to keep two-person desk coverage through PM.",
+    coverage: "All core shifts covered · Senior lead kept on PM",
   },
   {
     day: "SAT",
-    date: "Jul 18",
+    date: "Oct 17",
     occ: 88,
-    barHeight: 54,
-    signal: "184 arrivals · 82 departures",
-    context: "High stayover occupancy; wedding block guests arriving between 13:00 and 15:00.",
-    tactic: "2 AM Desk · 3 PM Desk · 1 Night Audit",
-    rationale: "Concentrate coverage on early afternoon check-ins and concierge requests.",
-    coverage: "6 shifts scheduled · Weekend rotation balanced",
-  },
-  {
-    day: "SUN",
-    date: "Jul 19",
-    occ: 83,
-    barHeight: 38,
-    signal: "131 arrivals · 214 departures",
-    context: "Weekend departure wave before 11:00; quieter Sunday evening arrival pace.",
-    tactic: "3 AM Desk · 2 PM Desk · 1 Night Audit",
-    rationale: "Extra morning desk coverage for check-outs and billing disputes.",
-    coverage: "6 shifts scheduled · Ready to publish",
+    barHeight: 78,
+    signal: "145 arrivals · 165 departures · Pressure 89% (Peak)",
+    context: "Peak weekly turnover (310 total movements); weekend leadership covered by Duty Managers.",
+    tactic: "High Demand – Front Desk MID + Bell MID + Peak Departures",
+    rationale: "Maximum hotel activity day; admin roles off while operational desk & bell are fully staffed.",
+    coverage: "All core shifts covered · Ready to publish",
   },
 ];
 
 const roster = [
   {
-    name: "Maya Chen",
-    role: " Senior GSA",
-    shifts: ["AM", "AM", "AM", "Off", "PM", "PM", "Off"],
+    name: "Harper Lin",
+    role: "Front Desk / Command Centre",
+    shifts: ["OFF", "OFF", "AM", "PM", "PM", "PM", "AM"],
     pinCol: 2,
-    pinReason: "Pinned: Lead trainer for new hire on Wednesday AM",
+    pinReason: "Kept assignment: Lead trainer paired with trainee on Tuesday AM",
   },
   {
-    name: "Jon Bell",
-    role: "GSA",
-    shifts: ["PM", "PM", "Off", "PM", "PM", "Off", "AM"],
+    name: "Oliver Wong",
+    role: "Front Desk / Command Centre",
+    shifts: ["PM", "PM", "AM", "OFF", "REQ OFF", "AM", "PM"],
     pinCol: -1,
     pinReason: "",
   },
   {
-    name: "Ari Singh",
-    role: "Night Audit",
-    shifts: ["NA", "NA", "NA", "Off", "Off", "NA", "NA"],
+    name: "Maya Patel",
+    role: "Front Desk / Command Centre",
+    shifts: ["AM", "VAC", "VAC", "AM", "AM", "OFF", "OFF"],
+    pinCol: -1,
+    pinReason: "",
+  },
+  {
+    name: "Tariq Hassan",
+    role: "Night Supervisor · Audit",
+    shifts: ["GY", "GY", "GY", "OFF", "OFF", "GY", "GY"],
     pinCol: 5,
-    pinReason: "Pinned: Fixed weekend Night Audit rotation",
-  },
-  {
-    name: "Nora Hall",
-    role: "GSA",
-    shifts: ["AM", "Off", "AM", "AM", "AM", "AM", "Off"],
-    pinCol: -1,
-    pinReason: "",
+    pinReason: "Kept assignment: Anchors Friday & Saturday overnight audit desk",
   },
 ];
 
@@ -131,7 +209,7 @@ const incidentSamples = [
     accounts: {
       note: "Guest Jane Smith in Room 814 slipped near the pool entrance at 21:40. Security Officer Patel attended and took three photos of the tile. She declined an ambulance and returned to her room.",
       voice: "“Hey, logging a slip by the indoor pool door around 9:40 PM—Jane Smith from 814. Floor had some standing water by the towel bin. Patel came down, snapped photos, she said she didn’t want EMS.”",
-      handoff: "PM → NA Handoff: Rm 814 (J. Smith) slipped at pool entry 21:40. Security on scene, photos saved. Refused medical. Engineering notified to check mat/drain.",
+      handoff: "PM → GY Handoff: Rm 814 (J. Smith) slipped at pool entry 21:40. Security on scene, photos saved. Refused medical. Engineering notified to check mat/drain.",
     },
     response: "Security attended · 3 scene photos captured",
     peopleClarification: "Jane Smith (Registered Guest, Rm 814) · Officer Patel (Security)",
@@ -163,7 +241,7 @@ const incidentSamples = [
       handoff: "Rm 614 (M. Vance) reported missing laptop at 18:25. Security pulling Saflok audit log. Guest asking for police non-emergency report number.",
     },
     response: "Security dispatched · Electronic lock audit queued",
-    peopleClarification: "Marcus Vance (Registered Guest, Rm 614) · MOD on duty",
+    peopleClarification: "Marcus Vance (Registered Guest, Rm 614) · Duty Manager on shift",
     question: "Did the door latch properly on exit, and has a police file number been recorded?",
     track: [
       { name: "Missing item description & serial/value", status: "Captured" },
@@ -187,22 +265,22 @@ const incidentSamples = [
     badge: "ENGINEERING · LIFE SAFETY",
     time: "14:12",
     accounts: {
-      note: "Service elevator #2 stopped between floors 3 and 4 at 14:12 with Room Attendant Elena Rostova inside. Chief Engineer Miller reset the car by 14:29; Elena declined medical evaluation.",
+      note: "Service elevator #2 stopped between floors 3 and 4 at 14:12 with Room Attendant Elena Kowalski inside. Chief Engineer Miller reset the car by 14:29; Elena declined medical evaluation.",
       voice: "“Service car 2 faulted between 3 and 4 at 2:12 PM with Elena from housekeeping inside. Intercom stayed live. Miller got the doors open at 2:29 PM. She’s okay, declined medical.”",
-      handoff: "14:12 Service Elevator #2 entrapment (17 mins) — Employee E. Rostova. Released 14:29 by Engineering. Car locked out pending Otis technician inspection.",
+      handoff: "14:12 Service Elevator #2 entrapment (17 mins) — Team member E. Kowalski. Released 14:29 by Engineering. Car locked out pending Otis technician inspection.",
     },
     response: "Intercom maintained · Released in 17m · Car locked out",
-    peopleClarification: "Elena Rostova (Housekeeping) · D. Miller (Chief Engineer)",
+    peopleClarification: "Elena Kowalski (Team Member) · D. Miller (Chief Engineer)",
     question: "Was the elevator locked out of service pending licensed contractor sign-off?",
     track: [
       { name: "Entrapment duration & intercom contact", status: "Captured" },
-      { name: "Employee wellness & medical refusal", status: "Captured" },
+      { name: "Team member wellness & medical refusal", status: "Captured" },
       { name: "Extraction method & witness log", status: "Captured" },
       { name: "Contractor lockout & return-to-service authorization", status: "Follow-up required" },
     ],
     managerView: (
       <>
-        Service elevator stopped at 14:12 with <mark>Elena Rostova</mark> inside. Chief Engineer <mark>Miller</mark> completed release at 14:29.
+        Service elevator stopped at 14:12 with <mark>Elena Kowalski</mark> inside. Chief Engineer <mark>Miller</mark> completed release at 14:29.
       </>
     ),
     redactedView: (
@@ -222,7 +300,8 @@ const archiveRecords = [
 ];
 
 export default function Experience() {
-  const [day, setDay] = useState(3);
+  const [activeShot, setActiveShot] = useState(0);
+  const [day, setDay] = useState(5);
   const [vacation, setVacation] = useState(false);
   const [incidentSample, setIncidentSample] = useState(0);
   const [intakeMode, setIntakeMode] = useState<"note" | "voice" | "handoff">("note");
@@ -231,6 +310,7 @@ export default function Experience() {
   const [archiveQuery, setArchiveQuery] = useState("");
   const [archiveFilter, setArchiveFilter] = useState<"All" | "Safety" | "Security" | "Engineering">("All");
 
+  const currentShot = shiftScreenshots[activeShot];
   const activeDemand = weekDemand[day];
   const activeIncident = incidentSamples[incidentSample];
 
@@ -289,8 +369,8 @@ export default function Experience() {
 
           <div className="heroMetaStrip">
             <div>
-              <strong>01 · TideMark Shift</strong>
-              <span>Demand-driven weekly scheduling with turnaround rest & pinned shifts</span>
+              <strong>01 · TideMark Shift (v5.5)</strong>
+              <span>Hotel-activity scheduling, 3-policy option comparison, and leave planning</span>
             </div>
             <div>
               <strong>02 · TideMark Incident</strong>
@@ -310,24 +390,24 @@ export default function Experience() {
           <span className="index">01 / WHERE OPERATIONS BREAK DOWN</span>
           <h2>Two daily pain points that generic software ignores</h2>
           <p>
-            When a property gets busy, mistakes happen in two places: a schedule that didn’t account for a 220-arrival group peak or an 11 PM incident report written from half-remembered radio calls. TideMark gives operators dedicated tools for each.
+            When a property gets busy, mistakes happen in two places: a weekly schedule that didn’t account for a 160-arrival Friday peak or an 11 PM incident report written from half-remembered radio calls. TideMark gives operators dedicated tools for each.
           </p>
         </div>
 
         <div className="productBranches">
           <a href="#shift" className="branchCard">
             <div className="branchTop">
-              <span className="branchTag">MODULE 01 · STAFFING & ROSTER</span>
-              <span className="branchStatus">Interactive demo below</span>
+              <span className="branchTag">MODULE 01 · SCHEDULE & LEAVE PLANNER</span>
+              <span className="branchStatus">Live screenshots & demo below</span>
             </div>
             <b>TideMark Shift</b>
             <p>
-              Translates daily arrival curves, group blocks, employee availability, and overnight turnaround rules into a weekly desk schedule you can test and adjust before publishing.
+              Turns daily hotel activity (arrivals, departures, occupancy, groups, and cruise ships), staffing rules, and BC labour rest protections into a weekly schedule you can compare and verify before publishing.
             </p>
             <ul className="branchList">
-              <li>Calculates shift headcount from daily arrivals & departures</li>
-              <li>Flags turnaround rest violations and overtime before publishing</li>
-              <li>Previews the exact ripple effect of time-off requests</li>
+              <li>Adjusts daily staffing needs automatically from hotel activity rules</li>
+              <li>Compares 3 schedule options side-by-side (Protect preferences, Strong consecutive breaks, Minimize disruption)</li>
+              <li>Tests proposed vacation and overlapping pending requests in a private Leave Planner</li>
             </ul>
             <em>INSPECT SHIFT WORKFLOW ↓</em>
           </a>
@@ -343,7 +423,7 @@ export default function Experience() {
             </p>
             <ul className="branchList">
               <li>Prompts incident-specific follow-up questions while facts are fresh</li>
-              <li>Tokenizes guest & staff PII in local memory before external AI calls</li>
+              <li>Tokenizes guest & team member PII in local memory before external AI calls</li>
               <li>Audits rewritten narratives against original notes to prevent dropped facts</li>
             </ul>
             <em>INSPECT INCIDENT WORKFLOW ↓</em>
@@ -356,36 +436,109 @@ export default function Experience() {
         <div className="productIntro">
           <div className="productLabelRow">
             <span className="productNumber">01</span>
-            <span className="index">TIDEMARK SHIFT · WEEKLY SCHEDULING ENGINE</span>
+            <span className="index">TIDEMARK SHIFT · HOTEL SCHEDULING & LEAVE PLANNING</span>
           </div>
-          <h2>Build the schedule around real arrival curves and rest rules</h2>
+          <h2>Build the schedule around real hotel activity, rest rules, and team preferences</h2>
           <p>
-            Instead of cross-referencing PMS forecast printouts against sticky notes, Shift maps daily arrivals and group blocks directly to role requirements, then checks availability and rest rules automatically.
+            Instead of cross-referencing PMS forecast printouts against sticky notes, Shift connects daily arrivals, departures, and occupancy directly to your staffing rules, enforces BC turnaround and consecutive-break protections, and lets you test changes before publishing.
           </p>
           <div className="pillRow">
-            <span>PMS arrival curve</span>
-            <span>Role requirements</span>
-            <span>Turnaround rest check</span>
-            <span>Pinned shifts</span>
-            <span>Impact preview</span>
+            <span>Hotel activity rules</span>
+            <span>Compare 3 schedule options</span>
+            <span>Leave planner</span>
+            <span>Kept assignments</span>
+            <span>BC labour compliance</span>
+            <span>Team portal & form scan</span>
           </div>
         </div>
 
-        {/* Interactive Demand & Coverage Panel */}
+        {/* REAL APPLICATION SCREENSHOT SHOWCASE (SEEDED WITH FICTIONAL DEMO DATA) */}
+        <div className="screenshotShowcase glass">
+          <div className="showcaseTop">
+            <div>
+              <Mark /> TideMark <b>Shift · Live Application Walkthrough</b>
+            </div>
+            <span>Seeded with fictional demo dataset · Zero real hotel or team data</span>
+            <em>REAL APP INTERFACE</em>
+          </div>
+
+          <div className="showcaseTabs" role="tablist" aria-label="Select Shift application screen">
+            {shiftScreenshots.map((shot, idx) => (
+              <button
+                key={shot.id}
+                type="button"
+                role="tab"
+                aria-selected={activeShot === idx}
+                className={activeShot === idx ? "active" : ""}
+                onClick={() => setActiveShot(idx)}
+              >
+                {shot.tab}
+              </button>
+            ))}
+          </div>
+
+          <div className="showcaseFrame">
+            <img
+              src={currentShot.src}
+              alt={currentShot.alt}
+              loading="lazy"
+            />
+          </div>
+
+          <div className="showcaseFooter">
+            <div className="showcaseCopy">
+              <small>{currentShot.badge}</small>
+              <h3>{currentShot.title}</h3>
+              <p>{currentShot.caption}</p>
+            </div>
+            <ul className="showcaseBullets">
+              {currentShot.highlights.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        {/* WHAT'S NEW IN SHIFT ARCHITECTURE: 3 CORE CAPABILITIES */}
+        <div className="failureGrid shiftCapabilitiesGrid">
+          <div className="failureCard shiftCapCard">
+            <span className="failureIndex">CAPABILITY 01 · SCHEDULE DECISION WORKSPACE</span>
+            <b>Compare 3 verified schedule options side-by-side</b>
+            <p>
+              Generate three distinct options from the same locked inputs—<strong>Protect preferences</strong>, <strong>Strong consecutive breaks</strong>, and <strong>Minimize disruption</strong>—or ask a deterministic alternative check whether a specific team member can get consecutive days off without weakening coverage.
+            </p>
+          </div>
+          <div className="failureCard shiftCapCard">
+            <span className="failureIndex">CAPABILITY 02 · PRIVATE LEAVE PLANNER</span>
+            <b>Check an absence before making a promise</b>
+            <p>
+              Maintain ongoing baseline availability and one-week exceptions separate from live employee records. Test up to 12 proposed absences alongside overlapping pending requests to see whether guest-facing coverage holds before approving leave.
+            </p>
+          </div>
+          <div className="failureCard shiftCapCard">
+            <span className="failureIndex">CAPABILITY 03 · MULTI-DEPARTMENT & TEAM PORTAL</span>
+            <b>Built for Front Desk, Housekeeping, and Restaurant teams</b>
+            <p>
+              Supports department-scoped roles, trainee <code>0.5</code> headcount pairing with designated trainers, paper request form scanning via camera, and a self-serve Team Portal with PIN login and live iCalendar shift feeds.
+            </p>
+          </div>
+        </div>
+
+        {/* Interactive Hotel Activity & Staffing Rules Inspector */}
         <div className="shiftFlow glass">
           <div className="flowTop">
             <div>
               <Mark /> TideMark <b>Shift</b>
             </div>
-            <span>Week of July 13 – July 19 · Front Office</span>
-            <em>INTERACTIVE DEMAND INSPECTOR</em>
+            <span>Week of Oct 11 – Oct 17 · Front Desk</span>
+            <em>INTERACTIVE HOTEL ACTIVITY INSPECTOR</em>
           </div>
 
           <div className="demandPanel">
             <header>
               <div>
-                <small>7-DAY OCCUPANCY & ARRIVAL HORIZON</small>
-                <b>Select any day to inspect operational drivers and staffing rules</b>
+                <small>7-DAY HOTEL ACTIVITY & STAFFING RULES</small>
+                <b>Select any day to inspect arrivals, departures, and active staffing rules</b>
               </div>
               <span className="interactiveHint">Click a day bar below</span>
             </header>
@@ -410,21 +563,21 @@ export default function Experience() {
 
           <div className="requirements">
             <div>
-              <small>OPERATING SIGNAL · {activeDemand.day} ({activeDemand.date})</small>
+              <small>HOTEL ACTIVITY · {activeDemand.day} ({activeDemand.date})</small>
               <b>{activeDemand.signal}</b>
               <p>{activeDemand.context}</p>
             </div>
             <span className="flowArrow" aria-hidden="true">→</span>
             <div>
-              <small>STAFFING REQUIREMENT</small>
+              <small>ACTIVE STAFFING RULE</small>
               <b>{activeDemand.tactic}</b>
               <p>{activeDemand.rationale}</p>
             </div>
             <span className="flowArrow" aria-hidden="true">→</span>
             <div>
-              <small>ROSTER STATUS</small>
+              <small>SCHEDULE STATUS</small>
               <b>{activeDemand.coverage}</b>
-              <p>Coverage targets locked prior to employee assignment.</p>
+              <p>Saved baseline guide stays untouched while rules adjust daily shift targets.</p>
             </div>
           </div>
         </div>
@@ -432,20 +585,20 @@ export default function Experience() {
         {/* Constraint Evaluation Sequence */}
         <div className="decisionStack">
           <div className="stackCopy">
-            <span className="index">TRANSPARENT RULE EVALUATION</span>
-            <h3>Every constraint checked in sequence—no black-box scrambling</h3>
+            <span className="index">BC LABOUR & HOSPITALITY GUARDRAILS</span>
+            <h3>Every protection checked in sequence—no black-box scrambling</h3>
             <p>
-              Auto-schedulers fail in hotels when they randomly shuffle steady shifts to close a single gap. TideMark evaluates hard operating boundaries first, respects pinned shifts, and highlights any remaining conflict for the manager to resolve.
+              Auto-schedulers fail in hotels when they randomly shuffle steady shifts to close a single coverage gap. Shift enforces hard rest and qualification boundaries first, honours kept assignments, and shows every tradeoff in the Week Review drawer before you publish.
             </p>
           </div>
           <div className="stackVisual">
             {[
-              { step: "01", label: "Daily arrival & departure coverage targets", state: "LOCKED" },
-              { step: "02", label: "Minimum 11h turnaround rest between PM & AM", state: "ENFORCED" },
-              { step: "03", label: "Role qualification (Night Audit / Senior Lead)", state: "VERIFIED" },
-              { step: "04", label: "Approved time-off & unavailable windows", state: "HONORED" },
-              { step: "05", label: "Shift consistency & max consecutive workdays", state: "BALANCED" },
-              { step: "06", label: "Publishable Front Office weekly roster", state: "READY" },
+              { step: "01", label: "Daily hotel activity & role priority targets (Critical vs Sacrificable)", state: "LOCKED" },
+              { step: "02", label: "No Graveyard → Morning/Afternoon turnarounds & 32h consecutive rest", state: "ENFORCED" },
+              { step: "03", label: "Primary, secondary & backup role qualifications + trainee pairing", state: "VERIFIED" },
+              { step: "04", label: "Approved vacation, lieu days, and requested days off", state: "HONOURED" },
+              { step: "05", label: "8-week schedule balance & consecutive-break fairness history", state: "BALANCED" },
+              { step: "06", label: "Review before publishing with chosen-draft change detection", state: "READY" },
             ].map((item) => (
               <div key={item.step}>
                 <span>{item.step}</span>
@@ -456,12 +609,12 @@ export default function Experience() {
           </div>
         </div>
 
-        {/* Interactive Roster Change Preview */}
+        {/* Interactive Schedule Change Preview */}
         <div className="controlIntro">
-          <span className="index">WHAT-IF IMPACT PREVIEW</span>
-          <h3>Test a time-off request before you approve it</h3>
+          <span className="index">PREVIEW CHANGES BEFORE APPROVING</span>
+          <h3>Test a time-off request while protecting kept assignments</h3>
           <p>
-            Click the button below to simulate approving Maya Chen’s Friday vacation request. Shift keeps pinned assignments locked, reassigns Jon Bell to cover Friday PM, and flags the single remaining Thursday gap.
+            Click the button below to preview approving Harper Lin’s Friday vacation request. Shift keeps Tuesday’s trainer assignment and weekend Night Audit locked, moves Oliver Wong to cover Friday PM, and highlights the single Thursday coverage gap.
           </p>
         </div>
 
@@ -470,30 +623,30 @@ export default function Experience() {
             <div>
               <Mark /> TideMark <b>Shift</b>
             </div>
-            <span>Front Office · Weekly Roster</span>
+            <span>Front Desk · Weekly Schedule Preview</span>
             <button
               type="button"
               className="actionToggleBtn"
               onClick={() => setVacation(!vacation)}
             >
-              {vacation ? "↺ Reset to baseline roster" : "⚡ Test Maya’s Friday vacation request"}
+              {vacation ? "↺ Reset to baseline schedule" : "⚡ Preview Harper’s Friday vacation request"}
             </button>
           </div>
 
           <div className={`rosterNotice ${vacation ? "warning" : ""}`}>
-            <span>{vacation ? "CHANGE IMPACT PREVIEW" : "BASELINE DRAFT"}</span>
+            <span>{vacation ? "PREVIEW CHANGES" : "CURRENT DRAFT"}</span>
             <p>
               {vacation
-                ? "Approving Maya’s Friday vacation moves Jon Bell to Friday PM and leaves 1 open PM slot on Thursday (Group peak). 25 other shifts remain untouched."
-                : "All 28 weekly shifts assigned. Overnight turnaround rest (11h minimum) and role qualifications verified."}
+                ? "Approving Harper Lin’s Friday vacation reassigns Oliver Wong to Friday PM and leaves 1 coverage gap on Thursday PM. Kept assignments remain untouched."
+                : "All weekly shifts covered. Overnight turnaround rest, kept assignments, and role qualifications verified."}
             </p>
-            <em>{vacation ? "1 THURSDAY PM GAP FLAGGED" : "0 COVERAGE GAPS"}</em>
+            <em>{vacation ? "1 COVERAGE GAP FLAGGED" : "0 COVERAGE GAPS"}</em>
           </div>
 
           <div className="rosterGrid">
             <div className="row head">
-              <b>STAFF MEMBER</b>
-              {["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"].map((d) => (
+              <b>TEAM MEMBER</b>
+              {["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"].map((d) => (
                 <b key={d}>{d}</b>
               ))}
             </div>
@@ -504,29 +657,34 @@ export default function Experience() {
                   <small>{person.role}</small>
                 </span>
                 {person.shifts.map((shift, ci) => {
-                  const isMayaFriday = vacation && ri === 0 && ci === 4;
-                  const isJonThursday = vacation && ri === 1 && ci === 3;
+                  const isHarperFriday = vacation && ri === 0 && ci === 5;
+                  const isOliverThursday = vacation && ri === 1 && ci === 3;
+                  const isOliverFriday = vacation && ri === 1 && ci === 4;
                   const isPinned = person.pinCol === ci;
-                  const displayShift = isMayaFriday
+                  const displayShift = isHarperFriday
                     ? "VAC"
-                    : isJonThursday
-                    ? "OPEN ⚠"
+                    : isOliverThursday
+                    ? "GAP ⚠"
+                    : isOliverFriday
+                    ? "PM"
                     : shift;
+
+                  const isOff = displayShift === "OFF" || displayShift === "VAC" || displayShift === "REQ OFF";
 
                   return (
                     <span
                       key={ci}
                       title={isPinned ? person.pinReason : undefined}
                       className={[
-                        shift !== "Off" ? "assigned" : "offShift",
-                        isMayaFriday ? "changed" : "",
-                        isJonThursday ? "moved" : "",
+                        !isOff ? "assigned" : "offShift",
+                        isHarperFriday ? "changed" : "",
+                        isOliverThursday ? "moved" : "",
                       ]
                         .filter(Boolean)
                         .join(" ")}
                     >
                       {displayShift}
-                      {isPinned ? <i title={person.pinReason}>⌁ Pinned</i> : null}
+                      {isPinned ? <i title={person.pinReason}>⌁ Kept</i> : null}
                     </span>
                   );
                 })}
@@ -536,10 +694,10 @@ export default function Experience() {
 
           <div className="rosterFoot">
             <span>
-              ⌁ <strong>Pinned shifts</strong> (Wednesday AM Trainer, Saturday Night Audit) stay locked when testing schedule changes.
+              ⌁ <strong>Kept assignments</strong> (Tuesday AM Trainer, Friday Night Supervisor) stay locked when previewing schedule changes.
             </span>
             <b>
-              Status: <em>{vacation ? "Requires manager approval for Thu PM" : "Ready to publish"}</em>
+              Status: <em>{vacation ? "Review before publishing (1 Thu PM gap)" : "Ready to publish"}</em>
             </b>
           </div>
         </div>
@@ -565,7 +723,7 @@ export default function Experience() {
           </div>
         </div>
 
-        {/* Structured Failure Breakdown (Replacing the empty floating fragments void) */}
+        {/* Structured Failure Breakdown */}
         <div className="failureGrid">
           <div className="failureCard">
             <span className="failureIndex">PROBLEM 01 · SCATTERED FRAGMENTS</span>
@@ -578,7 +736,7 @@ export default function Experience() {
             <span className="failureIndex">PROBLEM 02 · BLANK-FORM GUESSWORK</span>
             <b>Generic templates don’t ask the right questions</b>
             <p>
-              A slip-and-fall by the pool, a missing laptop in Room 614, and a stalled elevator require completely different evidence. A single blank text box leaves staff guessing what to document.
+              A slip-and-fall by the pool, a missing laptop in Room 614, and a stalled elevator require completely different evidence. A single blank text box leaves team members guessing what to document.
             </p>
           </div>
           <div className="failureCard">
@@ -708,7 +866,7 @@ export default function Experience() {
             <span className="index">ON-DEVICE PRIVACY BOUNDARY</span>
             <h3>Guest names and room numbers never leave your device</h3>
             <p>
-              Before any text is sent for AI structuring, TideMark detects personal identifiers locally in memory and replaces them with anonymous tokens (`[GUEST_01]`, `[ROOM_01]`). Toggle below to see exactly what stays on property versus what the AI model sees.
+              Before any text is sent for AI structuring, TideMark detects personal identifiers locally in memory and replaces them with anonymous tokens (<code>[GUEST_01]</code>, <code>[ROOM_01]</code>). Toggle below to see exactly what stays on property versus what the AI model sees.
             </p>
           </div>
 
@@ -831,7 +989,7 @@ export default function Experience() {
         <div className="archiveSection">
           <div className="stackCopy">
             <span className="index">ENCRYPTED LOCAL ARCHIVE</span>
-            <h3>Searchable history when ownership, insurers, or WorkSafe ask</h3>
+            <h3>Searchable history when ownership, insurers, or WorkSafeBC ask</h3>
             <p>
               Completed incident reports are stored locally with SHA-256 integrity hashes so you can prove a record has not been altered since sign-off. Search or filter the sample archive to test it.
             </p>
@@ -905,7 +1063,7 @@ export default function Experience() {
           </div>
           <div className="builderNote">
             <p>
-              I work in hotel operations in British Columbia. I built Project TideMark because the tools we actually needed on shift—a scheduler that understands hotel arrival peaks and turnaround rest, and an incident reporter that guides staff without leaking guest PII—didn’t exist.
+              I work in hotel operations in British Columbia. I built Project TideMark because the tools we actually needed on shift—a scheduler that understands hotel arrival peaks, BC turnaround rest, and leave planning, and an incident reporter that guides team members without leaking guest PII—didn’t exist.
             </p>
             <p>
               I am preparing Project TideMark for an open-source release so independent hotels, GMs, and hospitality builders can inspect the architecture and run it directly on their own properties.
