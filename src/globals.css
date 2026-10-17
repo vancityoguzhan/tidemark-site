@@ -452,6 +452,90 @@ h3 {
   color: var(--purple);
 }
 
+.heroBranches {
+  margin-top: 56px;
+}
+
+/* MANUAL VS GOOGLE OR-TOOLS COMPARISON */
+.comparisonColumns {
+  max-width: 1200px;
+  margin: 0 auto 56px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 28px;
+}
+
+.compareBox {
+  padding: 36px;
+  border-radius: 16px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+}
+
+.compareBox.manualBox {
+  border-color: rgba(240, 180, 76, 0.28);
+  background: linear-gradient(180deg, rgba(240, 180, 76, 0.05), rgba(11, 25, 36, 0.85));
+}
+
+.compareBox.solverBox {
+  border-color: rgba(63, 224, 197, 0.38);
+  background: linear-gradient(180deg, rgba(63, 224, 197, 0.08), rgba(11, 25, 36, 0.9));
+  box-shadow: 0 22px 64px rgba(0, 0, 0, 0.35);
+}
+
+.compareLabel {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  margin-bottom: 12px;
+  padding: 5px 12px;
+  border-radius: 99px;
+}
+
+.manualBox .compareLabel {
+  color: var(--amber);
+  background: rgba(240, 180, 76, 0.12);
+  border: 1px solid rgba(240, 180, 76, 0.3);
+}
+
+.solverBox .compareLabel {
+  color: var(--teal);
+  background: var(--teal-soft);
+  border: 1px solid rgba(63, 224, 197, 0.35);
+}
+
+.compareBox h3 {
+  font-size: clamp(22px, 2.4vw, 28px);
+  font-weight: 700;
+  margin: 0 0 22px;
+  letter-spacing: -0.02em;
+}
+
+.compareList {
+  margin: 0;
+  padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  color: var(--ink-secondary);
+  font-size: 15px;
+  line-height: 1.65;
+}
+
+.compareList strong {
+  color: var(--ink);
+}
+
+.manualBox .compareList li::marker {
+  color: var(--amber);
+}
+
+.solverBox .compareList li::marker {
+  color: var(--teal);
+}
+
 /* PRODUCT SECTIONS */
 .product,
 .incidentProduct {
@@ -1368,7 +1452,62 @@ h3 {
   color: #fff;
 }
 
-/* CAPTURE FLOW */
+/* CAPTURE FLOW & SIMPLE BEFORE-AND-AFTER INCIDENT VIEW */
+.incidentSimpleGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.incidentColumn {
+  padding: 28px;
+  border-right: 1px solid var(--line);
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.incidentColumn:last-child {
+  border-right: 0;
+}
+
+.incidentColumn > small {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: var(--purple);
+  display: block;
+}
+
+.finalNarrativeCard {
+  border: 1px solid rgba(63, 224, 197, 0.28);
+  border-radius: 12px;
+  padding: 24px;
+  background: rgba(6, 16, 24, 0.65);
+}
+
+.finalNarrativeCard > p {
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--ink);
+  margin: 0 0 18px;
+}
+
+.compactChecklist > small {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: var(--teal);
+  display: block;
+  margin-bottom: 8px;
+}
+
+.compactChecklist > div {
+  padding: 10px 0;
+  border-top: 1px solid rgba(179, 237, 227, 0.08);
+  font-size: 13.5px;
+  color: var(--ink);
+}
+
 .captureColumns {
   display: grid;
   grid-template-columns: 1.1fr 1.1fr 0.9fr;
@@ -1445,11 +1584,14 @@ h3 {
 }
 
 .fact.missing {
+  display: grid;
+  grid-template-columns: 14px 1fr;
+  gap: 8px 10px;
   border: 1px solid rgba(240, 180, 76, 0.45);
-  background: rgba(240, 180, 76, 0.07);
-  padding: 14px;
-  margin-top: 14px;
-  border-radius: 10px;
+  background: rgba(240, 180, 76, 0.08);
+  padding: 18px;
+  margin-top: 4px;
+  border-radius: 12px;
 }
 
 .fact.missing > i {
@@ -1457,6 +1599,9 @@ h3 {
 }
 
 .fact.missing > span {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
   color: var(--amber);
   font-weight: 600;
 }
@@ -2138,6 +2283,8 @@ footer > a:hover {
 
   /* LAYOUT CONTAINERS */
   .productBranches,
+  .comparisonColumns,
+  .incidentSimpleGrid,
   .showcaseFooter,
   .decisionStack,
   .privacySection,
@@ -2147,6 +2294,34 @@ footer > a:hover {
   .requirements,
   .accessForm {
     grid-template-columns: 1fr;
+  }
+
+  .heroBranches {
+    margin-top: 36px;
+    gap: 16px;
+  }
+
+  .comparisonColumns {
+    gap: 18px;
+    margin-bottom: 40px;
+  }
+
+  .compareBox {
+    padding: 24px 20px;
+  }
+
+  .incidentColumn {
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+    padding: 20px 16px;
+  }
+
+  .incidentColumn:last-child {
+    border-bottom: 0;
+  }
+
+  .finalNarrativeCard {
+    padding: 18px 16px;
   }
 
   .branch,
