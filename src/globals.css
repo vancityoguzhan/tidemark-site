@@ -536,6 +536,152 @@ h3 {
   color: var(--teal);
 }
 
+/* LIVE HOTEL PRODUCTION PROOF PANEL */
+.liveProofPanel {
+  max-width: 1200px;
+  margin-bottom: 42px;
+  border-radius: 16px;
+  border: 1px solid rgba(63, 224, 197, 0.3);
+  background: linear-gradient(
+    180deg,
+    rgba(16, 36, 48, 0.85) 0%,
+    rgba(9, 21, 30, 0.92) 100%
+  );
+  padding: 32px;
+  box-shadow: 0 22px 54px rgba(0, 0, 0, 0.32);
+}
+
+.liveProofHeader {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 28px;
+  align-items: end;
+  padding-bottom: 24px;
+  margin-bottom: 24px;
+  border-bottom: 1px solid var(--line);
+}
+
+.liveProofBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.09em;
+  color: var(--teal);
+  margin-bottom: 10px;
+}
+
+.liveProofBadge i {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--teal);
+  box-shadow: 0 0 12px var(--teal);
+}
+
+.liveProofHeader h3 {
+  font-family: var(--font-display);
+  font-size: 24px;
+  line-height: 1.25;
+  margin: 0;
+  color: var(--ink);
+}
+
+.liveProofHeader p {
+  margin: 0;
+  font-size: 14.5px;
+  line-height: 1.65;
+  color: var(--ink-secondary);
+}
+
+.liveProofGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+}
+
+.liveProofStat {
+  border-radius: 12px;
+  border: 1px solid rgba(179, 237, 227, 0.14);
+  background: rgba(6, 16, 24, 0.6);
+  padding: 22px 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.liveProofStat small {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+
+.liveProofStat strong {
+  font-family: var(--font-display);
+  font-size: 38px;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: #fff;
+  margin-bottom: 6px;
+}
+
+.liveProofStat span {
+  display: inline-block;
+  align-self: flex-start;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--teal);
+  background: var(--teal-soft);
+  border: 1px solid rgba(63, 224, 197, 0.25);
+  border-radius: 99px;
+  padding: 3px 10px;
+  margin-bottom: 14px;
+}
+
+.liveProofStat p {
+  margin: 0;
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: var(--ink-secondary);
+}
+
+@media (max-width: 1024px) {
+  .liveProofHeader {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .liveProofGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 760px) {
+  .liveProofPanel {
+    padding: 22px 18px;
+    margin-bottom: 28px;
+  }
+
+  .liveProofHeader h3 {
+    font-size: 20px;
+  }
+
+  .liveProofGrid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .liveProofStat {
+    padding: 18px 16px;
+  }
+
+  .liveProofStat strong {
+    font-size: 32px;
+  }
+}
+
 /* PRODUCT SECTIONS */
 .product,
 .incidentProduct {
