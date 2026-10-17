@@ -181,7 +181,7 @@ const roster = [
   {
     name: "Oliver Wong",
     role: "Front Desk / Command Centre",
-    shifts: ["PM", "PM", "AM", "OFF", "REQ OFF", "AM", "PM"],
+    shifts: ["PM", "AM", "OFF", "OFF", "PM", "OFF", "PM"],
     pinCol: -1,
     pinReason: "",
   },
@@ -193,8 +193,8 @@ const roster = [
     pinReason: "",
   },
   {
-    name: "Tariq Hassan",
-    role: "Night Supervisor · Audit",
+    name: "Marcus Reid",
+    role: "Night Audit · Overnight Desk",
     shifts: ["GY", "GY", "GY", "OFF", "OFF", "GY", "GY"],
     pinCol: 5,
     pinReason: "Kept assignment: Anchors Friday & Saturday overnight audit desk",
@@ -301,10 +301,13 @@ const archiveRecords = [
 
 export default function Experience() {
   const [activeShot, setActiveShot] = useState(0);
+  const [screenshotPanMode, setScreenshotPanMode] = useState(false);
+  const [lightboxOpen, setLightboxOpen] = useState(false);
   const [day, setDay] = useState(5);
   const [vacation, setVacation] = useState(false);
   const [incidentSample, setIncidentSample] = useState(0);
   const [intakeMode, setIntakeMode] = useState<"note" | "voice" | "handoff">("note");
+  const [mobileCaptureStep, setMobileCaptureStep] = useState<0 | 1 | 2>(0);
   const [privacyView, setPrivacyView] = useState<"manager" | "processing">("manager");
   const [auditDiscrepancy, setAuditDiscrepancy] = useState(false);
   const [archiveQuery, setArchiveQuery] = useState("");
@@ -313,6 +316,11 @@ export default function Experience() {
   const currentShot = shiftScreenshots[activeShot];
   const activeDemand = weekDemand[day];
   const activeIncident = incidentSamples[incidentSample];
+
+  const prevShot = () =>
+    setActiveShot((prev) => (prev - 1 + shiftScreenshots.length) % shiftScreenshots.length);
+  const nextShot = () =>
+    setActiveShot((prev) => (prev + 1) % shiftScreenshots.length);
 
   const filteredArchive = archiveRecords.filter((rec) => {
     const matchesCategory = archiveFilter === "All" || rec.category === archiveFilter;
@@ -344,6 +352,17 @@ export default function Experience() {
           </a>
         </div>
       </nav>
+
+      {/* MOBILE STICKY BOTTOM DOCK */}
+      <div className="mobileNavDock" role="navigation" aria-label="Quick section navigation">
+        <a href="#overview">Overview</a>
+        <a href="#shift">Shift</a>
+        <a href="#incident">Incident</a>
+        <a href="#builder">About</a>
+        <a href="#contact" className="dockCta">
+          Early Access
+        </a>
+      </div>
 
       {/* HERO */}
       <section id="top" className="hero chapter">
@@ -477,12 +496,48 @@ export default function Experience() {
             ))}
           </div>
 
-          <div className="showcaseFrame">
+          <div className="showcaseViewportBar">
+            <div className="showcaseStepNav">
+              <button type="button" onClick={prevShot} aria-label="Previous screenshot">
+                ←
+              </button>
+              <span>
+                0{activeShot + 1} / 0{shiftScreenshots.length}
+              </span>
+              <button type="button" onClick={nextShot} aria-label="Next screenshot">
+                →
+              </button>
+            </div>
+            <div className="showcaseZoomActions">
+              <button
+                type="button"
+                className={`panToggleBtn ${screenshotPanMode ? "active" : ""}`}
+                onClick={() => setScreenshotPanMode(!screenshotPanMode)}
+              >
+                {screenshotPanMode ? "⊡ Fit width" : "⇄ Pan HD"}
+              </button>
+              <button
+                type="button"
+                className="expandLightboxBtn"
+                onClick={() => setLightboxOpen(true)}
+              >
+                ⛶ Inspect
+              </button>
+            </div>
+          </div>
+
+          <div className={`showcaseFrame ${screenshotPanMode ? "panMode" : ""}`}>
             <img
               src={currentShot.src}
               alt={currentShot.alt}
               loading="lazy"
+              onClick={() => setLightboxOpen(true)}
             />
+            {screenshotPanMode ? (
+              <div className="panHintBanner">
+                ⇄ Swipe horizontally to inspect full-resolution interface details
+              </div>
+            ) : null}
           </div>
 
           <div className="showcaseFooter">
@@ -497,6 +552,10 @@ export default function Experience() {
               ))}
             </ul>
           </div>
+        </div>
+
+        <div className="mobileSwipeHint" aria-hidden="true">
+          <span>⇄ Swipe cards to explore capabilities</span>
         </div>
 
         {/* WHAT'S NEW IN SHIFT ARCHITECTURE: 3 CORE CAPABILITIES */}
@@ -658,8 +717,8 @@ export default function Experience() {
                 </span>
                 {person.shifts.map((shift, ci) => {
                   const isHarperFriday = vacation && ri === 0 && ci === 5;
-                  const isOliverThursday = vacation && ri === 1 && ci === 3;
-                  const isOliverFriday = vacation && ri === 1 && ci === 4;
+                  const isOliverThursday = vacation && ri === 1 && ci === 4;
+                  const isOliverFriday = vacation && ri === 1 && ci === 5;
                   const isPinned = person.pinCol === ci;
                   const displayShift = isHarperFriday
                     ? "VAC"
@@ -679,6 +738,7 @@ export default function Experience() {
                         !isOff ? "assigned" : "offShift",
                         isHarperFriday ? "changed" : "",
                         isOliverThursday ? "moved" : "",
+                        isOliverFriday ? "changed" : "",
                       ]
                         .filter(Boolean)
                         .join(" ")}
@@ -688,6 +748,58 @@ export default function Experience() {
                     </span>
                   );
                 })}
+              </div>
+            ))}
+          </div>
+
+          {/* PURPOSE-BUILT MOBILE 7-DAY SCHEDULE CARDS */}
+          <div className="mobileRosterCards">
+            {roster.map((person, ri) => (
+              <div className="mobileStaffCard" key={person.name}>
+                <div className="mobileStaffHeader">
+                  <div>
+                    <strong>{person.name}</strong>
+                    <small>{person.role}</small>
+                  </div>
+                  {person.pinCol >= 0 ? (
+                    <span className="mobilePinBadge">⌁ Kept shift locked</span>
+                  ) : null}
+                </div>
+                <div className="mobileWeekStrip">
+                  {["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"].map((dayLabel, ci) => {
+                    const shift = person.shifts[ci];
+                    const isHarperFriday = vacation && ri === 0 && ci === 5;
+                    const isOliverThursday = vacation && ri === 1 && ci === 4;
+                    const isOliverFriday = vacation && ri === 1 && ci === 5;
+                    const isPinned = person.pinCol === ci;
+                    const displayShift = isHarperFriday
+                      ? "VAC"
+                      : isOliverThursday
+                      ? "GAP"
+                      : isOliverFriday
+                      ? "PM"
+                      : shift;
+                    const isOff = displayShift === "OFF" || displayShift === "VAC" || displayShift === "REQ OFF";
+
+                    return (
+                      <div
+                        key={dayLabel}
+                        className={[
+                          "mobileDayCell",
+                          !isOff ? "assigned" : "offShift",
+                          isHarperFriday || isOliverFriday ? "changed" : "",
+                          isOliverThursday ? "moved" : "",
+                        ]
+                          .filter(Boolean)
+                          .join(" ")}
+                      >
+                        <small>{dayLabel}</small>
+                        <b>{displayShift}</b>
+                        {isPinned ? <i>⌁</i> : null}
+                      </div>
+                    );
+                  })}
+                </div>
               </div>
             ))}
           </div>
@@ -721,6 +833,10 @@ export default function Experience() {
             <span>Source fact audit</span>
             <span>Word & PDF export</span>
           </div>
+        </div>
+
+        <div className="mobileSwipeHint purpleHint" aria-hidden="true">
+          <span>⇄ Swipe cards to explore incident challenges</span>
         </div>
 
         {/* Structured Failure Breakdown */}
@@ -803,7 +919,38 @@ export default function Experience() {
             <em>PLAYBOOK ACTIVE</em>
           </div>
 
-          <div className="captureColumns">
+          {/* MOBILE STEPPER FOR INCIDENT PIPELINE */}
+          <div className="mobileCaptureTabs" role="tablist" aria-label="Incident processing steps">
+            <button
+              type="button"
+              role="tab"
+              aria-selected={mobileCaptureStep === 0}
+              className={mobileCaptureStep === 0 ? "active" : ""}
+              onClick={() => setMobileCaptureStep(0)}
+            >
+              01 · Account
+            </button>
+            <button
+              type="button"
+              role="tab"
+              aria-selected={mobileCaptureStep === 1}
+              className={mobileCaptureStep === 1 ? "active" : ""}
+              onClick={() => setMobileCaptureStep(1)}
+            >
+              02 · Facts & Gap
+            </button>
+            <button
+              type="button"
+              role="tab"
+              aria-selected={mobileCaptureStep === 2}
+              className={mobileCaptureStep === 2 ? "active" : ""}
+              onClick={() => setMobileCaptureStep(2)}
+            >
+              03 · Checklist
+            </button>
+          </div>
+
+          <div className={`captureColumns step-${mobileCaptureStep}`}>
             <div className="rawAccount">
               <small>01 · FIRST ACCOUNT ({intakeMode.toUpperCase()})</small>
               <p>{activeIncident.accounts[intakeMode]}</p>
@@ -811,6 +958,13 @@ export default function Experience() {
                 <span>Logged at {activeIncident.time}</span>
                 <span>Source preserved verbatim</span>
               </div>
+              <button
+                type="button"
+                className="mobileStepNextBtn"
+                onClick={() => setMobileCaptureStep(1)}
+              >
+                Next: Inspect extracted facts & follow-up prompt →
+              </button>
             </div>
 
             <div className="extraction">
@@ -840,6 +994,13 @@ export default function Experience() {
                 <span>Targeted Playbook Follow-Up Question</span>
                 <b>{activeIncident.question}</b>
               </div>
+              <button
+                type="button"
+                className="mobileStepNextBtn"
+                onClick={() => setMobileCaptureStep(2)}
+              >
+                Next: View 4-point verification checklist →
+              </button>
             </div>
 
             <div className="structuredRecord">
@@ -856,6 +1017,13 @@ export default function Experience() {
                   </em>
                 </div>
               ))}
+              <button
+                type="button"
+                className="mobileStepNextBtn"
+                onClick={() => setMobileCaptureStep(0)}
+              >
+                ↺ Back to 01 · Raw Account
+              </button>
             </div>
           </div>
         </div>
@@ -1161,6 +1329,51 @@ export default function Experience() {
           LinkedIn ↗
         </a>
       </footer>
+
+      {lightboxOpen ? (
+        <div
+          className="lightboxOverlay"
+          role="dialog"
+          aria-modal="true"
+          aria-label={currentShot.title}
+          onClick={() => setLightboxOpen(false)}
+        >
+          <div className="lightboxDialog" onClick={(e) => e.stopPropagation()}>
+            <div className="lightboxHeader">
+              <div>
+                <small>{currentShot.badge}</small>
+                <strong>{currentShot.title}</strong>
+              </div>
+              <div className="lightboxActions">
+                <button type="button" onClick={prevShot}>
+                  ← Prev
+                </button>
+                <span>
+                  0{activeShot + 1} / 0{shiftScreenshots.length}
+                </span>
+                <button type="button" onClick={nextShot}>
+                  Next →
+                </button>
+                <button
+                  type="button"
+                  className="lightboxClose"
+                  onClick={() => setLightboxOpen(false)}
+                  aria-label="Close fullscreen preview"
+                >
+                  ✕ Close
+                </button>
+              </div>
+            </div>
+            <div className="lightboxBody">
+              <img src={currentShot.src} alt={currentShot.alt} />
+            </div>
+            <div className="lightboxFoot">
+              <span>⇄ Drag or pinch to inspect full-resolution interface</span>
+              <span>Fictional demo dataset · Zero real hotel data</span>
+            </div>
+          </div>
+        </div>
+      ) : null}
     </main>
   );
 }

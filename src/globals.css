@@ -601,6 +601,24 @@ h3 {
   color: var(--purple);
 }
 
+/* MOBILE QUICK-JUMP DOCK (Hidden on desktop) */
+.mobileNavDock {
+  display: none;
+}
+
+.mobileSwipeHint {
+  display: none;
+}
+
+.mobileRosterCards {
+  display: none;
+}
+
+.mobileCaptureTabs,
+.mobileStepNextBtn {
+  display: none;
+}
+
 /* SCREENSHOT SHOWCASE */
 .screenshotShowcase {
   margin-bottom: 44px;
@@ -625,6 +643,7 @@ h3 {
   font-weight: 500;
   cursor: pointer;
   transition: all 0.2s;
+  white-space: nowrap;
 }
 
 .showcaseTabs button:hover {
@@ -638,10 +657,65 @@ h3 {
   color: #fff;
 }
 
+.showcaseViewportBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 24px;
+  background: rgba(6, 16, 24, 0.72);
+  border-bottom: 1px solid var(--line);
+}
+
+.showcaseStepNav {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.showcaseStepNav span {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  color: var(--ink-secondary);
+}
+
+.showcaseStepNav button,
+.showcaseZoomActions button {
+  border: 1px solid var(--line-strong);
+  background: rgba(16, 34, 48, 0.75);
+  color: var(--ink);
+  border-radius: 99px;
+  padding: 6px 12px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.showcaseStepNav button:hover,
+.showcaseZoomActions button:hover {
+  border-color: var(--teal);
+  color: #fff;
+}
+
+.showcaseZoomActions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.showcaseZoomActions .panToggleBtn.active {
+  border-color: var(--teal);
+  background: var(--teal-soft);
+  color: #fff;
+}
+
 .showcaseFrame {
   padding: 20px 24px;
   background: #07121b;
   border-bottom: 1px solid var(--line);
+  position: relative;
 }
 
 .showcaseFrame img {
@@ -651,6 +725,131 @@ h3 {
   border-radius: 10px;
   border: 1px solid rgba(179, 237, 227, 0.16);
   box-shadow: 0 18px 48px rgba(0, 0, 0, 0.45);
+  cursor: zoom-in;
+}
+
+.showcaseFrame.panMode {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.showcaseFrame.panMode img {
+  width: 1080px;
+  max-width: none;
+}
+
+.panHintBanner {
+  margin-top: 10px;
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--teal);
+}
+
+/* FULLSCREEN LIGHTBOX MODAL */
+.lightboxOverlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: rgba(4, 10, 16, 0.92);
+  backdrop-filter: blur(14px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.lightboxDialog {
+  width: min(1360px, 100%);
+  max-height: 92svh;
+  background: var(--surface);
+  border: 1px solid var(--line-strong);
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 32px 96px rgba(0, 0, 0, 0.7);
+}
+
+.lightboxHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--line);
+  background: rgba(6, 16, 24, 0.7);
+}
+
+.lightboxHeader small {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  color: var(--teal);
+}
+
+.lightboxHeader strong {
+  font-family: var(--font-display);
+  font-size: 15px;
+  color: #fff;
+}
+
+.lightboxActions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.lightboxActions span {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.lightboxActions button {
+  border: 1px solid var(--line-strong);
+  background: var(--surface-elevated);
+  color: var(--ink);
+  border-radius: 99px;
+  padding: 6px 12px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.lightboxActions button.lightboxClose {
+  border-color: rgba(235, 107, 114, 0.45);
+  color: #ffb8bc;
+}
+
+.lightboxBody {
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 16px;
+  background: #050d14;
+  flex: 1;
+}
+
+.lightboxBody img {
+  display: block;
+  width: 100%;
+  min-width: 960px;
+  height: auto;
+  border-radius: 8px;
+}
+
+.lightboxFoot {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 20px;
+  border-top: 1px solid var(--line);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--muted);
+  background: rgba(6, 16, 24, 0.7);
 }
 
 .showcaseFooter {
@@ -1825,129 +2024,667 @@ footer > a:hover {
   color: #fff;
 }
 
-/* RESPONSIVE */
+/* RESPONSIVE & MOBILE-FIRST UX ENHANCEMENTS */
 @media (max-width: 900px) {
-  nav {
-    padding: 16px 20px;
+  body {
+    padding-bottom: 84px;
   }
+
+  nav {
+    padding: 14px 18px;
+  }
+
   .navLinks > a:not(.navCta) {
     display: none;
   }
+
+  .navCta {
+    padding: 8px 14px;
+    font-size: 12px;
+  }
+
+  /* FLOATING BOTTOM MOBILE DOCK */
+  .mobileNavDock {
+    position: fixed;
+    left: 12px;
+    right: 12px;
+    bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+    z-index: 60;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 4px;
+    padding: 6px;
+    background: rgba(8, 20, 30, 0.9);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border: 1px solid rgba(179, 237, 227, 0.24);
+    border-radius: 99px;
+    box-shadow: 0 18px 42px rgba(0, 0, 0, 0.6);
+  }
+
+  .mobileNavDock a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 9px 4px;
+    border-radius: 99px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--ink-secondary);
+    text-align: center;
+    white-space: nowrap;
+  }
+
+  .mobileNavDock a:active {
+    background: rgba(255, 255, 255, 0.08);
+    color: #fff;
+  }
+
+  .mobileNavDock a.dockCta {
+    background: var(--teal);
+    color: #061018;
+    font-weight: 700;
+  }
+
+  /* HERO */
   .hero {
-    padding: 115px 20px 64px;
+    padding: 104px 18px 52px;
     min-height: auto;
   }
-  .heroMetaStrip,
+
+  .eyebrow {
+    font-size: 10.5px;
+    letter-spacing: 0.08em;
+    line-height: 1.4;
+  }
+
+  .hero h1 {
+    font-size: clamp(34px, 9vw, 46px);
+    margin: 18px 0;
+  }
+
+  .heroLead {
+    font-size: 16px;
+    margin-bottom: 28px;
+  }
+
+  .heroActions {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .heroActions .primary,
+  .heroActions .secondaryBtn {
+    justify-content: space-between;
+    width: 100%;
+    padding: 15px 22px;
+  }
+
+  .heroMetaStrip {
+    margin-top: 40px;
+    padding-top: 20px;
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .heroMetaStrip > div {
+    padding: 14px 16px;
+    border-radius: 12px;
+    background: rgba(11, 25, 36, 0.65);
+    border: 1px solid var(--line);
+  }
+
+  /* LAYOUT CONTAINERS */
   .productBranches,
-  .failureGrid,
   .showcaseFooter,
   .decisionStack,
   .privacySection,
   .archiveSection,
   .builderCard,
-  .captureColumns,
   .recordLayers,
   .requirements,
   .accessForm {
     grid-template-columns: 1fr;
   }
+
   .branch,
   .product,
   .incidentProduct,
   .builder,
   .final {
-    padding: 72px 20px;
+    padding: 64px 16px;
   }
+
+  .sectionHeader,
+  .productIntro,
+  .controlIntro {
+    margin-bottom: 36px;
+  }
+
+  .branchCard {
+    padding: 24px 20px;
+  }
+
+  .branchTop {
+    flex-wrap: wrap;
+    margin-bottom: 16px;
+  }
+
+  .branchCard > b {
+    font-size: 26px;
+  }
+
+  /* HORIZONTAL SCROLL-SNAP PILL ROWS & CARD TRACKS */
+  .pillRow {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 6px;
+    margin-right: -16px;
+    padding-right: 16px;
+    scrollbar-width: none;
+  }
+
+  .pillRow::-webkit-scrollbar {
+    display: none;
+  }
+
+  .pillRow span {
+    flex-shrink: 0;
+  }
+
+  .mobileSwipeHint {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin: 0 auto 10px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--teal);
+  }
+
+  .mobileSwipeHint.purpleHint {
+    color: var(--purple);
+  }
+
+  .failureGrid {
+    display: grid;
+    grid-template-columns: none;
+    grid-auto-flow: column;
+    grid-auto-columns: 85%;
+    gap: 14px;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 8px;
+    margin-bottom: 40px;
+    scrollbar-width: none;
+  }
+
+  .failureGrid::-webkit-scrollbar {
+    display: none;
+  }
+
+  .failureCard {
+    scroll-snap-align: start;
+    padding: 22px 20px;
+  }
+
+  /* TOP HEADERS */
   .flowTop,
   .rosterTop,
   .captureHead,
   .showcaseTop {
     grid-template-columns: 1fr auto;
+    padding: 12px 16px;
+    gap: 10px;
   }
+
   .flowTop > span,
   .rosterTop > span,
   .captureHead > span,
-  .showcaseTop > span {
+  .showcaseTop > span,
+  .showcaseTop > em {
     display: none;
   }
-  .showcaseTabs,
-  .showcaseFrame,
+
+  .showcaseTop,
+  .rosterTop {
+    grid-template-columns: 1fr;
+  }
+
+  .actionToggleBtn {
+    justify-self: stretch;
+    width: 100%;
+    text-align: center;
+    padding: 11px 14px;
+  }
+
+  /* SCREENSHOT SHOWCASE MOBILE */
+  .showcaseTabs {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    padding: 12px 14px;
+    scrollbar-width: none;
+  }
+
+  .showcaseTabs::-webkit-scrollbar {
+    display: none;
+  }
+
+  .showcaseTabs button {
+    scroll-snap-align: start;
+    flex-shrink: 0;
+    padding: 8px 14px;
+    font-size: 12px;
+  }
+
+  .showcaseViewportBar {
+    padding: 10px 14px;
+    flex-wrap: nowrap;
+    gap: 8px;
+  }
+
+  .showcaseFrame {
+    padding: 12px;
+  }
+
+  .showcaseFrame.panMode img {
+    width: 860px;
+  }
+
   .showcaseFooter {
-    padding: 16px;
+    padding: 20px 16px;
+    gap: 20px;
   }
+
+  .showcaseCopy h3 {
+    font-size: 19px;
+  }
+
+  /* LIGHTBOX ON MOBILE */
+  .lightboxOverlay {
+    padding: 10px;
+  }
+
+  .lightboxHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 12px 14px;
+  }
+
+  .lightboxActions {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .lightboxFoot {
+    flex-direction: column;
+    gap: 4px;
+    padding: 10px 14px;
+  }
+
+  /* 7-DAY HOTEL ACTIVITY INSPECTOR MOBILE */
   .demandPanel {
-    padding: 20px;
+    padding: 18px 14px;
   }
+
   .demandPanel header {
     flex-direction: column;
     align-items: flex-start;
+    margin-bottom: 16px;
+    gap: 8px;
   }
+
   .days {
-    gap: 6px;
+    min-height: 132px;
+    gap: 5px;
   }
+
   .days button {
-    padding: 10px 4px;
+    padding: 8px 2px;
+    border-radius: 8px;
   }
+
+  .days button small {
+    font-size: 10px;
+  }
+
   .days button b {
-    font-size: 14px;
+    font-size: 13px;
+    margin: 6px 0 8px;
   }
+
   .dayDate {
     display: none;
   }
+
   .flowArrow {
     display: none;
   }
+
   .requirements > div {
     border-top: 1px solid var(--line);
-    padding: 20px;
+    padding: 16px;
   }
+
+  /* PURPOSE-BUILT MOBILE 7-DAY SCHEDULE CARDS */
+  .rosterGrid {
+    display: none;
+  }
+
+  .mobileRosterCards {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 14px;
+  }
+
+  .mobileStaffCard {
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: rgba(6, 16, 24, 0.55);
+    padding: 14px;
+  }
+
+  .mobileStaffHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+
+  .mobileStaffHeader strong {
+    display: block;
+    font-size: 15px;
+    color: var(--ink);
+  }
+
+  .mobileStaffHeader small {
+    display: block;
+    font-size: 12px;
+    color: var(--muted);
+  }
+
+  .mobilePinBadge {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--teal);
+    background: var(--teal-soft);
+    border: 1px solid rgba(63, 224, 197, 0.3);
+    padding: 3px 8px;
+    border-radius: 99px;
+    white-space: nowrap;
+  }
+
+  .mobileWeekStrip {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+  }
+
+  .mobileDayCell {
+    border-radius: 8px;
+    padding: 8px 2px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+    height: 54px;
+  }
+
+  .mobileDayCell small {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    letter-spacing: 0.04em;
+    color: var(--muted);
+    margin-bottom: 4px;
+  }
+
+  .mobileDayCell b {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 600;
+  }
+
+  .mobileDayCell i {
+    position: absolute;
+    top: 3px;
+    right: 4px;
+    font-style: normal;
+    font-size: 8px;
+    color: var(--teal);
+  }
+
+  .mobileDayCell.offShift {
+    background: rgba(255, 255, 255, 0.025);
+    color: var(--muted);
+    border: 1px solid rgba(255, 255, 255, 0.04);
+  }
+
+  .mobileDayCell.assigned {
+    background: rgba(63, 224, 197, 0.08);
+    border: 1px solid rgba(63, 224, 197, 0.2);
+    color: var(--ink);
+  }
+
+  .mobileDayCell.changed {
+    background: var(--purple-soft);
+    border: 1px solid var(--purple);
+    color: #fff;
+  }
+
+  .mobileDayCell.moved {
+    background: rgba(240, 180, 76, 0.16);
+    border: 1px solid var(--amber);
+    color: var(--amber);
+  }
+
   .rosterNotice,
   .auditWarning,
   .auditWarning.show {
     grid-template-columns: 1fr;
     gap: 8px;
+    padding: 14px 16px;
   }
-  .rosterGrid {
-    overflow-x: auto;
-    padding: 14px;
-  }
-  .row {
-    min-width: 720px;
-  }
+
   .rosterFoot {
     flex-direction: column;
     align-items: flex-start;
-    gap: 12px;
+    gap: 10px;
+    padding: 14px 16px;
   }
+
+  /* INCIDENT WORKSPACE STEPPER TABS ON MOBILE */
+  .workspaceControls {
+    padding: 14px;
+    gap: 14px;
+  }
+
+  .controlGroup {
+    width: 100%;
+  }
+
+  .sampleTabs {
+    width: 100%;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding-bottom: 2px;
+  }
+
+  .sampleTabs::-webkit-scrollbar {
+    display: none;
+  }
+
+  .sampleTabs button {
+    white-space: nowrap;
+    flex-shrink: 0;
+    padding: 8px 13px;
+    font-size: 12px;
+  }
+
+  .mobileCaptureTabs {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+    padding: 10px 14px;
+    background: rgba(6, 16, 24, 0.65);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .mobileCaptureTabs button {
+    border: 1px solid var(--line);
+    background: var(--surface-elevated);
+    color: var(--ink-secondary);
+    border-radius: 8px;
+    padding: 9px 6px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 500;
+    cursor: pointer;
+    text-align: center;
+  }
+
+  .mobileCaptureTabs button.active {
+    border-color: var(--purple);
+    background: var(--purple-soft);
+    color: #fff;
+  }
+
+  .captureColumns {
+    display: block;
+  }
+
   .captureColumns > div {
     border-right: 0;
-    border-bottom: 1px solid var(--line);
-    padding: 22px;
+    border-bottom: 0;
+    padding: 20px 16px;
+    display: none;
   }
-  .recordLayers > i {
-    transform: rotate(90deg);
-    justify-self: center;
+
+  .captureColumns.step-0 > .rawAccount,
+  .captureColumns.step-1 > .extraction,
+  .captureColumns.step-2 > .structuredRecord {
+    display: block;
   }
-  .archive > header {
+
+  .mobileStepNextBtn {
+    display: block;
+    width: 100%;
+    margin-top: 18px;
+    padding: 12px 16px;
+    border: 1px solid rgba(165, 148, 255, 0.4);
+    border-radius: 10px;
+    background: rgba(165, 148, 255, 0.12);
+    color: #fff;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    text-align: center;
+    cursor: pointer;
+  }
+
+  /* PRIVACY LENS & ROUTE ON MOBILE */
+  .privacyLens {
+    padding: 18px 16px;
+  }
+
+  .privacyToggle {
+    width: 100%;
+    display: grid;
     grid-template-columns: 1fr;
   }
+
+  .privacyToggle button {
+    width: 100%;
+    text-align: center;
+  }
+
+  .deviceBoundary {
+    padding: 18px 16px;
+  }
+
+  .deviceBoundary > p {
+    font-size: 15px;
+  }
+
+  .privacyRoute {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .privacyRoute i {
+    display: none;
+  }
+
+  .privacyRoute span {
+    padding: 8px 10px;
+    border-radius: 8px;
+    border: 1px solid var(--line);
+    background: rgba(6, 16, 24, 0.5);
+    font-size: 10.5px;
+  }
+
+  /* RECORD LAYERS / FACT AUDIT ON MOBILE */
+  .recordLayers > div {
+    padding: 20px 16px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .recordLayers > div:last-child {
+    border-bottom: 0;
+  }
+
+  .recordLayers > i {
+    display: none;
+  }
+
+  /* ARCHIVE ON MOBILE */
+  .archive > header {
+    grid-template-columns: 1fr;
+    padding: 14px 16px;
+  }
+
+  .archiveFilterBar {
+    padding: 10px 16px;
+    overflow-x: auto;
+  }
+
   .archiveRows > div {
     grid-template-columns: 1fr;
     gap: 6px;
+    padding: 14px 16px;
   }
+
   .builderCard {
-    padding: 28px;
-    gap: 32px;
+    padding: 24px 18px;
+    gap: 24px;
   }
+
   .accessForm .wide,
   .accessForm button {
     grid-column: 1;
   }
+
+  .accessForm button {
+    width: 100%;
+  }
+
   footer {
     flex-direction: column;
     align-items: flex-start;
-    gap: 16px;
-    padding: 28px 20px;
+    gap: 14px;
+    padding: 28px 18px;
   }
 }
 
