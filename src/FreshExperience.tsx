@@ -5,25 +5,21 @@ import ProductIllustration from "./ProductIllustration";
 const screens = [
   {
     name: "The weekly schedule",
-    file: "shift-roster-grid.png",
     title: "See the week. See the people.",
     text: "Review assignments, days off and the compromises that need your attention. Keep important decisions, make adjustments, and publish when you’re ready.",
   },
   {
     name: "Staffing needs",
-    file: "shift-staffing-needs.png",
     title: "Start with what the hotel needs.",
     text: "Set your usual coverage, then account for busier arrival and departure days with staffing rules.",
   },
   {
     name: "Team requests",
-    file: "shift-requests-calendar.png",
     title: "Keep the requests in the picture.",
     text: "Bring pending and approved time off into view alongside the week you’re planning.",
   },
   {
     name: "Leave planning",
-    file: "shift-leave-planner.png",
     title: "Explore before you promise.",
     text: "Consider time-off requests together and check the effect on coverage. Your live schedule stays untouched.",
   },
@@ -276,15 +272,6 @@ export default function FreshExperience() {
                   <h3>{shot.title}</h3>
                   <p>{shot.text}</p>
                 </div>
-                <a
-                  className="fTextLink"
-                  href={`/screenshots/${shot.file}`}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  View actual screen <Arrow />
-                  <span className="fSr"> in a new tab</span>
-                </a>
               </div>
               <ProductIllustration view={screen} />
             </div>
