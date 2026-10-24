@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import "./fresh.css";
 import ProductIllustration from "./ProductIllustration";
 
@@ -66,6 +66,12 @@ function Brand() {
 export default function FreshExperience() {
   const [rest, setRest] = useState(false);
   const [screen, setScreen] = useState(0);
+  const swipeStart = useRef<{ x: number; y: number } | null>(null);
+  function moveScreen(direction: number) {
+    setScreen(
+      (current) => (current + direction + screens.length) % screens.length,
+    );
+  }
   const [formState, setFormState] = useState<
     "idle" | "sending" | "sent" | "error"
   >("idle");
@@ -273,7 +279,69 @@ export default function FreshExperience() {
                   <p>{shot.text}</p>
                 </div>
               </div>
-              <ProductIllustration view={screen} />
+              <div className="fSwipeTour">
+                <div
+                  className="fSwipeSurface"
+                  onTouchStart={(event) => {
+                    swipeStart.current = null;
+                    if (
+                      event.touches.length !== 1 ||
+                      !window.matchMedia("(max-width: 800px)").matches
+                    )
+                      return;
+                    if (
+                      (event.target as Element).closest(
+                        "button, a, input, select, textarea",
+                      )
+                    )
+                      return;
+                    const touch = event.touches[0];
+                    swipeStart.current = { x: touch.clientX, y: touch.clientY };
+                  }}
+                  onTouchMove={(event) => {
+                    if (event.touches.length !== 1) swipeStart.current = null;
+                  }}
+                  onTouchCancel={() => {
+                    swipeStart.current = null;
+                  }}
+                  onTouchEnd={(event) => {
+                    const start = swipeStart.current;
+                    swipeStart.current = null;
+                    if (!start || !event.changedTouches.length) return;
+                    const touch = event.changedTouches[0];
+                    const dx = touch.clientX - start.x;
+                    const dy = touch.clientY - start.y;
+                    if (Math.abs(dx) >= 60 && Math.abs(dx) > Math.abs(dy) * 1.5)
+                      moveScreen(dx < 0 ? 1 : -1);
+                  }}
+                >
+                  <ProductIllustration view={screen} />
+                </div>
+                <div
+                  className="fSwipeControls"
+                  role="group"
+                  aria-label="Product illustration navigation"
+                >
+                  <button
+                    onClick={() => moveScreen(-1)}
+                    aria-label="Previous product view"
+                  >
+                    <span aria-hidden="true">‹</span>
+                  </button>
+                  <div aria-live="polite" aria-atomic="true">
+                    <strong>{shot.name}</strong>
+                    <span>
+                      {screen + 1} of {screens.length} · Swipe to explore
+                    </span>
+                  </div>
+                  <button
+                    onClick={() => moveScreen(1)}
+                    aria-label="Next product view"
+                  >
+                    <span aria-hidden="true">›</span>
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         </section>
