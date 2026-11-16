@@ -17,6 +17,8 @@ test("fresh.css does not use render-blocking @import or transition: all", () => 
   assert.doesNotMatch(css, /@import\s+url/);
   assert.doesNotMatch(css, /transition:\s*all/i);
   assert.match(css, /@media\s*\(prefers-reduced-motion:\s*reduce\)/);
+  assert.match(css, /@keyframes\s+fSlideInNext/);
+  assert.match(css, /@keyframes\s+fSlideInPrev/);
 });
 
 test("FreshExperience.tsx uses semantic tablist/tab and Formspree env support", () => {

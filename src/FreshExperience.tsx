@@ -66,8 +66,10 @@ function Brand() {
 export default function FreshExperience() {
   const [rest, setRest] = useState(false);
   const [screen, setScreen] = useState(0);
+  const [slideDir, setSlideDir] = useState<1 | -1>(1);
   const swipeStart = useRef<{ x: number; y: number } | null>(null);
   function moveScreen(direction: number) {
+    setSlideDir(direction >= 0 ? 1 : -1);
     setScreen(
       (current) => (current + direction + screens.length) % screens.length,
     );
@@ -264,7 +266,10 @@ export default function FreshExperience() {
                       role="tab"
                       aria-selected={screen === i}
                       aria-controls="f-tour-panel"
-                      onClick={() => setScreen(i)}
+                      onClick={() => {
+                        setSlideDir(i >= screen ? 1 : -1);
+                        setScreen(i);
+                      }}
                     >
                       {item.name}
                       <Arrow />
@@ -317,7 +322,13 @@ export default function FreshExperience() {
                       moveScreen(dx < 0 ? 1 : -1);
                   }}
                 >
-                  <ProductIllustration view={screen} />
+                  <div
+                    key={screen}
+                    className="fTourViewTransition"
+                    data-dir={slideDir}
+                  >
+                    <ProductIllustration view={screen} />
+                  </div>
                 </div>
                 <div
                   className="fSwipeControls"
