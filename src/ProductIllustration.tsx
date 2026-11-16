@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 const people = ["Alex Chen", "Morgan Lee", "Jamie Patel", "Sam Rivera"];
 const roster = [
@@ -25,6 +25,21 @@ export default function ProductIllustration({ view }: { view: number }) {
   const [pending, setPending] = useState(true);
   const [overlap, setOverlap] = useState(false);
   const [kept, setKept] = useState(true);
+  const [isMobileCalendar, setIsMobileCalendar] = useState(false);
+
+  useEffect(() => {
+    if (
+      typeof window === "undefined" ||
+      typeof window.matchMedia !== "function"
+    ) {
+      return;
+    }
+    const mql = window.matchMedia("(max-width: 540px)");
+    const update = () => setIsMobileCalendar(mql.matches);
+    update();
+    mql.addEventListener("change", update);
+    return () => mql.removeEventListener("change", update);
+  }, []);
   const titles = [
     "The weekly schedule",
     "Staffing needs",
@@ -237,6 +252,7 @@ export default function ProductIllustration({ view }: { view: number }) {
                 className="piCalendar"
                 role="table"
                 aria-label="Illustrative time-off calendar, October 18 to 31"
+                aria-hidden={isMobileCalendar || undefined}
               >
                 <div className="piCalWeek" role="row">
                   {days.map((d) => (

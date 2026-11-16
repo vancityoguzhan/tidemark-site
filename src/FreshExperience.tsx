@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "./fresh.css";
 import ProductIllustration from "./ProductIllustration";
 
@@ -68,18 +68,45 @@ export default function FreshExperience() {
   const [screen, setScreen] = useState(0);
   const [slideDir, setSlideDir] = useState<1 | -1>(1);
   const swipeStart = useRef<{ x: number; y: number } | null>(null);
+  const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
+  const formSuccessRef = useRef<HTMLDivElement>(null);
+  const formErrorRef = useRef<HTMLParagraphElement>(null);
   function moveScreen(direction: number) {
     setSlideDir(direction >= 0 ? 1 : -1);
     setScreen(
       (current) => (current + direction + screens.length) % screens.length,
     );
   }
+  function handleTabKeyDown(event: React.KeyboardEvent<HTMLDivElement>) {
+    let nextIndex: number | null = null;
+    if (event.key === "ArrowRight" || event.key === "ArrowDown") {
+      nextIndex = (screen + 1) % screens.length;
+    } else if (event.key === "ArrowLeft" || event.key === "ArrowUp") {
+      nextIndex = (screen - 1 + screens.length) % screens.length;
+    } else if (event.key === "Home") {
+      nextIndex = 0;
+    } else if (event.key === "End") {
+      nextIndex = screens.length - 1;
+    }
+    if (nextIndex === null) return;
+    event.preventDefault();
+    setSlideDir(nextIndex >= screen ? 1 : -1);
+    setScreen(nextIndex);
+    tabRefs.current[nextIndex]?.focus();
+  }
   const [formState, setFormState] = useState<
     "idle" | "sending" | "sent" | "error"
   >("idle");
+  useEffect(() => {
+    if (formState === "sent") {
+      formSuccessRef.current?.focus();
+    } else if (formState === "error") {
+      formErrorRef.current?.focus();
+    }
+  }, [formState]);
   const shot = screens[screen];
   const formspreeUrl =
-    import.meta.env.VITE_FORMSPREE_URL ?? "https://formspree.io/f/xlgadqyd";
+    import.meta.env?.VITE_FORMSPREE_URL ?? "https://formspree.io/f/xlgadqyd";
   async function sendRequest(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -120,7 +147,7 @@ export default function FreshExperience() {
             <h1>A better week starts here.</h1>
             <p>
               TideMark Shift tests scheduling combinations against your staffing
-              rules, days off, and team preferences so you do not have to.
+              rules, days off, and team preferences so you don’t have to.
             </p>
             <a className="fButton" href="#fcontact">
               Request a walkthrough <Arrow />
@@ -235,8 +262,8 @@ export default function FreshExperience() {
         </section>
         <div className="fPrinciple fWidth">
           <p>
-            Shift tests schedule combinations against your rules; you review and
-            approve the final week.
+            Built around your rules and your team’s rest, with the final call
+            always yours.
           </p>
           <a href="#fshift">
             Explore Shift <Arrow />
@@ -257,15 +284,20 @@ export default function FreshExperience() {
                   className="fTourButtons"
                   role="tablist"
                   aria-label="Explore Shift product views"
+                  onKeyDown={handleTabKeyDown}
                 >
                   {screens.map((item, i) => (
                     <button
                       type="button"
                       key={item.name}
+                      ref={(el) => {
+                        tabRefs.current[i] = el;
+                      }}
                       id={`f-tour-tab-${i}`}
                       role="tab"
                       aria-selected={screen === i}
                       aria-controls="f-tour-panel"
+                      tabIndex={screen === i ? 0 : -1}
                       onClick={() => {
                         setSlideDir(i >= screen ? 1 : -1);
                         setScreen(i);
@@ -286,6 +318,7 @@ export default function FreshExperience() {
                 id="f-tour-panel"
                 role="tabpanel"
                 aria-labelledby={`f-tour-tab-${screen}`}
+                tabIndex={0}
               >
                 <div
                   className="fSwipeSurface"
@@ -318,7 +351,7 @@ export default function FreshExperience() {
                     const touch = event.changedTouches[0];
                     const dx = touch.clientX - start.x;
                     const dy = touch.clientY - start.y;
-                    if (Math.abs(dx) >= 60 && Math.abs(dx) > Math.abs(dy) * 1.5)
+                    if (Math.abs(dx) >= 40 && Math.abs(dx) > Math.abs(dy) * 1.5)
                       moveScreen(dx < 0 ? 1 : -1);
                   }}
                 >
@@ -342,7 +375,7 @@ export default function FreshExperience() {
                   >
                     <span aria-hidden="true">‹</span>
                   </button>
-                  <div aria-live="polite" aria-atomic="true">
+                  <div>
                     <strong>{shot.name}</strong>
                     <span>
                       {screen + 1} of {screens.length}
@@ -435,11 +468,10 @@ export default function FreshExperience() {
           </div>
         </section>
         <section className="fStory fWidth" id="fstory">
-          <div className="fStoryMark" aria-hidden="true">
-            <Brand />
-          </div>
-          <div>
+          <div className="fStoryLead">
             <h2>From the other side of the desk.</h2>
+          </div>
+          <div className="fStoryBody">
             <p>
               I work in hotel operations in British Columbia. The hardest part
               of scheduling wasn’t filling the cells. It was wondering whether
@@ -486,7 +518,12 @@ export default function FreshExperience() {
                 hidden
               />
               {formState === "sent" ? (
-                <div className="fFormSuccess" role="status">
+                <div
+                  className="fFormSuccess"
+                  role="status"
+                  ref={formSuccessRef}
+                  tabIndex={-1}
+                >
                   <h3>Your request is on its way.</h3>
                   <p>
                     Thank you. Oguzhan will reply to the email you provided to
@@ -537,7 +574,12 @@ export default function FreshExperience() {
                     <Arrow />
                   </button>
                   {formState === "error" && (
-                    <p className="fFormError" role="alert">
+                    <p
+                      className="fFormError"
+                      role="alert"
+                      ref={formErrorRef}
+                      tabIndex={-1}
+                    >
                       Your request couldn’t be sent. Your details are still
                       here. Please try again, or contact Oguzhan on{" "}
                       <a href="https://www.linkedin.com/in/oguzhangur">
@@ -556,7 +598,7 @@ export default function FreshExperience() {
         </section>
       </main>
       <footer className="fFooter fWidth">
-        <a className="fBrand" href="#ftop">
+        <a className="fBrand" href="#ftop" aria-label="TideMark home">
           <Brand />
         </a>
         <p>Built in British Columbia for hotel operations teams.</p>
