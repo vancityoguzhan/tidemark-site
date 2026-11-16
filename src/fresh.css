@@ -1,4 +1,11 @@
-@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;650;700;750;800&display=swap");
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 100px;
+}
+body {
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+}
 .freshSite {
   --f-paper: #f7f9fc;
   --f-ink: #182741;
@@ -7,6 +14,9 @@
   --f-rest: #daebdd;
   --f-muted: #536078;
   --f-line: #d5ddec;
+  --f-text-lg: 1.25rem;
+  --f-text-body: 1rem;
+  --f-text-sm: 0.8125rem;
   background: var(--f-paper);
   color: var(--f-ink);
   font:
@@ -160,24 +170,23 @@
 }
 .fHero {
   display: grid;
-  grid-template-columns: 1fr 1.08fr;
-  gap: 6%;
-  padding-block: 75px 80px;
+  grid-template-columns: 1fr;
+  gap: 48px;
+  padding-block: 56px 80px;
+  justify-items: center;
+}
+.fHeroCopy {
+  display: flex;
+  flex-direction: column;
   align-items: center;
+  text-align: center;
+  max-width: 68ch;
 }
-.fHeroCopy > .fLead {
-  font-size: 23px;
-  line-height: 1.45;
-  margin-top: 28px;
-  color: var(--f-ink);
-  font-weight: 500;
-  letter-spacing: -0.025em;
-}
-.fHeroCopy > p:not(.fLead) {
-  max-width: 43ch;
+.fHeroCopy > p {
+  max-width: 48ch;
   color: var(--f-muted);
-  margin-top: 18px;
-  font-size: 16px;
+  margin-top: 22px;
+  font-size: var(--f-text-body);
 }
 .fButton {
   display: inline-flex;
@@ -205,7 +214,9 @@
 .fWeekStage {
   background: var(--f-wash);
   border-radius: 18px;
-  padding: 30px 25px 21px;
+  padding: 30px 28px 22px;
+  width: 100%;
+  max-width: 780px;
   min-width: 0;
   position: relative;
 }
@@ -248,12 +259,12 @@
   width: 100%;
   border-collapse: separate;
   border-spacing: 4px 8px;
-  font-size: 11px;
+  font-size: var(--f-text-sm);
   table-layout: fixed;
   font-variant-numeric: tabular-nums;
 }
 .fRoster thead th {
-  font-size: 10px;
+  font-size: var(--f-text-sm);
   font-weight: 500;
   color: var(--f-muted);
 }
@@ -288,7 +299,7 @@
   display: flex;
   gap: 12px;
   justify-content: space-between;
-  font-size: 9px;
+  font-size: var(--f-text-sm);
   color: var(--f-muted);
   margin-top: 15px;
 }
@@ -330,7 +341,7 @@
   border: 0;
   background: transparent;
   color: #354569;
-  font-size: 11px;
+  font-size: var(--f-text-sm);
   padding: 10px 9px;
   min-height: 44px;
   flex: 1;
@@ -350,7 +361,7 @@
 }
 .fIllustrationNote {
   text-align: center;
-  font-size: 10px;
+  font-size: var(--f-text-sm);
   color: #455578;
   margin-top: 12px !important;
 }
@@ -424,7 +435,7 @@
   gap: 12px;
   font-size: 13px;
 }
-.fTourButtons button[aria-pressed="true"] {
+.fTourButtons button[aria-selected="true"] {
   color: white;
   font-weight: 750;
   border-bottom-color: white;
@@ -433,7 +444,7 @@
   width: 18px;
   opacity: 0;
 }
-.fTourButtons button[aria-pressed="true"] svg {
+.fTourButtons button[aria-selected="true"] svg {
   opacity: 1;
 }
 .fTourText {
@@ -466,11 +477,9 @@
   padding: 0;
 }
 .fSteps li {
-  display: grid;
-  grid-template-columns: 80px 1fr;
+  display: block;
   border-top: 1px solid var(--f-line);
   padding: 28px 0;
-  align-items: baseline;
 }
 .fSteps li > span {
   font-size: 13px;
@@ -779,10 +788,10 @@
   }
   .fHeader nav {
     gap: 18px;
-    font-size: 12px;
+    font-size: var(--f-text-sm);
   }
   .fHeaderAction {
-    font-size: 12px;
+    font-size: var(--f-text-sm);
     padding: 10px 12px;
     gap: 10px;
   }
@@ -901,7 +910,7 @@
     min-height: 44px;
     display: flex;
     align-items: center;
-    font-size: 12px;
+    font-size: var(--f-text-sm);
   }
   .fHeaderAction {
     min-height: 44px;
@@ -947,20 +956,20 @@
     font-size: 9px;
   }
   .fRoster {
-    font-size: 10px;
+    font-size: var(--f-text-sm);
     border-spacing: 3px 7px;
   }
   .fRoster th:first-child {
-    width: 43px;
+    width: 48px;
   }
   .fRoster thead th {
-    font-size: 9px;
+    font-size: var(--f-text-sm);
   }
   .fRoster td > span {
     height: 34px;
   }
   .fWeekLegend {
-    font-size: 8px;
+    font-size: var(--f-text-sm);
     gap: 8px;
   }
   .fWeekResult {
@@ -971,17 +980,17 @@
     font-size: 17px;
   }
   .fWeekResult p {
-    font-size: 12px;
+    font-size: var(--f-text-sm);
   }
   .fWeekChoices button {
-    font-size: 10px;
+    font-size: var(--f-text-sm);
     padding: 10px 5px;
   }
   .fWeekChoices button svg {
     display: none;
   }
   .fIllustrationNote {
-    font-size: 9px;
+    font-size: var(--f-text-sm);
   }
   .fPrinciple {
     display: grid;
@@ -1127,11 +1136,6 @@
     transition: none !important;
     animation: none !important;
   }
-}
-
-/* Keep legacy navigation rules from hiding this route’s story link. */
-.freshSite .fHeader nav a:last-child {
-  display: flex;
 }
 
 .fSkip:not(:focus) {

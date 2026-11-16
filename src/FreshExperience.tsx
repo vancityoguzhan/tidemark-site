@@ -76,12 +76,14 @@ export default function FreshExperience() {
     "idle" | "sending" | "sent" | "error"
   >("idle");
   const shot = screens[screen];
+  const formspreeUrl =
+    import.meta.env.VITE_FORMSPREE_URL ?? "https://formspree.io/f/xlgadqyd";
   async function sendRequest(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     setFormState("sending");
     try {
-      const response = await fetch("https://formspree.io/f/xlgadqyd", {
+      const response = await fetch(formspreeUrl, {
         method: "POST",
         body: data,
         headers: { Accept: "application/json" },
@@ -113,24 +115,14 @@ export default function FreshExperience() {
       <main id="fmain">
         <section className="fHero fWidth" id="ftop">
           <div className="fHeroCopy">
-            <h1>
-              A better week
-              <br />
-              starts here.
-            </h1>
-            <p className="fLead">
-              Hotel scheduling with room
-              <br className="fDesktopBreak" /> for the people behind it.
-            </p>
+            <h1>A better week starts here.</h1>
             <p>
-              Staffing needs. Days off. The shifts people prefer. TideMark Shift
-              works through the combinations, so you can stop carrying the whole
-              week in your head.
+              TideMark Shift tests scheduling combinations against your staffing
+              rules, days off, and team preferences so you do not have to.
             </p>
             <a className="fButton" href="#fcontact">
               Request a walkthrough <Arrow />
             </a>
-            <span className="fPilot">Early access for hotel teams</span>
           </div>
           <div className="fWeekStage">
             <div className="fWeekIntro">
@@ -147,7 +139,6 @@ export default function FreshExperience() {
             <div className="fWeekPaper">
               <div className="fWeekTop">
                 <strong>The team’s week</strong>
-                <span>Illustrative roster</span>
               </div>
               <table className="fRoster">
                 <caption className="fSr">
@@ -220,10 +211,18 @@ export default function FreshExperience() {
               role="group"
               aria-label="Compare illustrative weeks"
             >
-              <button aria-pressed={!rest} onClick={() => setRest(false)}>
+              <button
+                type="button"
+                aria-pressed={!rest}
+                onClick={() => setRest(false)}
+              >
                 Scattered breaks
               </button>
-              <button aria-pressed={rest} onClick={() => setRest(true)}>
+              <button
+                type="button"
+                aria-pressed={rest}
+                onClick={() => setRest(true)}
+              >
                 Days off together <Arrow />
               </button>
             </div>
@@ -233,11 +232,9 @@ export default function FreshExperience() {
           </div>
         </section>
         <div className="fPrinciple fWidth">
-          <span>Built inside hotel operations.</span>
           <p>
-            The combinations, explored.
-            <br />
-            The final call, yours.
+            Shift tests schedule combinations against your rules; you review and
+            approve the final week.
           </p>
           <a href="#fshift">
             Explore Shift <Arrow />
@@ -246,11 +243,7 @@ export default function FreshExperience() {
         <section className="fProduct" id="fshift">
           <div className="fWidth">
             <div className="fSectionHead">
-              <h2>
-                The real week.
-                <br />
-                All in view.
-              </h2>
+              <h2>The real week. All in view.</h2>
               <p>
                 From staffing needs to the schedule you publish, keep the
                 decisions close to the people they affect.
@@ -260,13 +253,17 @@ export default function FreshExperience() {
               <div className="fTourRail">
                 <div
                   className="fTourButtons"
-                  role="group"
+                  role="tablist"
                   aria-label="Explore Shift product views"
                 >
                   {screens.map((item, i) => (
                     <button
+                      type="button"
                       key={item.name}
-                      aria-pressed={screen === i}
+                      id={`f-tour-tab-${i}`}
+                      role="tab"
+                      aria-selected={screen === i}
+                      aria-controls="f-tour-panel"
                       onClick={() => setScreen(i)}
                     >
                       {item.name}
@@ -279,7 +276,12 @@ export default function FreshExperience() {
                   <p>{shot.text}</p>
                 </div>
               </div>
-              <div className="fSwipeTour">
+              <div
+                className="fSwipeTour"
+                id="f-tour-panel"
+                role="tabpanel"
+                aria-labelledby={`f-tour-tab-${screen}`}
+              >
                 <div
                   className="fSwipeSurface"
                   onTouchStart={(event) => {
@@ -323,6 +325,7 @@ export default function FreshExperience() {
                   aria-label="Product illustration navigation"
                 >
                   <button
+                    type="button"
                     onClick={() => moveScreen(-1)}
                     aria-label="Previous product view"
                   >
@@ -331,10 +334,11 @@ export default function FreshExperience() {
                   <div aria-live="polite" aria-atomic="true">
                     <strong>{shot.name}</strong>
                     <span>
-                      {screen + 1} of {screens.length} · Swipe to explore
+                      {screen + 1} of {screens.length}
                     </span>
                   </div>
                   <button
+                    type="button"
                     onClick={() => moveScreen(1)}
                     aria-label="Next product view"
                   >
@@ -347,11 +351,7 @@ export default function FreshExperience() {
         </section>
         <section className="fApproach fWidth" id="fapproach">
           <div className="fSectionHead">
-            <h2>
-              You know your team.
-              <br />
-              Shift helps with the week.
-            </h2>
+            <h2>You know your team. Shift helps with the week.</h2>
             <p>
               A schedule is more than filled cells. It is a set of decisions
               about coverage, rest and competing preferences.
@@ -359,9 +359,8 @@ export default function FreshExperience() {
           </div>
           <ol className="fSteps">
             <li>
-              <span>01</span>
               <div>
-                <h3>Tell Shift what matters.</h3>
+                <h3>Set your staffing rules and preferences.</h3>
                 <p>
                   Set coverage, qualifications and availability. Bring in
                   approved leave, requests and your team’s preferences.
@@ -369,7 +368,6 @@ export default function FreshExperience() {
               </div>
             </li>
             <li>
-              <span>02</span>
               <div>
                 <h3>Let it work through the combinations.</h3>
                 <p>
@@ -379,7 +377,6 @@ export default function FreshExperience() {
               </div>
             </li>
             <li>
-              <span>03</span>
               <div>
                 <h3>Review the people, then the plan.</h3>
                 <p>
@@ -405,10 +402,7 @@ export default function FreshExperience() {
         <section className="fIncident">
           <div className="fWidth fIncidentGrid">
             <div>
-              <h2>
-                After the unexpected,
-                <br />a clearer record.
-              </h2>
+              <h2>After the unexpected, a clearer record.</h2>
               <p>
                 TideMark Incident is a separate companion for incident
                 reporting. Turn shift notes into a structured draft, with
@@ -420,16 +414,12 @@ export default function FreshExperience() {
               </a>
             </div>
             <div className="fIncidentExample">
-              <span>Illustrative follow-up</span>
+              <h3>Sample follow-up question</h3>
               <blockquote>“There was water near the pool entrance.”</blockquote>
               <p>
                 Was a wet-floor sign in place, and what action was taken
                 afterward?
               </p>
-              <small>
-                A question to answer. A fact to confirm.
-                <br />A clearer record starts there.
-              </small>
             </div>
           </div>
         </section>
@@ -438,11 +428,7 @@ export default function FreshExperience() {
             <Brand />
           </div>
           <div>
-            <h2>
-              From the other side
-              <br />
-              of the desk.
-            </h2>
+            <h2>From the other side of the desk.</h2>
             <p>
               I work in hotel operations in British Columbia. The hardest part
               of scheduling wasn’t filling the cells. It was wondering whether
@@ -468,25 +454,25 @@ export default function FreshExperience() {
         <section className="fContact" id="fcontact">
           <div className="fWidth fContactGrid">
             <div>
-              <h2>
-                Let’s look at
-                <br />
-                your week.
-              </h2>
+              <h2>Let’s look at your week.</h2>
               <p>
                 Tell me about your team and what makes scheduling hard. I’ll
                 reply personally to arrange a walkthrough and discuss whether a
                 pilot fits your property.
               </p>
-              <span className="fContactNote">
-                Early access. A conversation with the builder.
-              </span>
             </div>
             <form onSubmit={sendRequest} aria-label="Request a walkthrough">
               <input
                 type="hidden"
                 name="_subject"
                 value="TideMark fresh site walkthrough request"
+              />
+              <input
+                type="text"
+                name="_gotcha"
+                tabIndex={-1}
+                autoComplete="off"
+                hidden
               />
               {formState === "sent" ? (
                 <div className="fFormSuccess" role="status">
@@ -562,11 +548,7 @@ export default function FreshExperience() {
         <a className="fBrand" href="#ftop">
           <Brand />
         </a>
-        <p>
-          Built in British Columbia.
-          <br />
-          For the work behind a good stay.
-        </p>
+        <p>Built in British Columbia for hotel operations teams.</p>
         <a
           href="https://www.linkedin.com/in/oguzhangur"
           target="_blank"

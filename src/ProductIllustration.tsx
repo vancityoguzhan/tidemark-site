@@ -46,27 +46,21 @@ export default function ProductIllustration({ view }: { view: number }) {
             Shift
           </span>
           <span>Front desk</span>
-          <span className="piDemoLabel">Product illustration</span>
         </div>
         <div className="piCanvas">
           <div className="piHeading">
             <div>
               <h3>{titles[view]}</h3>
               <p>
-                {view === 3
-                  ? "Explore an absence before making a promise."
-                  : "October 18–24 · Example week"}
+                {view === 0
+                  ? "October 18–24 · Draft"
+                  : view === 1
+                    ? "October 18–24 · Coverage guide"
+                    : view === 2
+                      ? "October 18–31 · Calendar"
+                      : "Preview only · Explore an absence before making a promise."}
               </p>
             </div>
-            <span className="piState">
-              {view === 0
-                ? "Draft"
-                : view === 1
-                  ? "Coverage guide"
-                  : view === 2
-                    ? "Calendar"
-                    : "Preview only"}
-            </span>
           </div>
           {view === 0 && (
             <>
@@ -133,6 +127,7 @@ export default function ProductIllustration({ view }: { view: number }) {
                 </p>
               </div>
               <button
+                type="button"
                 className="piAction"
                 aria-pressed={kept}
                 onClick={() => setKept(!kept)}
@@ -151,13 +146,12 @@ export default function ProductIllustration({ view }: { view: number }) {
                     +1
                   </span>
                   <div>
-                    <strong>High demand · Front desk</strong>
+                    <strong>High demand · Front desk · Approved rule</strong>
                     <p>
-                      When arrivals + departures exceed 150, add a mid shift.
+                      When arrivals and departures exceed 150, add a mid shift.
                     </p>
                   </div>
                 </div>
-                <span className="piTag">Approved rule</span>
               </div>
               <div className="piToolbar">
                 <span>Required team members</span>
@@ -215,11 +209,12 @@ export default function ProductIllustration({ view }: { view: number }) {
                       : "Friday follows the base coverage guide."}
                   </strong>{" "}
                   {busy
-                    ? "180 arrivals + departures in this example."
-                    : "120 arrivals + departures in this example."}
+                    ? "180 arrivals and departures in this example."
+                    : "120 arrivals and departures in this example."}
                 </p>
               </div>
               <button
+                type="button"
                 className="piAction"
                 aria-pressed={busy}
                 onClick={() => setBusy(!busy)}
@@ -310,6 +305,7 @@ export default function ProductIllustration({ view }: { view: number }) {
                 </p>
               </div>
               <button
+                type="button"
                 className="piAction"
                 aria-pressed={!pending}
                 onClick={() => setPending(!pending)}
@@ -326,9 +322,8 @@ export default function ProductIllustration({ view }: { view: number }) {
                 </span>
                 <div>
                   <strong>Alex Chen</strong>
-                  <span>October 22–23</span>
+                  <span>October 22–23 · Vacation</span>
                 </div>
-                <span className="piTag">Vacation</span>
               </div>
               <div className="piOverlap">
                 <span className="piAvatar" aria-hidden="true">
@@ -339,6 +334,7 @@ export default function ProductIllustration({ view }: { view: number }) {
                   <span>October 23 · Pending request</span>
                 </div>
                 <button
+                  type="button"
                   aria-pressed={overlap}
                   onClick={() => setOverlap(!overlap)}
                 >
