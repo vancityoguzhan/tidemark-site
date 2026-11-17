@@ -481,14 +481,15 @@ export default function FreshExperience() {
           <div className="fStoryBody">
             <h2>From the other side of the desk.</h2>
             <p>
-              I work in hotel operations in British Columbia. The hardest part
-              of scheduling wasn’t filling the cells. It was wondering whether
-              one more change could give someone a better week without leaving
-              the hotel short.
+              I lead hotel operations in British Columbia. The hardest part of
+              weekly scheduling was never filling a grid. It was knowing whether
+              one more pass could give someone consecutive rest without leaving
+              the property short.
             </p>
             <p>
-              I built Shift to carry that mental workload, so I could spend more
-              time on the team and the hotel.
+              I built TideMark Shift to run that search systematically, so
+              operators can weigh the trade-offs, protect their team’s week, and
+              stay focused on running the hotel.
             </p>
             <a
               className="fFounder"
@@ -497,7 +498,7 @@ export default function FreshExperience() {
               rel="noreferrer"
             >
               <strong>Oguzhan Gur</strong>
-              <span>Hotel operator & TideMark creator</span>
+              <span>Founder, TideMark · Hotel Operations, British Columbia</span>
               <span className="fSr">LinkedIn, opens in a new tab</span>
             </a>
           </div>
