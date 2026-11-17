@@ -1,10 +1,14 @@
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 100px;
+  overflow-x: clip;
+  max-width: 100%;
 }
 body {
   margin: 0;
   -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
+  max-width: 100%;
 }
 .freshSite {
   --f-paper: #f7f9fc;
@@ -799,7 +803,7 @@ body {
     font-size: clamp(60px, 10vw, 80px);
   }
   .fHero {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     gap: 42px;
     padding-block: 45px 48px;
   }
@@ -832,8 +836,12 @@ body {
     margin-top: 22px;
   }
   .fTour {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     gap: 24px;
+  }
+  .fTourRail,
+  .fSwipeTour {
+    min-width: 0;
   }
   .fTourButtons {
     display: grid;
@@ -1007,7 +1015,7 @@ body {
     padding-block: 50px;
   }
   .fIncidentGrid {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     gap: 35px;
   }
   .fIncidentGrid h2 {
@@ -1017,7 +1025,7 @@ body {
     padding: 24px 0;
   }
   .fStory {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     padding-block: 50px;
     gap: 24px;
   }
@@ -1025,7 +1033,7 @@ body {
     padding-block: 55px;
   }
   .fContactGrid {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     gap: 35px;
   }
   .fContactGrid h2 {
