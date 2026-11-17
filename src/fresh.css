@@ -187,7 +187,7 @@ body {
 }
 .fHero {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: minmax(0, 1fr);
   gap: 48px;
   padding-block: 56px 80px;
   justify-items: center;
@@ -197,13 +197,16 @@ body {
   flex-direction: column;
   align-items: center;
   text-align: center;
+  width: 100%;
   max-width: 68ch;
+  min-width: 0;
 }
 .fHeroCopy > p {
-  max-width: 48ch;
+  max-width: 54ch;
   color: var(--f-muted);
   margin-top: 22px;
   font-size: var(--f-text-body);
+  text-wrap: pretty;
 }
 .fButton {
   display: inline-flex;
@@ -926,14 +929,18 @@ body {
     padding-inline: 5px;
   }
   .fRoster {
-    font-size: var(--f-text-sm);
-    border-spacing: 3px 7px;
+    font-size: 12px;
+    border-spacing: 2px 6px;
   }
   .fRoster th:first-child {
-    width: 48px;
+    width: 54px;
+    white-space: nowrap;
   }
   .fRoster thead th {
-    font-size: var(--f-text-sm);
+    font-size: 11px;
+  }
+  .fRoster tbody th {
+    white-space: nowrap;
   }
   .fRoster td > span {
     height: 34px;
