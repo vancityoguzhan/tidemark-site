@@ -481,16 +481,15 @@ export default function FreshExperience() {
           <div className="fStoryBody">
             <h2>From the other side of the desk.</h2>
             <p>
-              Hospitality runs on people who carry an enormous amount of
-              invisible weight. Too much of hotel management is still spent
-              fighting spreadsheets and fragmented tools instead of leading teams
-              and taking care of guests.
+              I focus on hospitality operations and solutions architecture:
+              mapping how a hotel actually flows day to day, finding where teams
+              lose hours to manual work, and turning recurring bottlenecks into
+              clear, repeatable systems.
             </p>
             <p>
-              My goal with TideMark is to give hotel operators calmer, sharper
-              software built from inside the operation, so operational decisions
-              take minutes instead of hours and teams get weeks they can
-              actually plan their lives around.
+              My goal with TideMark is to automate what can be automated and
+              give operators practical software built around real workflows, so
+              teams work with less friction and guests feel the difference.
             </p>
             <a
               className="fFounder"
@@ -499,7 +498,9 @@ export default function FreshExperience() {
               rel="noreferrer"
             >
               <strong>Oguzhan Gur</strong>
-              <span>Founder, TideMark · Hotel Operations, British Columbia</span>
+              <span>
+                Founder & Solutions Architect, TideMark · British Columbia
+              </span>
               <span className="fSr">LinkedIn, opens in a new tab</span>
             </a>
           </div>
