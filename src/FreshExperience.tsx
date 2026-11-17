@@ -481,15 +481,16 @@ export default function FreshExperience() {
           <div className="fStoryBody">
             <h2>From the other side of the desk.</h2>
             <p>
-              I lead hotel operations in British Columbia. The hardest part of
-              weekly scheduling was never filling a grid. It was knowing whether
-              one more pass could give someone consecutive rest without leaving
-              the property short.
+              Hospitality runs on people who carry an enormous amount of
+              invisible weight. Too much of hotel management is still spent
+              fighting spreadsheets and fragmented tools instead of leading teams
+              and taking care of guests.
             </p>
             <p>
-              I built TideMark Shift to run that search systematically, so
-              operators can weigh the trade-offs, protect their team’s week, and
-              stay focused on running the hotel.
+              My goal with TideMark is to give hotel operators calmer, sharper
+              software built from inside the operation, so operational decisions
+              take minutes instead of hours and teams get weeks they can
+              actually plan their lives around.
             </p>
             <a
               className="fFounder"
