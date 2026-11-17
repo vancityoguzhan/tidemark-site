@@ -470,6 +470,14 @@ export default function FreshExperience() {
         <section className="fStory fWidth" id="fstory">
           <div className="fStoryLead">
             <h2>From the other side of the desk.</h2>
+            <img
+              className="fFounderPhoto"
+              src="/oguzhan-gur.jpg"
+              alt="Oguzhan Gur, hotel operator and TideMark creator"
+              width={764}
+              height={1024}
+              loading="lazy"
+            />
           </div>
           <div className="fStoryBody">
             <p>

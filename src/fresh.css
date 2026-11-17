@@ -558,6 +558,18 @@ body {
   align-items: start;
   padding-block: 100px;
 }
+.fFounderPhoto {
+  display: block;
+  width: 100%;
+  max-width: 240px;
+  height: auto;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  object-position: top center;
+  border-radius: 14px;
+  border: 1px solid var(--f-line);
+  margin-top: 28px;
+}
 .fStoryBody > p {
   font-size: var(--f-text-body);
   color: var(--f-muted);
