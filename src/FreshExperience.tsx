@@ -468,8 +468,7 @@ export default function FreshExperience() {
           </div>
         </section>
         <section className="fStory fWidth" id="fstory">
-          <div className="fStoryLead">
-            <h2>From the other side of the desk.</h2>
+          <div className="fStoryMedia">
             <img
               className="fFounderPhoto"
               src="/oguzhan-gur.jpg"
@@ -480,6 +479,7 @@ export default function FreshExperience() {
             />
           </div>
           <div className="fStoryBody">
+            <h2>From the other side of the desk.</h2>
             <p>
               I work in hotel operations in British Columbia. The hardest part
               of scheduling wasn’t filling the cells. It was wondering whether
