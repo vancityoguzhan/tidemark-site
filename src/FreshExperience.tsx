@@ -1,6 +1,15 @@
 import { useEffect, useRef, useState } from "react";
 import "./fresh.css";
 import ProductIllustration from "./ProductIllustration";
+import TidalField from "./TidalField";
+import {
+  HERO_DAYS,
+  HERO_MODES,
+  HERO_TEAM,
+  analyzeHeroSchedule,
+  getCellMeta,
+  type HeroModeId,
+} from "./hero-puzzle-data";
 
 const screens = [
   {
@@ -23,18 +32,6 @@ const screens = [
     title: "Explore before you promise.",
     text: "Consider time-off requests together and check the effect on coverage. Your live schedule stays untouched.",
   },
-];
-const weekdays = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
-const names = ["Alex", "Morgan", "Jamie"];
-const scattered = [
-  [0, 3],
-  [1, 5],
-  [2, 6],
-];
-const together = [
-  [0, 1],
-  [3, 4],
-  [5, 6],
 ];
 function Arrow() {
   return (
@@ -64,7 +61,7 @@ function Brand() {
   );
 }
 export default function FreshExperience() {
-  const [rest, setRest] = useState(false);
+  const [heroMode, setHeroMode] = useState<HeroModeId>("manual");
   const [screen, setScreen] = useState(0);
   const [slideDir, setSlideDir] = useState<1 | -1>(1);
   const swipeStart = useRef<{ x: number; y: number } | null>(null);
@@ -104,6 +101,15 @@ export default function FreshExperience() {
       formErrorRef.current?.focus();
     }
   }, [formState]);
+  const activeMode =
+    HERO_MODES.find((mode) => mode.id === heroMode) ?? HERO_MODES[0];
+  const analysis = analyzeHeroSchedule(activeMode.grid);
+  const preferenceSummary = analysis.morganSunOff
+    ? `Sun honored · ${analysis.shiftMismatches.length} Mid trade-offs`
+    : analysis.shiftMismatches.length === 0
+      ? "All shifts met · Morgan works Sun"
+      : `${analysis.shiftMismatches.length} shift mismatches · Sun missed`;
+
   const shot = screens[screen];
   const formspreeUrl =
     import.meta.env?.VITE_FORMSPREE_URL ?? "https://formspree.io/f/xlgadqyd";
@@ -128,136 +134,202 @@ export default function FreshExperience() {
       <a className="fSkip" href="#fmain">
         Skip to content
       </a>
-      <header className="fHeader fWidth">
-        <a className="fBrand" href="#ftop" aria-label="TideMark home">
-          <Brand />
-        </a>
-        <nav aria-label="Main navigation">
-          <a href="#fshift">Shift</a>
-          <a href="#fapproach">How it works</a>
-          <a href="#fstory">Our story</a>
-        </nav>
-        <a className="fHeaderAction" href="#fcontact">
-          Let’s talk <Arrow />
-        </a>
+      <header className="fHeaderWrap" id="ftop">
+        <div className="fHeader fWidth">
+          <a className="fBrand" href="#ftop" aria-label="TideMark home">
+            <Brand />
+          </a>
+          <nav aria-label="Main navigation">
+            <a href="#fshift">Shift</a>
+            <a href="#fapproach">How it works</a>
+            <a href="#fstory">Our story</a>
+          </nav>
+          <a className="fHeaderAction" href="#fcontact">
+            Let’s talk <Arrow />
+          </a>
+        </div>
       </header>
       <main id="fmain">
-        <section className="fHero fWidth" id="ftop">
-          <div className="fHeroCopy">
-            <h1>A better week starts here.</h1>
-            <p>
-              TideMark Shift tests scheduling combinations against your staffing
-              rules, days off, and team preferences so you don’t have to.
-            </p>
-            <a className="fButton" href="#fcontact">
-              Request a walkthrough <Arrow />
-            </a>
+        <section className="fHeroZone">
+          <div className="fTidalLayer" aria-hidden="true">
+            <TidalField harmony={activeMode.harmony} />
           </div>
-          <div className="fWeekStage">
-            <div className="fWeekIntro">
-              <span>A week, reconsidered.</span>
-              <svg viewBox="0 0 64 32" aria-hidden="true">
-                <path
-                  d="M2 24C16 5 28 7 32 17s16 7 30-11"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                />
-              </svg>
+          <div className="fHero fWidth">
+            <div className="fHeroCopy">
+              <h1>A better week starts here.</h1>
+              <p>
+                TideMark Shift tests scheduling combinations against your
+                staffing rules, days off, and team preferences so you don’t have
+                to.
+              </p>
+              <a className="fButton" href="#fcontact">
+                Request a walkthrough <Arrow />
+              </a>
             </div>
-            <div className="fWeekPaper">
-              <div className="fWeekTop">
-                <strong>The team’s week</strong>
+            <div className="fWeekStage" data-state={activeMode.dataState}>
+              <div className="fWeekHeader">
+                <div className="fWeekTitle">
+                  <strong>Front desk · 5 team members</strong>
+                  <span>
+                    24 shifts · Peak Fri–Sun coverage · Hard rules locked
+                  </span>
+                </div>
+                <div
+                  className="fWeekChoices"
+                  role="group"
+                  aria-label="Compare illustrative schedules"
+                >
+                  {HERO_MODES.map((mode) => (
+                    <button
+                      type="button"
+                      key={mode.id}
+                      aria-pressed={heroMode === mode.id}
+                      onClick={() => setHeroMode(mode.id)}
+                    >
+                      {mode.label}
+                    </button>
+                  ))}
+                </div>
               </div>
+              <p className="fWeekRulesMobile">
+                Rules: Jamie no Mon · Elena leave Thu–Fri · Morgan wants Sun ·
+                Shift prefs active.
+              </p>
               <table className="fRoster">
                 <caption className="fSr">
-                  Fictional week showing {rest ? "consecutive" : "scattered"}{" "}
-                  days off. Each person works five days.
+                  Illustrative front-desk schedule under {activeMode.label}:{" "}
+                  {analysis.coveredShifts} of {analysis.requiredShifts} shifts
+                  covered, {analysis.tightTurnarounds.length} tight PM-to-AM
+                  turnarounds, and {analysis.consecutiveRestCount} of 5 team
+                  members with consecutive rest.
                 </caption>
                 <thead>
                   <tr>
-                    <th scope="col">
-                      <span className="fSr">Team member</span>
-                    </th>
-                    {weekdays.map((day) => (
-                      <th key={day} scope="col">
-                        {day}
+                    <th scope="col">Team</th>
+                    {HERO_DAYS.map((day) => (
+                      <th key={day.short} scope="col">
+                        <span>{day.short}</span>
+                        <span
+                          className="fDayDemand"
+                          data-peak={day.peak ? "true" : undefined}
+                        >
+                          {day.requiredCount} shifts
+                        </span>
                       </th>
                     ))}
                   </tr>
                 </thead>
                 <tbody>
-                  {names.map((name, row) => (
-                    <tr key={name}>
-                      <th scope="row">{name}</th>
-                      {weekdays.map((day, col) => (
-                        <td key={day}>
-                          <span
-                            className={
-                              (rest ? together : scattered)[row].includes(col)
-                                ? "fOff"
-                                : "fWork"
-                            }
-                          >
-                            {(rest ? together : scattered)[row].includes(
-                              col,
-                            ) ? (
-                              "Off"
-                            ) : (
-                              <>
-                                <span className="fSr">Working</span>
-                                <span aria-hidden="true">—</span>
-                              </>
-                            )}
-                          </span>
-                        </td>
-                      ))}
+                  {HERO_TEAM.map((person, row) => (
+                    <tr key={person.name}>
+                      <th scope="row">
+                        <span className="fPersonName">{person.name}</span>
+                        <span className="fPersonRule">
+                          {person.constraintSummary}
+                        </span>
+                      </th>
+                      {HERO_DAYS.map((day, col) => {
+                        const cell = activeMode.grid[row][col];
+                        const meta = getCellMeta(activeMode.grid, row, col);
+                        const baseClass =
+                          cell === "AM"
+                            ? "fShiftAM"
+                            : cell === "Mid"
+                              ? "fShiftMid"
+                              : cell === "PM"
+                                ? "fShiftPM"
+                                : cell === "Leave"
+                                  ? "fLeave"
+                                  : meta.isConsecutiveRest
+                                    ? "fOffConsec"
+                                    : "fOffSplit";
+                        const modClass =
+                          meta.isTightPair || meta.isTightMorning
+                            ? " fTight"
+                            : meta.isPreferenceTradeoff
+                              ? " fTradeoff"
+                              : "";
+                        return (
+                          <td key={day.short}>
+                            <span className={`${baseClass}${modClass}`}>
+                              {cell}
+                              {meta.isTightPair && (
+                                <span className="fSr">
+                                  {" "}
+                                  (tight turnaround before morning shift)
+                                </span>
+                              )}
+                              {meta.isTightMorning && (
+                                <span className="fSr">
+                                  {" "}
+                                  (tight turnaround after evening shift)
+                                </span>
+                              )}
+                              {meta.isPreferenceTradeoff && (
+                                <span className="fSr">
+                                  {" "}
+                                  (outside preferred shift)
+                                </span>
+                              )}
+                              {meta.isLeave && (
+                                <span className="fSr"> (approved leave)</span>
+                              )}
+                            </span>
+                          </td>
+                        );
+                      })}
                     </tr>
                   ))}
                 </tbody>
               </table>
-              <div className="fWeekLegend">
-                <span>
-                  <i /> Days off
-                </span>
-                <span>Same people. Five workdays each.</span>
+              <dl className="fWeekLedger" aria-live="polite" aria-atomic="true">
+                <div>
+                  <dt>Coverage</dt>
+                  <dd data-tone="steady">
+                    {analysis.coveredShifts} / {analysis.requiredShifts} shifts
+                  </dd>
+                </div>
+                <div>
+                  <dt>PM to AM turnarounds</dt>
+                  <dd
+                    data-tone={
+                      analysis.tightTurnarounds.length > 0 ? "tension" : "calm"
+                    }
+                  >
+                    {analysis.tightTurnarounds.length}
+                  </dd>
+                </div>
+                <div>
+                  <dt>Consecutive rest</dt>
+                  <dd
+                    data-tone={
+                      analysis.consecutiveRestCount < 5 ? "tension" : "calm"
+                    }
+                  >
+                    {analysis.consecutiveRestCount} of 5 team
+                  </dd>
+                </div>
+                <div>
+                  <dt>Preferences</dt>
+                  <dd data-tone={heroMode === "manual" ? "tension" : "neutral"}>
+                    {preferenceSummary}
+                  </dd>
+                </div>
+              </dl>
+              <div className="fWeekFooter">
+                <div
+                  className="fWeekResult"
+                  aria-live="polite"
+                  aria-atomic="true"
+                >
+                  <strong>{activeMode.heading}</strong>
+                  <p>{activeMode.summary}</p>
+                </div>
+                <p className="fIllustrationNote">
+                  Illustrative front-desk week, not a live solver run.
+                </p>
               </div>
             </div>
-            <div className="fWeekResult" aria-live="polite" aria-atomic="true">
-              <strong>
-                {rest
-                  ? "A little more room to switch off."
-                  : "A day off. Then back again."}
-              </strong>
-              <p>
-                {rest
-                  ? "Days off sit together in this example. In Shift, your staffing rules and priorities guide the search."
-                  : "Scattered breaks can make a week feel longer. Explore a different arrangement."}
-              </p>
-            </div>
-            <div
-              className="fWeekChoices"
-              role="group"
-              aria-label="Compare illustrative weeks"
-            >
-              <button
-                type="button"
-                aria-pressed={!rest}
-                onClick={() => setRest(false)}
-              >
-                Scattered breaks
-              </button>
-              <button
-                type="button"
-                aria-pressed={rest}
-                onClick={() => setRest(true)}
-              >
-                Days off together <Arrow />
-              </button>
-            </div>
-            <p className="fIllustrationNote">
-              A simple illustration, not a live scheduling calculation.
-            </p>
           </div>
         </section>
         <div className="fPrinciple fWidth">
