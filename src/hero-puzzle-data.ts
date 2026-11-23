@@ -126,7 +126,7 @@ export const HERO_TEAM: readonly HeroTeamMember[] = [
     workDays: 5,
     preferredShifts: ["AM"],
     requestedOffDay: 6,
-    constraintSummary: "Prefers AM · Wants Sun",
+    constraintSummary: "Prefers AM · Wants Sun off",
   },
   {
     name: "Jamie",

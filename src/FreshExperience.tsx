@@ -108,7 +108,7 @@ export default function FreshExperience() {
     ? `Sun honored · ${analysis.shiftMismatches.length} Mid trade-offs`
     : analysis.shiftMismatches.length === 0
       ? "All shifts met · Morgan works Sun"
-      : `${analysis.shiftMismatches.length} shift mismatches · Sun missed`;
+      : `${analysis.shiftMismatches.length} shift mismatches · Morgan works Sun`;
 
   const shot = screens[screen];
   const formspreeUrl =
@@ -141,6 +141,7 @@ export default function FreshExperience() {
           </a>
           <nav aria-label="Main navigation">
             <a href="#fshift">Shift</a>
+            <a href="#fincident">Incident</a>
             <a href="#fapproach">How it works</a>
             <a href="#fstory">Our story</a>
           </nav>
@@ -192,7 +193,7 @@ export default function FreshExperience() {
                 </div>
               </div>
               <p className="fWeekRulesMobile">
-                Rules: Jamie no Mon · Elena leave Thu–Fri · Morgan wants Sun ·
+                Rules: Jamie no Mon · Elena leave Thu–Fri · Morgan wants Sun off ·
                 Shift prefs active.
               </p>
               <table className="fRoster">
@@ -515,7 +516,7 @@ export default function FreshExperience() {
             </p>
           </details>
         </section>
-        <section className="fIncident">
+        <section className="fIncident" id="fincident">
           <div className="fWidth fIncidentGrid">
             <div>
               <h2>After the unexpected, a clearer record.</h2>
