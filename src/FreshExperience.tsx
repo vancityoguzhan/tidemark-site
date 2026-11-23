@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import "./fresh.css";
 import ProductIllustration from "./ProductIllustration";
+import IncidentIllustration from "./IncidentIllustration";
 import TidalField from "./TidalField";
 import {
   HERO_DAYS,
@@ -15,22 +16,44 @@ const screens = [
   {
     name: "The weekly schedule",
     title: "See the week. See the people.",
-    text: "Review assignments, days off and the compromises that need your attention. Keep important decisions, make adjustments, and publish when you’re ready.",
+    text: "See everyone’s shifts, days off, and remaining trade-offs in one view. Lock key assignments, adjust the rest, and publish when you’re ready.",
   },
   {
     name: "Staffing needs",
-    title: "Start with what the hotel needs.",
-    text: "Set your usual coverage, then account for busier arrival and departure days with staffing rules.",
+    title: "Start with how busy the hotel is.",
+    text: "Set your normal shift counts, then add extra coverage automatically on busy check-in and check-out days.",
   },
   {
     name: "Team requests",
-    title: "Keep the requests in the picture.",
-    text: "Bring pending and approved time off into view alongside the week you’re planning.",
+    title: "Keep time-off requests in view.",
+    text: "Approved and pending time off sit right alongside the week you’re planning, so nothing slips through.",
   },
   {
     name: "Leave planning",
-    title: "Explore before you promise.",
-    text: "Consider time-off requests together and check the effect on coverage. Your live schedule stays untouched.",
+    title: "Check coverage before you say yes.",
+    text: "Test overlapping vacation requests before approving time off. Your live schedule stays untouched while you check.",
+  },
+];
+const incidentScreens = [
+  {
+    name: "Hide private details",
+    title: "Real names never leave your device.",
+    text: "Before drafting begins, guest names, phone numbers, emails, and addresses are replaced with placeholders right in your browser. Hide your hotel name with one tap, too.",
+  },
+  {
+    name: "BC checklists",
+    title: "16 BC incident guides, built in.",
+    text: "Covers 16 British Columbia hotel situations, from WorkSafeBC staff injuries to guest slips, food safety, and security. It skips what you already noted and asks only for what’s missing.",
+  },
+  {
+    name: "Draft & fact check",
+    title: "Every draft is checked against your notes.",
+    text: "Turns shift notes into a calm, factual report, then checks every detail so nothing is added, dropped, or softened from what happened.",
+  },
+  {
+    name: "Letterhead & PDF",
+    title: "Finished offline. Ready to print.",
+    text: "Restores real names locally without sending anything online, adds your hotel letterhead and logo, and saves a clean printable PDF.",
   },
 ];
 function Arrow() {
@@ -66,6 +89,10 @@ export default function FreshExperience() {
   const [slideDir, setSlideDir] = useState<1 | -1>(1);
   const swipeStart = useRef<{ x: number; y: number } | null>(null);
   const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
+  const [incidentScreen, setIncidentScreen] = useState(0);
+  const [incidentSlideDir, setIncidentSlideDir] = useState<1 | -1>(1);
+  const incidentSwipeStart = useRef<{ x: number; y: number } | null>(null);
+  const incidentTabRefs = useRef<(HTMLButtonElement | null)[]>([]);
   const formSuccessRef = useRef<HTMLDivElement>(null);
   const formErrorRef = useRef<HTMLParagraphElement>(null);
   function moveScreen(direction: number) {
@@ -91,6 +118,34 @@ export default function FreshExperience() {
     setScreen(nextIndex);
     tabRefs.current[nextIndex]?.focus();
   }
+  function moveIncidentScreen(direction: number) {
+    setIncidentSlideDir(direction >= 0 ? 1 : -1);
+    setIncidentScreen(
+      (current) =>
+        (current + direction + incidentScreens.length) %
+        incidentScreens.length,
+    );
+  }
+  function handleIncidentTabKeyDown(
+    event: React.KeyboardEvent<HTMLDivElement>,
+  ) {
+    let nextIndex: number | null = null;
+    if (event.key === "ArrowRight" || event.key === "ArrowDown") {
+      nextIndex = (incidentScreen + 1) % incidentScreens.length;
+    } else if (event.key === "ArrowLeft" || event.key === "ArrowUp") {
+      nextIndex =
+        (incidentScreen - 1 + incidentScreens.length) % incidentScreens.length;
+    } else if (event.key === "Home") {
+      nextIndex = 0;
+    } else if (event.key === "End") {
+      nextIndex = incidentScreens.length - 1;
+    }
+    if (nextIndex === null) return;
+    event.preventDefault();
+    setIncidentSlideDir(nextIndex >= incidentScreen ? 1 : -1);
+    setIncidentScreen(nextIndex);
+    incidentTabRefs.current[nextIndex]?.focus();
+  }
   const [formState, setFormState] = useState<
     "idle" | "sending" | "sent" | "error"
   >("idle");
@@ -105,12 +160,13 @@ export default function FreshExperience() {
     HERO_MODES.find((mode) => mode.id === heroMode) ?? HERO_MODES[0];
   const analysis = analyzeHeroSchedule(activeMode.grid);
   const preferenceSummary = analysis.morganSunOff
-    ? `Sun honored · ${analysis.shiftMismatches.length} Mid trade-offs`
+    ? `Morgan off Sun · ${analysis.shiftMismatches.length} Mid shifts for Alex`
     : analysis.shiftMismatches.length === 0
-      ? "All shifts met · Morgan works Sun"
-      : `${analysis.shiftMismatches.length} shift mismatches · Morgan works Sun`;
+      ? "Every shift request met · Morgan works Sun"
+      : `${analysis.shiftMismatches.length} off-preference shifts · Morgan works Sun`;
 
   const shot = screens[screen];
+  const incidentShot = incidentScreens[incidentScreen];
   const formspreeUrl =
     import.meta.env?.VITE_FORMSPREE_URL ?? "https://formspree.io/f/xlgadqyd";
   async function sendRequest(event: React.FormEvent<HTMLFormElement>) {
@@ -142,7 +198,6 @@ export default function FreshExperience() {
           <nav aria-label="Main navigation">
             <a href="#fshift">Shift</a>
             <a href="#fincident">Incident</a>
-            <a href="#fapproach">How it works</a>
             <a href="#fstory">Our story</a>
           </nav>
           <a className="fHeaderAction" href="#fcontact">
@@ -159,9 +214,9 @@ export default function FreshExperience() {
             <div className="fHeroCopy">
               <h1>A better week starts here.</h1>
               <p>
-                TideMark Shift tests scheduling combinations against your
-                staffing rules, days off, and team preferences so you don’t have
-                to.
+                Spend less time untangling the weekly roster.{" "}
+                <span className="fShiftInline">TideMark Shift</span> weighs
+                coverage, days off, and team requests so you don’t have to.
               </p>
               <a className="fButton" href="#fcontact">
                 Request a walkthrough <Arrow />
@@ -172,7 +227,7 @@ export default function FreshExperience() {
                 <div className="fWeekTitle">
                   <strong>Front desk · 5 team members</strong>
                   <span>
-                    24 shifts · Peak Fri–Sun coverage · Hard rules locked
+                    24 shifts · Busy Fri–Sun · Leave &amp; fixed days off locked
                   </span>
                 </div>
                 <div
@@ -193,16 +248,16 @@ export default function FreshExperience() {
                 </div>
               </div>
               <p className="fWeekRulesMobile">
-                Rules: Jamie no Mon · Elena leave Thu–Fri · Morgan wants Sun off ·
-                Shift prefs active.
+                Setup: Jamie off Mon · Elena on leave Thu–Fri · Morgan wants Sun
+                off · Preferred shifts set.
               </p>
               <table className="fRoster">
                 <caption className="fSr">
-                  Illustrative front-desk schedule under {activeMode.label}:{" "}
+                  Sample front-desk schedule under {activeMode.label}:{" "}
                   {analysis.coveredShifts} of {analysis.requiredShifts} shifts
-                  covered, {analysis.tightTurnarounds.length} tight PM-to-AM
-                  turnarounds, and {analysis.consecutiveRestCount} of 5 team
-                  members with consecutive rest.
+                  covered, {analysis.tightTurnarounds.length} late-to-early
+                  shifts, and {analysis.consecutiveRestCount} of 5 team members
+                  with days off together.
                 </caption>
                 <thead>
                   <tr>
@@ -291,7 +346,7 @@ export default function FreshExperience() {
                   </dd>
                 </div>
                 <div>
-                  <dt>PM to AM turnarounds</dt>
+                  <dt>Late-to-early</dt>
                   <dd
                     data-tone={
                       analysis.tightTurnarounds.length > 0 ? "tension" : "calm"
@@ -301,7 +356,7 @@ export default function FreshExperience() {
                   </dd>
                 </div>
                 <div>
-                  <dt>Consecutive rest</dt>
+                  <dt>Days off together</dt>
                   <dd
                     data-tone={
                       analysis.consecutiveRestCount < 5 ? "tension" : "calm"
@@ -311,7 +366,7 @@ export default function FreshExperience() {
                   </dd>
                 </div>
                 <div>
-                  <dt>Preferences</dt>
+                  <dt>Team requests</dt>
                   <dd data-tone={heroMode === "manual" ? "tension" : "neutral"}>
                     {preferenceSummary}
                   </dd>
@@ -327,28 +382,50 @@ export default function FreshExperience() {
                   <p>{activeMode.summary}</p>
                 </div>
                 <p className="fIllustrationNote">
-                  Illustrative front-desk week, not a live solver run.
+                  Sample front-desk week for illustration.
                 </p>
               </div>
             </div>
           </div>
         </section>
-        <div className="fPrinciple fWidth">
-          <p>
-            Built around your rules and your team’s rest, with the final call
-            always yours.
-          </p>
-          <a href="#fshift">
-            Explore Shift <Arrow />
-          </a>
-        </div>
+        <section className="fSuiteBand" aria-label="TideMark products">
+          <div className="fWidth fSuiteGrid">
+            <div className="fSuiteItem">
+              <h3>TideMark Shift</h3>
+              <p>
+                Weekly scheduling built for the hard parts: busy weekends, days
+                off together, and staff requests, with the final call always
+                yours.
+              </p>
+              <div className="fSuiteActions">
+                <a href="#fshift">
+                  Explore Shift <Arrow />
+                </a>
+                <span>Walkthrough &amp; pilot</span>
+              </div>
+            </div>
+            <div className="fSuiteItem">
+              <h3>TideMark Incident</h3>
+              <p>
+                BC incident reporting in your browser. Turn shift notes into a
+                printable PDF while guest and staff names stay on your device.
+              </p>
+              <div className="fSuiteActions">
+                <a href="#fincident">
+                  Explore Incident <Arrow />
+                </a>
+                <span>Try it at incident.gettidemark.com</span>
+              </div>
+            </div>
+          </div>
+        </section>
         <section className="fProduct" id="fshift">
           <div className="fWidth">
             <div className="fSectionHead">
-              <h2>The real week. All in view.</h2>
+              <h2>TideMark Shift</h2>
               <p>
-                From staffing needs to the schedule you publish, keep the
-                decisions close to the people they affect.
+                Everything you balance before publishing: busy check-in days,
+                time-off requests, and the people behind the schedule.
               </p>
             </div>
             <div className="fTour">
@@ -466,77 +543,203 @@ export default function FreshExperience() {
             </div>
           </div>
         </section>
-        <section className="fApproach fWidth" id="fapproach">
-          <div className="fSectionHead">
-            <h2>You know your team. Shift helps with the week.</h2>
-            <p>
-              A schedule is more than filled cells. It is a set of decisions
-              about coverage, rest and competing preferences.
-            </p>
+        <section className="fApproach" id="fapproach">
+          <div className="fWidth">
+            <div className="fSectionHead">
+              <h2>How Shift builds your week.</h2>
+              <p>
+                A good schedule isn’t just filled slots. It balances hotel
+                coverage, real rest, and a fair week for your team.
+              </p>
+            </div>
+            <ol className="fSteps">
+              <li>
+                <div>
+                  <h3>Set what your week needs.</h3>
+                  <p>
+                    Enter how many people each shift needs, who can cover each
+                    role, approved time off, and shift preferences.
+                  </p>
+                </div>
+              </li>
+              <li>
+                <div>
+                  <h3>Let Shift work through the puzzle.</h3>
+                  <p>
+                    Instead of juggling cells by hand, let Shift weigh the
+                    options to keep days off together, avoid late-to-early
+                    turns, and meet more requests.
+                  </p>
+                </div>
+              </li>
+              <li>
+                <div>
+                  <h3>Review the trade-offs, then publish.</h3>
+                  <p>
+                    Look over each person’s week with every trade-off clear
+                    upfront. Keep what works, tweak the rest, and publish when
+                    you’re ready.
+                  </p>
+                </div>
+              </li>
+            </ol>
+            <details className="fDetails">
+              <summary>
+                Does Shift always find the best possible schedule?
+              </summary>
+              <p>
+                No software can resolve every conflict when requests collide.
+                Shift runs a fast search under your rules and priorities to
+                produce a strong, practical week rather than proving no better
+                plan exists. When availability is tight, some trade-offs remain,
+                and you always review the week before publishing.
+              </p>
+            </details>
           </div>
-          <ol className="fSteps">
-            <li>
-              <div>
-                <h3>Set your staffing rules and preferences.</h3>
-                <p>
-                  Set coverage, qualifications and availability. Bring in
-                  approved leave, requests and your team’s preferences.
-                </p>
-              </div>
-            </li>
-            <li>
-              <div>
-                <h3>Let it work through the combinations.</h3>
-                <p>
-                  Build around your rules and priorities, including consecutive
-                  breaks, preferred shifts and difficult turnarounds.
-                </p>
-              </div>
-            </li>
-            <li>
-              <div>
-                <h3>Review the people, then the plan.</h3>
-                <p>
-                  Check each person’s week and the remaining compromises. Keep
-                  assignments or make changes. Publish when you’re ready.
-                </p>
-              </div>
-            </li>
-          </ol>
-          <details className="fDetails">
-            <summary>
-              Does Shift always find the best possible schedule?
-            </summary>
-            <p>
-              Shift searches for a schedule under your configured rules and
-              priorities. A time-limited search can return a workable result
-              without proving it is the best possible one. Availability and
-              competing needs can mean not every preference is met. You review
-              the result before publishing.
-            </p>
-          </details>
         </section>
         <section className="fIncident" id="fincident">
-          <div className="fWidth fIncidentGrid">
-            <div>
-              <h2>After the unexpected, a clearer record.</h2>
-              <p>
-                TideMark Incident is a separate companion for incident
-                reporting. Turn shift notes into a structured draft, with
-                follow-up questions to help fill the gaps. Review the facts
-                before signing off.
-              </p>
-              <a className="fTextLink" href="#fcontact">
-                Ask about Incident <Arrow />
-              </a>
+          <div className="fWidth">
+            <div className="fIncidentHead">
+              <div className="fIncidentHeadMain">
+                <h2>TideMark Incident</h2>
+                <p>
+                  Writing an incident report after a busy shift shouldn’t feel
+                  like drafting a legal brief. Turn rough shift notes into a
+                  clear, BC-ready PDF while guest and staff names stay on your
+                  device.
+                </p>
+              </div>
+              <div className="fIncidentHeadAction">
+                <a
+                  className="fButton fIncidentCta"
+                  href="https://incident.gettidemark.com"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Try Incident now <Arrow />
+                  <span className="fSr">, opens in a new tab</span>
+                </a>
+                <p className="fIncidentMeta">
+                  incident.gettidemark.com · No sign-up · Runs in your browser
+                </p>
+              </div>
             </div>
-            <div className="fIncidentExample">
-              <h3>Sample follow-up question</h3>
-              <blockquote>“There was water near the pool entrance.”</blockquote>
-              <p>
-                Was a wet-floor sign in place, and what action was taken
-                afterward?
-              </p>
+            <div className="fTour fIncidentTour">
+              <div className="fTourRail">
+                <div
+                  className="fTourButtons"
+                  role="tablist"
+                  aria-label="Explore Incident workflow steps"
+                  onKeyDown={handleIncidentTabKeyDown}
+                >
+                  {incidentScreens.map((item, i) => (
+                    <button
+                      type="button"
+                      key={item.name}
+                      ref={(el) => {
+                        incidentTabRefs.current[i] = el;
+                      }}
+                      id={`f-incident-tab-${i}`}
+                      role="tab"
+                      aria-selected={incidentScreen === i}
+                      aria-controls="f-incident-panel"
+                      tabIndex={incidentScreen === i ? 0 : -1}
+                      onClick={() => {
+                        setIncidentSlideDir(i >= incidentScreen ? 1 : -1);
+                        setIncidentScreen(i);
+                      }}
+                    >
+                      {item.name}
+                      <Arrow />
+                    </button>
+                  ))}
+                </div>
+                <div className="fTourText" aria-live="polite">
+                  <h3>{incidentShot.title}</h3>
+                  <p>{incidentShot.text}</p>
+                </div>
+              </div>
+              <div
+                className="fSwipeTour"
+                id="f-incident-panel"
+                role="tabpanel"
+                aria-labelledby={`f-incident-tab-${incidentScreen}`}
+                tabIndex={0}
+              >
+                <div
+                  className="fSwipeSurface"
+                  onTouchStart={(event) => {
+                    incidentSwipeStart.current = null;
+                    if (
+                      event.touches.length !== 1 ||
+                      !window.matchMedia("(max-width: 800px)").matches
+                    )
+                      return;
+                    if (
+                      (event.target as Element).closest(
+                        "button, a, input, select, textarea",
+                      )
+                    )
+                      return;
+                    const touch = event.touches[0];
+                    incidentSwipeStart.current = {
+                      x: touch.clientX,
+                      y: touch.clientY,
+                    };
+                  }}
+                  onTouchMove={(event) => {
+                    if (event.touches.length !== 1)
+                      incidentSwipeStart.current = null;
+                  }}
+                  onTouchCancel={() => {
+                    incidentSwipeStart.current = null;
+                  }}
+                  onTouchEnd={(event) => {
+                    const start = incidentSwipeStart.current;
+                    incidentSwipeStart.current = null;
+                    if (!start || !event.changedTouches.length) return;
+                    const touch = event.changedTouches[0];
+                    const dx = touch.clientX - start.x;
+                    const dy = touch.clientY - start.y;
+                    if (Math.abs(dx) >= 40 && Math.abs(dx) > Math.abs(dy) * 1.5)
+                      moveIncidentScreen(dx < 0 ? 1 : -1);
+                  }}
+                >
+                  <div
+                    key={incidentScreen}
+                    className="fTourViewTransition"
+                    data-dir={incidentSlideDir}
+                  >
+                    <IncidentIllustration view={incidentScreen} />
+                  </div>
+                </div>
+                <div
+                  className="fSwipeControls"
+                  role="group"
+                  aria-label="Incident workflow navigation"
+                >
+                  <button
+                    type="button"
+                    onClick={() => moveIncidentScreen(-1)}
+                    aria-label="Previous Incident step"
+                  >
+                    <span aria-hidden="true">‹</span>
+                  </button>
+                  <div>
+                    <strong>{incidentShot.name}</strong>
+                    <span>
+                      {incidentScreen + 1} of {incidentScreens.length}
+                    </span>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => moveIncidentScreen(1)}
+                    aria-label="Next Incident step"
+                  >
+                    <span aria-hidden="true">›</span>
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         </section>
@@ -554,15 +757,15 @@ export default function FreshExperience() {
           <div className="fStoryBody">
             <h2>From the other side of the desk.</h2>
             <p>
-              I focus on hospitality operations and solutions architecture:
-              mapping how a hotel actually flows day to day, finding where teams
-              lose hours to manual work, and turning recurring bottlenecks into
-              clear, repeatable systems.
+              I work on hotel operations and the systems behind them: studying
+              how a property runs day to day, spotting where teams lose hours to
+              manual work, and building straightforward tools to solve it.
             </p>
             <p>
-              My goal with TideMark is to automate what can be automated and
-              give operators practical software built around real workflows, so
-              teams work with less friction and guests feel the difference.
+              My goal with TideMark is simple: let software handle the
+              repetitive scheduling and paperwork so managers spend less time in
+              spreadsheets, teams get better weeks, and guests feel the
+              difference.
             </p>
             <a
               className="fFounder"
@@ -571,9 +774,7 @@ export default function FreshExperience() {
               rel="noreferrer"
             >
               <strong>Oguzhan Gur</strong>
-              <span>
-                Founder & Solutions Architect, TideMark · British Columbia
-              </span>
+              <span>Founder, TideMark · British Columbia</span>
               <span className="fSr">LinkedIn, opens in a new tab</span>
             </a>
           </div>
@@ -581,11 +782,11 @@ export default function FreshExperience() {
         <section className="fContact" id="fcontact">
           <div className="fWidth fContactGrid">
             <div>
-              <h2>Let’s look at your week.</h2>
+              <h2>Let’s talk about your team.</h2>
               <p>
-                Tell me about your team and what makes scheduling hard. I’ll
-                reply personally to arrange a walkthrough and discuss whether a
-                pilot fits your property.
+                Tell me about your property and what slows your week down. I’ll
+                reply personally to set up a walkthrough and see whether
+                TideMark fits how your team runs.
               </p>
             </div>
             <form onSubmit={sendRequest} aria-label="Request a walkthrough">
@@ -608,10 +809,10 @@ export default function FreshExperience() {
                   ref={formSuccessRef}
                   tabIndex={-1}
                 >
-                  <h3>Your request is on its way.</h3>
+                  <h3>Request received. I’ll be in touch soon.</h3>
                   <p>
-                    Thank you. Oguzhan will reply to the email you provided to
-                    discuss a walkthrough.
+                    Thanks for reaching out. I’ll reply to the email you shared
+                    to arrange a walkthrough.
                   </p>
                 </div>
               ) : (
@@ -644,7 +845,7 @@ export default function FreshExperience() {
                     <textarea
                       name="setup_goal"
                       rows={3}
-                      placeholder="Your team, your property, or the part of scheduling you’d like to make easier."
+                      placeholder="Your team size, your scheduling challenges, or how you handle incident reports today."
                     />
                   </label>
                   <button
@@ -673,7 +874,7 @@ export default function FreshExperience() {
                     </p>
                   )}
                   <p className="fFormNote">
-                    Sent directly to Oguzhan. No automated marketing emails.
+                    Goes straight to Oguzhan. No marketing emails.
                   </p>
                 </>
               )}
@@ -685,7 +886,7 @@ export default function FreshExperience() {
         <a className="fBrand" href="#ftop" aria-label="TideMark home">
           <Brand />
         </a>
-        <p>Built in British Columbia for hotel operations teams.</p>
+        <p>Built in British Columbia for hotel teams.</p>
         <a
           href="https://www.linkedin.com/in/oguzhangur"
           target="_blank"

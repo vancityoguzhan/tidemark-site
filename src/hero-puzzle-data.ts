@@ -163,9 +163,9 @@ export const HERO_MODES: readonly HeroModeSpec[] = [
       ["Mid", "Mid", "Off", "Mid", "AM", "Mid", "Off"],
       ["Off", "PM", "Mid", "Leave", "Leave", "AM", "Mid"],
     ],
-    heading: "Coverage is filled. The week is still fragile.",
+    heading: "Every shift is covered, yet the week is tough on the team.",
     summary:
-      "Every shift is covered and hard rules hold, yet two tight PM-to-AM turnarounds, four split breaks, and four shift mismatches remain.",
+      "All 24 shifts are filled, with two late-to-early turnarounds, four split days off, and four shifts outside team preferences.",
   },
   {
     id: "balanced",
@@ -179,13 +179,13 @@ export const HERO_MODES: readonly HeroModeSpec[] = [
       ["Mid", "Mid", "Mid", "Mid", "Mid", "Off", "Off"],
       ["PM", "PM", "Off", "Leave", "Leave", "Mid", "Mid"],
     ],
-    heading: "Thirteen assignments shift together to settle the week.",
+    heading: "Thirteen shifts move together to balance the week.",
     summary:
-      "Zero tight turnarounds, consecutive rest for all five team members, and every preferred shift met. Trade-off: Morgan works Sunday.",
+      "Zero late-to-early shifts, two days off together for everyone, and every preferred shift met. The trade-off: Morgan works Sunday.",
   },
   {
     id: "request",
-    label: "Honor Sun off",
+    label: "Morgan Sun off",
     harmony: 0.78,
     dataState: "tradeoff",
     grid: [
@@ -195,9 +195,9 @@ export const HERO_MODES: readonly HeroModeSpec[] = [
       ["Mid", "Mid", "Off", "Off", "Mid", "Mid", "Mid"],
       ["PM", "PM", "Off", "Leave", "Leave", "AM", "AM"],
     ],
-    heading: "Honoring one Sunday request reshapes four people’s weeks.",
+    heading: "Giving Morgan Sunday off reshapes four schedules.",
     summary:
-      "Morgan gets Saturday and Sunday off with zero tight turnarounds and full weekend coverage. Trade-off: Alex takes two midweek Mid shifts.",
+      "Morgan gets Saturday and Sunday off with full weekend coverage and zero late-to-early shifts. The trade-off: Alex covers two midweek Mid shifts.",
   },
 ];
 

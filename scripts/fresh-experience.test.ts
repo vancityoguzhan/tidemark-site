@@ -25,6 +25,9 @@ const { default: FreshExperience } = await vite.ssrLoadModule(
 const { default: ProductIllustration } = await vite.ssrLoadModule(
   "/src/ProductIllustration.tsx",
 );
+const { default: IncidentIllustration } = await vite.ssrLoadModule(
+  "/src/IncidentIllustration.tsx",
+);
 const { HERO_MODES, HERO_TEAM, analyzeHeroSchedule } = await vite.ssrLoadModule(
   "/src/hero-puzzle-data.ts",
 );
@@ -95,12 +98,25 @@ test("ProductIllustration.tsx omits decorative badges and uses explicit button t
   }
 });
 
+test("IncidentIllustration.tsx omits decorative badges and uses explicit button types", () => {
+  const tsx = fs.readFileSync(
+    path.join(root, "src/IncidentIllustration.tsx"),
+    "utf8",
+  );
+  assert.doesNotMatch(tsx, /piDemoLabel|piState|piTag|iiDemoLabel|iiBadge/);
+  const buttons = tsx.match(/<button\b[^>]*>/g) ?? [];
+  assert.ok(buttons.length > 0);
+  for (const btn of buttons) {
+    assert.match(btn, /type="button"/);
+  }
+});
+
 test("FreshExperience SSR renders hero, tidal canvas, 5-person puzzle, tablist, story, form, and footer", () => {
   const html = renderToStaticMarkup(React.createElement(FreshExperience));
   assert.match(html, /<canvas class="fTidalCanvas" aria-hidden="true"><\/canvas>/);
   assert.match(html, /<h1>A better week starts here\.<\/h1>/);
   assert.match(html, /so you don’t have to\./);
-  for (const label of ["Manual draft", "Balance shifts", "Honor Sun off"]) {
+  for (const label of ["Manual draft", "Balance shifts", "Morgan Sun off"]) {
     assert.match(html, new RegExp(`>${label}</button>`));
   }
   for (const person of HERO_TEAM) {
@@ -109,6 +125,19 @@ test("FreshExperience SSR renders hero, tidal canvas, 5-person puzzle, tablist, 
   assert.match(html, /id="f-tour-tab-0"[^>]*aria-selected="true"[^>]*tabindex="0"/);
   assert.match(html, /id="f-tour-tab-1"[^>]*aria-selected="false"[^>]*tabindex="-1"/);
   assert.match(html, /id="f-tour-panel"[^>]*role="tabpanel"[^>]*tabindex="0"/);
+  assert.match(html, /<a href="#fshift">Shift<\/a>/);
+  assert.match(html, /<a href="#fincident">Incident<\/a>/);
+  assert.match(html, /<a href="#fstory">Our story<\/a>/);
+  assert.match(html, /<h3>TideMark Shift<\/h3>/);
+  assert.match(html, /<h3>TideMark Incident<\/h3>/);
+  assert.match(html, /id="fincident"/);
+  assert.match(html, /<h2>TideMark Incident<\/h2>/);
+  assert.match(html, /href="https:\/\/incident\.gettidemark\.com"/);
+  assert.match(html, /id="f-incident-tab-0"[^>]*aria-selected="true"[^>]*tabindex="0"/);
+  assert.match(html, /id="f-incident-tab-1"[^>]*aria-selected="false"[^>]*tabindex="-1"/);
+  assert.match(html, /id="f-incident-panel"[^>]*role="tabpanel"[^>]*tabindex="0"/);
+  assert.match(html, /\[PERSON_1\]/);
+  assert.match(html, /\[PHONE_1\]/);
   assert.match(html, /From the other side of the desk\./);
   assert.match(html, /aria-label="Request a walkthrough"/);
   assert.match(
@@ -125,7 +154,7 @@ test("FreshExperience SSR renders hero, tidal canvas, 5-person puzzle, tablist, 
 test("ProductIllustration SSR renders all 4 product views cleanly", () => {
   const expected = [
     { view: 0, heading: "The weekly schedule", text: "October 18–24 · Draft" },
-    { view: 1, heading: "Staffing needs", text: "High demand · Front desk · Approved rule" },
+    { view: 1, heading: "Staffing needs", text: "Busy-day rule · Front desk" },
     { view: 2, heading: "Time off &amp; preferences", text: "Illustrative time-off calendar, October 18 to 31" },
     { view: 3, heading: "Leave planner", text: "Example coverage check" },
   ];
@@ -135,6 +164,40 @@ test("ProductIllustration SSR renders all 4 product views cleanly", () => {
     );
     assert.match(html, new RegExp(`<h3>${item.heading}</h3>`));
     assert.match(html, new RegExp(item.text));
+  }
+});
+
+test("IncidentIllustration SSR renders all 4 workflow views cleanly", () => {
+  const expected = [
+    {
+      view: 0,
+      heading: "Hide private details",
+      checks: [/\[PERSON_1\]/, /\[PHONE_1\]/, /\[BUSINESS_1\]/],
+    },
+    {
+      view: 1,
+      heading: "BC checklists",
+      checks: [/16 BC incident guides/, /Was a wet-floor sign up\?/],
+    },
+    {
+      view: 2,
+      heading: "Draft &amp; fact check",
+      checks: [/Key details kept/, /Important refusals/],
+    },
+    {
+      view: 3,
+      heading: "Letterhead &amp; PDF",
+      checks: [/Printable PDF \(Letter\)/, /Completed offline on your device/],
+    },
+  ];
+  for (const item of expected) {
+    const html = renderToStaticMarkup(
+      React.createElement(IncidentIllustration, { view: item.view }),
+    );
+    assert.match(html, new RegExp(`<h3>${item.heading}</h3>`));
+    for (const pattern of item.checks) {
+      assert.match(html, pattern);
+    }
   }
 });
 

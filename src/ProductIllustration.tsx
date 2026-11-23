@@ -73,7 +73,7 @@ export default function ProductIllustration({ view }: { view: number }) {
                     ? "October 18–24 · Coverage guide"
                     : view === 2
                       ? "October 18–31 · Calendar"
-                      : "Preview only · Explore an absence before making a promise."}
+                      : "Preview mode · Check coverage before saying yes."}
               </p>
             </div>
           </div>
@@ -122,9 +122,9 @@ export default function ProductIllustration({ view }: { view: number }) {
                             {row === 0 && col === 2 && kept && (
                               <span
                                 className="piKept"
-                                aria-label="Kept assignment"
+                                aria-label="Locked shift"
                               >
-                                Kept
+                                Locked
                               </span>
                             )}
                           </span>
@@ -137,8 +137,8 @@ export default function ProductIllustration({ view }: { view: number }) {
               <div className="piInsight" aria-live="polite">
                 <Check />
                 <p>
-                  <strong>A week to review.</strong> Days off together. Each
-                  person’s shifts in view.
+                  <strong>Ready for review.</strong> Days off together, shifts
+                  balanced, and nothing goes live until you publish.
                 </p>
               </div>
               <button
@@ -148,8 +148,8 @@ export default function ProductIllustration({ view }: { view: number }) {
                 onClick={() => setKept(!kept)}
               >
                 {kept
-                  ? "Release Alex’s Tuesday assignment"
-                  : "Keep Alex’s Tuesday assignment"}
+                  ? "Unlock Alex’s Tuesday shift"
+                  : "Lock Alex’s Tuesday shift"}
               </button>
             </>
           )}
@@ -161,16 +161,16 @@ export default function ProductIllustration({ view }: { view: number }) {
                     +1
                   </span>
                   <div>
-                    <strong>High demand · Front desk · Approved rule</strong>
+                    <strong>Busy-day rule · Front desk</strong>
                     <p>
-                      When arrivals and departures exceed 150, add a mid shift.
+                      When check-ins and check-outs pass 150, add a mid shift.
                     </p>
                   </div>
                 </div>
               </div>
               <div className="piToolbar">
-                <span>Required team members</span>
-                <span>Base guide + staffing rules</span>
+                <span>Staff needed</span>
+                <span>Normal coverage + busy-day rules</span>
               </div>
               <table className="piTable piNeeds">
                 <caption className="fSr">
@@ -220,12 +220,12 @@ export default function ProductIllustration({ view }: { view: number }) {
                 <p>
                   <strong>
                     {busy
-                      ? "Friday’s mid shift has extra coverage."
-                      : "Friday follows the base coverage guide."}
+                      ? "Friday’s mid shift gets extra coverage."
+                      : "Friday stays on normal coverage."}
                   </strong>{" "}
                   {busy
-                    ? "180 arrivals and departures in this example."
-                    : "120 arrivals and departures in this example."}
+                    ? "180 check-ins and check-outs in this example."
+                    : "120 check-ins and check-outs in this example."}
                 </p>
               </div>
               <button
@@ -234,7 +234,7 @@ export default function ProductIllustration({ view }: { view: number }) {
                 aria-pressed={busy}
                 onClick={() => setBusy(!busy)}
               >
-                {busy ? "Compare a quieter Friday" : "Explore a busier Friday"}
+                {busy ? "Try a quieter Friday" : "Try a busier Friday"}
               </button>
             </>
           )}
@@ -316,8 +316,8 @@ export default function ProductIllustration({ view }: { view: number }) {
               <div className="piInsight" aria-live="polite">
                 <Check />
                 <p>
-                  <strong>Requests stay distinct from decisions.</strong>{" "}
-                  Pending time off is still awaiting review.
+                  <strong>No accidental approvals.</strong> Pending requests
+                  stay clearly marked until you decide.
                 </p>
               </div>
               <button
@@ -387,20 +387,18 @@ export default function ProductIllustration({ view }: { view: number }) {
               <div className="piInsight" aria-live="polite">
                 <Check />
                 <p>
-                  <strong>A preview, not an approval.</strong> No requests or
-                  live assignments are changed.
+                  <strong>Preview only.</strong> Testing requests here won’t
+                  touch your live schedule or approve anything.
                 </p>
               </div>
               <p className="piStaticNote">
-                Try including the overlapping request above.
+                Try toggling Morgan’s overlapping request above.
               </p>
             </>
           )}
         </div>
       </div>
-      <figcaption>
-        Illustrative product view. Fictional data and sample outcomes.
-      </figcaption>
+      <figcaption>Interactive preview with sample team data.</figcaption>
     </figure>
   );
 }
